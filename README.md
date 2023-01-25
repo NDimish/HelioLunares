@@ -7,3 +7,4 @@ Major group project SEG Kings
 - Sita Sethurajan
 - KingOfKingsSandev
 - Nathan Mani
+- Josh Susak
