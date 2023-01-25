@@ -8,3 +8,4 @@ Major group project SEG Kings
 - KingOfKingsSandev
 - Nathan Mani
 - Josh Susak
+- Shun Sheng Lee
