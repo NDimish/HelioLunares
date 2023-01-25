@@ -5,7 +5,7 @@ Major group project SEG Kings
 - Wesley Lin
 - Justin Lu
 - Sita Sethurajan
-- KingOfKingsSandev
+- Jaidev Nileshkumar
 - Nathan Mani
 - Josh Susak
 - Shun Sheng Lee
