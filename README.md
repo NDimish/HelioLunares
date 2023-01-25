@@ -1,5 +1,5 @@
 # HelioLunares
 Major group project SEG Kings
 
-# Members:
+# Members
 Wesley Lin
