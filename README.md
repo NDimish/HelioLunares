@@ -6,4 +6,4 @@ Major group project SEG Kings
 - Justin Lu
 - Sita Sethurajan
 - KingOfKingsSandev
--Nathan Mani
+- Nathan Mani
