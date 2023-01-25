@@ -9,3 +9,4 @@ Major group project SEG Kings
 - Nathan Mani
 - Josh Susak
 - Shun Sheng Lee
+- Israfeel Ashraf
