@@ -1,0 +1,2 @@
+This folder is used for keeping the scripts
+that test the rest api in Postman.
