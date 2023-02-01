@@ -337,8 +337,9 @@ poetry.toml
 ### venv ###
 # Virtualenv
 # http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
+
 #USED TO DEBUG git check-ignore -v frontend/lib/components/custom_buttons.dart
-venv/
+venv/*
 # [Bb]in
 # [Ii]nclude
 # [Ll]ib
