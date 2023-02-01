@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:university_ticketing_system/components/custom_text_fields.dart';
 import 'package:university_ticketing_system/screens/home_screen.dart';
 
 class LogInScreen extends StatefulWidget {
@@ -22,34 +23,22 @@ class _LogInScreenState extends State<LogInScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.75,
-              child: TextField(
-                controller: _textControllerEmail,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  hintStyle: const TextStyle(color: Colors.blue),
-                  prefixIcon: const Icon(Icons.email_outlined),
-                  hintText: "Enter Email",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(50)),
-                ),
-              ),
-            ),
+                width: MediaQuery.of(context).size.width * 0.75,
+                child: customTextFieldWithIcon(
+                    _textControllerEmail,
+                    context,
+                    Icons.email_outlined,
+                    TextInputType.emailAddress,
+                    "Enter Email")),
             const SizedBox(height: 10),
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.75,
-              child: TextField(
-                controller: _textControllerPassword,
-                keyboardType: TextInputType.visiblePassword,
-                decoration: InputDecoration(
-                  hintStyle: const TextStyle(color: Colors.blue),
-                  prefixIcon: const Icon(Icons.lock_outline),
-                  hintText: "Enter Password",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(50)),
-                ),
-              ),
-            ),
+                width: MediaQuery.of(context).size.width * 0.75,
+                child: customTextFieldWithIcon(
+                    _textControllerPassword,
+                    context,
+                    Icons.lock_outlined,
+                    TextInputType.visiblePassword,
+                    "Enter Password")),
             const SizedBox(height: 10),
             ElevatedButton(
                 onPressed: logUserIn,

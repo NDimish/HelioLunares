@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:university_ticketing_system/components/custom_text_fields.dart';
 
 class SignUpAsSocietyScreen extends StatefulWidget {
   const SignUpAsSocietyScreen({super.key});
@@ -26,78 +27,50 @@ class _SignUpAsSocietyScreenState extends State<SignUpAsSocietyScreen> {
         children: <Widget>[
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.75,
-            child: TextField(
-              controller: _textControllerEmail,
-              keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
-                hintStyle: const TextStyle(color: Colors.blue),
-                prefixIcon: const Icon(Icons.email_outlined),
-                hintText: "Enter Email",
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-              ),
-            ),
+            child: customTextFieldWithIcon(
+                _textControllerEmail,
+                context,
+                Icons.email_outlined,
+                TextInputType.emailAddress,
+                "Enter Email"),
           ),
           const SizedBox(height: 10),
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.75,
-            child: TextField(
-              controller: _textControllerPassword,
-              keyboardType: TextInputType.visiblePassword,
-              decoration: InputDecoration(
-                hintStyle: const TextStyle(color: Colors.blue),
-                prefixIcon: const Icon(Icons.lock_outline),
-                hintText: "Enter Password",
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-              ),
-            ),
+            child: customTextFieldWithIcon(
+                _textControllerPassword,
+                context,
+                Icons.lock_outlined,
+                TextInputType.visiblePassword,
+                "Enter Password"),
           ),
           const SizedBox(height: 10),
           SizedBox(
-            width: MediaQuery.of(context).size.width * 0.75,
-            child: TextField(
-              controller: _textControllerPassword,
-              keyboardType: TextInputType.name,
-              decoration: InputDecoration(
-                hintStyle: const TextStyle(color: Colors.blue),
-                prefixIcon: const Icon(Icons.lock_outline),
-                hintText: "Enter Society Name",
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-              ),
-            ),
-          ),
+              width: MediaQuery.of(context).size.width * 0.75,
+              child: customTextFieldWithIcon(
+                  _societyName,
+                  context,
+                  Icons.school_outlined,
+                  TextInputType.name,
+                  "Name of Society")),
           const SizedBox(height: 10),
           SizedBox(
-            width: MediaQuery.of(context).size.width * 0.75,
-            child: TextField(
-              controller: _uniStudyingAt,
-              keyboardType: TextInputType.name,
-              decoration: InputDecoration(
-                hintStyle: const TextStyle(color: Colors.blue),
-                prefixIcon: const Icon(Icons.school_outlined),
-                hintText: "Enter University You Are Studying At",
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-              ),
-            ),
-          ),
+              width: MediaQuery.of(context).size.width * 0.75,
+              child: customTextFieldWithIcon(
+                  _uniStudyingAt,
+                  context,
+                  Icons.school_outlined,
+                  TextInputType.name,
+                  "University Studying At")),
           const SizedBox(height: 10),
           SizedBox(
-            width: MediaQuery.of(context).size.width * 0.75,
-            child: TextField(
-              controller: _creationDate,
-              keyboardType: TextInputType.datetime,
-              decoration: InputDecoration(
-                hintStyle: const TextStyle(color: Colors.blue),
-                prefixIcon: const Icon(Icons.date_range_outlined),
-                hintText: "Enter Society Creation Date",
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-              ),
-            ),
-          ),
+              width: MediaQuery.of(context).size.width * 0.75,
+              child: customTextFieldWithIcon(
+                  _creationDate,
+                  context,
+                  Icons.date_range_outlined,
+                  TextInputType.datetime,
+                  "Society Creation Date")),
           const SizedBox(height: 10),
           ElevatedButton(
               onPressed: signUpSocietyAndRedirect,

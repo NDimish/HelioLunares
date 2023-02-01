@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:university_ticketing_system/components/custom_text_fields.dart';
 
 class SignUpAsStudentScreen extends StatefulWidget {
   const SignUpAsStudentScreen({super.key});
@@ -15,6 +16,7 @@ class _SignUpAsStudentScreenState extends State<SignUpAsStudentScreen> {
   TextEditingController _lastName = TextEditingController();
 
   TextEditingController _uniStudyingAt = TextEditingController();
+  TextEditingController _fieldOfStudy = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,94 +27,59 @@ class _SignUpAsStudentScreenState extends State<SignUpAsStudentScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.75,
-              child: TextField(
-                controller: _textControllerEmail,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  hintStyle: const TextStyle(color: Colors.blue),
-                  prefixIcon: const Icon(Icons.email_outlined),
-                  hintText: "Enter Email",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15)),
-                ),
-              ),
-            ),
+                width: MediaQuery.of(context).size.width * 0.75,
+                child: customTextFieldWithIcon(
+                    _textControllerEmail,
+                    context,
+                    Icons.email_outlined,
+                    TextInputType.emailAddress,
+                    "Enter Email")),
             const SizedBox(height: 10),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.75,
-              child: TextField(
-                controller: _textControllerPassword,
-                keyboardType: TextInputType.visiblePassword,
-                decoration: InputDecoration(
-                  hintStyle: const TextStyle(color: Colors.blue),
-                  prefixIcon: const Icon(Icons.lock_outline),
-                  hintText: "Enter Password",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15)),
-                ),
-              ),
+              child: customTextFieldWithIcon(
+                  _textControllerPassword,
+                  context,
+                  Icons.lock_outlined,
+                  TextInputType.visiblePassword,
+                  "Enter Password"),
             ),
             const SizedBox(height: 30),
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.75,
-              child: TextField(
-                controller: _firstName,
-                keyboardType: TextInputType.name,
-                decoration: InputDecoration(
-                  hintStyle: const TextStyle(color: Colors.blue),
-                  prefixIcon: const Icon(Icons.person),
-                  hintText: "Enter First Name",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15)),
-                ),
-              ),
-            ),
+                width: MediaQuery.of(context).size.width * 0.75,
+                child: customTextFieldWithIcon(
+                    _firstName,
+                    context,
+                    Icons.person_outline,
+                    TextInputType.name,
+                    "Enter First Name")),
             const SizedBox(height: 10),
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.75,
-              child: TextField(
-                controller: _lastName,
-                keyboardType: TextInputType.name,
-                decoration: InputDecoration(
-                  hintStyle: const TextStyle(color: Colors.blue),
-                  prefixIcon: const Icon(Icons.person),
-                  hintText: "Enter Last Name",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15)),
-                ),
-              ),
-            ),
+                width: MediaQuery.of(context).size.width * 0.75,
+                child: customTextFieldWithIcon(
+                    _lastName,
+                    context,
+                    Icons.person_outline,
+                    TextInputType.name,
+                    "Enter Last Name")),
             const SizedBox(height: 10),
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.75,
-              child: TextField(
-                controller: _uniStudyingAt,
-                keyboardType: TextInputType.name,
-                decoration: InputDecoration(
-                  hintStyle: const TextStyle(color: Colors.blue),
-                  prefixIcon: const Icon(Icons.school_outlined),
-                  hintText: "Enter University You Are Studying At",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15)),
-                ),
-              ),
-            ),
+                width: MediaQuery.of(context).size.width * 0.75,
+                child: customTextFieldWithIcon(
+                    _uniStudyingAt,
+                    context,
+                    Icons.school_outlined,
+                    TextInputType.name,
+                    "University Studying At")),
             const SizedBox(height: 10),
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.75,
-              child: TextField(
-                controller: _firstName,
-                keyboardType: TextInputType.name,
-                decoration: InputDecoration(
-                  hintStyle: const TextStyle(color: Colors.blue),
-                  prefixIcon: const Icon(Icons.school_outlined),
-                  hintText: "Enter Degree Undertaken",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15)),
-                ),
-              ),
-            ),
+                width: MediaQuery.of(context).size.width * 0.75,
+                child: customTextFieldWithIcon(
+                    _fieldOfStudy,
+                    context,
+                    Icons.school_outlined,
+                    TextInputType.name,
+                    "Field of Study")),
             const SizedBox(height: 10),
             ElevatedButton(
                 onPressed: signUserUpAndRedirect,
