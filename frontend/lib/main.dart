@@ -56,7 +56,7 @@ class _LandingPageState extends State<LandingPage> {
                       child: const Text("Log In")),
                   const SizedBox(width: 40),
                   ElevatedButton(
-                      onPressed: moveToSignUpPage,
+                      onPressed: moveToSignUpAsSocietyPage,
                       style: ElevatedButton.styleFrom(
                         shadowColor: Colors.blueAccent,
                         elevation: 3,
@@ -64,7 +64,18 @@ class _LandingPageState extends State<LandingPage> {
                             borderRadius: BorderRadius.circular(32.0)),
                         minimumSize: const Size(180, 60), //////// HERE
                       ),
-                      child: const Text("Sign Up"))
+                      child: const Text("Sign Up As A Society")),
+                  const SizedBox(width: 40),
+                  ElevatedButton(
+                      onPressed: moveToSignUpAsStudentPage,
+                      style: ElevatedButton.styleFrom(
+                        shadowColor: Colors.blueAccent,
+                        elevation: 3,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(32.0)),
+                        minimumSize: const Size(180, 60), //////// HERE
+                      ),
+                      child: const Text("Sign Up As Student"))
                 ],
               ),
             ])));
@@ -80,25 +91,53 @@ class _LandingPageState extends State<LandingPage> {
     });
   }
 
-  void moveToSignUpPage() {
+  void moveToSignUpAsSocietyPage() {
     print("Redirect to sign up page");
     setState(() {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const SignUpScreen()),
+        MaterialPageRoute(builder: (context) => const SignUpAsSocietyScreen()),
+      );
+    });
+  }
+
+  void moveToSignUpAsStudentPage() {
+    print("Redirect to sign up page");
+    setState(() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const SignUpAsStudentScreen()),
       );
     });
   }
 }
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+class SignUpAsSocietyScreen extends StatefulWidget {
+  const SignUpAsSocietyScreen({super.key});
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<SignUpAsSocietyScreen> createState() => _SignUpAsSocietyScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _SignUpAsSocietyScreenState extends State<SignUpAsSocietyScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Sign up as a society")),
+      body:
+          const Center(child: Text("This is the sign up screen for societies")),
+    );
+  }
+}
+
+class SignUpAsStudentScreen extends StatefulWidget {
+  const SignUpAsStudentScreen({super.key});
+
+  @override
+  State<SignUpAsStudentScreen> createState() => _SignUpAsStudentScreenState();
+}
+
+class _SignUpAsStudentScreenState extends State<SignUpAsStudentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -176,6 +215,29 @@ class _LogInScreenState extends State<LogInScreen> {
   }
 
   void logUserIn() {
-    print("This method will send the post request with the users details.");
+    print(_textControllerEmail.text);
+    print(_textControllerPassword.text);
+    setState(() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const HomePage()),
+      );
+    });
+  }
+}
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(child: Center(child: Text("This is the home page"))),
+    );
   }
 }
