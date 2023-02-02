@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:university_ticketing_system/components/create_user_account.dart';
 import 'package:university_ticketing_system/components/custom_text_fields.dart';
 
 class SignUpAsStudentScreen extends StatefulWidget {
@@ -20,6 +21,7 @@ class _SignUpAsStudentScreenState extends State<SignUpAsStudentScreen> {
   TextEditingController _uniStudyingAt = TextEditingController();
   TextEditingController _fieldOfStudy = TextEditingController();
 
+  final _formKey = GlobalKey<FormState>();
   double counter = 0.0;
 
   @override
@@ -74,18 +76,28 @@ class _SignUpAsStudentScreenState extends State<SignUpAsStudentScreen> {
                   child: Column(children: <Widget>[
                     Expanded(
                         flex: 1,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            SizedBox(
-                              width: width / 3.2,
-                              child: LinearProgressIndicator(
-                                value: counter,
-                                color: Color(0xFF006d77),
-                                backgroundColor: Color(0xFF83c5be),
+                        child: Form(
+                          key: _formKey,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              SizedBox(
+                                width: width / 3.2,
+                                child: LinearProgressIndicator(
+                                  value: counter,
+                                  color: Color(0xFF006d77),
+                                  backgroundColor: Color(0xFF83c5be),
+                                ),
                               ),
-                            )
-                          ],
+                              const SizedBox(height: 20),
+                              buildUserAccountForm(
+                                  context,
+                                  _textControllerEmail,
+                                  _textControllerPassword,
+                                  _textControllerConfirmPassword,
+                                  _formKey)
+                            ],
+                          ),
                         ))
                   ])))
         ])));

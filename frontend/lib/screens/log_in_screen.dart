@@ -96,6 +96,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                           "Email",
                                           TextInputType.emailAddress,
                                           Icons.email_rounded,
+                                          false,
                                           emailValidator),
                                     ),
                                     const SizedBox(height: 25),
@@ -108,20 +109,9 @@ class _LogInScreenState extends State<LogInScreen> {
                                           "Password",
                                           TextInputType.visiblePassword,
                                           Icons.lock_rounded,
+                                          true,
                                           passwordValidator),
                                     ),
-                                    // const SizedBox(height: 25),
-                                    // SizedBox(
-                                    //   width: width / 3.2,
-                                    //   child: customTextFormField(
-                                    //       context,
-                                    //       _textControllerNewPassword,
-                                    //       "Passwords did not match",
-                                    //       "Re-enter Password",
-                                    //       TextInputType.visiblePassword,
-                                    //       Icons.lock_rounded,
-                                    //       newPasswordValidator),
-                                    // ),
                                     const SizedBox(height: 60),
                                     SizedBox(
                                       height: width / 23,
@@ -137,9 +127,6 @@ class _LogInScreenState extends State<LogInScreen> {
                                                 password =
                                                     _textControllerPassword
                                                         .text;
-                                                // confirmedPassword =
-                                                //     _textControllerNewPassword
-                                                //         .text;
                                               });
                                               showText();
                                             }
@@ -187,15 +174,4 @@ class _LogInScreenState extends State<LogInScreen> {
     }
     return null;
   }
-  /*
-  String? newPasswordValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return "Please confirm password";
-    }
-    if (_textControllerNewPassword.text != _textControllerPassword.text) {
-      return 'Passwords do not match';
-    }
-    return null;
-  }
-  */
 }

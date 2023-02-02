@@ -7,12 +7,14 @@ Widget customTextFormField(
     String labelText,
     TextInputType keyboardType,
     IconData iconIn,
+    bool obscureText,
     String? Function(String?) validator) {
   return TextFormField(
     onSaved: (newValue) {
       controller.text = newValue!;
     },
     controller: controller,
+    obscureText: obscureText,
     keyboardType: TextInputType.emailAddress,
     validator: validator,
     autovalidateMode: AutovalidateMode.values.first,
