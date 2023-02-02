@@ -74,6 +74,7 @@ class _LandingScreenState extends State<LandingScreen> {
                                 child: ElevatedButton(
                                     onPressed: redirectToLogIn,
                                     style: ElevatedButton.styleFrom(
+                                        foregroundColor: Colors.white,
                                         backgroundColor:
                                             const Color(0xFF333951),
                                         shape: RoundedRectangleBorder(
@@ -88,6 +89,7 @@ class _LandingScreenState extends State<LandingScreen> {
                                 child: ElevatedButton(
                                     onPressed: redirectToStudentSignUp,
                                     style: ElevatedButton.styleFrom(
+                                        foregroundColor: Colors.white,
                                         backgroundColor:
                                             const Color(0xFF333951),
                                         shape: RoundedRectangleBorder(
@@ -102,6 +104,7 @@ class _LandingScreenState extends State<LandingScreen> {
                                 child: ElevatedButton(
                                     onPressed: redirectToSocietySignUp,
                                     style: ElevatedButton.styleFrom(
+                                        foregroundColor: Colors.white,
                                         backgroundColor:
                                             const Color(0xFF333951),
                                         shape: RoundedRectangleBorder(

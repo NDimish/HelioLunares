@@ -11,9 +11,11 @@ class UniversityTicketingSystem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'University Ticketing System',
-      //theme: ThemeData(useMaterial3: true),
+      theme: ThemeData(
+        useMaterial3: true,
+      ),
       debugShowCheckedModeBanner: false,
       home: LandingScreen(),
     );
