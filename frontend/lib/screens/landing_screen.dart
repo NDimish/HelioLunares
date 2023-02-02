@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/screens/log_in_screen.dart';
-import 'package:university_ticketing_system/screens/society_sign_up_screen.dart';
-import 'package:university_ticketing_system/screens/student_sign_up_screen.dart';
+import 'package:university_ticketing_system/screens/sign_up_as_student_screen.dart';
+import 'package:university_ticketing_system/screens/sign_up_as_society_screen.dart';
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({super.key});

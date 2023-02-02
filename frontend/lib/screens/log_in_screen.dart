@@ -12,9 +12,10 @@ class LogInScreen extends StatefulWidget {
 class _LogInScreenState extends State<LogInScreen> {
   TextEditingController _textControllerEmail = TextEditingController();
   TextEditingController _textControllerPassword = TextEditingController();
-  TextEditingController _textControllerNewPassword = TextEditingController();
+  //TextEditingController _textControllerNewPassword = TextEditingController();
 
-  String? email, password, confirmedPassword;
+  String? email, password;
+  //confirmedPassword;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -80,6 +81,14 @@ class _LogInScreenState extends State<LogInScreen> {
                                   children: <Widget>[
                                     SizedBox(
                                       width: width / 3.2,
+                                      child: const Text(
+                                        "Welcome back!",
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 50),
+                                    SizedBox(
+                                      width: width / 3.2,
                                       child: customTextFormField(
                                           context,
                                           _textControllerEmail,
@@ -101,19 +110,19 @@ class _LogInScreenState extends State<LogInScreen> {
                                           Icons.lock_rounded,
                                           passwordValidator),
                                     ),
-                                    const SizedBox(height: 25),
-                                    SizedBox(
-                                      width: width / 3.2,
-                                      child: customTextFormField(
-                                          context,
-                                          _textControllerNewPassword,
-                                          "Passwords did not match",
-                                          "Re-enter Password",
-                                          TextInputType.visiblePassword,
-                                          Icons.lock_rounded,
-                                          newPasswordValidator),
-                                    ),
-                                    const SizedBox(height: 70),
+                                    // const SizedBox(height: 25),
+                                    // SizedBox(
+                                    //   width: width / 3.2,
+                                    //   child: customTextFormField(
+                                    //       context,
+                                    //       _textControllerNewPassword,
+                                    //       "Passwords did not match",
+                                    //       "Re-enter Password",
+                                    //       TextInputType.visiblePassword,
+                                    //       Icons.lock_rounded,
+                                    //       newPasswordValidator),
+                                    // ),
+                                    const SizedBox(height: 60),
                                     SizedBox(
                                       height: width / 23,
                                       width: width / 5,
@@ -128,9 +137,9 @@ class _LogInScreenState extends State<LogInScreen> {
                                                 password =
                                                     _textControllerPassword
                                                         .text;
-                                                confirmedPassword =
-                                                    _textControllerNewPassword
-                                                        .text;
+                                                // confirmedPassword =
+                                                //     _textControllerNewPassword
+                                                //         .text;
                                               });
                                               showText();
                                             }
@@ -156,7 +165,7 @@ class _LogInScreenState extends State<LogInScreen> {
   void showText() {
     print(email);
     print(password);
-    print(confirmedPassword);
+    //print(confirmedPassword);
     setState(() {
       Navigator.push(
         context,
@@ -167,18 +176,18 @@ class _LogInScreenState extends State<LogInScreen> {
 
   String? emailValidator(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter an email';
+      return 'Please enter your email';
     }
     return null;
   }
 
   String? passwordValidator(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter a password';
+      return 'Please enter your password';
     }
     return null;
   }
-
+  /*
   String? newPasswordValidator(String? value) {
     if (value == null || value.isEmpty) {
       return "Please confirm password";
@@ -188,4 +197,5 @@ class _LogInScreenState extends State<LogInScreen> {
     }
     return null;
   }
+  */
 }

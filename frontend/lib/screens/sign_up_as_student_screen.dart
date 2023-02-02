@@ -11,6 +11,8 @@ class SignUpAsStudentScreen extends StatefulWidget {
 class _SignUpAsStudentScreenState extends State<SignUpAsStudentScreen> {
   TextEditingController _textControllerEmail = TextEditingController();
   TextEditingController _textControllerPassword = TextEditingController();
+  TextEditingController _textControllerConfirmPassword =
+      TextEditingController();
 
   TextEditingController _firstName = TextEditingController();
   TextEditingController _lastName = TextEditingController();
@@ -18,12 +20,85 @@ class _SignUpAsStudentScreenState extends State<SignUpAsStudentScreen> {
   TextEditingController _uniStudyingAt = TextEditingController();
   TextEditingController _fieldOfStudy = TextEditingController();
 
+  double counter = 0.0;
+
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(title: const Text("Sign up as a student")),
-      body: Center(
-        child: Column(
+        appBar: AppBar(
+          iconTheme: const IconThemeData(
+            color: Colors.black,
+          ),
+          backgroundColor: Colors.white,
+          title: const Text(
+            "Sign up as a student",
+            style: TextStyle(color: Colors.black),
+          ),
+        ),
+        body: SafeArea(
+            child: Row(children: [
+          Flexible(
+              flex: 10,
+              child: Container(
+                width: width / 1.5,
+                margin: const EdgeInsets.only(right: 1.5),
+                color: const Color(0xFFc5afc6),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Flexible(
+                        flex: 1,
+                        child: SizedBox(
+                          height: 300,
+                          width: 300,
+                          child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  "Add styling for this, maybe an image",
+                                  textAlign: TextAlign.center,
+                                ),
+                              )),
+                        ))
+                  ],
+                ),
+              )),
+          Flexible(
+              flex: 8,
+              child: Container(
+                  width: width / 1.5,
+                  color: const Color(0xFFf8edeb),
+                  child: Column(children: <Widget>[
+                    Expanded(
+                        flex: 1,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(
+                              width: width / 3.2,
+                              child: LinearProgressIndicator(
+                                value: counter,
+                                color: Color(0xFF006d77),
+                                backgroundColor: Color(0xFF83c5be),
+                              ),
+                            )
+                          ],
+                        ))
+                  ])))
+        ])));
+  }
+
+  void signUserUpAndRedirect() {
+    print("User successfully signed up");
+    print("Redirecting...");
+  }
+}
+
+/*
+Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             SizedBox(
@@ -92,13 +167,5 @@ class _SignUpAsStudentScreenState extends State<SignUpAsStudentScreen> {
                 ),
                 child: const Text("Sign Up In")),
           ],
-        ),
-      ),
-    );
-  }
-
-  void signUserUpAndRedirect() {
-    print("User successfully signed up");
-    print("Redirecting...");
-  }
-}
+        ), 
+*/
