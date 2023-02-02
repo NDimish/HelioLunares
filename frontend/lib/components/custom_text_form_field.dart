@@ -8,6 +8,7 @@ Widget customTextFormField(
     TextInputType keyboardType,
     IconData iconIn,
     bool obscureText,
+    readOnly,
     String? Function(String?) validator) {
   return TextFormField(
     onSaved: (newValue) {
@@ -18,6 +19,7 @@ Widget customTextFormField(
     keyboardType: TextInputType.emailAddress,
     validator: validator,
     autovalidateMode: AutovalidateMode.values.first,
+    readOnly: readOnly,
     decoration: InputDecoration(
       contentPadding: const EdgeInsets.only(left: 40.0, right: 40.0),
       suffixIcon: Padding(

@@ -12,10 +12,8 @@ class LogInScreen extends StatefulWidget {
 class _LogInScreenState extends State<LogInScreen> {
   TextEditingController _textControllerEmail = TextEditingController();
   TextEditingController _textControllerPassword = TextEditingController();
-  //TextEditingController _textControllerNewPassword = TextEditingController();
 
   String? email, password;
-  //confirmedPassword;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -97,6 +95,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                           TextInputType.emailAddress,
                                           Icons.email_rounded,
                                           false,
+                                          false,
                                           emailValidator),
                                     ),
                                     const SizedBox(height: 25),
@@ -110,6 +109,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                           TextInputType.visiblePassword,
                                           Icons.lock_rounded,
                                           true,
+                                          false,
                                           passwordValidator),
                                     ),
                                     const SizedBox(height: 60),
@@ -152,7 +152,6 @@ class _LogInScreenState extends State<LogInScreen> {
   void showText() {
     print(email);
     print(password);
-    //print(confirmedPassword);
     setState(() {
       Navigator.push(
         context,

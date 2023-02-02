@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:university_ticketing_system/components/create_user_account.dart';
 import 'package:university_ticketing_system/components/custom_text_fields.dart';
+import 'package:university_ticketing_system/components/custom_text_form_field.dart';
+import 'package:university_ticketing_system/components/finish_user_account.dart';
+import 'package:university_ticketing_system/components/start_creating_user_account.dart';
 
 class SignUpAsStudentScreen extends StatefulWidget {
   const SignUpAsStudentScreen({super.key});
@@ -22,11 +24,15 @@ class _SignUpAsStudentScreenState extends State<SignUpAsStudentScreen> {
   TextEditingController _fieldOfStudy = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-  double counter = 0.0;
+  final _formKeyFinalisation = GlobalKey<FormState>();
+
+  double setUpCounter = 0 / 3;
+  double finalisationCounter = 0 / 4;
 
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
           iconTheme: const IconThemeData(
@@ -47,29 +53,38 @@ class _SignUpAsStudentScreenState extends State<SignUpAsStudentScreen> {
                 margin: const EdgeInsets.only(right: 1.5),
                 color: const Color(0xFFc5afc6),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Flexible(
-                        flex: 1,
-                        child: SizedBox(
-                          height: 300,
-                          width: 300,
-                          child: Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                              child: const Center(
-                                child: Text(
-                                  "Add styling for this, maybe an image",
-                                  textAlign: TextAlign.center,
-                                ),
-                              )),
-                        ))
-                  ],
-                ),
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Flexible(
+                          flex: 1,
+                          child: Form(
+                              key: _formKey,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  SizedBox(
+                                    width: width / 3.2,
+                                    child: LinearProgressIndicator(
+                                      value: setUpCounter,
+                                      color: const Color(0xFF006d77),
+                                      backgroundColor: const Color(0xFF83c5be),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 20),
+                                  StartCreatingUserAccount(
+                                    emailController: _textControllerEmail,
+                                    passwordController: _textControllerPassword,
+                                    confirmPasswordController:
+                                        _textControllerConfirmPassword,
+                                    counter: setUpCounter,
+                                    formKey: _formKey,
+                                  ),
+                                ],
+                              )))
+                    ]),
               )),
           Flexible(
-              flex: 8,
+              flex: 10,
               child: Container(
                   width: width / 1.5,
                   color: const Color(0xFFf8edeb),
@@ -77,107 +92,34 @@ class _SignUpAsStudentScreenState extends State<SignUpAsStudentScreen> {
                     Expanded(
                         flex: 1,
                         child: Form(
-                          key: _formKey,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              SizedBox(
-                                width: width / 3.2,
-                                child: LinearProgressIndicator(
-                                  value: counter,
-                                  color: Color(0xFF006d77),
-                                  backgroundColor: Color(0xFF83c5be),
-                                ),
-                              ),
-                              const SizedBox(height: 20),
-                              buildUserAccountForm(
-                                  context,
-                                  _textControllerEmail,
-                                  _textControllerPassword,
-                                  _textControllerConfirmPassword,
-                                  _formKey)
-                            ],
-                          ),
-                        ))
+                            key: _formKeyFinalisation,
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  SizedBox(
+                                    width: width / 3.2,
+                                    child: LinearProgressIndicator(
+                                      value: finalisationCounter,
+                                      color: const Color(0xFF006d77),
+                                      backgroundColor: const Color(0xFF83c5be),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 20),
+                                  FinishSettingUpAccount(
+                                      allowedToContinue:
+                                          _formKey.currentState != null &&
+                                                  _formKey.currentState!
+                                                      .validate()
+                                              ? true
+                                              : false,
+                                      firstName: _firstName,
+                                      lastName: _lastName,
+                                      uniStudyingAt: _uniStudyingAt,
+                                      fieldOfStudy: _fieldOfStudy,
+                                      formKey: _formKeyFinalisation,
+                                      counter: finalisationCounter)
+                                ])))
                   ])))
         ])));
   }
-
-  void signUserUpAndRedirect() {
-    print("User successfully signed up");
-    print("Redirecting...");
-  }
 }
-
-/*
-Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(
-                width: MediaQuery.of(context).size.width * 0.75,
-                child: customTextFieldWithIcon(
-                    _textControllerEmail,
-                    context,
-                    Icons.email_outlined,
-                    TextInputType.emailAddress,
-                    "Enter Email")),
-            const SizedBox(height: 10),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.75,
-              child: customTextFieldWithIcon(
-                  _textControllerPassword,
-                  context,
-                  Icons.lock_outlined,
-                  TextInputType.visiblePassword,
-                  "Enter Password"),
-            ),
-            const SizedBox(height: 30),
-            SizedBox(
-                width: MediaQuery.of(context).size.width * 0.75,
-                child: customTextFieldWithIcon(
-                    _firstName,
-                    context,
-                    Icons.person_outline,
-                    TextInputType.name,
-                    "Enter First Name")),
-            const SizedBox(height: 10),
-            SizedBox(
-                width: MediaQuery.of(context).size.width * 0.75,
-                child: customTextFieldWithIcon(
-                    _lastName,
-                    context,
-                    Icons.person_outline,
-                    TextInputType.name,
-                    "Enter Last Name")),
-            const SizedBox(height: 10),
-            SizedBox(
-                width: MediaQuery.of(context).size.width * 0.75,
-                child: customTextFieldWithIcon(
-                    _uniStudyingAt,
-                    context,
-                    Icons.school_outlined,
-                    TextInputType.name,
-                    "University Studying At")),
-            const SizedBox(height: 10),
-            SizedBox(
-                width: MediaQuery.of(context).size.width * 0.75,
-                child: customTextFieldWithIcon(
-                    _fieldOfStudy,
-                    context,
-                    Icons.school_outlined,
-                    TextInputType.name,
-                    "Field of Study")),
-            const SizedBox(height: 10),
-            ElevatedButton(
-                onPressed: signUserUpAndRedirect,
-                style: ElevatedButton.styleFrom(
-                  shadowColor: Colors.blueAccent,
-                  elevation: 3,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16.0)),
-                  minimumSize: const Size(180, 60), //////// HERE
-                ),
-                child: const Text("Sign Up In")),
-          ],
-        ), 
-*/
