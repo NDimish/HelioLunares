@@ -20,7 +20,7 @@ class _LogInScreenState extends State<LogInScreen> {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
           iconTheme: const IconThemeData(
@@ -33,120 +33,132 @@ class _LogInScreenState extends State<LogInScreen> {
           ),
         ),
         body: SafeArea(
-          child: Row(
-            children: [
-              Flexible(
-                  flex: 10,
-                  child: Container(
-                    width: width / 1.5,
-                    margin: const EdgeInsets.only(right: 1.5),
-                    color: const Color(0xFFc5afc6),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Flexible(
-                            flex: 1,
-                            child: SizedBox(
-                              height: 300,
-                              width: 300,
-                              child: Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  ),
-                                  child: const Center(
-                                    child: Text(
-                                      "Add styling for this, maybe an image",
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  )),
-                            ))
-                      ],
-                    ),
-                  )),
-              Flexible(
-                  flex: 8,
-                  child: Container(
-                      width: width / 1.5,
-                      color: const Color(0xFFf8edeb),
-                      child: Column(children: <Widget>[
-                        Expanded(
-                            flex: 1,
-                            child: Form(
-                                //alignment: Alignment.center,
-                                key: _formKey,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    SizedBox(
-                                      width: width / 3.2,
-                                      child: const Text(
-                                        "Welcome back!",
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 50),
-                                    SizedBox(
-                                      width: width / 3.2,
-                                      child: customTextFormField(
-                                          context,
-                                          _textControllerEmail,
-                                          "Enter an email address",
-                                          "Email",
-                                          TextInputType.emailAddress,
-                                          Icons.email_rounded,
-                                          false,
-                                          false,
-                                          emailValidator),
-                                    ),
-                                    const SizedBox(height: 25),
-                                    SizedBox(
-                                      width: width / 3.2,
-                                      child: customTextFormField(
-                                          context,
-                                          _textControllerPassword,
-                                          "Enter a password",
-                                          "Password",
-                                          TextInputType.visiblePassword,
-                                          Icons.lock_rounded,
-                                          true,
-                                          false,
-                                          passwordValidator),
-                                    ),
-                                    const SizedBox(height: 60),
-                                    SizedBox(
-                                      height: width / 23,
-                                      width: width / 5,
-                                      child: ElevatedButton(
-                                          onPressed: () {
-                                            if (_formKey.currentState!
-                                                .validate()) {
-                                              print("Logged in");
-                                              setState(() {
-                                                email =
-                                                    _textControllerEmail.text;
-                                                password =
-                                                    _textControllerPassword
-                                                        .text;
-                                              });
-                                              showText();
-                                            }
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                              foregroundColor: Colors.white,
-                                              backgroundColor:
-                                                  const Color(0xFF333951),
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          25))),
-                                          child: const Text("Log In")),
-                                    )
-                                  ],
-                                )))
-                      ]))),
-            ],
-          ),
-        ));
+            child: Row(children: [
+          Flexible(
+              flex: 10,
+              child: Container(
+                width: width / 1.5,
+                margin: const EdgeInsets.only(right: 1.5),
+                color: const Color(0xFFc5afc6),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Flexible(
+                        flex: 1,
+                        child: SizedBox(
+                          height: 300,
+                          width: 300,
+                          child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  "Add styling for this, maybe an image",
+                                  textAlign: TextAlign.center,
+                                ),
+                              )),
+                        ))
+                  ],
+                ),
+              )),
+          Flexible(
+              flex: 8,
+              child: Container(
+                  width: width / 1.5,
+                  color: const Color(0xFFf8edeb),
+                  child: Column(children: <Widget>[
+                    Expanded(
+                        flex: 1,
+                        child: Form(
+                            //alignment: Alignment.center,
+                            key: _formKey,
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  SizedBox(
+                                      width: width / 2.8,
+                                      height: height * 0.60,
+                                      child: Card(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
+                                          ),
+                                          child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                const SizedBox(height: 20),
+                                                const Text(
+                                                    "Create your account!",
+                                                    textAlign: TextAlign.center,
+                                                    textScaleFactor: 1.5),
+                                                const SizedBox(height: 40),
+                                                SizedBox(
+                                                    width: width / 3.3,
+                                                    child: customTextFormField(
+                                                        context,
+                                                        _textControllerEmail,
+                                                        "Please enter an email address",
+                                                        "Email",
+                                                        TextInputType
+                                                            .emailAddress,
+                                                        Icons.email_rounded,
+                                                        false,
+                                                        false,
+                                                        emailValidator)),
+                                                const SizedBox(height: 25),
+                                                SizedBox(
+                                                    width: width / 3.3,
+                                                    child: customTextFormField(
+                                                        context,
+                                                        _textControllerPassword,
+                                                        "Please enter a password",
+                                                        "Password",
+                                                        TextInputType.name,
+                                                        Icons.lock_rounded,
+                                                        false,
+                                                        false, //true and can be changed with the lock button later.
+                                                        passwordValidator)),
+                                                const SizedBox(height: 60),
+                                                SizedBox(
+                                                  height: width / 23,
+                                                  width: width / 5,
+                                                  child: ElevatedButton(
+                                                      onPressed: () {
+                                                        if (_formKey
+                                                            .currentState!
+                                                            .validate()) {
+                                                          print("Logged in");
+                                                          setState(() {
+                                                            email =
+                                                                _textControllerEmail
+                                                                    .text;
+                                                            password =
+                                                                _textControllerPassword
+                                                                    .text;
+                                                          });
+                                                          showText();
+                                                        }
+                                                      },
+                                                      style: ElevatedButton.styleFrom(
+                                                          foregroundColor:
+                                                              Colors.white,
+                                                          backgroundColor:
+                                                              const Color(
+                                                                  0xFF333951),
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          25))),
+                                                      child:
+                                                          const Text("Log In")),
+                                                )
+                                              ])))
+                                ])))
+                  ])))
+        ])));
   }
 
   void showText() {

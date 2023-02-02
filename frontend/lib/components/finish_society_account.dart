@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/components/custom_text_form_field.dart';
 
-class FinishSettingUpAccount extends StatefulWidget {
-  TextEditingController firstName, lastName, uniStudyingAt, fieldOfStudy;
+class FinishSettingUpSociety extends StatefulWidget {
+  TextEditingController societyName, uniStudyingAt, creationDate;
   bool allowedToContinue;
   double counter;
   GlobalKey<FormState> formKey;
 
-  FinishSettingUpAccount(
+  FinishSettingUpSociety(
       {super.key,
-      required this.firstName,
-      required this.lastName,
+      required this.societyName,
+      required this.creationDate,
       required this.uniStudyingAt,
-      required this.fieldOfStudy,
       required this.formKey,
       required this.counter,
       required this.allowedToContinue});
 
   @override
-  State<FinishSettingUpAccount> createState() => _FinishSettingUpAccountState();
+  State<FinishSettingUpSociety> createState() => _FinishSettingUpSocietyState();
 }
 
-class _FinishSettingUpAccountState extends State<FinishSettingUpAccount> {
+class _FinishSettingUpSocietyState extends State<FinishSettingUpSociety> {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -44,11 +43,11 @@ class _FinishSettingUpAccountState extends State<FinishSettingUpAccount> {
                       width: width / 3.3,
                       child: customTextFormField(
                           context,
-                          widget.firstName,
-                          "Enter your last name",
-                          "First Name",
+                          widget.societyName,
+                          "Enter your society name",
+                          "Society Name",
                           TextInputType.name,
-                          Icons.person_rounded,
+                          Icons.school_rounded,
                           false,
                           widget.allowedToContinue,
                           nameValidator)),
@@ -57,15 +56,15 @@ class _FinishSettingUpAccountState extends State<FinishSettingUpAccount> {
                       width: width / 3.3,
                       child: customTextFormField(
                           context,
-                          widget.lastName,
-                          "Enter your last name",
-                          "Last Name",
-                          TextInputType.name,
-                          Icons.person_rounded,
+                          widget.creationDate,
+                          "When was your society created?",
+                          "Society Creation Date",
+                          TextInputType.datetime,
+                          Icons.date_range_rounded,
                           false,
                           widget
                               .allowedToContinue, //true and can be changed with the lock button later.
-                          nameValidator)),
+                          dateValidator)),
                   const SizedBox(height: 25),
                   SizedBox(
                       width: width / 3.3,
@@ -80,20 +79,6 @@ class _FinishSettingUpAccountState extends State<FinishSettingUpAccount> {
                           widget
                               .allowedToContinue, //true and can be changed with the lock button later.
                           nameValidator)),
-                  const SizedBox(height: 25),
-                  SizedBox(
-                      width: width / 3.3,
-                      child: customTextFormField(
-                          context,
-                          widget.fieldOfStudy,
-                          "Enter your field of study",
-                          "Field of Study",
-                          TextInputType.name,
-                          Icons.school_rounded,
-                          false,
-                          widget
-                              .allowedToContinue, //true and can be changed with the lock button later.
-                          nameValidator)),
                   const SizedBox(height: 60),
                   SizedBox(
                     height: width / 23,
@@ -101,8 +86,7 @@ class _FinishSettingUpAccountState extends State<FinishSettingUpAccount> {
                     child: ElevatedButton(
                         onPressed: () {
                           if (widget.formKey.currentState!.validate()) {
-                            print(
-                                "Acount created, now finish setting up account");
+                            print("Society has been registered!");
                             widget.formKey.currentState!.save();
                           }
                         },
@@ -119,6 +103,13 @@ class _FinishSettingUpAccountState extends State<FinishSettingUpAccount> {
   String? nameValidator(String? value) {
     if (value == null || value.isEmpty) {
       return "Enter a name";
+    }
+    return null;
+  }
+
+  String? dateValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Enter a date";
     }
     return null;
   }

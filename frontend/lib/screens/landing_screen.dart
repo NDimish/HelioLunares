@@ -69,8 +69,8 @@ class _LandingScreenState extends State<LandingScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               SizedBox(
-                                height: width / 23,
-                                width: width / 5,
+                                height: width / 21,
+                                width: width / 3.5,
                                 child: ElevatedButton(
                                     onPressed: redirectToLogIn,
                                     style: ElevatedButton.styleFrom(
@@ -80,12 +80,13 @@ class _LandingScreenState extends State<LandingScreen> {
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(25))),
-                                    child: const Text("Log In")),
+                                    child: const Text("Log In",
+                                        textScaleFactor: 1.3)),
                               ),
                               const SizedBox(height: 35),
                               SizedBox(
-                                height: width / 23,
-                                width: width / 5,
+                                height: width / 21,
+                                width: width / 3.5,
                                 child: ElevatedButton(
                                     onPressed: redirectToStudentSignUp,
                                     style: ElevatedButton.styleFrom(
@@ -95,12 +96,13 @@ class _LandingScreenState extends State<LandingScreen> {
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(25))),
-                                    child: const Text("Sign up as student")),
+                                    child: const Text("Sign up as student",
+                                        textScaleFactor: 1.3)),
                               ),
                               const SizedBox(height: 35),
                               SizedBox(
-                                height: width / 23,
-                                width: width / 5,
+                                height: width / 21,
+                                width: width / 3.5,
                                 child: ElevatedButton(
                                     onPressed: redirectToSocietySignUp,
                                     style: ElevatedButton.styleFrom(
@@ -110,7 +112,8 @@ class _LandingScreenState extends State<LandingScreen> {
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(25))),
-                                    child: const Text("Sign up as society")),
+                                    child: const Text("Sign up as society",
+                                        textScaleFactor: 1.3)),
                               ),
                             ]))
                   ])))
