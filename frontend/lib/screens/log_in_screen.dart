@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:university_ticketing_system/components/custom_text_fields.dart';
+import 'package:university_ticketing_system/components/custom_text_form_field.dart';
 import 'package:university_ticketing_system/screens/home_screen.dart';
 
 class LogInScreen extends StatefulWidget {
@@ -12,58 +12,179 @@ class LogInScreen extends StatefulWidget {
 class _LogInScreenState extends State<LogInScreen> {
   TextEditingController _textControllerEmail = TextEditingController();
   TextEditingController _textControllerPassword = TextEditingController();
+  TextEditingController _textControllerNewPassword = TextEditingController();
 
-  bool isUserLoggedIn = false;
+  String? email, password, confirmedPassword;
+
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+
     return Scaffold(
-      appBar: AppBar(title: const Text("Log in")),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(
-                width: MediaQuery.of(context).size.width * 0.75,
-                child: customTextFieldWithIcon(
-                    _textControllerEmail,
-                    context,
-                    Icons.email_outlined,
-                    TextInputType.emailAddress,
-                    "Enter Email")),
-            const SizedBox(height: 10),
-            SizedBox(
-                width: MediaQuery.of(context).size.width * 0.75,
-                child: customTextFieldWithIcon(
-                    _textControllerPassword,
-                    context,
-                    Icons.lock_outlined,
-                    TextInputType.visiblePassword,
-                    "Enter Password")),
-            const SizedBox(height: 10),
-            ElevatedButton(
-                onPressed: logUserIn,
-                style: ElevatedButton.styleFrom(
-                  shadowColor: Colors.blueAccent,
-                  elevation: 3,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(32.0)),
-                  minimumSize: const Size(180, 60), //////// HERE
-                ),
-                child: const Text("Log In")),
-          ],
+        appBar: AppBar(
+          iconTheme: const IconThemeData(
+            color: Colors.black, //change your color here
+          ),
+          backgroundColor: Colors.white,
+          title: const Text(
+            "Log in",
+            style: TextStyle(color: Colors.black),
+          ),
         ),
-      ),
-    );
+        body: SafeArea(
+          child: Row(
+            children: [
+              Flexible(
+                  flex: 10,
+                  child: Container(
+                    width: width / 1.5,
+                    margin: const EdgeInsets.only(right: 1.5),
+                    color: const Color(0xFFc5afc6),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Flexible(
+                            flex: 1,
+                            child: SizedBox(
+                              height: 300,
+                              width: 300,
+                              child: Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  child: const Center(
+                                    child: Text(
+                                      "Add styling for this, maybe an image",
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  )),
+                            ))
+                      ],
+                    ),
+                  )),
+              Flexible(
+                  flex: 8,
+                  child: Container(
+                      width: width / 1.5,
+                      color: const Color(0xFFf8edeb),
+                      child: Column(children: <Widget>[
+                        Expanded(
+                            flex: 1,
+                            child: Form(
+                                //alignment: Alignment.center,
+                                key: _formKey,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    SizedBox(
+                                      width: width / 3.2,
+                                      child: customTextFormField(
+                                          context,
+                                          _textControllerEmail,
+                                          "Enter an email address",
+                                          "Email",
+                                          TextInputType.emailAddress,
+                                          Icons.email_rounded,
+                                          emailValidator),
+                                    ),
+                                    const SizedBox(height: 25),
+                                    SizedBox(
+                                      width: width / 3.2,
+                                      child: customTextFormField(
+                                          context,
+                                          _textControllerPassword,
+                                          "Enter a password",
+                                          "Password",
+                                          TextInputType.visiblePassword,
+                                          Icons.lock_rounded,
+                                          passwordValidator),
+                                    ),
+                                    const SizedBox(height: 25),
+                                    SizedBox(
+                                      width: width / 3.2,
+                                      child: customTextFormField(
+                                          context,
+                                          _textControllerNewPassword,
+                                          "Passwords did not match",
+                                          "Re-enter Password",
+                                          TextInputType.visiblePassword,
+                                          Icons.lock_rounded,
+                                          newPasswordValidator),
+                                    ),
+                                    const SizedBox(height: 70),
+                                    SizedBox(
+                                      height: width / 23,
+                                      width: width / 5,
+                                      child: ElevatedButton(
+                                          onPressed: () {
+                                            if (_formKey.currentState!
+                                                .validate()) {
+                                              print("Logged in");
+                                              setState(() {
+                                                email =
+                                                    _textControllerEmail.text;
+                                                password =
+                                                    _textControllerPassword
+                                                        .text;
+                                                confirmedPassword =
+                                                    _textControllerNewPassword
+                                                        .text;
+                                              });
+                                              showText();
+                                            }
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  const Color(0xFF333951),
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          25))),
+                                          child: const Text("Log In")),
+                                    )
+                                  ],
+                                )))
+                      ]))),
+            ],
+          ),
+        ));
   }
 
-  void logUserIn() {
-    print(_textControllerEmail.text);
-    print(_textControllerPassword.text);
+  void showText() {
+    print(email);
+    print(password);
+    print(confirmedPassword);
     setState(() {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const HomePage()),
       );
     });
+  }
+
+  String? emailValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter an email';
+    }
+    return null;
+  }
+
+  String? passwordValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter a password';
+    }
+    return null;
+  }
+
+  String? newPasswordValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Please confirm password";
+    }
+    if (_textControllerNewPassword.text != _textControllerPassword.text) {
+      return 'Passwords do not match';
+    }
+    return null;
   }
 }
