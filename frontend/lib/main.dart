@@ -1,19 +1,23 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:university_ticketing_system/screens/landing_screen.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
-  runApp(const MyApp());
+  runApp(const UniversityTicketingSystem());
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+class UniversityTicketingSystem extends StatelessWidget {
+  const UniversityTicketingSystem({super.key});
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return MaterialApp(
+      title: 'University Ticketing System',
+      theme: ThemeData(
+        useMaterial3: true,
+      ),
+      debugShowCheckedModeBanner: false,
+      home: LandingScreen(),
+    );
   }
 }
