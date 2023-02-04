@@ -6,10 +6,12 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 
 from rest_framework import status
-from django.contrib.auth.models import User
+from .models import User
 from rest_framework.views import APIView
 
 from django.contrib.auth import authenticate, login, logout
+
+from .serializers import UserSerializer
 
 # Create your views here.
 @api_view(['GET'])
@@ -77,3 +79,10 @@ class LogInView(APIView):
             },
             status = status.HTTP_200_OK
         )
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_user_list(request, format=None):
+    users = User.objects.all()
+    serializer = UserSerializer(users, many=True)
+    return Response(serializer.data)
