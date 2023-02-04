@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:university_ticketing_system/components/base-appbar.dart';
 import 'package:university_ticketing_system/screens/log_in_screen.dart';
 import 'package:university_ticketing_system/screens/sign_up_as_student_screen.dart';
 import 'package:university_ticketing_system/screens/sign_up_as_society_screen.dart';
@@ -17,15 +18,10 @@ class _LandingScreenState extends State<LandingScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          iconTheme: const IconThemeData(
-            color: Colors.black, //change your color here
-          ),
+          title: const Text("University ticketing system"),
           leading: const Icon(Icons.airplane_ticket_rounded),
-          title: const Text(
-            "University ticketing system",
-            style: TextStyle(color: Colors.black),
-          ),
+          backgroundColor: Colors.white,
+          iconTheme: const IconThemeData(color: Colors.black),
         ),
         body: SafeArea(
             child: Row(children: [

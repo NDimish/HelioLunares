@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/components/custom_text_fields.dart';
 import 'package:university_ticketing_system/components/finish_society_account.dart';
+import 'package:university_ticketing_system/components/base-appbar.dart';
 import 'package:university_ticketing_system/components/start_creating_user_account.dart';
 
 class SignUpAsSocietyScreen extends StatefulWidget {
@@ -32,16 +33,10 @@ class _SignUpAsSocietyScreenState extends State<SignUpAsSocietyScreen> {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
-        appBar: AppBar(
-          iconTheme: const IconThemeData(
-            color: Colors.black,
-          ),
-          backgroundColor: Colors.white,
-          title: const Text(
-            "Sign up as a society",
-            style: TextStyle(color: Colors.black),
-          ),
-        ),
+        appBar: BaseAppBar(
+            title: const Text("University ticketing system"),
+            widgets: <Widget>[],
+            appBar: AppBar()),
         body: SafeArea(
             child: Row(children: [
           Flexible(

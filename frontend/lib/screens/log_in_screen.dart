@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:university_ticketing_system/components/base-appbar.dart';
 import 'package:university_ticketing_system/components/custom_text_form_field.dart';
 import 'package:university_ticketing_system/screens/home_screen.dart';
 
@@ -22,16 +23,10 @@ class _LogInScreenState extends State<LogInScreen> {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
-        appBar: AppBar(
-          iconTheme: const IconThemeData(
-            color: Colors.black, //change your color here
-          ),
-          backgroundColor: Colors.white,
-          title: const Text(
-            "Log in",
-            style: TextStyle(color: Colors.black),
-          ),
-        ),
+        appBar: BaseAppBar(
+            title: const Text("University ticketing system"),
+            widgets: <Widget>[],
+            appBar: AppBar()),
         body: SafeArea(
             child: Row(children: [
           Flexible(

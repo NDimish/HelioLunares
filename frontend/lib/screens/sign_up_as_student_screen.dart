@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:university_ticketing_system/components/base-appbar.dart';
 import 'package:university_ticketing_system/components/custom_text_fields.dart';
 import 'package:university_ticketing_system/components/custom_text_form_field.dart';
 import 'package:university_ticketing_system/components/finish_user_account.dart';
@@ -34,16 +35,10 @@ class _SignUpAsStudentScreenState extends State<SignUpAsStudentScreen> {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
-        appBar: AppBar(
-          iconTheme: const IconThemeData(
-            color: Colors.black,
-          ),
-          backgroundColor: Colors.white,
-          title: const Text(
-            "Sign up as a student",
-            style: TextStyle(color: Colors.black),
-          ),
-        ),
+        appBar: BaseAppBar(
+            title: const Text("University ticketing system"),
+            widgets: <Widget>[],
+            appBar: AppBar()),
         body: SafeArea(
             child: Row(children: [
           Flexible(
