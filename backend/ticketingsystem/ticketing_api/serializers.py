@@ -1,8 +1,8 @@
-from django.contrib.auth.models import User
 from rest_framework import serializers
+from ticketing_api.models import UserTest
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserTestSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ['url', 'username', 'email']
+        model = UserTest
+        fields = ['id', 'title', 'code', 'linenos']

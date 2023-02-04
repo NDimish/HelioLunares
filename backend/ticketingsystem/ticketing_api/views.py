@@ -1,13 +1,49 @@
-from django.contrib.auth.models import User
-from rest_framework import viewsets
-from rest_framework import permissions
-from .serializers import UserSerializer
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.parsers import JSONParser
+from .models import UserTest #will be the modesl from ticketing_api.models
+from .serializers import UserTestSerializer
 
+@csrf_exempt
+def user_list(request):
+    """
+    List all code user, or create a new snippet.
+    """
+    if request.method == 'GET':
+        user = UserTest.objects.all()
+        serializer = UserTestSerializer(user, many=True)
+        return JsonResponse(serializer.data, safe=False)
 
-class UserViewSet(viewsets.ModelViewSet):
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = UserTestSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
+
+@csrf_exempt
+def user_detail(request, pk):
     """
-    API endpoint that allows users to be viewed or edited.
+    Retrieve, update or delete a code user.
     """
-    queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    try:
+        user = UserTest.objects.get(pk=pk)
+    except User.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = UserTestSerializer(user)
+        return JsonResponse(serializer.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = UserTestSerializer(user, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+        return JsonResponse(serializer.errors, status=400)
+
+    elif request.method == 'DELETE':
+        user.delete()
+        return HttpResponse(status=204)
