@@ -28,22 +28,22 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
       children: [
         Visibility(
             child: CustomText(
-          text: 'Society Hub',
-          colour: dark,
+          text: 'Uni Ticketing App',
+          colour: Colors.grey,
           size: 20,
           weight: FontWeight.bold,
         )),
         Expanded(child: Container()),
         IconButton(
           icon: Icon(Icons.home),
-          color: dark.withOpacity(.7),
+          color: MyColours.dark.withOpacity(.7),
           onPressed: () {},
         ),
         Stack(
           children: [
             IconButton(
               icon: Icon(Icons.notifications),
-              color: dark.withOpacity(.7),
+              color: MyColours.dark.withOpacity(.7),
               onPressed: () {},
             ),
             Positioned(
@@ -55,7 +55,7 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                   height: 12,
                   padding: EdgeInsets.all(4),
                   decoration: BoxDecoration(
-                      border: Border.all(color: light, width: 2),
+                      border: Border.all(color: MyColours.light, width: 2),
                       borderRadius: BorderRadius.circular(30)),
                 ))
           ],
@@ -63,15 +63,12 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
         Container(
           width: 1,
           height: 22,
-          color: lightGrey,
+          color: MyColours.lightGrey,
         ),
         SizedBox(
           width: 24,
         ),
-        CustomText(
-          text: "Santos Europe",
-          colour: lightGrey,
-        ),
+        CustomText(text: "Santos Europe", colour: Colors.grey),
         SizedBox(
           width: 16,
         ),
@@ -82,15 +79,15 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
               padding: EdgeInsets.all(2),
               margin: EdgeInsets.all(2),
               child: CircleAvatar(
-                backgroundColor: light,
+                backgroundColor: MyColours.light,
                 child: Icon(
                   Icons.percent_outlined,
-                  color: dark,
+                  color: MyColours.dark,
                 ),
               ),
             ))
       ],
     ),
-    iconTheme: IconThemeData(color: dark),
+    iconTheme: IconThemeData(color: MyColours.dark),
     backgroundColor: Colors.transparent,
     actions: []);
