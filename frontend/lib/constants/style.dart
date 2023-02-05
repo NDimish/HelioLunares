@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 //Theme Colours of app
+//FF specifies 100% opacity
 Color light = Color(0XFFBAADC1);
 Color lightGrey = Color(0XFFfcfcfc);
 Color active = Color(0XFF898aa7);
