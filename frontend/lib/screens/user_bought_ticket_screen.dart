@@ -10,6 +10,12 @@ class UserBoughtTicketScreen extends StatefulWidget {
 class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Column(
+        children: [
+          Text ('A for apple')
+          Text(appState.current.asLowerCase)
+        ],)
+    )
   }
 } 
