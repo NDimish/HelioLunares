@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/screens/landing_screen.dart';
-import 'package:http/http.dart' as http;
-import 'package:university_ticketing_system/view/user_bought_ticket_view.dart';
 
 void main() {
-  runApp(const UserBoughtTicketView());
+  runApp(const UniversityTicketingSystem());
 }
 
 class UniversityTicketingSystem extends StatelessWidget {
@@ -22,5 +20,3 @@ class UniversityTicketingSystem extends StatelessWidget {
     );
   }
 }
-
-
