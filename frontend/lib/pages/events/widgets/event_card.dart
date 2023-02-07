@@ -45,6 +45,7 @@ class EventCard extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: Container(
+            height: 100,
             padding: EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -69,6 +70,7 @@ class EventCard extends StatelessWidget {
                   colour: isActive ? MyColours.active : MyColours.dark,
                 ),
                 Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.date_range),
                     CustomText(
@@ -80,6 +82,7 @@ class EventCard extends StatelessWidget {
                   ],
                 ),
                 Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.location_on_outlined),
                     CustomText(
