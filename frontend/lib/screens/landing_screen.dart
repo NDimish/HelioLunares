@@ -4,7 +4,7 @@ import 'package:university_ticketing_system/screens/log_in_screen.dart';
 import 'package:university_ticketing_system/screens/sign_up_as_student_screen.dart';
 import 'package:university_ticketing_system/screens/sign_up_as_society_screen.dart';
 
-import '../components/landing_footer.dart';
+import 'startup_screen/widgets/startup_footer.dart';
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({super.key});
