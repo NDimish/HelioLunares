@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:university_ticketing_system/screens/landing_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class StartupNavbar extends StatefulWidget implements PreferredSizeWidget {
   const StartupNavbar({super.key});
@@ -12,53 +14,65 @@ class StartupNavbar extends StatefulWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
+final sections = ["About us", "How to use", "Testimonials", "Contact"];
+List<Widget> navbarButtons() {
+  return sections
+      .map(
+        (i) => Padding(
+          padding: const EdgeInsets.only(left: 20),
+          child: TextButton(
+            onPressed: () {},
+            child: Text(
+              i,
+              style: GoogleFonts.barlow(
+                  color: Colors.white, fontWeight: FontWeight.w500),
+            ),
+          ),
+        ),
+      )
+      .toList();
+}
+
 class _StartupNavbarState extends State<StartupNavbar> {
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(slivers: <Widget>[
       SliverAppBar(
         elevation: 15,
-        shadowColor: Colors.black,
-        floating: true,
-        backgroundColor: Colors.white,
+        shadowColor: const Color.fromRGBO(3, 4, 94, 1),
+        backgroundColor: Colors.blueGrey,
+        centerTitle: true,
         iconTheme: const IconThemeData(
-          color: Colors.black, //change your color here
+          color: Colors.white, //change your color here
         ),
-        leading: const Icon(Icons.airplane_ticket_rounded),
+        leading: const Icon(
+          Icons.airplane_ticket_rounded,
+          size: 50,
+        ),
         title: Row(
           children: <Widget>[
             Text(
               "University Ticketing System",
-              style: TextStyle(color: Colors.black),
+              style: GoogleFonts.poppins(
+                  color: Colors.white, fontWeight: FontWeight.w600),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: TextButton(
-                onPressed: () {},
-                child: const Text('About'),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: TextButton(
-                onPressed: () {},
-                child: const Text('How to use'),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: TextButton(
-                onPressed: () {},
-                child: const Text('Contact'),
-              ),
-            ),
+            ...navbarButtons(),
           ],
         ),
         actions: <Widget>[
           Padding(
-              padding: const EdgeInsets.all(15),
-              child: const Text(
-                  "login button/switch to user icon if user logged in"))
+            padding: const EdgeInsets.all(15),
+            child: TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const LandingScreen()),
+                );
+              },
+              child: const Text('Log in'),
+            ),
+          ),
         ],
       ),
     ]);
