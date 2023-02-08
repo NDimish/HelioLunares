@@ -27,11 +27,13 @@ class _StartupScreenState extends State<StartupScreen> {
           children: const [
             SocialIcon(
               icon: Icon(Icons.play_arrow_sharp),
+              url: "https://www.google.com/",
             ),
             SocialIcon(
               icon: Icon(
                 Icons.apple,
               ),
+              url: "https://www.apple.com/",
             ),
           ],
         ),

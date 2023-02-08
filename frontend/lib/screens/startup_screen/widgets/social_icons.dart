@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SocialIcon extends StatelessWidget {
   final Icon icon;
-  const SocialIcon({Key? key, required this.icon}) : super(key: key);
+  final String url;
+  const SocialIcon({Key? key, required this.icon, required this.url})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +24,7 @@ class SocialIcon extends StatelessWidget {
             iconSize: 80,
             icon: icon,
             color: Colors.white,
-            onPressed: () {},
+            onPressed: () async => await launchUrl(Uri.parse(url)),
           ),
         ));
   }
