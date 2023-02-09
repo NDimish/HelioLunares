@@ -43,3 +43,10 @@ class UserWithIDTestCase(APITestCase):
         response = self.client.get(self.url, self.data, format='json')
         self.assertEqual(len(response.data), 2)
         self.assertEqual(response.data['id'],1)
+    
+    def test_url_output_with_out_of_bound_id(self):
+        response = self.client.post('/log_in/',{'email':'johndoe@example.org','password':'Password123'},format='json')
+        self.assertNotEqual(response.status_code,status.HTTP_404_NOT_FOUND)
+        self.data['token'] = response.data['token']
+        response = self.client.get('/users/2/', self.data, format='json')
+        self.assertEquals(response.status_code,status.HTTP_404_NOT_FOUND)
