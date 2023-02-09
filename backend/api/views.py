@@ -63,13 +63,13 @@ class LogInView(APIView):
         token, _ = Token.objects.get_or_create(user=user)
         login(request, user)
         
-        if user.is_authenticated:
-            print("TRUE --- USER IS LOGGED IN")
+        # if user.is_authenticated:
+        #     print("TRUE --- USER IS LOGGED IN")
        
-        print({'token': token.key,
-            'email': user.email,
-            'is_authenticated' : user.is_authenticated
-            })
+        # print({'token': token.key,
+        #     'email': user.email,
+        #     'is_authenticated' : user.is_authenticated
+        #     })
         
         return Response(
             {'token': token.key,
