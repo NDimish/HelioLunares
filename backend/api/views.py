@@ -5,12 +5,12 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 
 from rest_framework import status
-from .models import User
+from .models import User, Society
 from rest_framework.views import APIView
 
 from django.contrib.auth import authenticate, login, logout
 
-from .serializers import UserSerializer
+from .serializers import UserSerializer, SocietySerializer
 
 # Create your views here.
 @api_view(['GET'])
@@ -95,3 +95,21 @@ def get_user_with_id(request,pk):
         return Response(serializer.data)
     except:
         return Response({'error':'User not found.'},status=status.HTTP_404_NOT_FOUND)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_society_list(request, format=None):
+    soc = Society.objects.all()
+    serializer = SocietySerializer(soc, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_society_with_id(request,pk):
+    try:
+        soc = Society.objects.get(id=pk)
+        serializer = SocietySerializer(soc)
+        return Response(serializer.data)
+    except:
+        return Response({'error':'Society not found.'},status=status.HTTP_404_NOT_FOUND)
+
