@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:university_ticketing_system/screens/startup_screen/sections/about.dart';
+import 'package:university_ticketing_system/screens/startup_screen/sections/contact.dart';
+import 'package:university_ticketing_system/screens/startup_screen/sections/hero.dart';
+import 'package:university_ticketing_system/screens/startup_screen/sections/howtouse.dart';
+import 'package:university_ticketing_system/screens/startup_screen/sections/testimonials.dart';
 import 'package:university_ticketing_system/screens/startup_screen/widgets/social_icons.dart';
 import 'package:university_ticketing_system/screens/startup_screen/widgets/startup_footer.dart';
 import 'package:university_ticketing_system/screens/startup_screen/widgets/startup_navbar.dart';
@@ -14,15 +19,33 @@ class StartupScreen extends StatefulWidget {
 }
 
 class _StartupScreenState extends State<StartupScreen> {
+  int index = 0;
+  static const List<Widget> _subpages = <Widget>[
+    StartupHero(),
+    AboutSection(),
+    HowToUseSection(),
+    TestimonialsSection(),
+    ContactSection()
+  ];
+
+  changeSubpage(i) {
+    setState(() {
+      index = i;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(251, 247, 245, 1),
-      appBar: const StartupNavbar(),
+      backgroundColor: const Color.fromRGBO(251, 247, 245, 1),
+      appBar: StartupNavbar(
+        callback: ((i) => changeSubpage(i)),
+      ),
       body: SafeArea(
           child: Center(
               child: Column(children: [
-        Flexible(child: Text("HERO")),
+        //This is where to change the widgets/'pages'
+        _subpages.elementAt(index),
         Row(
           children: const [
             SocialIcon(
@@ -37,9 +60,6 @@ class _StartupScreenState extends State<StartupScreen> {
             ),
           ],
         ),
-        Flexible(child: Text("ABOUT")),
-        Flexible(child: Text("HOW TO USE (Will be on separate page)")),
-        Flexible(child: Text("CONTACT (Will be on separate page)"))
       ]))),
       bottomNavigationBar: const Footer(),
     );

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:university_ticketing_system/screens/landing_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class StartupNavbar extends StatefulWidget implements PreferredSizeWidget {
-  const StartupNavbar({super.key});
+  final Function(int i) callback;
+  const StartupNavbar({Key? key, required this.callback}) : super(key: key);
 
   @override
   State<StartupNavbar> createState() => _StartupNavbarState();
@@ -14,14 +13,17 @@ class StartupNavbar extends StatefulWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
-final sections = ["About us", "How to use", "Testimonials", "Contact"];
-List<Widget> navbarButtons() {
+final sections = ["Hero", "About us", "How to use", "Testimonials", "Contact"];
+List<Widget> navbarButtons(Function(int) callback) {
   return sections
       .map(
         (i) => Padding(
           padding: const EdgeInsets.only(left: 20),
           child: TextButton(
-            onPressed: () {},
+            onPressed: () {
+              print("${i} ${sections.indexOf(i)}");
+              callback(sections.indexOf(i));
+            },
             child: Text(
               i,
               style: GoogleFonts.barlow(
@@ -56,7 +58,7 @@ class _StartupNavbarState extends State<StartupNavbar> {
               style: GoogleFonts.poppins(
                   color: Colors.white, fontWeight: FontWeight.w600),
             ),
-            ...navbarButtons(),
+            ...navbarButtons(widget.callback),
           ],
         ),
         actions: <Widget>[
