@@ -74,12 +74,17 @@ class Footer extends StatelessWidget {
                             onPressed: () async => await launchUrl(
                                 Uri.parse("https://github.com/")),
                             tooltip: "Terms & Conditions",
-                            icon: Icon(CupertinoIcons.doc),
+                            icon: const Icon(CupertinoIcons.doc),
                             color: Colors.white),
                         IconButton(
-                          onPressed: () => print("HI"),
+                          onPressed: () => {
+                            showLicensePage(
+                                context: context,
+                                applicationName: "University Ticketing System",
+                                applicationVersion: "v1.0")
+                          },
                           tooltip: "Licenses",
-                          icon: Icon(Icons.code),
+                          icon: const Icon(Icons.code),
                           color: Colors.white,
                         ),
                       ],
