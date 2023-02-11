@@ -40,12 +40,20 @@ class _StartupScreenState extends State<StartupScreen> {
       backgroundColor: const Color.fromRGBO(251, 247, 245, 1),
       appBar: StartupNavbar(
         callback: ((i) => changeSubpage(i)),
+        selectedIndex: index,
       ),
       body: SafeArea(
           child: Center(
               child: Column(children: [
         //This is where to change the widgets/'pages'
-        _subpages.elementAt(index),
+        AnimatedSwitcher(
+          duration: const Duration(milliseconds: 1000),
+          transitionBuilder: (Widget child, Animation<double> animation) {
+            return FadeTransition(opacity: animation, child: child);
+          },
+          child: _subpages.elementAt(index),
+        ),
+
         Row(
           children: const [
             SocialIcon(
