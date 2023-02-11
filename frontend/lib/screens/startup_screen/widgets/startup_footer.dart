@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -71,22 +72,20 @@ class Footer extends StatelessWidget {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         IconButton(
-                            onPressed: () async => await launchUrl(
-                                Uri.parse("https://github.com/")),
+                            onPressed: () => {
+                                  showAboutDialog(
+                                      context: context,
+                                      applicationName:
+                                          "University Ticketing System",
+                                      applicationVersion: "v1.0",
+                                      children: <Widget>[
+                                        const Text(
+                                            "terms and conditions go here")
+                                      ])
+                                },
                             tooltip: "Terms & Conditions",
                             icon: const Icon(CupertinoIcons.doc),
                             color: Colors.white),
-                        IconButton(
-                          onPressed: () => {
-                            showLicensePage(
-                                context: context,
-                                applicationName: "University Ticketing System",
-                                applicationVersion: "v1.0")
-                          },
-                          tooltip: "Licenses",
-                          icon: const Icon(Icons.code),
-                          color: Colors.white,
-                        ),
                       ],
                     ))
               ],
