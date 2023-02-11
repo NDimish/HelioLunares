@@ -4,7 +4,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 class StartupNavbar extends StatefulWidget implements PreferredSizeWidget {
   final Function(int i) callback;
-  const StartupNavbar({Key? key, required this.callback}) : super(key: key);
+  final int selectedIndex;
+  const StartupNavbar(
+      {Key? key, required this.callback, required this.selectedIndex})
+      : super(key: key);
 
   @override
   State<StartupNavbar> createState() => _StartupNavbarState();
@@ -14,28 +17,38 @@ class StartupNavbar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 final sections = ["Hero", "About us", "How to use", "Testimonials", "Contact"];
-List<Widget> navbarButtons(Function(int) callback) {
-  return sections
-      .map(
-        (i) => Padding(
-          padding: const EdgeInsets.only(left: 20),
-          child: TextButton(
-            onPressed: () {
-              print("${i} ${sections.indexOf(i)}");
-              callback(sections.indexOf(i));
-            },
-            child: Text(
-              i,
-              style: GoogleFonts.barlow(
-                  color: Colors.white, fontWeight: FontWeight.w500),
-            ),
-          ),
-        ),
-      )
-      .toList();
-}
 
 class _StartupNavbarState extends State<StartupNavbar> {
+  List<Widget> navbarButtons(Function(int) callback) {
+    return sections
+        .map(
+          (i) => Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: TextButton(
+              style: ButtonStyle(
+                  backgroundColor: sections.indexOf(i) == widget.selectedIndex
+                      ? MaterialStateProperty.all(
+                          Color.fromRGBO(102, 205, 170, 0.8))
+                      : MaterialStateProperty.all(Colors.transparent)),
+              onPressed: () {
+                print("${i} ${sections.indexOf(i)}");
+                callback(sections.indexOf(i));
+              },
+              child: Text(
+                i,
+                style: GoogleFonts.barlow(
+                  color: sections.indexOf(i) == widget.selectedIndex
+                      ? Colors.black
+                      : Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ),
+        )
+        .toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(slivers: <Widget>[
