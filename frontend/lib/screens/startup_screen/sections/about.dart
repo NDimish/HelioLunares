@@ -12,10 +12,27 @@ class AboutSection extends StatefulWidget {
 class _AboutSectionState extends State<AboutSection> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(children: [
-        const Text("about section"),
-      ]),
-    );
+    //Who we are
+
+    return Column(children: [
+      Card(
+        child: Center(
+            child: Column(
+          children: const [
+            Text(
+              "Who are we?",
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 36),
+            ),
+            Text(
+                "The upcoming platform for society ticket management, WITHOUT the nasty fees. Completely open-source. Made by students, for students."),
+            Text(
+              "Our story",
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 36),
+            ),
+            Text("...")
+          ],
+        )),
+      )
+    ]);
   }
 }
