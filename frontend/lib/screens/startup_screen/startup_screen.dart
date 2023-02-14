@@ -6,7 +6,6 @@ import 'package:university_ticketing_system/screens/startup_screen/sections/cont
 import 'package:university_ticketing_system/screens/startup_screen/sections/hero.dart';
 import 'package:university_ticketing_system/screens/startup_screen/sections/howtouse.dart';
 import 'package:university_ticketing_system/screens/startup_screen/sections/testimonials.dart';
-import 'package:university_ticketing_system/screens/startup_screen/widgets/social_icons.dart';
 import 'package:university_ticketing_system/screens/startup_screen/widgets/startup_footer.dart';
 import 'package:university_ticketing_system/screens/startup_screen/widgets/startup_navbar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -52,21 +51,6 @@ class _StartupScreenState extends State<StartupScreen> {
             return FadeTransition(opacity: animation, child: child);
           },
           child: _subpages.elementAt(index),
-        ),
-
-        Row(
-          children: const [
-            SocialIcon(
-              icon: Icon(Icons.play_arrow_sharp),
-              url: "https://www.google.com/",
-            ),
-            SocialIcon(
-              icon: Icon(
-                Icons.apple,
-              ),
-              url: "https://www.apple.com/",
-            ),
-          ],
         ),
       ]))),
       bottomNavigationBar: const Footer(),
