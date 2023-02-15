@@ -59,6 +59,29 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  assets:
+   - assets/images/
+
+  fonts:
+    - family: Cinzel
+      fonts:
+        - asset: assets/fonts/Cinzel/CinzelDecorative-Regular.ttf
+        - asset: assets/fonts/Cinzel/CinzelDecorative-Bold.ttf
+
+    - family: Comfortaa
+      fonts:
+        - asset: assets/fonts/Comfortaa/Comfortaa-Regular.ttf
+        - asset: assets/fonts/Comfortaa/Comfortaa-SemiBold.ttf
+
+    - family: Arvo
+      fonts:
+        - asset: assets/fonts/Arvo/Arvo-Regular.ttf
+        - asset: assets/fonts/Arvo/Arvo-Bold.ttf
+
+    - family: Zilla_Slab
+      fonts:
+        - asset: assets/fonts/Zilla_Slab/ZillaSlab-Regular.ttf
+        - asset: assets/fonts/Zilla_Slab/ZillaSlab-Bold.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:
