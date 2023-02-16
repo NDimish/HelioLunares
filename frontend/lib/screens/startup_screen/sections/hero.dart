@@ -22,10 +22,41 @@ class _StartupHeroState extends State<StartupHero> {
       const Text(
         "Unlock stress-free, seamlessly integrated event management with [INSERT NAME HERE], the innovative solution designed by students, for students.",
       ),
-      const Text("\u2022 Completely open-source"),
+      const Text("\u2022 Completely open-source and FREE TO SET UP"),
       const Text("\u2022 Minimal fees"),
       const GlbModel(),
+      Padding(
+        padding: EdgeInsets.only(bottom: 10, top: 10),
+        child: SizedBox(
+          width: 150,
+          height: 50,
+          child: ElevatedButton(
+              onPressed: () => print("press"),
+              style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.blueGrey,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10))),
+              child: const Text("Get started", textScaleFactor: 1.3)),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.only(bottom: 10),
+        child: SizedBox(
+          width: 150,
+          height: 50,
+          child: ElevatedButton(
+              onPressed: () => print("press"),
+              style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.black54,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10))),
+              child: const Text("Learn more", textScaleFactor: 1.3)),
+        ),
+      ),
       Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: const [
           SocialIcon(
             icon: Icon(Icons.play_arrow_sharp),
