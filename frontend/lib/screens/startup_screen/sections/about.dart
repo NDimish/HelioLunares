@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:university_ticketing_system/screens/startup_screen/widgets/about_card.dart';
 
 class AboutSection extends StatefulWidget {
   const AboutSection({super.key});
@@ -29,7 +30,13 @@ class _AboutSectionState extends State<AboutSection> {
               "Our story",
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 36),
             ),
-            Text("...")
+            Text("..."),
+            AboutCard(
+              devName: "Josh Susak",
+              roles: ["Front-end dev", "Back-end dev", "Full-stack dev"],
+              imagePath: "https://picsum.photos/250?image=9",
+              githubLink: "https://github.com/JSusak",
+            ),
           ],
         )),
       )
