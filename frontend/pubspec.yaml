@@ -41,6 +41,7 @@ dependencies:
   google_fonts: ^4.0.3
   font_awesome_flutter: ^10.3.0
   model_viewer_plus: ^1.5.0
+  emailjs: ^1.1.0
 
 dev_dependencies:
   flutter_test:
