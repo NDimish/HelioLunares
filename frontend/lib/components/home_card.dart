@@ -39,7 +39,7 @@ class _HomeCardState extends State<HomeCard> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15.0),
                         image: const DecorationImage(
-                            image: AssetImage("lib/assets/logo.jpg"))),
+                            image: AssetImage("images/logo.jpg"))),
                     child: Center(
                         child: AnimatedCrossFade(
                       duration: const Duration(seconds: 1),
