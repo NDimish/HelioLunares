@@ -20,6 +20,7 @@ class SocietyEventCards extends StatelessWidget {
         height: MediaQuery.of(context).size.height * 0.75,
         child: Scaffold(
           body: ListView.builder(
+              primary: false,
               shrinkWrap: true,
               itemCount: eventList.length,
               itemBuilder: (context, index) {
