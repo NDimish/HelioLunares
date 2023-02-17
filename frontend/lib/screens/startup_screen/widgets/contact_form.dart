@@ -95,6 +95,26 @@ class _ContactFormState extends State<ContactForm> {
                 } catch (error) {
                   print(error.toString());
                 }
+
+                showDialog<String>(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: const Text('Message sent!'),
+                    content: const Text(
+                        'Thanks for using our app! We will aim to reply to you within 1-2 working days. :)'),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () => {
+                          Navigator.pop(context, 'OK'),
+                          nameController.clear(),
+                          emailController.clear(),
+                          messageController.clear(),
+                        },
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+                );
               } else {
                 print("Invalid form");
               }
