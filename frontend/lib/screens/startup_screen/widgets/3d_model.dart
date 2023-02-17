@@ -17,7 +17,7 @@ class _GlbModelState extends State<GlbModel> {
       width: 500,
       height: 500,
       child: ModelViewer(
-        src: 'lib/assets/heliolunares.glb',
+        src: 'assets/heliolunares.glb',
         alt: "Cube",
         ar: true,
         autoRotate: true,
