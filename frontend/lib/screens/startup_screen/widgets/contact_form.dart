@@ -4,7 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:university_ticketing_system/log_in/widgets/submit_button.dart';
-import 'package:url_launcher/url_launcher.dart';
+
+const List<String> dropdownChoices = [
+  'General',
+  'Feedback',
+  'Troubleshooting',
+  'Complaints'
+];
 
 class ContactForm extends StatefulWidget {
   const ContactForm({super.key});
@@ -18,6 +24,7 @@ class _ContactFormState extends State<ContactForm> {
   String name = "";
   String email = "";
   String message = "";
+  String contactType = dropdownChoices.first;
   int charCount = 0;
 
   final nameController = TextEditingController();
@@ -65,6 +72,22 @@ class _ContactFormState extends State<ContactForm> {
                 decoration: customDecoration(
                     "Email", "Enter your email", Icons.email_rounded, false)),
             const SizedBox(height: 35),
+            DropdownButton(
+              value: contactType,
+              items: dropdownChoices.map<DropdownMenuItem>((choice) {
+                return DropdownMenuItem(
+                  value: choice,
+                  child: Text(choice),
+                );
+              }).toList(),
+              onChanged: (value) {
+                setState(() {
+                  contactType = value!;
+                });
+              },
+              icon: const Icon(Icons.arrow_drop_down_circle_rounded),
+            ),
+            const SizedBox(height: 35),
             TextFormField(
               controller: messageController,
               onFieldSubmitted: (value) => print("message submitted"),
@@ -92,29 +115,31 @@ class _ContactFormState extends State<ContactForm> {
                 _formKey.currentState!.save();
                 try {
                   print('SUCCESS! email send');
+                  setState(() {
+                    charCount = 0;
+                  });
+                  showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: const Text('Message sent!'),
+                      content: const Text(
+                          'Thanks for using our app! We will aim to reply to you within 1-2 working days. :)'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () => {
+                            Navigator.pop(context, 'OK'),
+                            nameController.clear(),
+                            emailController.clear(),
+                            messageController.clear(),
+                          },
+                          child: const Text('OK'),
+                        ),
+                      ],
+                    ),
+                  );
                 } catch (error) {
                   print(error.toString());
                 }
-
-                showDialog<String>(
-                  context: context,
-                  builder: (BuildContext context) => AlertDialog(
-                    title: const Text('Message sent!'),
-                    content: const Text(
-                        'Thanks for using our app! We will aim to reply to you within 1-2 working days. :)'),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () => {
-                          Navigator.pop(context, 'OK'),
-                          nameController.clear(),
-                          emailController.clear(),
-                          messageController.clear(),
-                        },
-                        child: const Text('OK'),
-                      ),
-                    ],
-                  ),
-                );
               } else {
                 print("Invalid form");
               }
