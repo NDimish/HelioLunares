@@ -110,10 +110,28 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
         Expanded(
           flex: 2,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            // crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.start,
-            children: const [
-              Text('test')
+            children:  [
+
+              const SizedBox(height: 10),
+
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.black,
+                      width: 1
+                    ),
+                  ),
+                  child: Text('Insert ticket picture here'),
+                ), 
+              )
+
+              
+              
+
             ],
           ),
         ),
@@ -151,7 +169,9 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                 decoration: BoxDecoration(
                   color: const Color.fromARGB(255, 47, 148, 87),
                   border: Border.all(
-                      width: 10, color: const Color.fromARGB(255, 47, 148, 87)),
+                    width: 10, 
+                    color: const Color.fromARGB(255, 47, 148, 87)
+                  ),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Row(
