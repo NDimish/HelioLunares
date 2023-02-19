@@ -19,7 +19,7 @@ class _AboutSectionState extends State<AboutSection> {
       Card(
         child: Center(
             child: Column(
-          children: const [
+          children: [
             Text(
               "Who are we?",
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 36),
@@ -31,12 +31,24 @@ class _AboutSectionState extends State<AboutSection> {
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 36),
             ),
             Text("..."),
-            AboutCard(
-              devName: "Josh Susak",
-              roles: ["Front-end dev", "Back-end dev", "Full-stack dev"],
-              imagePath: "https://picsum.photos/250?image=9",
-              githubLink: "https://github.com/JSusak",
+            Text(
+              "Meet the devs",
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 36),
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                AboutCard(
+                  devName: "Josh Susak",
+                  roles: ["Front-end dev", "Back-end dev", "Full-stack dev"],
+                  imagePath:
+                      "https://avatars.githubusercontent.com/u/77983856?s=400&u=aec10224ed714a03cbb82a2e98606a963804bc6f&v=4",
+                  githubLink: "https://github.com/JSusak",
+                  secondaryIcon: Icons.web,
+                  secondaryLink: "https://jsusak.github.io/",
+                ),
+              ],
+            )
           ],
         )),
       )

@@ -13,13 +13,17 @@ class AboutCard extends StatefulWidget {
   final List<String> roles;
   final String imagePath;
   final String githubLink;
+  final IconData secondaryIcon;
+  final String secondaryLink;
 
   const AboutCard(
       {Key? key,
       required this.devName,
       required this.roles,
       required this.imagePath,
-      required this.githubLink})
+      required this.githubLink,
+      required this.secondaryIcon,
+      required this.secondaryLink})
       : super(key: key);
 
   @override
@@ -68,7 +72,7 @@ class _AboutCardState extends State<AboutCard> {
                               fontWeight: FontWeight.w700, fontSize: 20),
                         ),
                         const Divider(),
-                        const Text("Roles:",
+                        const Text("Project roles:",
                             style: TextStyle(
                                 fontWeight: FontWeight.w600, fontSize: 16)),
                         const Spacer(),
@@ -92,10 +96,10 @@ class _AboutCardState extends State<AboutCard> {
                             ),
                             IconButton(
                               iconSize: 30,
-                              icon: const Icon(FontAwesomeIcons.solidEnvelope),
+                              icon: Icon(widget.secondaryIcon),
                               color: Colors.black45,
-                              onPressed: () async =>
-                                  await launchUrl(Uri.parse(widget.githubLink)),
+                              onPressed: () async => await launchUrl(
+                                  Uri.parse(widget.secondaryLink)),
                             ),
                           ],
                         ),
