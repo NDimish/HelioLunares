@@ -65,7 +65,8 @@ class _AboutCardState extends State<AboutCard> {
                 width: widget.cardSize,
                 height: widget.cardSize,
                 child: Card(
-                    elevation: 2,
+                    elevation: 0,
+                    color: Color(0xFFc8b8db).withOpacity(0.7),
                     child: Column(
                       children: [
                         Text(
