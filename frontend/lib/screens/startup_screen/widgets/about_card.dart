@@ -15,6 +15,7 @@ class AboutCard extends StatefulWidget {
   final String githubLink;
   final IconData secondaryIcon;
   final String secondaryLink;
+  final double cardSize;
 
   const AboutCard(
       {Key? key,
@@ -23,7 +24,8 @@ class AboutCard extends StatefulWidget {
       required this.imagePath,
       required this.githubLink,
       required this.secondaryIcon,
-      required this.secondaryLink})
+      required this.secondaryLink,
+      required this.cardSize})
       : super(key: key);
 
   @override
@@ -49,8 +51,8 @@ class _AboutCardState extends State<AboutCard> {
           onTap: () => setState(() {}),
           child: AnimatedCrossFade(
               firstChild: SizedBox(
-                width: 200,
-                height: 200,
+                width: widget.cardSize,
+                height: widget.cardSize,
                 child: Card(
                   elevation: 2,
                   child: ClipRRect(
@@ -60,8 +62,8 @@ class _AboutCardState extends State<AboutCard> {
                 ),
               ),
               secondChild: SizedBox(
-                width: 200,
-                height: 200,
+                width: widget.cardSize,
+                height: widget.cardSize,
                 child: Card(
                     elevation: 2,
                     child: Column(

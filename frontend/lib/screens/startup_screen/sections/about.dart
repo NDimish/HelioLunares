@@ -25,7 +25,7 @@ class _AboutSectionState extends State<AboutSection> {
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 36),
             ),
             Text(
-                "The upcoming platform for society ticket management, WITHOUT the nasty fees. Completely open-source. Made by students, for students."),
+                "The upcoming platform for society ticket management, WITHOUT the nasty fees. Completely open-source. Made by students, for students. \n GIVE BACKSTORY & APPLICATION OBJECTIVES HERE, MENTION COMPETITORS..."),
             Text(
               "Our story",
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 36),
@@ -46,6 +46,82 @@ class _AboutSectionState extends State<AboutSection> {
                   githubLink: "https://github.com/JSusak",
                   secondaryIcon: Icons.web,
                   secondaryLink: "https://jsusak.github.io/",
+                  cardSize: 185,
+                ),
+                AboutCard(
+                  devName: "Josh Susak",
+                  roles: ["Front-end dev", "Back-end dev", "Full-stack dev"],
+                  imagePath:
+                      "https://avatars.githubusercontent.com/u/32419965?v=4",
+                  githubLink: "https://github.com/JSusak",
+                  secondaryIcon: Icons.web,
+                  secondaryLink: "https://jsusak.github.io/",
+                  cardSize: 185,
+                ),
+                AboutCard(
+                  devName: "Josh Susak",
+                  roles: ["Front-end dev", "Back-end dev", "Full-stack dev"],
+                  imagePath:
+                      "https://avatars.githubusercontent.com/u/58425365?v=4",
+                  githubLink: "https://github.com/JSusak",
+                  secondaryIcon: Icons.web,
+                  secondaryLink: "https://jsusak.github.io/",
+                  cardSize: 185,
+                ),
+                AboutCard(
+                  devName: "Josh Susak",
+                  roles: ["Front-end dev", "Back-end dev", "Full-stack dev"],
+                  imagePath:
+                      "https://avatars.githubusercontent.com/u/62480903?v=4",
+                  githubLink: "https://github.com/JSusak",
+                  secondaryIcon: Icons.web,
+                  secondaryLink: "https://jsusak.github.io/",
+                  cardSize: 185,
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                AboutCard(
+                  devName: "Josh Susak",
+                  roles: ["Front-end dev", "Back-end dev", "Full-stack dev"],
+                  imagePath:
+                      "https://avatars.githubusercontent.com/u/114866867?v=4",
+                  githubLink: "https://github.com/JSusak",
+                  secondaryIcon: Icons.web,
+                  secondaryLink: "https://jsusak.github.io/",
+                  cardSize: 185,
+                ),
+                AboutCard(
+                  devName: "Josh Susak",
+                  roles: ["Front-end dev", "Back-end dev", "Full-stack dev"],
+                  imagePath:
+                      "https://avatars.githubusercontent.com/u/115050058?v=4",
+                  githubLink: "https://github.com/JSusak",
+                  secondaryIcon: Icons.web,
+                  secondaryLink: "https://jsusak.github.io/",
+                  cardSize: 185,
+                ),
+                AboutCard(
+                  devName: "Josh Susak",
+                  roles: ["Front-end dev", "Back-end dev", "Full-stack dev"],
+                  imagePath:
+                      "https://avatars.githubusercontent.com/u/101655182?v=4",
+                  githubLink: "https://github.com/JSusak",
+                  secondaryIcon: Icons.web,
+                  secondaryLink: "https://jsusak.github.io/",
+                  cardSize: 185,
+                ),
+                AboutCard(
+                  devName: "Josh Susak",
+                  roles: ["Front-end dev", "Back-end dev", "Full-stack dev"],
+                  imagePath:
+                      "https://avatars.githubusercontent.com/u/114754624?v=4",
+                  githubLink: "https://github.com/JSusak",
+                  secondaryIcon: Icons.web,
+                  secondaryLink: "https://jsusak.github.io/",
+                  cardSize: 185,
                 ),
               ],
             )
