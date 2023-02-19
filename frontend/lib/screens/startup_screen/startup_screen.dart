@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:university_ticketing_system/gradient_animation.dart';
 import 'package:university_ticketing_system/screens/startup_screen/sections/about.dart';
 import 'package:university_ticketing_system/screens/startup_screen/sections/contact.dart';
 import 'package:university_ticketing_system/screens/startup_screen/sections/hero.dart';
@@ -43,16 +44,17 @@ class _StartupScreenState extends State<StartupScreen> {
       ),
       body: SafeArea(
           child: Center(
-              child: Column(children: [
-        //This is where to change the widgets/'pages'
-        AnimatedSwitcher(
+              //This is where to change the widgets/'pages'
+
+              child: CustomLinearGradient(
+        child: AnimatedSwitcher(
           duration: const Duration(milliseconds: 1000),
           transitionBuilder: (Widget child, Animation<double> animation) {
             return FadeTransition(opacity: animation, child: child);
           },
           child: _subpages.elementAt(index),
         ),
-      ]))),
+      ))),
       bottomNavigationBar: const Footer(),
     );
   }
