@@ -27,8 +27,7 @@ class _StartupNavbarState extends State<StartupNavbar> {
             child: TextButton(
               style: ButtonStyle(
                   backgroundColor: sections.indexOf(i) == widget.selectedIndex
-                      ? MaterialStateProperty.all(
-                          Color.fromRGBO(102, 205, 170, 0.8))
+                      ? MaterialStateProperty.all(Color(0xFFc8b8db))
                       : MaterialStateProperty.all(Colors.transparent)),
               onPressed: () {
                 print("${i} ${sections.indexOf(i)}");
@@ -54,8 +53,8 @@ class _StartupNavbarState extends State<StartupNavbar> {
     return CustomScrollView(slivers: <Widget>[
       SliverAppBar(
         elevation: 15,
-        shadowColor: const Color.fromRGBO(3, 4, 94, 1),
-        backgroundColor: Colors.blueGrey,
+        shadowColor: Colors.black,
+        backgroundColor: const Color(0xFF70587c),
         centerTitle: true,
         iconTheme: const IconThemeData(
           color: Colors.white, //change your color here
@@ -85,7 +84,16 @@ class _StartupNavbarState extends State<StartupNavbar> {
                       builder: (context) => const LandingScreen()),
                 );
               },
-              child: const Text('Log in'),
+              child: Text(
+                'Log in',
+                style: GoogleFonts.poppins(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                  decoration: TextDecoration.underline,
+                  decorationStyle: TextDecorationStyle.dashed,
+                  decorationThickness: 3,
+                ),
+              ),
             ),
           ),
         ],

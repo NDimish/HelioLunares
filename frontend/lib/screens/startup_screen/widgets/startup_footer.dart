@@ -17,7 +17,7 @@ class Footer extends StatelessWidget {
     return Container(
         height: 50,
         child: BottomAppBar(
-          color: Colors.blueGrey,
+          color: const Color(0xFF70587c),
           elevation: 5,
           child: IconTheme(
             data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
