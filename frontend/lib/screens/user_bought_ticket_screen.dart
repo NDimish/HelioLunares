@@ -107,6 +107,14 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
     return Scaffold(
       body: Row(
       children: <Widget> [
+        
+        const VerticalDivider(
+            thickness: 1,
+            indent: 5,
+            endIndent: 0,
+            color: Colors.white
+        ),
+
         Expanded(
           flex: 2,
           child: Column(
@@ -116,18 +124,151 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
 
               const SizedBox(height: 10),
 
-              Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Container(
+              Expanded(
+                flex: 3,
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 1
+                      ),
+                    ),
+                    child: Text('Insert ticket picture here'),
+                  ), 
+                )
+              ),
+
+
+
+              Expanded(
+                flex: 7,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 10),
+
+                const Text(
+                  "Ticket Overview",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontSize: 25,
+                    decoration: TextDecoration.underline, 
+                    fontWeight: FontWeight.bold
+
+                  ),
+                ),
+
+                Container(
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: Colors.black,
-                      width: 1
+                      width: 10, 
+                      color: Colors.white
                     ),
                   ),
-                  child: Text('Insert ticket picture here'),
-                ), 
+                  child: Row(
+                    children: const [
+                      Expanded(
+                        child: Text ('Title: ', textAlign: TextAlign.left),
+                      ),
+                    ],
+                  )
+                ),
+
+                const SizedBox(height: 10,),
+
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 10, 
+                      color: Colors.white
+                    ),
+                  ),
+                  child: Row(
+                    children: const [
+                      Expanded(
+                        child: Text ('Date: ', textAlign: TextAlign.left),
+                      ),
+                    ],
+                  )
+                ),
+
+
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 10, 
+                      color: Colors.white
+                    ),
+                  ),
+                  child: Row(
+                    children: const [
+                      Expanded(
+                        child: Text ('Venue: ', textAlign: TextAlign.left),
+                      ),
+                    ],
+                  )
+                ),
+
+
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 10, 
+                      color: Colors.white
+                    ),
+                  ),
+                  child: Row(
+                    children: const [
+                      Expanded(
+                        child: Text ('Seat: ', textAlign: TextAlign.left),
+                      ),
+                    ],
+                  )
+                ),
+
+
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 10, 
+                      color: Colors.white
+                    ),
+                  ),
+                  child: Row(
+                    children: const [
+                      Expanded(
+                        child: Text ('Gate: ', textAlign: TextAlign.left),
+                      ),
+                    ],
+                  )
+                ),
+
+
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 10, 
+                      color: Colors.white
+                    ),
+                  ),
+                  child: Row(
+                    children: const [
+                      Expanded(
+                        child: Text ('Description: ', textAlign: TextAlign.left),
+                      ),
+                    ],
+                  )
+                ),
+
+
+                  ],
+                )
               )
+
+             
 
               
               
