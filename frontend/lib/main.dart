@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:university_ticketing_system/screens/buy_ticket_screen.dart';
 import 'package:university_ticketing_system/screens/landing_screen.dart';
 import 'package:university_ticketing_system/screens/user_bought_ticket_screen.dart';
 
@@ -17,7 +18,7 @@ class UniversityTicketingSystem extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: UserBoughtTicketScreen(),
+      home: BuyTicketScreen(),
     );
   }
 }
