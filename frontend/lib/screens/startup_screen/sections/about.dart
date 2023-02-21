@@ -18,40 +18,45 @@ class _AboutSectionState extends State<AboutSection> {
     return Center(
         child: SizedBox(
       width: MediaQuery.of(context).size.width / 2,
-      height: 700,
+      height: 850,
       child: Card(
         elevation: 0,
-        color: Color(0xFFffd1da).withOpacity(0.55),
+        color: const Color(0xFFffd1da).withOpacity(0.55),
         child: Center(
             child: Padding(
-                padding: EdgeInsets.only(top: 10, bottom: 15),
+                padding: const EdgeInsets.only(
+                    top: 5, bottom: 15, left: 10, right: 10),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       "Who are we?",
                       style:
-                          TextStyle(fontWeight: FontWeight.w600, fontSize: 36),
+                          TextStyle(fontWeight: FontWeight.w600, fontSize: 60),
                     ),
-                    Text(
-                        "The upcoming platform for society ticket management, WITHOUT the nasty fees. Completely open-source. Made by students, for students. \n GIVE APPLICATION OBJECTIVES HERE, MENTION COMPETITORS..."),
-                    Divider(),
-                    Text(
+                    const Divider(),
+                    const Text(
+                        " • The upcoming platform for society ticket management, WITHOUT the nasty fees. Completely open-source. Made by students, for students. \n • [INSERT APP NAME HERE] is the latest all-in-one solution for societies who may want to avoid the drawbacks of other competitors..."),
+                    const Divider(),
+                    const Text(
                       "Our story",
                       style:
                           TextStyle(fontWeight: FontWeight.w600, fontSize: 36),
                     ),
-                    Text("BACKSTORY of app, how we came to be as a team..."),
-                    Divider(),
-                    Text(
+                    const Divider(),
+                    const Text(
+                        " • [INSERT APP NAME HERE] is currently being developed by a group of innovative, like-minded students at King's College London, who are looking to revolutionise and simplify the ways that societies set up their events.\n • We have all agreed that many similar apps provide a higher level of stress and complication, so we chose to embark on this project as a way of streamlining the workflow of society event management, ensuring that societies can set up events easily and students can easily participate!"),
+                    const Divider(),
+                    const Text(
                       "Meet the devs",
                       style:
                           TextStyle(fontWeight: FontWeight.w600, fontSize: 36),
                     ),
-                    Text(
-                        "Interested in the team behind this substantial project? Check out our socials and portfolios for more details on our interests and specialties :D"),
+                    const Text(
+                        "Interested in the team behind this substantial project? Check out our GitHubs and portfolios for more details on our interests and specialties :D"),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
+                      children: const [
                         AboutCard(
                           devName: "Josh Susak",
                           roles: [
@@ -112,7 +117,7 @@ class _AboutSectionState extends State<AboutSection> {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
+                      children: const [
                         AboutCard(
                           devName: "Josh Susak",
                           roles: [
