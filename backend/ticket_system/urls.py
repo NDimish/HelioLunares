@@ -27,5 +27,4 @@ urlpatterns = [
     path('users/', views.get_user_list, name="users_list"),
     path('users/<int:pk>/', views.get_user_with_id, name="user_with_id"),
     path('society/', views.get_society_list, name="society_list"),
-    path('society/<int:pk>/', views.get_society_with_id, name="society_with_id")
 ]

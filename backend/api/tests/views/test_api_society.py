@@ -1,17 +1,23 @@
 from rest_framework import status
 from rest_framework.test import APITestCase
-from api.models import User
+from api.models import User ,Society
 
-
-class UserWithIDTestCase(APITestCase):
+class SocietyTestCase(APITestCase):
 
     fixtures = [
-        'api/tests/fixtures/default_users.json'
+        'api/tests/fixtures/default_users.json',
+        'api/tests/fixtures/default_university.json',
+        'api/tests/fixtures/default_society.json',
     ]
 
     def setUp(self): 
-        self.url = '/users/1/'
-        self.user = User.objects.get(email='johndoe@example.org')
+        self.url = '/society/'
+        self.user_data = {
+            "email": "johndoe@example.org",
+            'password': 'Password123'
+        }
+        self.user = User.objects.get(id=1)
+        self.society = Society.objects.get(name="test_soc")
         self.data = {}
     
     def test_url_exists(self):
@@ -26,26 +32,20 @@ class UserWithIDTestCase(APITestCase):
     def test_url_access_allowed_with_force_authentication(self):
         self.client.force_authenticate(self.user)
         response = self.client.get(self.url, {}, format='json')
-        self.assertEqual(len(response.data), 2)
+        self.assertEqual(len(response.data), 1)
     
     def test_url_access_allowed_with_api_login(self):
-        response = self.client.post('/log_in/',{'email':'johndoe@example.org','password':'Password123'},format='json')
+        response = self.client.post('/log_in/',self.user_data,format='json')
         self.assertNotEqual(response.status_code,status.HTTP_404_NOT_FOUND)
         self.data['token'] = response.data['token']
         response = self.client.get(self.url, self.data, format='json')
-        self.assertEqual(len(response.data), 2)
+        self.assertEqual(len(response.data), 1)
     
-    def test_url_output_with_valid_id(self):
-        response = self.client.post('/log_in/',{'email':'johndoe@example.org','password':'Password123'},format='json')
+    def test_url_outputs_valid_data(self):
+        response = self.client.post('/log_in/',self.user_data,format='json')
         self.assertNotEqual(response.status_code,status.HTTP_404_NOT_FOUND)
         self.data['token'] = response.data['token']
         response = self.client.get(self.url, self.data, format='json')
-        self.assertEqual(len(response.data), 2)
-        self.assertEqual(response.data['id'],1)
-    
-    def test_url_output_with_out_of_bound_id(self):
-        response = self.client.post('/log_in/',{'email':'johndoe@example.org','password':'Password123'},format='json')
-        self.assertNotEqual(response.status_code,status.HTTP_404_NOT_FOUND)
-        self.data['token'] = response.data['token']
-        response = self.client.get('/users/2/', self.data, format='json')
-        self.assertEquals(response.status_code,status.HTTP_404_NOT_FOUND)
+        self.assertEqual(len(response.data), 1)
+        fetchedSoc = response.data[0]
+        self.assertEquals(fetchedSoc['name'],'test_soc')

@@ -102,14 +102,3 @@ def get_society_list(request, format=None):
     soc = Society.objects.all()
     serializer = SocietySerializer(soc, many=True)
     return Response(serializer.data)
-
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def get_society_with_id(request,pk):
-    try:
-        soc = Society.objects.get(id=pk)
-        serializer = SocietySerializer(soc)
-        return Response(serializer.data)
-    except:
-        return Response({'error':'Society not found.'},status=status.HTTP_404_NOT_FOUND)
-
