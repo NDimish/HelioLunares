@@ -12,17 +12,6 @@ from django.contrib.auth import authenticate, login, logout
 
 from .serializers import UserSerializer, SocietySerializer
 
-# Create your views here.
-@api_view(['GET'])
-@permission_classes([IsAuthenticated, ])
-def student_sign_up(request):
-    return Response({'url_link': 'under construction'})
-
-@api_view(['GET'])
-@permission_classes([IsAuthenticated, ])
-def society_sign_up(request):
-    return Response({'url_link': 'under construction'})
-
 
 @api_view(['GET'])
 def log_out(request):
@@ -86,6 +75,10 @@ class UsersListView(APIView):
         users = User.objects.all()
         serializer = UserSerializer(users,many=True)
         return Response(serializer.data)
+    
+    def post(self,request, format='json'):
+        # Will create a user
+        pass
 
 class UserView(APIView):
     """View to retrieve data about a user"""
@@ -104,6 +97,10 @@ class SocietyListView(APIView):
         soc = Society.objects.all()
         serializer = SocietySerializer(soc, many=True)
         return Response(serializer.data)
+    
+    def post(self,request,format='json'):
+        # Will create a society
+        pass
 
 class SocietyView(APIView):
     """View to retrieve data about a society"""
