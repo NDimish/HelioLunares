@@ -79,26 +79,28 @@ class LogInView(APIView):
             status = status.HTTP_200_OK
         )
 
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def get_user_list(request, format=None):
-    users = User.objects.all()
-    serializer = UserSerializer(users, many=True)
-    return Response(serializer.data)
 
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def get_user_with_id(request,pk):
-    try:
-        user = User.objects.get(id=pk)
-        serializer = UserSerializer(user)
+class UsersListView(APIView):
+    """View to retrieve list of users"""
+    def get(self, request, format='json'):
+        users = User.objects.all()
+        serializer = UserSerializer(users,many=True)
         return Response(serializer.data)
-    except:
-        return Response({'error':'User not found.'},status=status.HTTP_404_NOT_FOUND)
 
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def get_society_list(request, format=None):
-    soc = Society.objects.all()
-    serializer = SocietySerializer(soc, many=True)
-    return Response(serializer.data)
+class UserView(APIView):
+    """View to retrieve data about a user"""
+
+    def get(self, request, pk, format='json'):
+        try:
+            user = User.objects.get(id=pk)
+            serializer = UserSerializer(user)
+            return Response(serializer.data)
+        except:
+            return Response({'error':'User not found.'},status=status.HTTP_404_NOT_FOUND)
+
+class SocietyListView(APIView):
+    """View to retrieve list of societies"""
+    def get(self, request, format='json'):
+        soc = Society.objects.all()
+        serializer = SocietySerializer(soc, many=True)
+        return Response(serializer.data)
