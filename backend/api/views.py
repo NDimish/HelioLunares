@@ -104,3 +104,13 @@ class SocietyListView(APIView):
         soc = Society.objects.all()
         serializer = SocietySerializer(soc, many=True)
         return Response(serializer.data)
+
+class SocietyView(APIView):
+    """View to retrieve data about a society"""
+    def get(self, request, pk, format='json'):
+        try:
+            soc = Society.objects.get(pk=pk)
+            serializer = SocietySerializer(soc)
+            return Response(serializer.data)
+        except:
+            return Response({'error':'Society not found.'},status=status.HTTP_404_NOT_FOUND)

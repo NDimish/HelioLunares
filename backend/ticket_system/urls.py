@@ -27,4 +27,5 @@ urlpatterns = [
     path('users/', views.UsersListView.as_view(), name="users_list"),
     path('users/<int:pk>/', views.UserView.as_view(), name="user_with_id"),
     path('society/', views.SocietyListView.as_view(), name="society_list"),
+    path('society/<int:pk>/', views.SocietyView.as_view(), name="user_with_id"),
 ]
