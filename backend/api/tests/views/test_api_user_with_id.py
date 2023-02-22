@@ -47,5 +47,5 @@ class UserWithIDTestCase(APITestCase):
         response = self.client.post('/log_in/',{'email':'johndoe@example.org','password':'Password123'},format='json')
         self.assertNotEqual(response.status_code,status.HTTP_404_NOT_FOUND)
         self.data['token'] = response.data['token']
-        response = self.client.get('/users/2/', self.data, format='json')
+        response = self.client.get('/users/99/', self.data, format='json')
         self.assertEquals(response.status_code,status.HTTP_404_NOT_FOUND)
