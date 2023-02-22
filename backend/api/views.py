@@ -1,17 +1,17 @@
+from rest_framework import status, generics
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
-
-from rest_framework import status
-from .models import User, Society
 from rest_framework.views import APIView
 
 from django.contrib.auth import authenticate, login, logout
 
-from .serializers import UserSerializer, SocietySerializer
+from django_filters.rest_framework import DjangoFilterBackend
 
+from .serializers import UserSerializer, SocietySerializer
+from .models import User, Society
 
 @api_view(['GET'])
 def log_out(request):
@@ -69,12 +69,13 @@ class LogInView(APIView):
         )
 
 
-class UsersListView(APIView):
+class UsersListView(generics.ListAPIView):
     """View to retrieve list of users"""
-    def get(self, request, format='json'):
-        users = User.objects.all()
-        serializer = UserSerializer(users,many=True)
-        return Response(serializer.data)
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = '__all__'
+    ordering_fields = '__all__'
     
     def post(self,request, format='json'):
         # Will create a user
@@ -91,13 +92,14 @@ class UserView(APIView):
         except:
             return Response({'error':'User not found.'},status=status.HTTP_404_NOT_FOUND)
 
-class SocietyListView(APIView):
+class SocietyListView(generics.ListAPIView):
     """View to retrieve list of societies"""
-    def get(self, request, format='json'):
-        soc = Society.objects.all()
-        serializer = SocietySerializer(soc, many=True)
-        return Response(serializer.data)
     
+    queryset = Society.objects.all()
+    serializer_class = SocietySerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['email']
+
     def post(self,request,format='json'):
         # Will create a society
         pass
