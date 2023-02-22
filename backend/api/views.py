@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.views import APIView
+from rest_framework.filters import OrderingFilter
 
 from django.contrib.auth import authenticate, login, logout
 
@@ -73,7 +74,7 @@ class UsersListView(generics.ListAPIView):
     """View to retrieve list of users"""
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend,OrderingFilter]
     filterset_fields = '__all__'
     ordering_fields = '__all__'
     
@@ -97,7 +98,7 @@ class SocietyListView(generics.ListAPIView):
     
     queryset = Society.objects.all()
     serializer_class = SocietySerializer
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend,OrderingFilter]
     filterset_fields = '__all__'
     ordering_fields = '__all__'
 

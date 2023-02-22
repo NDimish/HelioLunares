@@ -17,7 +17,6 @@ class SocietyTestCase(APITestCase):
             'password': 'Password123'
         }
         self.user = User.objects.get(id=1)
-        self.society = Society.objects.get(name="test_soc_one")
         self.data = {}
     
     def test_url_exists(self):
@@ -45,5 +44,33 @@ class SocietyTestCase(APITestCase):
         self.assertNotEqual(response.status_code,status.HTTP_404_NOT_FOUND)
         response = self.client.get(self.url, self.data, format='json')
         self.assertEqual(len(response.data), 3)
-        fetchedSoc = response.data[0]
-        self.assertEquals(fetchedSoc['name'],self.society.name)
+        self.assertEquals(response.data[0]['name'],'test_soc_one')
+        self.assertEquals(response.data[1]['name'],'test_soc_two')
+        self.assertEquals(response.data[2]['name'],'test_soc_three')
+    
+    def test_url_outputs_with_invalid_ordering(self):
+        response = self.client.post('/log_in/',self.user_data,format='json')
+        self.assertNotEqual(response.status_code,status.HTTP_404_NOT_FOUND)
+        response = self.client.get(self.url+'?ordering=InvalidOrderingType', self.data, format='json')
+        self.assertEqual(len(response.data), 3)
+        self.assertEquals(response.data[0]['name'],'test_soc_one')
+        self.assertEquals(response.data[1]['name'],'test_soc_two')
+        self.assertEquals(response.data[2]['name'],'test_soc_three')
+
+    def test_url_outputs_with_valid_ordering_according_to_user_when_accending(self):
+        response = self.client.post('/log_in/',self.user_data,format='json')
+        self.assertNotEqual(response.status_code,status.HTTP_404_NOT_FOUND)
+        response = self.client.get(self.url+'?ordering=user', self.data, format='json')
+        self.assertEqual(len(response.data), 3)
+        self.assertEquals(response.data[0]['name'],'test_soc_one')
+        self.assertEquals(response.data[1]['name'],'test_soc_two')
+        self.assertEquals(response.data[2]['name'],'test_soc_three')
+    
+    def test_url_outputs_with_valid_ordering_according_to_user_when_decending(self):
+        response = self.client.post('/log_in/',self.user_data,format='json')
+        self.assertNotEqual(response.status_code,status.HTTP_404_NOT_FOUND)
+        response = self.client.get(self.url+'?ordering=-user', self.data, format='json')
+        self.assertEqual(len(response.data), 3)
+        self.assertEquals(response.data[0]['name'],'test_soc_three')
+        self.assertEquals(response.data[1]['name'],'test_soc_two')
+        self.assertEquals(response.data[2]['name'],'test_soc_one')
