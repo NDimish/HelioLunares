@@ -98,7 +98,8 @@ class SocietyListView(generics.ListAPIView):
     queryset = Society.objects.all()
     serializer_class = SocietySerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['email']
+    filterset_fields = '__all__'
+    ordering_fields = '__all__'
 
     def post(self,request,format='json'):
         # Will create a society
