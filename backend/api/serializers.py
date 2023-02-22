@@ -19,4 +19,4 @@ class UniversitySerializer(serializers.ModelSerializer):
 class SocietySerializer(serializers.ModelSerializer):
     class Meta:
         model = Society
-        fields = ['user','name','creation_date','university_society_is_at','join_date']
+        fields = ['pk','user','name','creation_date','university_society_is_at','join_date']
