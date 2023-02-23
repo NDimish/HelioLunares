@@ -7,24 +7,26 @@ import 'package:url_launcher/url_launcher.dart';
 class SocialIcon extends StatelessWidget {
   final Icon icon;
   final String url;
-  const SocialIcon({Key? key, required this.icon, required this.url})
+  final String tooltip;
+  const SocialIcon(
+      {Key? key, required this.icon, required this.url, required this.tooltip})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(left: 20),
+        padding: const EdgeInsets.only(left: 5),
         child: Ink(
-          decoration: const BoxDecoration(
-              color: Colors.blueGrey,
-              shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.all(Radius.circular(8)),
-              boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 15)]),
+          decoration: BoxDecoration(
+            color: Color(0xFFc8b8db).withOpacity(0),
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+          ),
           child: IconButton(
-            iconSize: 80,
             icon: icon,
-            color: Colors.white,
+            color: Color(0xFFc8b8db),
             onPressed: () async => await launchUrl(Uri.parse(url)),
+            tooltip: tooltip,
           ),
         ));
   }

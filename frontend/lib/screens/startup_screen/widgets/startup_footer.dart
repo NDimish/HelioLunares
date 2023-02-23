@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:university_ticketing_system/screens/startup_screen/widgets/social_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 TextSpan footerText(message) {
@@ -84,8 +85,20 @@ class Footer extends StatelessWidget {
                                       ])
                                 },
                             tooltip: "Terms & Conditions",
-                            icon: const Icon(CupertinoIcons.doc),
-                            color: Colors.white),
+                            icon: const Icon(FontAwesomeIcons.terminal),
+                            color: Color(0xFFc8b8db)),
+                        SocialIcon(
+                          icon: Icon(FontAwesomeIcons.googlePlay),
+                          url: "https://www.google.com/",
+                          tooltip: "Play Store",
+                        ),
+                        SocialIcon(
+                          icon: Icon(
+                            FontAwesomeIcons.appStoreIos,
+                          ),
+                          url: "https://www.apple.com/",
+                          tooltip: "App Store",
+                        ),
                       ],
                     ))
               ],
