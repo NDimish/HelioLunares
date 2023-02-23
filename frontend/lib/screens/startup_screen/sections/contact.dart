@@ -17,6 +17,7 @@ class _ContactSectionState extends State<ContactSection> {
       child: Row(children: [
         SizedBox(
           width: MediaQuery.of(context).size.width / 2,
+          height: 500,
           child: Padding(
               padding: EdgeInsets.all(50),
               child: Card(
@@ -27,13 +28,15 @@ class _ContactSectionState extends State<ContactSection> {
                       child: Column(
                         children: [
                           Text(
-                            "Contact Us",
+                            "Contact us",
                             style: TextStyle(
                                 fontWeight: FontWeight.w600, fontSize: 36),
                           ),
                           Divider(),
                           const Text(
-                              "Want to leave some positive feedback? Or perhaps you found a sneaky bug? Whatever it is, don't hesitate to fill out the contact form.\nWe take utmost pride in this application and continually strive to create a better experience. \n\nFor online meetings, we can use any popular video conferencing service.\nFor in-person meetings, our team resides in Bush House (@ 30 Aldwych, London WC2B 4BG).\n\n We eagerly look forward to hearing from you!")
+                            " • Want to leave some positive feedback? Or perhaps you found a sneaky bug? Whatever it is, don't hesitate to fill out the contact form.\n • We take utmost pride in this application and continually strive to create a better experience. \n\n • For online meetings, we can use any popular video conferencing service.\n • For in-person meetings, our team resides in Bush House (@ 30 Aldwych, London WC2B 4BG).\n\n We eagerly look forward to hearing from you!",
+                            style: const TextStyle(fontSize: 21),
+                          )
                         ],
                       )))),
         ),
@@ -43,7 +46,7 @@ class _ContactSectionState extends State<ContactSection> {
               padding: EdgeInsets.all(40),
               child: Card(
                   elevation: 0,
-                  color: Color(0xFFffd1da).withOpacity(0.55),
+                  color: Color(0xFF70587c).withOpacity(0.7),
                   child: Padding(
                       padding: EdgeInsets.all(10), child: ContactForm()))),
         )
