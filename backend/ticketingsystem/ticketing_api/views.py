@@ -4,7 +4,8 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from .models import UserTest #will be the modesl from ticketing_api.models
 from .serializers import UserTestSerializer,UserSerializer
-
+from django.shortcuts import render
+from rest_framework import generics
 @csrf_exempt
 def user_list(request):
     """
@@ -48,3 +49,9 @@ def user_detail(request, pk):
     elif request.method == 'DELETE':
         user.delete()
         return HttpResponse(status=204)
+
+
+
+class userData(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer

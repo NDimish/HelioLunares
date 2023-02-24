@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/screens/landing_screen.dart';
+import 'package:university_ticketing_system/screens/testscreen.dart';
 import 'package:http/http.dart' as http;
 
 void main() {
@@ -17,7 +18,7 @@ class UniversityTicketingSystem extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: LandingScreen(),
+      home: testscreen(),
     );
   }
 }

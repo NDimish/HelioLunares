@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/components/custom_text_form_field.dart';
 import 'package:university_ticketing_system/screens/home_screen.dart';
+import '../backend_communication/get.dart' as data;
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({super.key});
@@ -14,6 +15,14 @@ class _LogInScreenState extends State<LogInScreen> {
   TextEditingController _textControllerPassword = TextEditingController();
 
   String? email, password;
+
+  late Future<List> CheckUser;
+
+  @override
+  void initState() {
+    super.initState();
+    // CheckUser = data.fetchData();
+  }
 
   final _formKey = GlobalKey<FormState>();
 
@@ -175,8 +184,9 @@ class _LogInScreenState extends State<LogInScreen> {
   String? emailValidator(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please enter your email';
+    } else {
+      return null;
     }
-    return null;
   }
 
   String? passwordValidator(String? value) {
