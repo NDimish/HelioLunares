@@ -49,7 +49,7 @@ class _WidgetCarouselState extends State<WidgetCarousel> {
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 1000),
       transitionBuilder: (Widget child, Animation<double> animation) {
-        return ScaleTransition(scale: animation, child: child);
+        return FadeTransition(opacity: animation, child: child);
       },
       child: widget.children.elementAt(currentWidget),
     );
