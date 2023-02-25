@@ -21,7 +21,7 @@ class _AboutSectionState extends State<AboutSection> {
       height: 850,
       child: Card(
         elevation: 0,
-        color: const Color(0xFFffd1da).withOpacity(0.55),
+        color: const Color(0xFFfefefe).withOpacity(0.5),
         child: Center(
             child: Padding(
                 padding: const EdgeInsets.only(
@@ -45,7 +45,7 @@ class _AboutSectionState extends State<AboutSection> {
                     ),
                     const Divider(),
                     const Text(
-                        " • [INSERT APP NAME HERE] is currently being developed by a group of innovative, like-minded students at King's College London, who are looking to revolutionise and simplify the ways that societies set up their events.\n • We have all agreed that many similar apps provide a higher level of stress and complication, so we chose to embark on this project as a way of streamlining the workflow of society event management, ensuring that societies can set up events easily and students can easily participate!"),
+                        " • [INSERT APP NAME HERE] is currently being developed by a group of innovative, like-minded students at King's College London, who are looking to revolutionise and simplify the world of ticketing.\n • We have all agreed that many similar apps provide a higher level of stress and complication, so we chose to embark on this project as a way of streamlining the workflow of society event management, ensuring that societies can set up events easily and students can easily participate!"),
                     const Divider(),
                     const Text(
                       "Meet the devs",
