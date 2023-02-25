@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:university_ticketing_system/screens/startup_screen/widgets/3d_model.dart';
+import 'package:university_ticketing_system/screens/startup_screen/widgets/hero_card.dart';
 import 'package:university_ticketing_system/screens/startup_screen/widgets/social_icons.dart';
 import 'package:university_ticketing_system/screens/startup_screen/widgets/widget_carousel.dart';
 
@@ -75,21 +76,23 @@ class _StartupHeroState extends State<StartupHero> {
               SizedBox(
                   child: (Card(
                       color: Color(0xFFffd1da).withOpacity(0.55),
-                      child:
-                          //const GlbModel(),
-
-                          WidgetCarousel(children: [
-                        Image.network(
-                          "https://avatars.githubusercontent.com/u/77983856?s=400&u=aec10224ed714a03cbb82a2e98606a963804bc6f&v=4",
-                          scale: 0.4,
+                      child: WidgetCarousel(children: [
+                        HeroCard(
+                          headerName: "hi",
+                          feature: "cool feature",
+                          imageLink:
+                              "https://avatars.githubusercontent.com/u/77983856?s=400&u=aec10224ed714a03cbb82a2e98606a963804bc6f&v=4",
                           key: ValueKey(0),
                         ),
-                        Image.network(
-                          "https://avatars.githubusercontent.com/u/77983856?s=400&u=aec10224ed714a03cbb82a2e98606a963804bc6f&v=4",
-                          scale: 0.4,
+                        HeroCard(
+                          headerName: "hi",
+                          feature: "cool feature",
+                          imageLink:
+                              "https://avatars.githubusercontent.com/u/77983856?s=400&u=aec10224ed714a03cbb82a2e98606a963804bc6f&v=4",
+                          widgets: [const Text("extra info...")],
                           key: ValueKey(1),
                         ),
-                      ], transitionTime: 6)))),
+                      ], transitionTime: 10)))),
             ])),
           )),
     ]));
