@@ -24,7 +24,7 @@ class _AboutSectionState extends State<AboutSection> {
       height: 850,
       child: Card(
         elevation: 0,
-        color: const Color(0xFFfefefe).withOpacity(0.5),
+        color: const Color(0xFF70587c).withOpacity(0.6),
         child: Center(
             child: Padding(
                 padding: const EdgeInsets.only(
@@ -34,29 +34,48 @@ class _AboutSectionState extends State<AboutSection> {
                   children: [
                     const Text(
                       "Who are we?",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w600, fontSize: 60),
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 60,
+                          color: Colors.white),
                     ),
-                    const Divider(),
+                    const Divider(
+                      color: Colors.white60,
+                    ),
                     const Text(
-                        " • The upcoming platform for society ticket management, WITHOUT the nasty fees. Completely open-source. Made by students, for students. \n • [INSERT APP NAME HERE] is the latest all-in-one solution for societies who may want to avoid the drawbacks of other competitors..."),
-                    const Divider(),
+                      " • The upcoming platform for society ticket management, WITHOUT the nasty fees. Completely open-source. Made by students, for students. \n • [INSERT APP NAME HERE] is the latest all-in-one solution for societies who may want to avoid the drawbacks of other competitors...",
+                      style: TextStyle(color: Colors.white54),
+                    ),
+                    const Divider(
+                      color: Colors.white60,
+                    ),
                     const Text(
                       "Our story",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w600, fontSize: 36),
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 36,
+                          color: Colors.white),
                     ),
-                    const Divider(),
+                    const Divider(
+                      color: Colors.white60,
+                    ),
                     const Text(
-                        " • [INSERT APP NAME HERE] is currently being developed by a group of innovative, like-minded students at King's College London, who are looking to revolutionise and simplify the world of ticketing.\n • We have all agreed that many similar apps provide a higher level of stress and complication, so we chose to embark on this project as a way of streamlining the workflow of society event management, ensuring that societies can set up events easily and students can easily participate!"),
-                    const Divider(),
+                      " • [INSERT APP NAME HERE] is currently being developed by a group of innovative, like-minded students at King's College London, who are looking to revolutionise and simplify the world of ticketing.\n • We have all agreed that many similar apps provide a higher level of stress and complication, so we chose to embark on this project as a way of streamlining the workflow of society event management, ensuring that societies can set up events easily and students can easily participate!",
+                      style: TextStyle(color: Colors.white54),
+                    ),
+                    const Divider(
+                      color: Colors.white60,
+                    ),
                     const Text(
                       "Meet the devs",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w600, fontSize: 36),
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 36,
+                          color: Colors.white),
                     ),
                     const Text(
-                        "Interested in the team behind this substantial project? Check out our GitHubs and portfolios for more details on our interests and specialties :D"),
+                        "Interested in the team behind this substantial project? Check out our GitHubs and portfolios for more details on our interests and specialties :D",
+                        style: TextStyle(color: Colors.white54)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
