@@ -157,22 +157,24 @@ class _ContactFormState extends State<ContactForm> {
         contentPadding: const EdgeInsets.only(left: 40.0, right: 40.0),
         suffixIcon: Padding(
           padding: const EdgeInsetsDirectional.only(end: 25.0),
-          child: Icon(
-            iconIn,
-            color: Colors.black,
-          ), // myIcon is a 48px-wide widget.
+          child: Icon(iconIn,
+              color: const Color(0xFFc8b8db)), // myIcon is a 48px-wide widget.
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
-          borderSide: const BorderSide(color: Colors.black),
+          borderSide: const BorderSide(color: Colors.white54),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: const BorderSide(color: Colors.white54),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
-          borderSide: const BorderSide(color: Colors.black),
+          borderSide: const BorderSide(color: Color(0xFFc8b8db)),
         ),
         labelText: labelText,
         hintText: hintText,
-        floatingLabelStyle: TextStyle(color: Colors.black),
+        floatingLabelStyle: const TextStyle(color: Colors.white54),
         floatingLabelBehavior: FloatingLabelBehavior.always);
   }
 }

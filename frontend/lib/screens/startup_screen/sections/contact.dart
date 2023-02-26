@@ -15,29 +15,34 @@ class ContactSection extends StatefulWidget {
 class _ContactSectionState extends State<ContactSection> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Center(
       child: Row(children: [
         SizedBox(
           width: MediaQuery.of(context).size.width / 2,
           height: 500,
           child: Padding(
-              padding: EdgeInsets.all(50),
+              padding: const EdgeInsets.all(50),
               child: Card(
                   elevation: 0,
-                  color: Color(0xFFffd1da).withOpacity(0.55),
+                  color: const Color(0xFF70587c).withOpacity(0.6),
                   child: Padding(
-                      padding: EdgeInsets.only(top: 10, bottom: 10),
+                      padding: const EdgeInsets.only(top: 10, bottom: 10),
                       child: Column(
-                        children: [
+                        children: const [
                           Text(
                             "Contact us",
                             style: TextStyle(
-                                fontWeight: FontWeight.w600, fontSize: 36),
+                                fontWeight: FontWeight.w600,
+                                fontSize: 36,
+                                color: Colors.white),
                           ),
-                          Divider(),
-                          const Text(
+                          Divider(
+                            color: Colors.white70,
+                          ),
+                          Text(
                             " • Want to leave some positive feedback? Or perhaps you found a sneaky bug? Whatever it is, don't hesitate to fill out the contact form.\n • We take utmost pride in this application and continually strive to create a better experience. \n\n • For online meetings, we can use any popular video conferencing service.\n • For in-person meetings, our team resides in Bush House (@ 30 Aldwych, London WC2B 4BG).\n\n We eagerly look forward to hearing from you!",
-                            style: const TextStyle(fontSize: 21),
+                            style:
+                                TextStyle(fontSize: 21, color: Colors.white54),
                           )
                         ],
                       )))),
@@ -45,12 +50,14 @@ class _ContactSectionState extends State<ContactSection> {
         SizedBox(
           width: MediaQuery.of(context).size.width / 2,
           child: Padding(
-              padding: EdgeInsets.all(40),
-              child: Card(
-                  elevation: 0,
-                  color: Color(0xFF70587c).withOpacity(0.7),
-                  child: Padding(
-                      padding: EdgeInsets.all(10), child: ContactForm()))),
+              padding: const EdgeInsets.all(40),
+              child: SizedBox(
+                  height: 600,
+                  child: Card(
+                      elevation: 0,
+                      color: const Color(0xFF70587c).withOpacity(0.6),
+                      child: const Padding(
+                          padding: EdgeInsets.all(10), child: ContactForm())))),
         )
       ]),
     );
