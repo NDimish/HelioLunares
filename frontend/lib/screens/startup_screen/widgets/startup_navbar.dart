@@ -16,7 +16,7 @@ class StartupNavbar extends StatefulWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
-final sections = ["Home", "About us", "How to use", "Testimonials", "Contact"];
+final sections = ["Home", "About", "How to use", "Contact"];
 
 class _StartupNavbarState extends State<StartupNavbar> {
   List<Widget> navbarButtons(Function(int) callback) {
