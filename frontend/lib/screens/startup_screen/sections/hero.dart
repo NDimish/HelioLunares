@@ -6,6 +6,8 @@ import 'package:university_ticketing_system/screens/startup_screen/widgets/hero_
 import 'package:university_ticketing_system/screens/startup_screen/widgets/social_icons.dart';
 import 'package:university_ticketing_system/screens/startup_screen/widgets/widget_carousel.dart';
 
+//'Hero' subpage - First thing the user sees when they click on the app - Has
+//eye-catching features, such as headlines, app features and CTA buttons.
 class StartupHero extends StatefulWidget {
   const StartupHero({super.key});
 

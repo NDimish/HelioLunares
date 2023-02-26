@@ -3,6 +3,9 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:university_ticketing_system/screens/startup_screen/widgets/about_card.dart';
 
+//'About' subpage - Mainly just bundles of Text, to give a brief overview of
+//the app and history of the subteam. Also contains links to our GitHubs and
+//a miscellaneous website of our choosing.
 class AboutSection extends StatefulWidget {
   const AboutSection({super.key});
 
