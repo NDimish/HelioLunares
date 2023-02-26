@@ -28,7 +28,7 @@ class _StartupHeroState extends State<StartupHero> {
           height: height / 1.2,
           child: Container(
             decoration: BoxDecoration(
-                color: const Color(0xFF70587c).withOpacity(1),
+                color: const Color(0xFF70587c).withOpacity(0.6),
                 border: Border.all(
                   color: Colors.white,
                 )),
@@ -42,8 +42,12 @@ class _StartupHeroState extends State<StartupHero> {
                     color: Colors.white),
               ),
               const Text(
-                "Experience stress-free, seamlessly integrated event management with [INSERT NAME HERE], a ground-breaking solution designed solely by students, for students.",
+                "Experience stress-free, seamlessly integrated event management with [INSERT NAME HERE].",
                 style: TextStyle(fontSize: 20, color: Colors.white),
+              ),
+              const Text(
+                "An upcoming, ground-breaking solution designed solely by students, for students.",
+                style: TextStyle(fontSize: 16, color: Colors.white38),
               ),
               Padding(
                 padding: EdgeInsets.only(bottom: 10, top: 10),
