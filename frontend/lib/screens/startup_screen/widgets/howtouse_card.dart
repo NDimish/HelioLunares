@@ -20,15 +20,19 @@ class _HowToUseCardState extends State<HowToUseCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: const Color(0xFF70587c).withOpacity(0.6),
       child: Column(children: [
         Text(
           "Step ${stepIndex + 1}:",
-          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+          style: const TextStyle(
+              fontSize: 24, fontWeight: FontWeight.w600, color: Colors.white),
         ),
-        const Divider(),
+        const Divider(
+          color: Colors.white70,
+        ),
         Text(
           widget.steps.elementAt(stepIndex),
-          style: const TextStyle(fontSize: 18),
+          style: const TextStyle(fontSize: 18, color: Colors.white54),
         ),
         SizedBox(
           width: 250,

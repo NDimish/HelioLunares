@@ -30,8 +30,14 @@ class _HowToUseSectionState extends State<HowToUseSection> {
                         padding: EdgeInsets.only(top: 10, bottom: 15),
                         child: Column(
                           children: [
-                            const Text("How to Use"),
-                            const Divider(),
+                            const Text(
+                              "How to use",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 36,
+                                  color: Colors.white),
+                            ),
+                            const Divider(color: Colors.white70),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
@@ -54,7 +60,7 @@ class _HowToUseSectionState extends State<HowToUseSection> {
                               ],
                             ),
                             const SizedBox(
-                              height: 75,
+                              height: 100,
                             ),
                             Column(
                               children: [
