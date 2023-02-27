@@ -65,21 +65,11 @@ class SideMenu extends StatelessWidget {
                       }
                       if (!menuController.isActive(item.name)) {
                         menuController.changeActiveItemTo(item.name);
-                        if (ResponsiveWidget.isSmallScreen(context)) Get.back();
+                        if (ResponsiveWidget.isSmallScreen(context)) {
+                          Get.back();
+                        }
                         navigationController.navigateTo(item.name);
                       }
-
-                      //   if (item.route == editModePageRoute) {
-                      //     Get.offAllNamed(editModePageRoute);
-                      //     menuController
-                      //         .changeActiveItemTo(overviewPageDisplayName);
-                      //   }
-                      //   if (!menuController.isActive(item.name)) {
-                      //     menuController.changeActiveItemTo(item.name);
-                      //     if (ResponsiveWidget.isSmallScreen(context)) Get.back();
-                      //     //navigationController.navigateTo(item.route);
-                      //   }
-                      // })
                     }))
                 .toList(),
           )
