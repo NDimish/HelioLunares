@@ -35,6 +35,8 @@ class _EventFormState extends State<EventForm> {
   bool _validateLocation = false;
   bool _validateDuration = false;
   bool _validateDescription = false;
+  final _formatCurrencyInputNoDecimal = NumberFormat.currency(
+      locale: 'en_GB', name: "", symbol: "£", decimalDigits: 0);
   final _formatCurrencyInput = NumberFormat.currency(
       locale: 'en_GB', name: "", symbol: "£", decimalDigits: 2);
 
@@ -54,9 +56,9 @@ class _EventFormState extends State<EventForm> {
   void initState() {
     nameController.text = obj.name;
     //.format function requires int not string
-    priceController.text = _formatCurrencyInput.format(int.parse(obj.price));
+    priceController.text = _formatCurrencyInput.format(double.parse(obj.price));
     dateController.text =
-        DateFormat('yyyy-MM-dd HH::mm').format(DateTime.parse(obj.date));
+        DateFormat('yyyy-MM-dd HH:mm').format(DateTime.parse(obj.date));
     locationController.text = obj.location;
     durationController.text = obj.duration;
     descriptionController.text = obj.description;
@@ -86,7 +88,7 @@ class _EventFormState extends State<EventForm> {
             TextField(
                 keyboardType: TextInputType.number,
                 inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.digitsOnly,
+                  //FilteringTextInputFormatter.digitsOnly,
                   CurrencyTextInputFormatter(
                     locale: 'en_GB',
                     decimalDigits: 2,
@@ -175,24 +177,22 @@ class _EventFormState extends State<EventForm> {
                 ],
                 controller: durationController,
                 onChanged: (String value) {
-                  obj.duration = value;
+                  //obj.duration = value;
                 }),
             const SizedBox(
               height: 20,
             ),
             TextField(
-                maxLines: null,
-                keyboardType: TextInputType.multiline,
-                inputFormatters: [LengthLimitingTextInputFormatter(500)],
-                decoration: InputDecoration(
-                    errorText:
-                        _validateDescription ? 'Value Can\'t Be Empty' : null,
-                    labelText: "Event Description",
-                    icon: Icon(Icons.description)),
-                controller: descriptionController,
-                onChanged: (String value) {
-                  //obj.description = value;
-                }),
+              maxLines: null,
+              keyboardType: TextInputType.multiline,
+              inputFormatters: [LengthLimitingTextInputFormatter(500)],
+              decoration: InputDecoration(
+                  errorText:
+                      _validateDescription ? 'Value Can\'t Be Empty' : null,
+                  labelText: "Event Description",
+                  icon: Icon(Icons.description)),
+              controller: descriptionController,
+            ),
             const SizedBox(
               height: 20,
             ),
@@ -233,7 +233,20 @@ class _EventFormState extends State<EventForm> {
                         : _validateDescription = false;
                   },
                 );
-                if (checkAllValidators()) navigationController.goBack();
+                if (checkAllValidators()) obj.name = nameController.text;
+                obj.date = dateController.text;
+                obj.location = locationController.text;
+                obj.price = priceController.text.replaceAll("£", "");
+                obj.duration = durationController.text;
+                obj.description = descriptionController.text;
+                print(obj.price);
+                Get.put(obj);
+
+                navigationController.goBack();
+
+                navigationController.refresh();
+                navigationController.goBack();
+                navigationController.refresh();
               },
               child: const CustomText(
                 text: "Save",
