@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:university_ticketing_system/constants/controllers.dart';
 import 'package:university_ticketing_system/models/society_event.dart';
 import 'package:university_ticketing_system/widgets/custom_text.dart';
 import '../../../constants/style.dart';
@@ -36,6 +37,18 @@ class _EventFormState extends State<EventForm> {
   bool _validateDescription = false;
   final _formatCurrencyInput = NumberFormat.currency(
       locale: 'en_GB', name: "", symbol: "£", decimalDigits: 2);
+
+  bool checkAllValidators() {
+    return (!_validateName &&
+            !_validatePrice &&
+            !_validateDate &&
+            !_validateLocation &&
+            !_validateDuration &&
+            !_validateDescription)
+        ? true
+        : false;
+  }
+
   //populate the fields with current event details
   @override
   void initState() {
@@ -195,28 +208,31 @@ class _EventFormState extends State<EventForm> {
                     MaterialStateProperty.all<Color>(MyColours.dark),
               ),
               onPressed: () {
-                setState(() {
-                  nameController.text.isEmpty
-                      ? _validateName = true
-                      : _validateName = false;
-                  (priceController.text.isEmpty ||
-                          priceController.text == "£0.00")
-                      ? _validatePrice = true
-                      : _validatePrice = false;
-                  dateController.text.isEmpty
-                      ? _validateDate = true
-                      : _validateDate = false;
+                setState(
+                  () {
+                    nameController.text.isEmpty
+                        ? _validateName = true
+                        : _validateName = false;
+                    (priceController.text.isEmpty ||
+                            priceController.text == "£0.00")
+                        ? _validatePrice = true
+                        : _validatePrice = false;
+                    dateController.text.isEmpty
+                        ? _validateDate = true
+                        : _validateDate = false;
 
-                  locationController.text.isEmpty
-                      ? _validateLocation = true
-                      : _validateLocation = false;
-                  durationController.text.isEmpty
-                      ? _validateDuration = true
-                      : _validateDuration = false;
-                  descriptionController.text.isEmpty
-                      ? _validateDescription = true
-                      : _validateDescription = false;
-                });
+                    locationController.text.isEmpty
+                        ? _validateLocation = true
+                        : _validateLocation = false;
+                    durationController.text.isEmpty
+                        ? _validateDuration = true
+                        : _validateDuration = false;
+                    descriptionController.text.isEmpty
+                        ? _validateDescription = true
+                        : _validateDescription = false;
+                  },
+                );
+                if (checkAllValidators()) navigationController.goBack();
               },
               child: const CustomText(
                 text: "Save",
