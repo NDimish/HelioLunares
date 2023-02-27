@@ -19,6 +19,10 @@ const editModePageRoute = "/edit_mode";
 const eventDetailsPageDisplayName = "Event Details";
 const eventDetailsPageRoute = "/AddEventPopupCard";
 
+//edit event details page
+const editEventDetailsPageDisplayName = "Edit Details";
+const editEventDetailsPageRoute = "/EditEventDetails";
+
 class EventDetailsRoute<T> extends PageRoute<T> {
   EventDetailsRoute({
     required WidgetBuilder builder,

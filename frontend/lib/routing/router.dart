@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:university_ticketing_system/pages/edit_mode/edit_mode.dart';
+import 'package:university_ticketing_system/pages/events/edit_events.dart';
 import 'package:university_ticketing_system/pages/events/widgets/event_details_popup_card.dart';
 import 'package:university_ticketing_system/pages/statistics/statistics.dart';
 import 'package:university_ticketing_system/pages/events/events.dart';
@@ -23,6 +24,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case eventDetailsPageDisplayName:
       return EventDetailsRoute(
           builder: ((context) => AddEventPopupCard()), settings: settings);
+    case editEventDetailsPageDisplayName:
+      return _getPageRoute(EditSocietyEventsPage());
     default:
       return _getPageRoute(SocietyHubPage());
   }
