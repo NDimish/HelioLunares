@@ -64,7 +64,7 @@ class EventCard extends StatelessWidget {
                   colour: isActive ? MyColours.active : MyColours.lightGrey,
                 ),
                 CustomText(
-                  text: price,
+                  text: "£$price",
                   size: 16,
                   weight: FontWeight.bold,
                   colour: isActive ? MyColours.active : MyColours.dark,

@@ -16,13 +16,14 @@ class SocietyEventCards extends StatelessWidget {
 
   buildList() {
     SocietyEvent e = SocietyEvent(
-        "Event Name",
-        "£3",
+        "Event One",
+        "3",
         DateTime.now().toString(),
         "Waterloo",
-        "1 hour",
-        "Lorem ipsum dolor sit amet, nonummy ligula volutpat hac integer nonummy. Suspendisse ultricies, congue etiam tellus, erat libero, nulla eleifend, mauris pellentesque. Suspendisse integer praesent vel, integer gravida mauris, fringilla vehicula lacinia non");
-    eventList.add(e);
+        "1",
+        //500 character example
+        "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibu");
+    for (int x = 0; x < 100; x++) eventList.add(e);
     return eventList;
   }
 
@@ -30,7 +31,7 @@ class SocietyEventCards extends StatelessWidget {
   Widget build(BuildContext context) {
     buildList();
     return Container(
-        height: MediaQuery.of(context).size.height * 0.75,
+        height: MediaQuery.of(context).size.height * 0.85,
         child: Scaffold(
           body: ListView.builder(
               primary: false,

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:university_ticketing_system/constants/controllers.dart';
 import 'package:university_ticketing_system/constants/style.dart';
 import 'package:university_ticketing_system/models/society_event.dart';
 import 'package:university_ticketing_system/pages/events/widgets/event_card.dart';
+import 'package:university_ticketing_system/routing/routes.dart';
 import '../../../widgets/custom_text.dart';
 import 'society_events.dart';
 
@@ -10,12 +12,7 @@ const String _heroAddTodo = 'add-todo-hero';
 
 class AddEventPopupCard extends StatelessWidget {
   //All event details to display
-  String name = Get.find<SocietyEvent>().name;
-  String price = Get.find<SocietyEvent>().price;
-  String date = Get.find<SocietyEvent>().date;
-  String location = Get.find<SocietyEvent>().location;
-  String duration = Get.find<SocietyEvent>().duration;
-  String description = Get.find<SocietyEvent>().description;
+  SocietyEvent obj = Get.find<SocietyEvent>();
   AddEventPopupCard({Key? key}) : super(key: key);
 
   @override
@@ -37,7 +34,7 @@ class AddEventPopupCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           CustomText(
-                            text: name,
+                            text: obj.name,
                             size: 20,
                             weight: FontWeight.bold,
                             colour: MyColours.active,
@@ -56,7 +53,7 @@ class AddEventPopupCard extends StatelessWidget {
                                 width: 2,
                               ),
                               CustomText(
-                                text: price,
+                                text: "£${obj.price}",
                                 size: 18,
                                 weight: FontWeight.bold,
                               )
@@ -73,7 +70,7 @@ class AddEventPopupCard extends StatelessWidget {
                                 color: MyColours.active,
                               ),
                               CustomText(
-                                text: date,
+                                text: obj.date,
                                 size: 18,
                                 weight: FontWeight.bold,
                               )
@@ -90,7 +87,7 @@ class AddEventPopupCard extends StatelessWidget {
                                 color: MyColours.active,
                               ),
                               CustomText(
-                                text: location,
+                                text: obj.location,
                                 size: 18,
                                 weight: FontWeight.bold,
                               )
@@ -107,7 +104,7 @@ class AddEventPopupCard extends StatelessWidget {
                                 color: MyColours.active,
                               ),
                               CustomText(
-                                text: duration,
+                                text: "${obj.duration} mins",
                                 size: 18,
                                 weight: FontWeight.bold,
                               )
@@ -123,11 +120,13 @@ class AddEventPopupCard extends StatelessWidget {
                                 Icons.description,
                                 color: MyColours.active,
                               ),
-                              Flexible(
-                                  child: CustomText(
-                                text: description,
-                                size: 16,
-                                weight: FontWeight.bold,
+                              Expanded(
+                                  child: SingleChildScrollView(
+                                child: CustomText(
+                                  text: obj.description,
+                                  size: 16,
+                                  weight: FontWeight.bold,
+                                ),
                               ))
                             ],
                           ),
@@ -147,7 +146,11 @@ class AddEventPopupCard extends StatelessWidget {
                               foregroundColor: MaterialStateProperty.all<Color>(
                                   MyColours.dark),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.put(obj);
+                              navigationController
+                                  .navigateTo(editEventDetailsPageDisplayName);
+                            },
                             child: CustomText(
                               text: "Edit",
                               size: 18,
