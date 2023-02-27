@@ -28,7 +28,7 @@ class UniversityTicketingApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LogInScreen(),
+      home: SiteLayout(),
       // title: 'University Ticketing',
       // theme: ThemeData(
       //     scaffoldBackgroundColor: MyColours.veryLightGrey,
