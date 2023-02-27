@@ -23,8 +23,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case eventDetailsPageDisplayName:
       return EventDetailsRoute(
           builder: ((context) => AddEventPopupCard()), settings: settings);
-    //return _getPageRoute(AddEventPopupCard());
-    //return MaterialPageRoute(builder: ((context) => AddEventPopupCard()));
     default:
       return _getPageRoute(SocietyHubPage());
   }
