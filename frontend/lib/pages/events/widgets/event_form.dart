@@ -5,8 +5,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:university_ticketing_system/models/society_event.dart';
 import 'package:university_ticketing_system/widgets/custom_text.dart';
-import 'package:university_ticketing_system/widgets/custom_text_field.dart';
-
 import '../../../constants/style.dart';
 
 class EventForm extends StatefulWidget {
