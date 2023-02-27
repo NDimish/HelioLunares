@@ -59,7 +59,10 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                 'Email Address', 'Enter your email', Icons.email),
                 const SizedBox(width: 50,),
             customTextFormField(
-                'Phone Number', 'Enter your phone number', Icons.phone)
+                'Phone Number', 'Enter your phone number', Icons.phone),
+                const SizedBox(width: 50,),
+            customTextFormField(
+                'Password', 'Enter your password', Icons.password)
           ],)
 
       ]))),
