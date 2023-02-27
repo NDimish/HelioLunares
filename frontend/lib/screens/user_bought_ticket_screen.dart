@@ -208,60 +208,114 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Expanded(
-                flex: 5,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    _buildCollapsible()
-                  ],
+              
+              _buildCollapsible(),
+
+
+              const SizedBox(height: 50,),
+
+
+              const Text(
+                "  Upcoming Tickets",
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  fontSize: 25
                 ),
               ),
 
-              
-              Expanded(
-                flex: 5,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                                       
-                    const Text(
-                      "Upcoming Tickets",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontSize: 25
-                      ),
-                    ),
+              const SizedBox(height: 10,),
 
-                    const SizedBox(height: 10,),
+              _OnHover (
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 30, 199, 188),
 
-                    Container(
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 30, 199, 188),
-                        border: Border.all(
-                            width: 10, color: const Color.fromARGB(255, 30, 199, 188)),
-                        borderRadius: BorderRadius.circular(20),
+
+                    border: Border.all(
+                        width: 10, color: const Color.fromARGB(255, 30, 199, 188)),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    children: const [
+                      Expanded(
+                        child: Text ('Venue', textAlign: TextAlign.right),
                       ),
-                      child: Row(
-                        children: const [
-                          Expanded(
-                            child: Text ('Venue', textAlign: TextAlign.right),
-                          ),
-                          Expanded(
-                            child: Text ('Date', textAlign: TextAlign.center),
-                          ),
-                          Expanded(
-                            child: Text ('Ticket 1', textAlign: TextAlign.left),
-                          )
-                        ],
+                      Expanded(
+                        child: Text ('Date', textAlign: TextAlign.center),
+                      ),
+                      Expanded(
+                        child: Text ('Ticket 1', textAlign: TextAlign.left),
                       )
-                    ),
+                    ],
+                  )
+                ),
+              )
+
+
+              // Expanded(
+              //   flex: 5,
+              //   child: Column(
+              //     crossAxisAlignment: CrossAxisAlignment.stretch,
+              //     mainAxisAlignment: MainAxisAlignment.start,
+              //     children: [
+              //       _buildCollapsible()
+              //     ],
+
+
+
+
+
+
+
+
+              //   ),
+              // ),
+
+              
+
+              
+              // Expanded(
+              //   flex: 5,
+              //   child: Column(
+              //     crossAxisAlignment: CrossAxisAlignment.stretch,
+              //     mainAxisAlignment: MainAxisAlignment.start,
+              //     children: [
+                                       
+              //       const Text(
+              //         "Upcoming Tickets",
+              //         textAlign: TextAlign.left,
+              //         style: TextStyle(
+              //           fontSize: 25
+              //         ),
+              //       ),
+
+              //       const SizedBox(height: 10,),
+
+              //       Container(
+              //         decoration: BoxDecoration(
+              //           color: const Color.fromARGB(255, 30, 199, 188),
+              //           border: Border.all(
+              //               width: 10, color: const Color.fromARGB(255, 30, 199, 188)),
+              //           borderRadius: BorderRadius.circular(20),
+              //         ),
+              //         child: Row(
+              //           children: const [
+              //             Expanded(
+              //               child: Text ('Venue', textAlign: TextAlign.right),
+              //             ),
+              //             Expanded(
+              //               child: Text ('Date', textAlign: TextAlign.center),
+              //             ),
+              //             Expanded(
+              //               child: Text ('Ticket 1', textAlign: TextAlign.left),
+              //             )
+              //           ],
+              //         )
+              //       ),
                     
-                  ],
-                )
-              ),
+              //     ],
+              //   )
+              // ),
 
             ],
           ),
@@ -292,7 +346,12 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
         return ExpansionPanel(
           headerBuilder: (BuildContext context, bool isExpanded) {
             return ListTile(
-              title: Text(item.headerValue),
+              title: Text(
+                item.headerValue,
+                style: TextStyle(
+                  fontSize: 25
+                ),
+              ),
             );
           },
 
@@ -301,28 +360,30 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
               
               const SizedBox(height: 10),
 
-              Container(
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 47, 148, 87),
-                  border: Border.all(
-                    width: 10, 
-                    color: const Color.fromARGB(255, 47, 148, 87)
+              _OnHover( 
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 47, 148, 87),
+                    border: Border.all(
+                      width: 10, 
+                      color: const Color.fromARGB(255, 47, 148, 87)
+                    ),
+                    borderRadius: BorderRadius.circular(20),
                   ),
-                  borderRadius: BorderRadius.circular(20),
+                  child: Row(
+                    children: const [
+                      Expanded(
+                        child: Text ('Venue', textAlign: TextAlign.right),
+                      ),
+                      Expanded(
+                        child: Text ('Date', textAlign: TextAlign.center),
+                      ),
+                      Expanded(
+                        child: Text ('Ticket 1', textAlign: TextAlign.left),
+                      )
+                    ],
+                  )
                 ),
-                child: Row(
-                  children: const [
-                    Expanded(
-                      child: Text ('Venue', textAlign: TextAlign.right),
-                    ),
-                    Expanded(
-                      child: Text ('Date', textAlign: TextAlign.center),
-                    ),
-                    Expanded(
-                      child: Text ('Ticket 1', textAlign: TextAlign.left),
-                    )
-                  ],
-                )
               ),
               
 
@@ -340,446 +401,6 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
 
 
 }
-
-
-
-// class UserBoughtTicketScreen extends StatefulWidget {
-//   const UserBoughtTicketScreen({super.key});
-
-//   @override
-//   State<UserBoughtTicketScreen> createState() => _UserBoughtTicketScreenState();
-// }
-
-
-// class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Row(
-//       children: <Widget> [
-        
-//         const VerticalDivider(
-//             thickness: 1,
-//             indent: 5,
-//             endIndent: 0,
-//             color: Colors.white
-//         ),
-
-        
-//         // left side of the screen
-//         Expanded(
-//           flex: 2,
-//           child: Column(
-//             // crossAxisAlignment: CrossAxisAlignment.stretch,
-//             mainAxisAlignment: MainAxisAlignment.start,
-//             children:  [
-
-//               const SizedBox(height: 10),
-
-//               // left up screen
-//               Expanded(
-//                 flex: 3,
-//                 child: Padding(
-//                   padding: const EdgeInsets.all(5.0),
-//                   child: Container(
-//                     decoration: BoxDecoration(
-//                       border: Border.all(
-//                         color: Colors.black,
-//                         width: 1
-//                       ),
-//                     ),
-//                     child: Text('Insert ticket picture here'),
-//                   ), 
-//                 )
-//               ),
-
-
-//               // left bottom of screen
-//               Expanded(
-//                 flex: 7,
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.stretch,
-//                   mainAxisAlignment: MainAxisAlignment.start,
-//                   children: [
-//                     const SizedBox(height: 10),
-
-//                 const Text(
-//                   "Ticket Overview",
-//                   textAlign: TextAlign.left,
-//                   style: TextStyle(
-//                     fontSize: 25,
-//                     decoration: TextDecoration.underline, 
-//                     fontWeight: FontWeight.bold
-
-//                   ),
-//                 ),
-
-//                 Container(
-//                   decoration: BoxDecoration(
-//                     border: Border.all(
-//                       width: 10, 
-//                       color: Colors.white
-//                     ),
-//                   ),
-//                   child: Row(
-//                     children: const [
-//                       Expanded(
-//                         child: Text ('Title: ', textAlign: TextAlign.left),
-//                       ),
-//                     ],
-//                   )
-//                 ),
-
-//                 const SizedBox(height: 10,),
-
-//                 Container(
-//                   decoration: BoxDecoration(
-//                     border: Border.all(
-//                       width: 10, 
-//                       color: Colors.white
-//                     ),
-//                   ),
-//                   child: Row(
-//                     children: const [
-//                       Expanded(
-//                         child: Text ('Date: ', textAlign: TextAlign.left),
-//                       ),
-//                     ],
-//                   )
-//                 ),
-
-
-//                 Container(
-//                   decoration: BoxDecoration(
-//                     border: Border.all(
-//                       width: 10, 
-//                       color: Colors.white
-//                     ),
-//                   ),
-//                   child: Row(
-//                     children: const [
-//                       Expanded(
-//                         child: Text ('Venue: ', textAlign: TextAlign.left),
-//                       ),
-//                     ],
-//                   )
-//                 ),
-
-
-//                 Container(
-//                   decoration: BoxDecoration(
-//                     border: Border.all(
-//                       width: 10, 
-//                       color: Colors.white
-//                     ),
-//                   ),
-//                   child: Row(
-//                     children: const [
-//                       Expanded(
-//                         child: Text ('Seat: ', textAlign: TextAlign.left),
-//                       ),
-//                     ],
-//                   )
-//                 ),
-
-
-//                 Container(
-//                   decoration: BoxDecoration(
-//                     border: Border.all(
-//                       width: 10, 
-//                       color: Colors.white
-//                     ),
-//                   ),
-//                   child: Row(
-//                     children: const [
-//                       Expanded(
-//                         child: Text ('Gate: ', textAlign: TextAlign.left),
-//                       ),
-//                     ],
-//                   )
-//                 ),
-
-
-//                 Container(
-//                   decoration: BoxDecoration(
-//                     border: Border.all(
-//                       width: 10, 
-//                       color: Colors.white
-//                     ),
-//                   ),
-//                   child: Row(
-//                     children: const [
-//                       Expanded(
-//                         child: Text ('Description: ', textAlign: TextAlign.left),
-//                       ),
-//                     ],
-//                   )
-//                 ),
-
-
-//                   ],
-//                 )
-//               )
-
-             
-
-              
-              
-
-//             ],
-//           ),
-//         ),
-
-//         const VerticalDivider(
-//             thickness: 1,
-//             indent: 5,
-//             endIndent: 0,
-//             color: Colors.black
-//         ),
-           
-//         // right of screen
-//         Expanded(
-//           flex: 5,
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.stretch,
-//             mainAxisAlignment: MainAxisAlignment.start,
-//             children: [
-              
-//               const SizedBox(height: 10),
-
-
-//               const Text(
-//                 "Expired Tickets",
-//                 textAlign: TextAlign.left,
-//                 style: TextStyle(
-//                   fontSize: 25
-//                 ),
-//               ),
-
-//               const SizedBox(height: 10),
-
-//               Container(
-//                 decoration: BoxDecoration(
-//                   color: const Color.fromARGB(255, 47, 148, 87),
-//                   border: Border.all(
-//                     width: 10, 
-//                     color: const Color.fromARGB(255, 47, 148, 87)
-//                   ),
-//                   borderRadius: BorderRadius.circular(20),
-//                 ),
-//                 child: Row(
-//                   children: const [
-//                     Expanded(
-//                       child: Text ('Venue', textAlign: TextAlign.right),
-//                     ),
-//                     Expanded(
-//                       child: Text ('Date', textAlign: TextAlign.center),
-//                     ),
-//                     Expanded(
-//                       child: Text ('Ticket 1', textAlign: TextAlign.left),
-//                     )
-//                   ],
-//                 )
-//               ),
-              
-//               const SizedBox(height: 10,),
-              
-//               Container(
-//                 decoration: BoxDecoration(
-//                   color: const Color.fromARGB(255, 47, 148, 87),
-//                   border: Border.all(
-//                       width: 10, color: const Color.fromARGB(255, 47, 148, 87)),
-//                   borderRadius: BorderRadius.circular(20),
-//                 ),
-//                 child: Row(
-//                   children: const [
-//                     Expanded(
-//                       child: Text ('Venue', textAlign: TextAlign.right),
-//                     ),
-//                     Expanded(
-//                       child: Text ('Date', textAlign: TextAlign.center),
-//                     ),
-//                     Expanded(
-//                       child: Text ('Ticket 1', textAlign: TextAlign.left),
-//                     )
-//                   ],
-//                 )
-//               ),
-
-//               const SizedBox(height: 10,),
-
-//               Container(
-//                 decoration: BoxDecoration(
-//                   color: const Color.fromARGB(255, 47, 148, 87),
-//                   border: Border.all(
-//                       width: 10, color: const Color.fromARGB(255, 47, 148, 87)),
-//                   borderRadius: BorderRadius.circular(20),
-//                 ),
-//                 child: Row(
-//                   children: const [
-//                     Expanded(
-//                       child: Text ('Venue', textAlign: TextAlign.right),
-//                     ),
-//                     Expanded(
-//                       child: Text ('Date', textAlign: TextAlign.center),
-//                     ),
-//                     Expanded(
-//                       child: Text ('Ticket 1', textAlign: TextAlign.left),
-//                     )
-//                   ],
-//                 )
-//               ),
-
-//               const SizedBox(height: 10,),
-
-//               Container(
-//                 decoration: BoxDecoration(
-//                   color: const Color.fromARGB(255, 47, 148, 87),
-//                   border: Border.all(
-//                       width: 10, color: const Color.fromARGB(255, 47, 148, 87)),
-//                   borderRadius: BorderRadius.circular(20),
-//                 ),
-//                 child: Row(
-//                   children: const [
-//                     Expanded(
-//                       child: Text ('Venue', textAlign: TextAlign.right),
-//                     ),
-//                     Expanded(
-//                       child: Text ('Date', textAlign: TextAlign.center),
-//                     ),
-//                     Expanded(
-//                       child: Text ('Ticket 1', textAlign: TextAlign.left),
-//                     )
-//                   ],
-//                 )
-//               ),
-
-//               const SizedBox(height: 50,),
-
-//               const Text(
-//                 "Upcoming Tickets",
-//                 textAlign: TextAlign.left,
-//                 style: TextStyle(
-//                   fontSize: 25
-//                 ),
-//               ),
-
-//               const SizedBox(height: 10,),
-
-//               Container(
-//                 decoration: BoxDecoration(
-//                   color: const Color.fromARGB(255, 30, 199, 188),
-//                   border: Border.all(
-//                       width: 10, color: const Color.fromARGB(255, 30, 199, 188)),
-//                   borderRadius: BorderRadius.circular(20),
-//                 ),
-//                 child: Row(
-//                   children: const [
-//                     Expanded(
-//                       child: Text ('Venue', textAlign: TextAlign.right),
-//                     ),
-//                     Expanded(
-//                       child: Text ('Date', textAlign: TextAlign.center),
-//                     ),
-//                     Expanded(
-//                       child: Text ('Ticket 1', textAlign: TextAlign.left),
-//                     )
-//                   ],
-//                 )
-//               ),
-
-//               const SizedBox(height: 10,),
-
-//               Container(
-//                 decoration: BoxDecoration(
-//                   color: const Color.fromARGB(255, 30, 199, 188),
-//                   border: Border.all(
-//                       width: 10, color: const Color.fromARGB(255, 30, 199, 188)),
-//                   borderRadius: BorderRadius.circular(20),
-//                 ),
-//                 child: Row(
-//                   children: const [
-//                     Expanded(
-//                       child: Text ('Venue', textAlign: TextAlign.right),
-//                     ),
-//                     Expanded(
-//                       child: Text ('Date', textAlign: TextAlign.center),
-//                     ),
-//                     Expanded(
-//                       child: Text ('Ticket 1', textAlign: TextAlign.left),
-//                     )
-//                   ],
-//                 )
-//               ),
-
-//               const SizedBox(height: 10,),
-
-//               Container(
-//                 decoration: BoxDecoration(
-//                   color: const Color.fromARGB(255, 30, 199, 188),
-//                   border: Border.all(
-//                       width: 10, color: const Color.fromARGB(255, 30, 199, 188)),
-//                   borderRadius: BorderRadius.circular(20),
-//                 ),
-//                 child: Row(
-//                   children: const [
-//                     Expanded(
-//                       child: Text ('Venue', textAlign: TextAlign.right),
-//                     ),
-//                     Expanded(
-//                       child: Text ('Date', textAlign: TextAlign.center),
-//                     ),
-//                     Expanded(
-//                       child: Text ('Ticket 1', textAlign: TextAlign.left),
-//                     )
-//                   ],
-//                 )
-//               ),
-
-
-//             ]
-//           ),
-//         ),
-
-//         const VerticalDivider(
-//             thickness: 1,
-//             indent: 5,
-//             endIndent: 0,
-
-
-
-
-
-
-
-
-
-
-
-
-//             color: Colors.white
-//         )
-
-//       ]),
-//     );
-//   }
-
-
-
-
-
-// }
-
-
-
-
-
-
-
-
-
-
-
 
 
 // stores ExpansionPanel state information
@@ -802,92 +423,46 @@ List<Item> generateItems(int numberOfItems) {
   });
 }
 
+class _OnHover extends StatefulWidget {
+  final Widget child;
 
+  const _OnHover({
+    Key? key,
+    required this.child}) : super(key:key);
 
+  @override
+  State<_OnHover> createState() => _OnHoverState();
+}
 
+class _OnHoverState extends State<_OnHover> {
+  bool isHovered = false;
 
+  @override
+  Widget build(BuildContext context) {
 
+    
+    final hoveredTransform = Matrix4.identity()..scale(1.05);
+    final transform = isHovered ? hoveredTransform: Matrix4.identity();
+    
+    
+    return MouseRegion(
+      onEnter: (event) => onEntered(true),
+      onExit: (event) => onEntered(false),
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 150),
+        transform: transform,
+        child: widget.child
+      )
+      
+  
 
+    );
+  }
 
+  void onEntered(bool isHovered){
+    setState(() {
+      this.isHovered = isHovered;
+    });
+  }
+}
 
-
-
-
-
-
-// class UserBoughtTicketScreen extends StatefulWidget {
-//   const UserBoughtTicketScreen({super.key});
-
-//   @override
-//   State<UserBoughtTicketScreen> createState() => _UserBoughtTicketScreenState();
-// }
-
-// class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
-//   final List<Item> _data = generateItems(1);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: SingleChildScrollView(
-//         child: Container(
-//           child: _buildPanel(),
-//         ),
-//       ),
-//     );
-//   }
-
-//   Widget _buildPanel() {
-//     return ExpansionPanelList(
-//       expansionCallback: (int index, bool isExpanded) {
-//         setState(() {
-//           _data[index].isExpanded = !isExpanded;
-//         });
-//       },
-//       children: _data.map<ExpansionPanel>((Item item) {
-//         return ExpansionPanel(
-//           headerBuilder: (BuildContext context, bool isExpanded) {
-//             return ListTile(
-//               title: Text(item.headerValue),
-//             );
-//           },
-
-//           body: Column(
-//             children: [
-              
-//               const SizedBox(height: 10),
-
-//               Container(
-//                 decoration: BoxDecoration(
-//                   color: const Color.fromARGB(255, 47, 148, 87),
-//                   border: Border.all(
-//                     width: 10, 
-//                     color: const Color.fromARGB(255, 47, 148, 87)
-//                   ),
-//                   borderRadius: BorderRadius.circular(20),
-//                 ),
-//                 child: Row(
-//                   children: const [
-//                     Expanded(
-//                       child: Text ('Venue', textAlign: TextAlign.right),
-//                     ),
-//                     Expanded(
-//                       child: Text ('Date', textAlign: TextAlign.center),
-//                     ),
-//                     Expanded(
-//                       child: Text ('Ticket 1', textAlign: TextAlign.left),
-//                     )
-//                   ],
-//                 )
-//               ),
-              
-
-
-             
-//             ],
-//           ),
-//           isExpanded: item.isExpanded,
-//         );
-//       }).toList(),
-//     );
-//   }
-// }
