@@ -120,6 +120,7 @@ class _EventFormState extends State<EventForm> {
                     initialDate: DateTime.now(),
                     firstDate: DateTime.now(),
                     lastDate: DateTime(2100));
+                // ignore: use_build_context_synchronously
                 TimeOfDay? pickedTime = await showTimePicker(
                   context: context,
                   initialTime: TimeOfDay.now(),
