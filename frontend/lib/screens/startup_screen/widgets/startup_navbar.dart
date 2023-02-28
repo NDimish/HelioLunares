@@ -16,7 +16,7 @@ class StartupNavbar extends StatefulWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
-final sections = ["Home", "About", "How to use", "Contact"];
+final sections = ["About", "How to use", "Contact"];
 
 class _StartupNavbarState extends State<StartupNavbar> {
   List<Widget> navbarButtons(Function(int) callback) {
@@ -26,17 +26,17 @@ class _StartupNavbarState extends State<StartupNavbar> {
             padding: const EdgeInsets.only(left: 20),
             child: TextButton(
               style: ButtonStyle(
-                  backgroundColor: sections.indexOf(i) == widget.selectedIndex
-                      ? MaterialStateProperty.all(Color(0xFFc8b8db))
-                      : MaterialStateProperty.all(Colors.transparent)),
+                  backgroundColor:
+                      sections.indexOf(i) + 1 == widget.selectedIndex
+                          ? MaterialStateProperty.all(Color(0xFFc8b8db))
+                          : MaterialStateProperty.all(Colors.transparent)),
               onPressed: () {
-                print("${i} ${sections.indexOf(i)}");
-                callback(sections.indexOf(i));
+                callback(sections.indexOf(i) + 1);
               },
               child: Text(
                 i,
                 style: GoogleFonts.barlow(
-                  color: sections.indexOf(i) == widget.selectedIndex
+                  color: sections.indexOf(i) + 1 == widget.selectedIndex
                       ? Colors.black
                       : Colors.white,
                   fontWeight: FontWeight.w500,
@@ -46,6 +46,17 @@ class _StartupNavbarState extends State<StartupNavbar> {
           ),
         )
         .toList();
+  }
+
+  Widget navbarTitle(Function(int) callback) {
+    return InkWell(
+      child: Text(
+        "University Ticketing System",
+        style: GoogleFonts.poppins(
+            color: Colors.white, fontWeight: FontWeight.w600),
+      ),
+      onTap: () => callback(0),
+    );
   }
 
   @override
@@ -65,11 +76,7 @@ class _StartupNavbarState extends State<StartupNavbar> {
         ),
         title: Row(
           children: <Widget>[
-            Text(
-              "University Ticketing System",
-              style: GoogleFonts.poppins(
-                  color: Colors.white, fontWeight: FontWeight.w600),
-            ),
+            navbarTitle(widget.callback),
             ...navbarButtons(widget.callback),
           ],
         ),
