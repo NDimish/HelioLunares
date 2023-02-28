@@ -20,8 +20,16 @@ enum OrderType {
 
 //abstract to use in places
 
-class dataCollector {
-  dataCollector() {}
+class dataCollector with ChangeNotifier {
+  List<Login> logs = [];
+
+  List<Login> get logins {
+    return [...logs];
+  }
+
+  dataCollector() {
+    Collection(Databases.users);
+  }
 
   String createUrl(Databases Database,
       {String filter = '',
@@ -29,26 +37,26 @@ class dataCollector {
       int ID = -1}) {
     String url = 'http://127.0.0.1:8000/${Database.name}/';
 
-    if (ID <= 0) {
+    if (ID >= 0) {
       url += '$ID/';
     } else {
-      url += '$filter/${order.name}/';
+      url += '$filter/${order.index}/';
     }
-
+    print(url);
     return '$url?format=json';
   }
 
   fetchData(String url, Databases Database) async {
-    List Output = [];
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var data = json.decode(response.body) as List;
-      Output = data.map<Login>((json) => (Login.fromJson(json))).toList();
+      logs = data.map<Login>((json) => (Login.fromJson(json))).toList();
+      notifyListeners();
     }
   }
 
   Collection(Databases Database,
-      {String filter = '',
+      {String filter = 'none',
       OrderType order = OrderType.CHRONOLOGICAL,
       int ID = -1}) {
     return fetchData(

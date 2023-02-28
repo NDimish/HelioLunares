@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/components/custom_text_form_field.dart';
 import 'package:university_ticketing_system/screens/home_screen.dart';
 import '../backend_communication/get.dart' as data;
+import 'package:provider/provider.dart';
 
 class testscreen extends StatefulWidget {
   const testscreen({super.key});
@@ -11,43 +12,48 @@ class testscreen extends StatefulWidget {
 }
 
 class _testscreen extends State<testscreen> {
-  late Future<data.Login> future;
+  // late Future<data.Login> future;
 
-  @override
-  void initState() {
-    super.initState();
-    future = data.dataCollector().Collection(data.Databases.users);
-  }
+  //  @override
+  //  void initState() {
+  //    super.initState();
+  //   future = data.dataCollector().Collection(data.Databases.users);
+  //  }
 
+  // // @override
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Fetch Data Example',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    final LoginsP = Provider.of<data.dataCollector>(context);
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Todo App'),
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Fetch Data Example'),
-        ),
-        body: ListView.builder(
+      body: ListView.builder(
         shrinkWrap: true,
-        itemCount: future.todos.length,
+        itemCount: LoginsP.logins.length,
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
               trailing: IconButton(
                   icon: Icon(Icons.delete, color: Colors.red),
                   onPressed: () {
-                    todoP.deleteTodo(todoP.todos[index]);
+                    // todoP.deleteTodo(todoP.todos[index]);
                   }),
               title: Text(
-                todoP.todos[index].title,
+                LoginsP.logins[index].username,
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              
-
-            },
-          ),
-        ),
+              ),
+              subtitle: Text(
+                LoginsP.logins[index].id.toString(),
+                style: TextStyle(fontSize: 15, color: Colors.black),
+              ));
+        },
       ),
+      floatingActionButton: FloatingActionButton(
+          child: Icon(
+            Icons.add,
+            size: 30,
+          ),
+          onPressed: () {}),
+    );
   }
 }
