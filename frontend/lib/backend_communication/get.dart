@@ -18,17 +18,27 @@ enum OrderType {
   CHRONOLOGICAL,
 }
 
+final Map<Type, Databases> sets = {Login: Databases.users};
+
 //abstract to use in places
 
-class dataCollector with ChangeNotifier {
-  List<Login> logs = [];
+class dataCollector<T extends dataSets> with ChangeNotifier {
+  List<T> output = [];
 
-  List<Login> get logins {
-    return [...logs];
+  List<T> get collection {
+    return [...output];
   }
 
   dataCollector() {
-    Collection(Databases.users);
+    collections(sets[T]!);
+  }
+
+  collections(Databases Database,
+      {String filter = 'none',
+      OrderType order = OrderType.CHRONOLOGICAL,
+      int ID = -1}) {
+    return fetchData(
+        createUrl(Database, filter: filter, order: order, ID: ID), Database);
   }
 
   String createUrl(Databases Database,
@@ -50,35 +60,33 @@ class dataCollector with ChangeNotifier {
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       var data = json.decode(response.body) as List;
-      logs = data.map<Login>((json) => (Login.fromJson(json))).toList();
+      output = data.map<T>((json) => (getClass(json, Database))).toList();
       notifyListeners();
     }
   }
 
-  Collection(Databases Database,
-      {String filter = 'none',
-      OrderType order = OrderType.CHRONOLOGICAL,
-      int ID = -1}) {
-    return fetchData(
-        createUrl(Database, filter: filter, order: order, ID: ID), Database);
-  }
-
-  Type getClass(Databases database) {
+  getClass(Map<String, dynamic> json, Databases database) {
     switch (database) {
       case Databases.users:
-        return Login;
+        return Login.fromJson(json);
 
       default:
-        return Login;
+        return Login.fromJson(json);
     }
   }
 }
 
 // Classes for models
 
-abstract class types {}
+abstract class dataSets {
+  dataSets() {}
 
-class Login extends types {
+  Databases getDatabase() {
+    return Databases.users;
+  }
+}
+
+class Login extends dataSets {
   final int id;
   final String username;
   final String password;
@@ -92,5 +100,10 @@ class Login extends types {
 
   String getUsername() {
     return username;
+  }
+
+  @override
+  Databases getDatabase() {
+    return Databases.users;
   }
 }

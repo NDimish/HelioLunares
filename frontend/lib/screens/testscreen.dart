@@ -23,14 +23,14 @@ class _testscreen extends State<testscreen> {
   // // @override
   @override
   Widget build(BuildContext context) {
-    final LoginsP = Provider.of<data.dataCollector>(context);
+    final DataP = Provider.of<data.dataCollector<data.Login>>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Todo App'),
       ),
       body: ListView.builder(
         shrinkWrap: true,
-        itemCount: LoginsP.logins.length,
+        itemCount: DataP.collection.length,
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
               trailing: IconButton(
@@ -39,11 +39,11 @@ class _testscreen extends State<testscreen> {
                     // todoP.deleteTodo(todoP.todos[index]);
                   }),
               title: Text(
-                LoginsP.logins[index].username,
+                DataP.collection[index].username,
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               subtitle: Text(
-                LoginsP.logins[index].id.toString(),
+                DataP.collection[index].id.toString(),
                 style: TextStyle(fontSize: 15, color: Colors.black),
               ));
         },

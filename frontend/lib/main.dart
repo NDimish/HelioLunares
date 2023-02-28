@@ -15,7 +15,7 @@ class UniversityTicketingSystem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => data.dataCollector(),
+      create: (context) => data.dataCollector<data.Login>(),
       child: MaterialApp(
         title: 'University Ticketing System',
         theme: ThemeData(
