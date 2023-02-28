@@ -23,37 +23,42 @@ class _testscreen extends State<testscreen> {
   // // @override
   @override
   Widget build(BuildContext context) {
-    final DataP = Provider.of<data.dataCollector<data.Login>>(context);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Todo App'),
-      ),
-      body: ListView.builder(
-        shrinkWrap: true,
-        itemCount: DataP.collection.length,
-        itemBuilder: (BuildContext context, int index) {
-          return ListTile(
-              trailing: IconButton(
-                  icon: Icon(Icons.delete, color: Colors.red),
-                  onPressed: () {
-                    // todoP.deleteTodo(todoP.todos[index]);
-                  }),
-              title: Text(
-                DataP.collection[index].username,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              subtitle: Text(
-                DataP.collection[index].id.toString(),
-                style: TextStyle(fontSize: 15, color: Colors.black),
-              ));
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-          child: Icon(
-            Icons.add,
-            size: 30,
-          ),
-          onPressed: () {}),
-    );
+    return ChangeNotifierProvider(
+        create: (context) => data.dataCollector<data.Login>(),
+        builder: (context, child) {
+          final DataP = Provider.of<data.dataCollector<data.Login>>(context);
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('Todo App'),
+            ),
+            body: ListView.builder(
+              shrinkWrap: true,
+              itemCount: DataP.collection.length,
+              itemBuilder: (BuildContext context, int index) {
+                return ListTile(
+                    trailing: IconButton(
+                        icon: Icon(Icons.delete, color: Colors.red),
+                        onPressed: () {
+                          // todoP.deleteTodo(todoP.todos[index]);
+                        }),
+                    title: Text(
+                      DataP.collection[index].username,
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text(
+                      DataP.collection[index].id.toString(),
+                      style: TextStyle(fontSize: 15, color: Colors.black),
+                    ));
+              },
+            ),
+            floatingActionButton: FloatingActionButton(
+                child: Icon(
+                  Icons.add,
+                  size: 30,
+                ),
+                onPressed: () {}),
+          );
+        });
   }
 }
