@@ -29,8 +29,11 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
     return [...output];
   }
 
-  dataCollector() {
-    collections(sets[T]!);
+  dataCollector(
+      {String filter = 'none',
+      OrderType order = OrderType.CHRONOLOGICAL,
+      int ID = -1}) {
+    collections(sets[T]!, filter: filter, order: order, ID: ID);
   }
 
   collections(Databases Database,
@@ -73,6 +76,16 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       default:
         return Login.fromJson(json);
     }
+  }
+
+  static String generateFilterSet(List<String> filters) {
+    var i = 0;
+    String output = '';
+    while (i < filters.length) {
+      output = '$output|${filters[i]}';
+      i++;
+    }
+    return output;
   }
 }
 

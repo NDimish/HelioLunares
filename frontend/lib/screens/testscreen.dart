@@ -5,7 +5,14 @@ import '../backend_communication/get.dart' as data;
 import 'package:provider/provider.dart';
 
 class testscreen extends StatefulWidget {
-  const testscreen({super.key});
+  final data.OrderType Orderby;
+  final String filter;
+
+  const testscreen(
+      {Key? key,
+      this.Orderby = data.OrderType.CHRONOLOGICAL,
+      this.filter = 'none'})
+      : super(key: key);
 
   @override
   State<testscreen> createState() => _testscreen();
@@ -24,7 +31,8 @@ class _testscreen extends State<testscreen> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context) => data.dataCollector<data.Login>(),
+        create: (context) => data.dataCollector<data.Login>(
+            filter: widget.filter, order: widget.Orderby),
         builder: (context, child) {
           final DataP = Provider.of<data.dataCollector<data.Login>>(context);
           return Scaffold(
