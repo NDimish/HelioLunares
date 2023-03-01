@@ -36,6 +36,16 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                 const Text('Account', style: TextStyle(fontWeight: FontWeight.w600,fontSize: 48),),
                 const SizedBox(height:17),
                 const Text('Profile', style: TextStyle(fontWeight: FontWeight.w600,fontSize: 28),),
+                const SizedBox(height:17),
+                Center(
+                  child: Container(
+                    child: Text('Student', style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14),),
+                    margin: const EdgeInsets.all(10.0),
+                    color: Colors.green[600],
+                    width: 50.0,
+                    height: 24.0,
+                  ),
+                ),
         const SizedBox(height: 35),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -44,11 +54,14 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                 'First Name', 'Enter your first name', Icons.person),
                 const SizedBox(width: 50,),
             customTextFormField(
-                'Last Name', 'Enter your last name', Icons.person)
+                'Last Name', 'Enter your last name', Icons.person),
+                const SizedBox(width: 50,),
+            customTextFormField(
+                'Password', 'Enter your password', Icons.password)
           ],
         ),
 
-        const SizedBox(height:35), customTextFormField('University', 'Enter your university', Icons.book),
+        const SizedBox(height:35), 
         const SizedBox(height: 35), const Text('Personal Information', style: TextStyle(fontWeight: FontWeight.w600,fontSize: 28),),
         const SizedBox(height:17),
         const SizedBox(height: 35),
@@ -61,9 +74,22 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
             customTextFormField(
                 'Phone Number', 'Enter your phone number', Icons.phone),
                 const SizedBox(width: 50,),
-            customTextFormField(
-                'Password', 'Enter your password', Icons.password)
-          ],)
+            customTextFormField('University', 'Enter your university', Icons.book),
+            
+          ],),
+        const SizedBox(height:17),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextButton(
+              style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+
+              ),
+              onPressed: () { },
+              child: Text('Save'),
+            ),],
+              )
 
       ]))),
     );
