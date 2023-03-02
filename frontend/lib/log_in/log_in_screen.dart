@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:redesigned_front_end/gradient_animation.dart';
-import 'package:redesigned_front_end/log_in/widgets/fade_in_transition.dart';
-import 'package:redesigned_front_end/log_in/widgets/log_in_card.dart';
+import 'package:university_ticketing_system/gradient_animation.dart';
+import 'package:university_ticketing_system/log_in/widgets/fade_in_transition.dart';
+import 'package:university_ticketing_system/log_in/widgets/log_in_card.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({super.key});
