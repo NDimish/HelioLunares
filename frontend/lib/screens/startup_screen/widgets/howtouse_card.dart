@@ -15,7 +15,7 @@ class HowToUseCard extends StatefulWidget {
 }
 
 class _HowToUseCardState extends State<HowToUseCard> {
-  int stepIndex = 0;
+  int _stepIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class _HowToUseCardState extends State<HowToUseCard> {
       color: const Color(0xFF70587c).withOpacity(0.6),
       child: Column(children: [
         Text(
-          "Step ${stepIndex + 1}:",
+          "Step ${_stepIndex + 1}:",
           style: const TextStyle(
               fontSize: 24, fontWeight: FontWeight.w600, color: Colors.white),
         ),
@@ -31,39 +31,41 @@ class _HowToUseCardState extends State<HowToUseCard> {
           color: Colors.white70,
         ),
         Text(
-          widget.steps.elementAt(stepIndex),
+          widget.steps.elementAt(_stepIndex),
           style: const TextStyle(fontSize: 18, color: Colors.white54),
         ),
         SizedBox(
           width: 250,
           height: 250,
-          child: Image.network(widget.imagesToShow.elementAt(stepIndex)),
+          child: (Image.network(
+            widget.imagesToShow.elementAt(_stepIndex),
+          )),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             IconButton(
-                onPressed: stepIndex == 0
+                onPressed: _stepIndex == 0
                     ? null
                     : () => setState(() {
-                          stepIndex--;
+                          _stepIndex--;
                         }),
                 icon: const Icon(
                   FontAwesomeIcons.arrowLeft,
-                  color: Colors.white,
                 )),
             IconButton(
-                onPressed: stepIndex == widget.steps.length - 1
+                onPressed: _stepIndex == widget.steps.length - 1
                     ? null
                     : () => setState(() {
-                          stepIndex++;
+                          _stepIndex++;
                         }),
-                icon: const Icon(FontAwesomeIcons.arrowRight,
-                    color: Colors.white))
+                icon: const Icon(
+                  FontAwesomeIcons.arrowRight,
+                ))
           ],
         ),
         Text(
-          "${stepIndex + 1} / ${widget.steps.length}",
+          "${_stepIndex + 1} / ${widget.steps.length}",
           style: const TextStyle(color: Colors.white54),
         )
       ]),
