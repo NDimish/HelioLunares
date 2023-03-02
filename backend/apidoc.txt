@@ -8,7 +8,6 @@ Variables in urls are encapsulated in angular brackets <>
 [users/<userid:int>/]
 When <userid> is used in a description, it is refering to the userid in the url.
 
-
 An indentation means that the url procedes it's parent url. e.g:
 [test/]
     - Description: 
@@ -28,9 +27,6 @@ An indentation means that the url procedes it's parent url. e.g:
             - password (string)
             - option (string)
                 - Extra information about paramaters that may be required
-        - Methods:
-            - GET
-                - A list of all the user data
 
 --- Documentation Begins ---
 
