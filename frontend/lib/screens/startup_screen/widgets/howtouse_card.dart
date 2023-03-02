@@ -48,17 +48,24 @@ class _HowToUseCardState extends State<HowToUseCard> {
                     : () => setState(() {
                           stepIndex--;
                         }),
-                icon: const Icon(FontAwesomeIcons.arrowLeft)),
+                icon: const Icon(
+                  FontAwesomeIcons.arrowLeft,
+                  color: Colors.white,
+                )),
             IconButton(
                 onPressed: stepIndex == widget.steps.length - 1
                     ? null
                     : () => setState(() {
                           stepIndex++;
                         }),
-                icon: const Icon(FontAwesomeIcons.arrowRight))
+                icon: const Icon(FontAwesomeIcons.arrowRight,
+                    color: Colors.white))
           ],
         ),
-        Text("${stepIndex + 1} / ${widget.steps.length}")
+        Text(
+          "${stepIndex + 1} / ${widget.steps.length}",
+          style: const TextStyle(color: Colors.white54),
+        )
       ]),
     );
   }
