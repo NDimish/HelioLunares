@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/gradient_animation.dart';
-import 'package:university_ticketing_system/sign_up/widgets/student_sign_up_card.dart';
+import 'package:university_ticketing_system/sign_up/widgets/society_sign_up_card.dart';
 
 class SocietySignUpScreen extends StatefulWidget {
   const SocietySignUpScreen({super.key});
@@ -48,7 +48,7 @@ class _SocietySignUpScreenState extends State<SocietySignUpScreen> {
                       valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
                     )),
                 const SizedBox(height: 20),
-                SignUpCard(
+                SocietySignUpCard(
                   pageController: pageController,
                   fKey: formKey,
                   finishFormKey: finishFormKey,
