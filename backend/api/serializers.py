@@ -21,7 +21,7 @@ class UniversitySerializer(serializers.ModelSerializer):
 class SocietySerializer(serializers.ModelSerializer):
     class Meta:
         model = Society
-        fields = ['id', 'user', 'name', 'creation_date', 'university_data', 'join_date']
+        fields = ['pk', 'user', 'name', 'creation_date', 'university_society_is_at', 'join_date']
 
 
 class EventModelSerializer(serializers.ModelSerializer):
@@ -43,10 +43,3 @@ class EventModelSerializer(serializers.ModelSerializer):
                 }
             }
         }
-
-
-class UniversityModelSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = University
-        fields = "__all__"
-

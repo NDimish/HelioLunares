@@ -1,27 +1,17 @@
+from rest_framework import status, generics
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.filters import OrderingFilter
-from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import status
-from .models import User, Society, Event, University
-from rest_framework.views import APIView, generics
+from rest_framework.views import APIView
+
 from django.contrib.auth import authenticate, login, logout
+from django_filters.rest_framework import DjangoFilterBackend
+
+from .models import User, Society, Event, University
 from .serializers import UserSerializer, SocietySerializer, UniversitySerializer, EventModelSerializer
-
-# Create your views here.
-@api_view(['GET'])
-@permission_classes([IsAuthenticated, ])
-def student_sign_up(request):
-    return Response({'url_link': 'under construction'})
-
-
-@api_view(['GET'])
-@permission_classes([IsAuthenticated, ])
-def society_sign_up(request):
-    return Response({'url_link': 'under construction'})
 
 
 @api_view(['GET'])
@@ -128,6 +118,7 @@ class SocietyView(APIView):
 # @permission_classes([IsAuthenticated])
 class EventApiView(APIView):
     def post(self, request):
+        print("Yes I was called")
         serializer = EventModelSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
@@ -152,12 +143,10 @@ class EventApiInfoView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-
+    
     def delete(self, request, pk):
         Event.objects.filter(id=pk).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-
 
 
 # @permission_classes([IsAuthenticated])

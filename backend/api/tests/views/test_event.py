@@ -8,7 +8,7 @@ from api.models import Event, User
 class EventTestCase(APITestCase):
     def setUp(self):
         self.user = User.objects.filter(email='johndoe@example.org').first()
-
+        
     def test_event_create(self):
         """
           Ensure we can get all the event objects.
