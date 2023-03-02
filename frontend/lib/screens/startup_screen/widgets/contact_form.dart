@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:emailjs/emailjs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -72,8 +74,10 @@ class _ContactFormState extends State<ContactForm> {
                 decoration: customDecoration(
                     "Email", "Enter your email", Icons.email_rounded, false)),
             const SizedBox(height: 35),
-            DropdownButton(
+            DropdownButtonFormField(
               value: contactType,
+              decoration: customDecoration(
+                  "Feedback Type", "", Icons.question_mark, false),
               items: dropdownChoices.map<DropdownMenuItem>((choice) {
                 return DropdownMenuItem(
                   value: choice,
@@ -154,6 +158,8 @@ class _ContactFormState extends State<ContactForm> {
       String labelText, String hintText, IconData iconIn, bool countChars) {
     return InputDecoration(
         counterText: countChars ? '${message.length.toString()} char(s)' : null,
+        labelStyle: const TextStyle(color: Colors.white),
+        hintStyle: const TextStyle(color: Colors.white54),
         contentPadding: const EdgeInsets.only(left: 40.0, right: 40.0),
         suffixIcon: Padding(
           padding: const EdgeInsetsDirectional.only(end: 25.0),

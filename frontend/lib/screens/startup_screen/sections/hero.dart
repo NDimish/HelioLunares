@@ -84,17 +84,17 @@ class _StartupHeroState extends State<StartupHero> {
                       color: Color(0xFFffd1da).withOpacity(0.55),
                       child: WidgetCarousel(children: [
                         HeroCard(
-                          headerName: "hi",
-                          feature: "cool feature",
+                          headerName: "Test feature 1",
+                          feature: "Explain feature here...",
                           imageLink:
-                              "https://avatars.githubusercontent.com/u/77983856?s=400&u=aec10224ed714a03cbb82a2e98606a963804bc6f&v=4",
+                              "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png?20220519031949",
                           key: ValueKey(0),
                         ),
                         HeroCard(
-                          headerName: "hi",
-                          feature: "cool feature",
+                          headerName: "Test feature 2",
+                          feature: "Explain feature here...",
                           imageLink:
-                              "https://avatars.githubusercontent.com/u/77983856?s=400&u=aec10224ed714a03cbb82a2e98606a963804bc6f&v=4",
+                              "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png?20220519031949",
                           widgets: [const Text("extra info...")],
                           key: ValueKey(1),
                         ),
