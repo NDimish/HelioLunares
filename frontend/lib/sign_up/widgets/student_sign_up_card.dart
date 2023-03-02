@@ -1,5 +1,5 @@
 import 'package:university_ticketing_system/sign_up/widgets/finish_form_title.dart';
-import 'package:university_ticketing_system/sign_up/widgets/form_title.dart';
+import 'package:university_ticketing_system/sign_up/widgets/student_form_title.dart';
 import 'package:flutter/material.dart';
 
 class SignUpCard extends StatefulWidget {
