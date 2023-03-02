@@ -141,7 +141,7 @@ class _SocietySignUpCardState extends State<SocietySignUpCard> {
               flex: 1,
               child: Center(
                 child: SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.08,
+                    height: MediaQuery.of(context).size.height * 0.06,
                     width: MediaQuery.of(context).size.width * 0.23,
                     child: Padding(
                       padding: const EdgeInsets.only(right: 16.0),
@@ -295,9 +295,13 @@ class _SocietySignUpCardState extends State<SocietySignUpCard> {
           borderRadius: BorderRadius.circular(15),
           borderSide: const BorderSide(color: Colors.black),
         ),
+        errorStyle: const TextStyle(fontFamily: "Arvo"),
         labelText: labelText,
         hintText: hintText,
-        floatingLabelStyle: TextStyle(color: Colors.black),
+        labelStyle: const TextStyle(fontFamily: "Arvo", fontSize: 13),
+        hintStyle: const TextStyle(fontFamily: "Arvo", fontSize: 13),
+        floatingLabelStyle:
+            const TextStyle(color: Colors.black, fontFamily: "Arvo"),
         floatingLabelBehavior: FloatingLabelBehavior.always);
   }
 }

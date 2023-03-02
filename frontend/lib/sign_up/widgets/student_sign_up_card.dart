@@ -314,9 +314,13 @@ class _SignUpCardState extends State<SignUpCard> {
           borderRadius: BorderRadius.circular(15),
           borderSide: const BorderSide(color: Colors.black),
         ),
+        errorStyle: const TextStyle(fontFamily: "Arvo"),
         labelText: labelText,
         hintText: hintText,
-        floatingLabelStyle: TextStyle(color: Colors.black),
+        labelStyle: const TextStyle(fontFamily: "Arvo", fontSize: 13),
+        hintStyle: const TextStyle(fontFamily: "Arvo", fontSize: 13),
+        floatingLabelStyle:
+            const TextStyle(color: Colors.black, fontFamily: "Arvo"),
         floatingLabelBehavior: FloatingLabelBehavior.always);
   }
 }

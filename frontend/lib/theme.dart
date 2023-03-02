@@ -18,7 +18,8 @@ ThemeData lightTheme() {
         titleTextStyle: TextStyle(
             color: Colors.black,
             fontFamily: "Arvo",
-            fontWeight: FontWeight.bold)),
+            fontWeight: FontWeight.bold,
+            fontSize: 18)),
     cardTheme: CardTheme(
       elevation: 0,
       color: Colors.white.withOpacity(0.55),
