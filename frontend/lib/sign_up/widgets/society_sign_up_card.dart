@@ -1,4 +1,5 @@
 import 'package:university_ticketing_system/sign_up/widgets/finish_form_title.dart';
+import 'package:university_ticketing_system/sign_up/widgets/society_form_title.dart';
 import 'package:university_ticketing_system/sign_up/widgets/student_form_title.dart';
 import 'package:flutter/material.dart';
 
@@ -62,6 +63,7 @@ class _SocietySignUpCardState extends State<SocietySignUpCard> {
         key: widget.finishFormKey,
         child: Column(children: <Widget>[
           const FinishSignUpTitle(),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           Row(children: <Widget>[
             Expanded(
                 flex: 1,
@@ -70,8 +72,8 @@ class _SocietySignUpCardState extends State<SocietySignUpCard> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.04),
+                      // SizedBox(
+                      //     height: MediaQuery.of(context).size.height * 0.04),
                       TextFormField(
                           controller: societyNameController,
                           onFieldSubmitted: (value) {
@@ -109,29 +111,58 @@ class _SocietySignUpCardState extends State<SocietySignUpCard> {
                               "Creation Date",
                               "Enter the society's creation date",
                               Icons.person_rounded)),
+
+                      const SizedBox(height: 35),
+                      TextFormField(
+                          controller: uniAtController,
+                          onFieldSubmitted: (value) {
+                            print("submitted");
+                          },
+                          onChanged: (value) {},
+                          onSaved: (newValue) {
+                            uniAt = newValue!;
+                          },
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Enter the society's university";
+                            }
+                            return null;
+                          },
+                          decoration: customDecoration(
+                              "University the society is at",
+                              "Enter the society's university",
+                              Icons.person_rounded)),
                       //const SizedBox(height: 35),
                     ],
                   ),
                 )),
-            const SizedBox(height: 50),
-            SizedBox(
-                height: MediaQuery.of(context).size.height * 0.055,
-                width: MediaQuery.of(context).size.width * 0.25,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                    ),
-                    onPressed: () {
-                      widget.finishFormKey.currentState!.validate();
-                      widget.finishFormKey.currentState!.save();
-                      print("Form saved, redirect to next page");
-                    },
-                    child: const Text("Next",
-                        style: TextStyle(
-                            fontFamily: 'Arvo', color: Colors.white))))
+            const SizedBox(width: 40),
+            Expanded(
+              flex: 1,
+              child: Center(
+                child: SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.08,
+                    width: MediaQuery.of(context).size.width * 0.23,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 16.0),
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.black,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                          ),
+                          onPressed: () {
+                            widget.finishFormKey.currentState!.validate();
+                            widget.finishFormKey.currentState!.save();
+                            print("Form saved, redirect to next page");
+                          },
+                          child: const Text("Next",
+                              style: TextStyle(
+                                  fontFamily: 'Arvo', color: Colors.white))),
+                    )),
+              ),
+            )
           ]),
         ]));
   }
@@ -141,7 +172,7 @@ class _SocietySignUpCardState extends State<SocietySignUpCard> {
         key: widget.fKey,
         child: Column(
           children: [
-            const FormTitle(),
+            const SocietyFormTitle(),
             Row(children: <Widget>[
               Expanded(
                   flex: 1,
