@@ -10,9 +10,16 @@ class ManageMembers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [
+      children: const [
+        SizedBox(height: 40),
         MembersTable(),
+        SizedBox(
+          height: 20,
+        ),
         MembersTable(),
+        SizedBox(
+          height: 20,
+        ),
         MembersTable(),
       ],
     );
