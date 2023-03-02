@@ -1,4 +1,4 @@
-"""ticketingsystem URL Configuration
+"""ticket_system URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
@@ -13,8 +13,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path, include
+from django.contrib import admin
+from django.urls import path
+
+from api import views
 
 urlpatterns = [
-    path('', include('ticketing_api.urls')),
+    path('admin/', admin.site.urls),
+    path('log_in/', views.LogInView.as_view(), name='log_in'), 
+    path('log_out/', views.log_out, name='log_out'),
+    path('sign_up_as_student/', views.student_sign_up, name='sign_up_as_student'),
+    path('sign_up_as_society/', views.society_sign_up, name='sign_up_as_society'),
 ]
