@@ -1,5 +1,7 @@
-import 'package:university_ticketing_system/log_in/widgets/submit_button.dart';
 import 'package:flutter/material.dart';
+import 'package:university_ticketing_system/log_in/validators/email_validator.dart';
+import 'package:university_ticketing_system/log_in/validators/password_validator.dart';
+import 'package:university_ticketing_system/log_in/widgets/submit_button.dart';
 
 class LogInForm extends StatefulWidget {
   const LogInForm({super.key});
@@ -17,64 +19,62 @@ class _LogInFormState extends State<LogInForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: SizedBox(
-            width: MediaQuery.of(context).size.width / 3,
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextFormField(
-                      controller: emailController,
-                      onFieldSubmitted: (value) {
-                        print("submitted");
-                      },
-                      onChanged: (value) {},
-                      onSaved: (newValue) {
-                        email = newValue!;
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Enter a valid email";
-                        }
-                        return null;
-                      },
-                      decoration: customDecoration(
-                          "Email", "Enter your email", Icons.email_rounded)),
-                  const SizedBox(height: 35),
-                  TextFormField(
-                      controller: passwordController,
-                      onFieldSubmitted: (value) {
-                        print("submitted");
-                      },
-                      onChanged: (value) {
-                        password = passwordController.text;
-                        print(password);
-                      },
-                      onSaved: (newValue) {
-                        password = newValue!;
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Enter your password";
-                        }
-                        return null;
-                      },
-                      decoration: customDecoration("Password",
-                          "Enter your password", Icons.lock_rounded)),
-                  const SizedBox(height: 55),
-                  SubmitButton(onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      print("Valid form");
-                      _formKey.currentState!.save();
-                    } else {
-                      print("Invalid form");
-                    }
-                  })
-                ],
-              ),
-            )));
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+
+    return Form(
+      key: _formKey,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(
+              //height: MediaQuery.of(context).size.height * 0.065,
+              width: width <= 400 ? width * 0.8 : 400,
+              child: TextFormField(
+                  controller: emailController,
+                  style: const TextStyle(fontFamily: "Arvo"),
+                  onFieldSubmitted: (value) {
+                    print("submitted");
+                  },
+                  onChanged: (value) {},
+                  onSaved: (newValue) {
+                    email = newValue!;
+                  },
+                  validator: emailValidator,
+                  decoration: customDecoration(
+                      "Email", "Enter your email", Icons.email_rounded))),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+          SizedBox(
+            width: width <= 400 ? width * 0.8 : 400,
+            child: TextFormField(
+                style: const TextStyle(fontFamily: "Arvo"),
+                controller: passwordController,
+                onFieldSubmitted: (value) {
+                  print("submitted");
+                },
+                onChanged: (value) {
+                  password = passwordController.text;
+                  print(password);
+                },
+                onSaved: (newValue) {
+                  password = newValue!;
+                },
+                validator: passwordValidator,
+                decoration: customDecoration(
+                    "Password", "Enter your password", Icons.lock_rounded)),
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+          SubmitButton(onPressed: () {
+            if (_formKey.currentState!.validate()) {
+              print("Valid form");
+              _formKey.currentState!.save();
+            } else {
+              print("Invalid form");
+            }
+          })
+        ],
+      ),
+    );
   }
 
   InputDecoration customDecoration(
@@ -96,9 +96,13 @@ class _LogInFormState extends State<LogInForm> {
           borderRadius: BorderRadius.circular(15),
           borderSide: const BorderSide(color: Colors.black),
         ),
+        errorStyle: const TextStyle(fontFamily: "Arvo"),
         labelText: labelText,
         hintText: hintText,
-        floatingLabelStyle: TextStyle(color: Colors.black),
+        labelStyle: const TextStyle(fontFamily: "Arvo", fontSize: 13),
+        hintStyle: const TextStyle(fontFamily: "Arvo", fontSize: 13),
+        floatingLabelStyle:
+            const TextStyle(color: Colors.black, fontFamily: "Arvo"),
         floatingLabelBehavior: FloatingLabelBehavior.always);
   }
 }
