@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/screens/user_bought_ticket_screen.dart';
-
+import '../backend_communication/get.dart' as data;
 
 class BuyTicketScreen extends StatelessWidget{
-  const BuyTicketScreen({super.key});
+  // final data.OrderType Orderby;
+  // final String filter;
+  final int id;
+
+  const BuyTicketScreen(
+      {Key? key,
+      // this.Orderby = data.OrderType.CHRONOLOGICAL,
+      // this.filter = 'none',
+      this.id = -1
+      }
+    )
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/screens/buy_ticket_screen.dart';
 import 'package:provider/provider.dart';
+import '../backend_communication/get.dart' as data;
+
 
 
 class UserBoughtTicketScreen extends StatefulWidget {
-  const UserBoughtTicketScreen({Key? key}) : super(key: key);
+  final data.OrderType Orderby;
+  final String filter;
+  // final int id;
+
+  const UserBoughtTicketScreen(
+      {Key? key,
+      this.Orderby = data.OrderType.CHRONOLOGICAL,
+      this.filter = 'none',
+      // this.id = -1
+      }
+    )
+      : super(key: key);
 
   @override
   State<UserBoughtTicketScreen> createState() => _UserBoughtTicketScreenState();
@@ -15,13 +28,19 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // return ChangeNotifierProvider(
-    //   builder: (context) {
+    return ChangeNotifierProvider(
+      create: (context) => data.dataCollector<data.Event>(
+        filter: widget.filter, 
+        order: widget.Orderby,
+        // id: widget.id,
+      ),
+      builder: (context, child) {
+        final DataP = Provider.of<data.dataCollector<data.Event>>(context);
         return Scaffold(
           body: _buildPanel()
         );
-      // }
-    // );
+      }
+    );
   }
 
   Widget _buildPanel() {
