@@ -117,17 +117,18 @@ class SocietyView(APIView):
 
 # @permission_classes([IsAuthenticated])
 class EventApiView(APIView):
+    
+    queryset = Event.objects.all()
+    serializer_class = EventModelSerializer
+    filter_backends = [DjangoFilterBackend,OrderingFilter]
+    filterset_fields = '__all__'
+    ordering_fields = '__all__'
+    
     def post(self, request):
-        print("Yes I was called")
         serializer = EventModelSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-    def get(self, request):
-        events = Event.objects.all()
-        serializer = EventModelSerializer(instance=events, many=True)
-        return Response(serializer.data)
 
 
 # @permission_classes([IsAuthenticated])
@@ -151,10 +152,11 @@ class EventApiInfoView(APIView):
 
 # @permission_classes([IsAuthenticated])
 class UniversityApiView(APIView):
-    def get(self, request):
-        university = University.objects.all()
-        serializer = UniversitySerializer(instance=university, many=True)
-        return Response(serializer.data)
+    queryset = University.objects.all()
+    serializer_class = UniversitySerializer
+    filter_backends = [DjangoFilterBackend,OrderingFilter]
+    filterset_fields = '__all__'
+    ordering_fields = '__all__'
 
     def post(self, request):
         serializer = UniversitySerializer(data=request.data)
