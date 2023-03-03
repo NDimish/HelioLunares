@@ -1,0 +1,13 @@
+[
+    {
+        "model":"api.society",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "name": "test_soc",
+            "creation_date": "2022-01-01",
+            "university_society_is_at": 1,
+            "join_date": "2022-01-01"
+        }
+    }
+]

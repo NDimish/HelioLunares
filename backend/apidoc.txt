@@ -1,0 +1,34 @@
+API Documentation
+This contains the API Endpoints, what the endpoint does, data it requires/can have and the data it returns.
+An indentation means that the url procedes it's parent url. e.g:
+[test/]
+    - Description: 
+        - Contains information about test
+    - Requires:
+        - email (string)
+        - password (string)
+    - Returns:
+        - token (string)
+        - email (string)
+
+    [user/]
+        - Description:
+            - This URL to be called will be './test/user/'
+        - Requires:
+            - email (string)
+            - password (string)
+            - option (string)
+                - Extra information about paramaters that may be required
+        - Returns:
+            - nothing
+
+--- Documentation Begins ---
+
+[users/]
+    - Description:
+        - access to a list of all the users
+    - Requires:
+        - token (string)
+            - This is the session token once you have logged in
+    - Returns:
+        - data (users[])
