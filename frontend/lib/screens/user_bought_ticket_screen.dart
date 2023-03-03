@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:university_ticketing_system/screens/buy_ticket_screen.dart';
 
 
 class UserBoughtTicketScreen extends StatefulWidget {
@@ -244,30 +245,55 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
               const SizedBox(height: 10,),
 
               _OnHover (
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 30, 199, 188),
-
-
-                    border: Border.all(
-                        width: 10, color: const Color.fromARGB(255, 30, 199, 188)),
-                    borderRadius: BorderRadius.circular(20),
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(
+                      color: Colors.black
+                    )
                   ),
-                  child: Row(
-                    children: const [
-                      Expanded(
-                        child: Text ('Venue', textAlign: TextAlign.right),
-                      ),
-                      Expanded(
-                        child: Text ('Date', textAlign: TextAlign.center),
-                      ),
-                      Expanded(
-                        child: Text ('Ticket 1', textAlign: TextAlign.left),
-                      )
-                    ],
-                  )
-                ),
-              )
+                  onPressed: (){
+                    Navigator.push(
+                      context, 
+                      MaterialPageRoute(builder: (context) => const BuyTicketScreen())
+                    );
+                  }, 
+                  child: Container(
+                    decoration: BoxDecoration(
+                      // color: const Color.fromARGB(255, 30, 199, 188),
+                      border: Border.all(
+                          width: 10, 
+                          color: Colors.transparent,
+                        ),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Row(
+                      children: const [
+                        Expanded(
+                          child: Text (
+                            'Venue', 
+                            textAlign: TextAlign.right,
+                            selectionColor: Colors.black,
+                          ),
+                        ),
+                        Expanded(
+                          child: Text (
+                            'Date', 
+                            textAlign: TextAlign.center,
+                            selectionColor: Colors.black,
+                          ),
+                        ),
+                        Expanded(
+                          child: Text (
+                            'Ticket 2', 
+                            textAlign: TextAlign.left,
+                            selectionColor: Colors.black,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                )                  
+              ),
 
 
             ],
@@ -287,7 +313,7 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
   }
 
 
-  // ignore: unused_element
+
   Widget _buildCollapsible() {
     return ExpansionPanelList(
       expansionCallback: (int index, bool isExpanded) {
@@ -314,28 +340,41 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
               const SizedBox(height: 10),
 
               _OnHover( 
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 47, 148, 87),
-                    border: Border.all(
-                      width: 10, 
-                      color: const Color.fromARGB(255, 47, 148, 87)
-                    ),
-                    borderRadius: BorderRadius.circular(20),
+                child: OutlinedButton (
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(
+                      color: Colors.black
+                    )
                   ),
-                  child: Row(
-                    children: const [
-                      Expanded(
-                        child: Text ('Venue', textAlign: TextAlign.right),
+                  onPressed: (){
+                    Navigator.push(
+                      context, 
+                      MaterialPageRoute(builder: (context) => const BuyTicketScreen())
+                    );
+                  }, 
+                  child: Container(
+                    decoration: BoxDecoration(
+                      // color: const Color.fromARGB(255, 47, 148, 87),
+                      border: Border.all(
+                        width: 10, 
+                        color: Colors.transparent,
                       ),
-                      Expanded(
-                        child: Text ('Date', textAlign: TextAlign.center),
-                      ),
-                      Expanded(
-                        child: Text ('Ticket 1', textAlign: TextAlign.left),
-                      )
-                    ],
-                  )
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Row(
+                      children: const [
+                        Expanded(
+                          child: Text ('Venue', textAlign: TextAlign.right),
+                        ),
+                        Expanded(
+                          child: Text ('Date', textAlign: TextAlign.center),
+                        ),
+                        Expanded(
+                          child: Text ('Ticket 1', textAlign: TextAlign.left),
+                        )
+                      ],
+                    )
+                  ),
                 ),
               ),
               
@@ -418,4 +457,5 @@ class _OnHoverState extends State<_OnHover> {
     });
   }
 }
+
 

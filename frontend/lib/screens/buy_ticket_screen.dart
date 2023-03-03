@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:university_ticketing_system/screens/user_bought_ticket_screen.dart';
 
 
 class BuyTicketScreen extends StatelessWidget{
@@ -26,106 +27,117 @@ class BuyTicketScreen extends StatelessWidget{
                 child: Column(
                   children: [
                     Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 10, 
-                        color: Colors.white
-                      ),
-                    ),
-                    child: Row(
-                      children: const [
-                        Expanded(
-                          child: Text ('Title: ', textAlign: TextAlign.left),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 10, 
+                          color: Colors.white
                         ),
-                      ],
-                    )
-                  ),
-
-                  const SizedBox(height: 10,),
-
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 10, 
-                        color: Colors.white
                       ),
+                      child: Row(
+                        children: const [
+                          Expanded(
+                            child: Text ('Title: ', textAlign: TextAlign.left),
+                          ),
+                        ],
+                      )
                     ),
-                    child: Row(
-                      children: const [
-                        Expanded(
-                          child: Text ('Date: ', textAlign: TextAlign.left),
+
+                    const SizedBox(height: 10,),
+
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 10, 
+                          color: Colors.white
                         ),
-                      ],
-                    )
-                  ),
-
-
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 10, 
-                        color: Colors.white
                       ),
+                      child: Row(
+                        children: const [
+                          Expanded(
+                            child: Text ('Date: ', textAlign: TextAlign.left),
+                          ),
+                        ],
+                      )
                     ),
-                    child: Row(
-                      children: const [
-                        Expanded(
-                          child: Text ('Venue: ', textAlign: TextAlign.left),
+
+
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 10, 
+                          color: Colors.white
                         ),
-                      ],
-                    )
-                  ),
-
-
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 10, 
-                        color: Colors.white
                       ),
+                      child: Row(
+                        children: const [
+                          Expanded(
+                            child: Text ('Venue: ', textAlign: TextAlign.left),
+                          ),
+                        ],
+                      )
                     ),
-                    child: Row(
-                      children: const [
-                        Expanded(
-                          child: Text ('Seat: ', textAlign: TextAlign.left),
+
+
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 10, 
+                          color: Colors.white
                         ),
-                      ],
-                    )
-                  ),
-
-
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 10, 
-                        color: Colors.white
                       ),
+                      child: Row(
+                        children: const [
+                          Expanded(
+                            child: Text ('Seat: ', textAlign: TextAlign.left),
+                          ),
+                        ],
+                      )
                     ),
-                    child: Row(
-                      children: const [
-                        Expanded(
-                          child: Text ('Gate: ', textAlign: TextAlign.left),
+
+
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 10, 
+                          color: Colors.white
                         ),
-                      ],
-                    )
-                  ),
-
-
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 10, 
-                        color: Colors.white
                       ),
+                      child: Row(
+                        children: const [
+                          Expanded(
+                            child: Text ('Gate: ', textAlign: TextAlign.left),
+                          ),
+                        ],
+                      )
                     ),
-                    child: Row(
-                      children: const [
-                        Expanded(
-                          child: Text ('Description: ', textAlign: TextAlign.left),
+
+
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 10, 
+                          color: Colors.white
                         ),
-                      ],
+                      ),
+                      child: Row(
+                        children: const [
+                          Expanded(
+                            child: Text ('Description: ', textAlign: TextAlign.left),
+                          ),
+                        ],
+                      )
+                    ),
+                  
+                    ElevatedButton(
+                      onPressed: (){
+                        Navigator.push(
+                          context, 
+                          MaterialPageRoute(builder: (context) => UserBoughtTicketScreen())
+                        );
+                      }, 
+                      child: Text('previous page')
                     )
-                  ),
+
                   ],
                 ),
               )
