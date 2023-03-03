@@ -15,17 +15,13 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider
-    
-    
-    
-    (
-      builder: (context) {
+    // return ChangeNotifierProvider(
+    //   builder: (context) {
         return Scaffold(
           body: _buildPanel()
         );
-      }
-    );
+      // }
+    // );
   }
 
   Widget _buildPanel() {
