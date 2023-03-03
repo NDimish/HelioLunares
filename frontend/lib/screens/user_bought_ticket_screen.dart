@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/screens/buy_ticket_screen.dart';
+import 'package:provider/provider.dart';
 
 
 class UserBoughtTicketScreen extends StatefulWidget {
@@ -14,8 +15,16 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _buildPanel()
+    return ChangeNotifierProvider
+    
+    
+    
+    (
+      builder: (context) {
+        return Scaffold(
+          body: _buildPanel()
+        );
+      }
     );
   }
 
@@ -61,7 +70,6 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
               Expanded(
                 flex: 3,
                 child: Container(
-                  color: Color.fromARGB(255, 155, 48, 172),
                   padding: const EdgeInsets.all(5.0),
                   child: Container(
                     decoration: BoxDecoration(
@@ -70,7 +78,7 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                         width: 1
                       ),
                     ),
-                    child: Text('Insert picture here'),
+                    child: const Text('Insert picture here'),
                   ), 
                 )
               ),
@@ -223,80 +231,84 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
         // right of screen
         Expanded(
           flex: 5,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              
-              _buildCollapsible(),
+          // ignore: avoid_unnecessary_containers
+          child: Container(
+            // color:Colors.amberAccent,  
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                
+                _buildCollapsible(),
 
 
-              const SizedBox(height: 50,),
+                const SizedBox(height: 50,),
 
 
-              const Text(
-                "  Upcoming Tickets",
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontSize: 25
+                const Text(
+                  "  Upcoming Tickets",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontSize: 25
+                  ),
                 ),
-              ),
 
-              const SizedBox(height: 10,),
+                const SizedBox(height: 10,),
 
-              _OnHover (
-                child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    side: const BorderSide(
-                      color: Colors.black
-                    )
-                  ),
-                  onPressed: (){
-                    Navigator.push(
-                      context, 
-                      MaterialPageRoute(builder: (context) => const BuyTicketScreen())
-                    );
-                  }, 
-                  child: Container(
-                    decoration: BoxDecoration(
-                      // color: const Color.fromARGB(255, 30, 199, 188),
-                      border: Border.all(
-                          width: 10, 
-                          color: Colors.transparent,
-                        ),
-                      borderRadius: BorderRadius.circular(20),
+                _OnHover (
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      side: const BorderSide(
+                        color: Colors.black
+                      )
                     ),
-                    child: Row(
-                      children: const [
-                        Expanded(
-                          child: Text (
-                            'Venue', 
-                            textAlign: TextAlign.right,
-                            selectionColor: Colors.black,
+                    onPressed: (){
+                      Navigator.push(
+                        context, 
+                        MaterialPageRoute(builder: (context) => const BuyTicketScreen())
+                      );
+                    }, 
+                    child: Container(
+                      decoration: BoxDecoration(
+                        // color: const Color.fromARGB(255, 30, 199, 188),
+                        border: Border.all(
+                            width: 10, 
+                            color: Colors.transparent,
                           ),
-                        ),
-                        Expanded(
-                          child: Text (
-                            'Date', 
-                            textAlign: TextAlign.center,
-                            selectionColor: Colors.black,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Row(
+                        children: const [
+                          Expanded(
+                            child: Text (
+                              'Venue', 
+                              textAlign: TextAlign.right,
+                              selectionColor: Colors.black,
+                            ),
                           ),
-                        ),
-                        Expanded(
-                          child: Text (
-                            'Ticket 2', 
-                            textAlign: TextAlign.left,
-                            selectionColor: Colors.black,
+                          Expanded(
+                            child: Text (
+                              'Date', 
+                              textAlign: TextAlign.center,
+                              selectionColor: Colors.black,
+                            ),
                           ),
-                        )
-                      ],
+                          Expanded(
+                            child: Text (
+                              'Ticket 2', 
+                              textAlign: TextAlign.left,
+                              selectionColor: Colors.black,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                )                  
-              ),
+                  )                  
+                ),
 
 
-            ],
+              ],
+            ),
           ),
         ),
 
@@ -323,11 +335,12 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
       },
       children: _data.map<ExpansionPanel>((Item item) {
         return ExpansionPanel(
+          backgroundColor: Colors.deepPurpleAccent,
           headerBuilder: (BuildContext context, bool isExpanded) {
             return ListTile(
               title: Text(
                 item.headerValue,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 25
                 ),
               ),
@@ -441,7 +454,7 @@ class _OnHoverState extends State<_OnHover> {
       onEnter: (event) => onEntered(true),
       onExit: (event) => onEntered(false),
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 150),
+        duration: const Duration(milliseconds: 150),
         transform: transform,
         child: widget.child
       )
