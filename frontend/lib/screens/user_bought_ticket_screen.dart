@@ -30,7 +30,7 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
         ),
 
         
-        // left side of the screen
+          // left side of the screen
         Expanded(
           flex: 2,
           child: Column(
@@ -40,10 +40,27 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
 
               const SizedBox(height: 10),
 
-              // left up screen
+              // // left up screen
+              // Expanded(
+              //   flex: 3,
+              //     child: Padding(
+              //       padding: const EdgeInsets.all(5.0),
+              //       child: Container(
+              //         decoration: BoxDecoration(
+              //           border: Border.all(
+              //             color: Colors.black,
+              //             width: 1
+              //           ),
+              //         ),
+              //         child: Text('Insert picture here'),
+              //       ), 
+              //     )
+              // ),
+
               Expanded(
                 flex: 3,
-                child: Padding(
+                child: Container(
+                  color: Color.fromARGB(255, 155, 48, 172),
                   padding: const EdgeInsets.all(5.0),
                   child: Container(
                     decoration: BoxDecoration(
@@ -52,7 +69,7 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                         width: 1
                       ),
                     ),
-                    child: Text('Insert ticket picture here'),
+                    child: Text('Insert picture here'),
                   ), 
                 )
               ),
@@ -185,7 +202,7 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                 )
               )
 
-             
+            
 
               
               
@@ -193,6 +210,7 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
             ],
           ),
         ),
+        
 
         const VerticalDivider(
             thickness: 1,
@@ -251,71 +269,6 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                 ),
               )
 
-
-              // Expanded(
-              //   flex: 5,
-              //   child: Column(
-              //     crossAxisAlignment: CrossAxisAlignment.stretch,
-              //     mainAxisAlignment: MainAxisAlignment.start,
-              //     children: [
-              //       _buildCollapsible()
-              //     ],
-
-
-
-
-
-
-
-
-              //   ),
-              // ),
-
-              
-
-              
-              // Expanded(
-              //   flex: 5,
-              //   child: Column(
-              //     crossAxisAlignment: CrossAxisAlignment.stretch,
-              //     mainAxisAlignment: MainAxisAlignment.start,
-              //     children: [
-                                       
-              //       const Text(
-              //         "Upcoming Tickets",
-              //         textAlign: TextAlign.left,
-              //         style: TextStyle(
-              //           fontSize: 25
-              //         ),
-              //       ),
-
-              //       const SizedBox(height: 10,),
-
-              //       Container(
-              //         decoration: BoxDecoration(
-              //           color: const Color.fromARGB(255, 30, 199, 188),
-              //           border: Border.all(
-              //               width: 10, color: const Color.fromARGB(255, 30, 199, 188)),
-              //           borderRadius: BorderRadius.circular(20),
-              //         ),
-              //         child: Row(
-              //           children: const [
-              //             Expanded(
-              //               child: Text ('Venue', textAlign: TextAlign.right),
-              //             ),
-              //             Expanded(
-              //               child: Text ('Date', textAlign: TextAlign.center),
-              //             ),
-              //             Expanded(
-              //               child: Text ('Ticket 1', textAlign: TextAlign.left),
-              //             )
-              //           ],
-              //         )
-              //       ),
-                    
-              //     ],
-              //   )
-              // ),
 
             ],
           ),

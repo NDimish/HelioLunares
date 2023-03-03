@@ -19,6 +19,7 @@ class UniversityTicketingSystem extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       home: UserBoughtTicketScreen(),
+      // home: BuyTicketScreen()
     );
   }
 }
