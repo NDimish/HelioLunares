@@ -37,15 +37,8 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       {String filter = 'none',
       OrderType order = OrderType.CHRONOLOGICAL,
       int ID = -1}) {
-    collections(sets[T]!, filter: filter, order: order, ID: ID);
-  }
-
-  collections(Databases Database,
-      {String filter = 'none',
-      OrderType order = OrderType.CHRONOLOGICAL,
-      int ID = -1}) {
-    return fetchData(
-        createUrl(Database, filter: filter, order: order, ID: ID), Database);
+    fetchData(
+        createUrl(sets[T]!, filter: filter, order: order, ID: ID), sets[T]!);
   }
 
   String createUrl(Databases Database,
