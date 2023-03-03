@@ -18,7 +18,11 @@ class FormTitle extends StatelessWidget {
             //const SizedBox(height: 15),
             const Text(
               "Sign up as a student",
-              style: TextStyle(fontSize: 50, fontFamily: "Arvo"),
+              textScaleFactor: 1.5,
+              style: TextStyle(
+                  fontSize: 30,
+                  fontFamily: "Arvo",
+                  fontWeight: FontWeight.bold),
             ),
             //const Spacer(),
           ]),
