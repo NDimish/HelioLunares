@@ -40,8 +40,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+<<<<<<< HEAD:backend/ticket_system/settings.py
     'rest_framework.authtoken',
     'api',
+=======
+    'apis',
+    'ticketing_api',
+    'corsheaders'
+>>>>>>> Skeleton_middleware:backend/ticketingsystem/ticketingsystem/settings.py
 ]
 
 MIDDLEWARE = [
@@ -52,6 +58,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'ticket_system.urls'
@@ -116,6 +124,15 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+REST_FRAMEWORK = {
+   'DEFAULT_PERMISSION_CLASSES': ( 'rest_framework.permissions.AllowAny', ),
+
+}
+
+
+ALLOWED_HOSTS=['*']
+CORS_ORIGIN_ALLOW_ALL = True
 
 
 # Internationalization
