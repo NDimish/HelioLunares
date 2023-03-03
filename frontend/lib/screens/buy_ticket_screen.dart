@@ -130,7 +130,7 @@ class BuyTicketScreen extends StatelessWidget{
                   
                     ElevatedButton(
                       onPressed: (){
-                        Navigator.push(
+                        Navigator.pop(
                           context, 
                           MaterialPageRoute(builder: (context) => UserBoughtTicketScreen())
                         );
