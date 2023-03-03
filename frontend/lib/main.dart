@@ -9,7 +9,6 @@ import 'package:university_ticketing_system/theme.dart';
 import 'package:university_ticketing_system/screens/buy_ticket_screen.dart';
 import 'package:university_ticketing_system/screens/user_bought_ticket_screen.dart';
 
-
 void main() {
   runApp(const UniversityTicketingSystem());
 }
@@ -23,7 +22,7 @@ class UniversityTicketingSystem extends StatelessWidget {
       title: 'University Ticketing System',
       theme: lightTheme(),
       debugShowCheckedModeBanner: false,
-      home: LogInScreen(),
+      home: testscreen(),
     );
   }
 }

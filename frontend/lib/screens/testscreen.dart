@@ -31,10 +31,10 @@ class _testscreen extends State<testscreen> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context) => data.dataCollector<data.Login>(
+        create: (context) => data.dataCollector<data.Event>(
             filter: widget.filter, order: widget.Orderby),
         builder: (context, child) {
-          final DataP = Provider.of<data.dataCollector<data.Login>>(context);
+          final DataP = Provider.of<data.dataCollector<data.Event>>(context);
           return Scaffold(
             appBar: AppBar(
               title: Text('Todo App'),
@@ -50,12 +50,12 @@ class _testscreen extends State<testscreen> {
                           // todoP.deleteTodo(todoP.todos[index]);
                         }),
                     title: Text(
-                      DataP.collection[index].username,
+                      DataP.collection[index].title,
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     subtitle: Text(
-                      DataP.collection[index].id.toString(),
+                      DataP.collection[index].date.toString(),
                       style: TextStyle(fontSize: 15, color: Colors.black),
                     ));
               },
