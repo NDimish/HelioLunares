@@ -49,16 +49,16 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
   }
 
   String createUrl(Databases Database,
-      {String filter = '',
+      {String filter = 'none',
       OrderType order = OrderType.CHRONOLOGICAL,
       int ID = -1}) {
     String url = 'http://127.0.0.1:8000/${Database.name}/';
 
-    if (ID >= 0) {
-      url += '$ID/';
-    } else {
-      url += '$filter/${order.index}/';
-    }
+    // if (ID >= 0) {
+    //   url += '$ID/';
+    // } else {
+    //   url += '$filter/${order.index}/';
+    // }
     print(url);
     return '$url?format=json';
   }
