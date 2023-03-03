@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:university_ticketing_system/components/custom_text_form_field.dart';
-import 'package:university_ticketing_system/screens/home_screen.dart';
 import '../backend_communication/get.dart' as data;
 import 'package:provider/provider.dart';
 
 class testscreen extends StatefulWidget {
   final data.OrderType Orderby;
   final String filter;
+  final int id;
 
   const testscreen(
       {Key? key,
       this.Orderby = data.OrderType.CHRONOLOGICAL,
-      this.filter = 'none'})
+      this.filter = 'none',
+      this.id = -1})
       : super(key: key);
 
   @override

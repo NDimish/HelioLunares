@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 
 enum Databases {
   users,
+  events,
 }
 
 enum Tag {
@@ -18,7 +19,10 @@ enum OrderType {
   CHRONOLOGICAL,
 }
 
-final Map<Type, Databases> sets = {Login: Databases.users};
+final Map<Type, Databases> sets = {
+  Login: Databases.users,
+  Event: Databases.events
+};
 
 //abstract to use in places
 
@@ -72,6 +76,8 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
     switch (database) {
       case Databases.users:
         return Login.fromJson(json);
+      case Databases.events:
+        return Event.fromJson(json);
 
       default:
         return Login.fromJson(json);
@@ -102,13 +108,12 @@ abstract class dataSets {
 class Login extends dataSets {
   final int id;
   final String username;
-  final String password;
+  // final String password;
 
-  Login({required this.id, required this.username, required this.password});
+  Login({required this.id, required this.username});
 
   factory Login.fromJson(Map<String, dynamic> json) {
-    return Login(
-        id: json['id'], username: json['username'], password: json['password']);
+    return Login(id: json['id'], username: json['email']);
   }
 
   String getUsername() {
@@ -118,5 +123,32 @@ class Login extends dataSets {
   @override
   Databases getDatabase() {
     return Databases.users;
+  }
+}
+
+class Event extends dataSets {
+  final String title;
+  final DateTime date;
+  final String venue;
+  final String description;
+  // final String password;
+
+  Event(
+      {required this.title,
+      required this.date,
+      required this.venue,
+      required this.description});
+
+  factory Event.fromJson(Map<String, dynamic> json) {
+    return Event(
+        title: json['event_name'],
+        date: json['event_date'],
+        venue: json['location'],
+        description: json['description']);
+  }
+
+  @override
+  Databases getDatabase() {
+    return Databases.events;
   }
 }

@@ -40,14 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-<<<<<<< HEAD:backend/ticket_system/settings.py
     'rest_framework.authtoken',
     'api',
-=======
-    'apis',
-    'ticketing_api',
     'corsheaders'
->>>>>>> Skeleton_middleware:backend/ticketingsystem/ticketingsystem/settings.py
 ]
 
 MIDDLEWARE = [

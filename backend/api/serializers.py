@@ -52,3 +52,8 @@ class UniversityModelSerializer(serializers.ModelSerializer):
         model = University
         fields = "__all__"
 
+
+#nathan test
+
+
+
