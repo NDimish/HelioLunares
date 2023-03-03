@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 
 enum Databases {
   users,
-  events,
+  event,
 }
 
 enum Tag {
@@ -21,7 +21,7 @@ enum OrderType {
 
 final Map<Type, Databases> sets = {
   Login: Databases.users,
-  Event: Databases.events
+  Event: Databases.event
 };
 
 //abstract to use in places
@@ -76,7 +76,7 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
     switch (database) {
       case Databases.users:
         return Login.fromJson(json);
-      case Databases.events:
+      case Databases.event:
         return Event.fromJson(json);
 
       default:
@@ -152,6 +152,6 @@ class Event extends dataSets {
 
   @override
   Databases getDatabase() {
-    return Databases.events;
+    return Databases.event;
   }
 }
