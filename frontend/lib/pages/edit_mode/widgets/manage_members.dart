@@ -12,14 +12,17 @@ class ManageMembers extends StatelessWidget {
     return Column(
       children: const [
         SizedBox(height: 40),
+        Text("Admins"),
         MembersTable(),
         SizedBox(
           height: 20,
         ),
+        Text("Local Admins"),
         MembersTable(),
         SizedBox(
           height: 20,
         ),
+        Text("Members"),
         MembersTable(),
       ],
     );

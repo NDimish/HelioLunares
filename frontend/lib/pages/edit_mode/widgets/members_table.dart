@@ -16,33 +16,63 @@ class _MembersTableState extends State<MembersTable> {
 
   List<TableRow> _setData() {
     List<TableRow> dataArr = [
-      TableRow(children: [
-        Container(
-          height: 25,
-          alignment: Alignment.center,
-          child: Text("First Name"),
-        ),
-        Container(
-          height: 25,
-          alignment: Alignment.center,
-          child: Text("Last Name"),
-        ),
-        Container(
-          height: 25,
-          alignment: Alignment.center,
-          child: Text("Email"),
-        ),
-        Container(
-          height: 25,
-          alignment: Alignment.center,
-          child: Text("Join Date"),
-        ),
-        Container(
-          height: 25,
-          alignment: Alignment.center,
-          child: Text("Student"),
-        ),
-      ]),
+      TableRow(
+          decoration: const BoxDecoration(
+              color: Color(0xFFF4E7FA),
+              border: Border(
+                  bottom: BorderSide(width: 1, color: Color(0xFF703c6c)))),
+          children: [
+            Container(
+              decoration: const BoxDecoration(
+                border: Border(
+                    right: BorderSide(width: 1, color: Color(0xFF703c6c))),
+              ),
+              height: 25,
+              alignment: Alignment.center,
+              child: const Text("First Name"),
+            ),
+            Container(
+              decoration: const BoxDecoration(
+                border: Border(
+                    right: BorderSide(width: 1, color: Color(0xFF703c6c))),
+              ),
+              height: 25,
+              alignment: Alignment.center,
+              child: const Text("Last Name"),
+            ),
+            Container(
+              decoration: const BoxDecoration(
+                border: Border(
+                    right: BorderSide(width: 1, color: Color(0xFF703c6c))),
+              ),
+              height: 25,
+              alignment: Alignment.center,
+              child: const Text("Email"),
+            ),
+            Container(
+              decoration: const BoxDecoration(
+                border: Border(
+                    right: BorderSide(width: 1, color: Color(0xFF703c6c))),
+              ),
+              height: 25,
+              alignment: Alignment.center,
+              child: const Text("Join Date"),
+            ),
+            Container(
+              decoration: const BoxDecoration(
+                border: Border(
+                    right: BorderSide(width: 1, color: Color(0xFF703c6c))),
+              ),
+              height: 25,
+              alignment: Alignment.center,
+              child: const Text("Student"),
+            ),
+            Container(
+              height: 25,
+              alignment: Alignment.center,
+              child: const Text("Actions"),
+            ),
+          ]),
     ];
 
     //Simple way to add data to the tables
@@ -98,13 +128,30 @@ class _MembersTableState extends State<MembersTable> {
         alignment: Alignment.center,
         child: Text(dataset["student"]),
       ),
+      Container(
+          height: 25,
+          alignment: Alignment.center,
+          child: DropdownButton(
+              hint: const Text("Perform"),
+              underline: const SizedBox(width: 0, height: 0),
+              items: const [
+                DropdownMenuItem(value: "block", child: Text("Block")),
+                DropdownMenuItem(value: "promote", child: Text("Promote")),
+                DropdownMenuItem(value: "demote", child: Text("Demote")),
+              ],
+              onChanged: ((value) => {}))),
     ]);
   }
 
   @override
   Widget build(BuildContext context) {
     return Table(
-      border: TableBorder.all(),
+      border: const TableBorder(
+          top: BorderSide(width: 2, color: Color(0xFF703c6c)),
+          bottom: BorderSide(width: 2, color: Color(0xFF703c6c)),
+          right: BorderSide(width: 2, color: Color(0xFF703c6c)),
+          left: BorderSide(width: 2, color: Color(0xFF703c6c)),
+          horizontalInside: BorderSide(width: .5, color: Color(0xFF703c6c))),
       children: _setData(),
     );
   }
