@@ -24,27 +24,28 @@ class InfoCardSmall extends StatelessWidget {
         child: Container(
             padding: EdgeInsets.all(24),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: MyColours.panelBackgroundColour,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                  color: isActive ? MyColours.active : MyColours.lightGrey,
-                  width: .5),
+                  color: MyColours.subpanelBackgroundColour, width: .5),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                CustomText(
+                Flexible(
+                    child: CustomText(
                   text: title,
                   size: 24,
                   weight: FontWeight.w300,
-                  colour: isActive ? MyColours.active : MyColours.lightGrey,
-                ),
-                CustomText(
+                  colour: MyColours.textColourDark,
+                )),
+                Flexible(
+                    child: CustomText(
                   text: value,
                   size: 24,
                   weight: FontWeight.bold,
-                  colour: isActive ? MyColours.active : MyColours.dark,
-                )
+                  colour: MyColours.textColourLight,
+                ))
               ],
             )),
       ),
