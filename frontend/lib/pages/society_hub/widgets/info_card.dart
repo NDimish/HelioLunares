@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../constants/style.dart';
 
@@ -27,11 +28,11 @@ class InfoCard extends StatelessWidget {
         height: 136,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-            color: Colors.white,
+            color: MyColours.panelBackgroundColour,
             boxShadow: [
               BoxShadow(
                   offset: Offset(0, 6),
-                  color: MyColours.lightGrey.withOpacity(.1),
+                  color: MyColours.subpanelBackgroundColour.withOpacity(.1),
                   blurRadius: 12)
             ],
             borderRadius: BorderRadius.circular(8)),
@@ -53,15 +54,12 @@ class InfoCard extends StatelessWidget {
               text: TextSpan(children: [
                 TextSpan(
                     text: "$title\n",
-                    style: TextStyle(
-                        fontSize: 20,
-                        color:
-                            isActive ? MyColours.active : MyColours.lightGrey)),
+                    style: GoogleFonts.spaceMono(
+                        fontSize: 20, color: MyColours.textColourDark)),
                 TextSpan(
                     text: "$value\n",
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: isActive ? MyColours.active : MyColours.dark))
+                    style: GoogleFonts.spaceMono(
+                        fontSize: 18, color: MyColours.textColourLight)),
               ])),
           Expanded(
             child: Container(),

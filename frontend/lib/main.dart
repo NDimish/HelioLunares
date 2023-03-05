@@ -32,8 +32,8 @@ class UniversityTicketingApp extends StatelessWidget {
       // home: LogInScreen(),
       title: 'University Ticketing',
       theme: ThemeData(
-          scaffoldBackgroundColor: MyColours.veryLightGrey,
-          textTheme: GoogleFonts.mulishTextTheme(Theme.of(context).textTheme)
+          scaffoldBackgroundColor: MyColours.backgroundColour,
+          textTheme: GoogleFonts.spaceMonoTextTheme(Theme.of(context).textTheme)
               .apply(bodyColor: Colors.black),
           pageTransitionsTheme: PageTransitionsTheme(builders: {
             TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),
