@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:university_ticketing_system/constants/style.dart';
 
 class CustomText extends StatelessWidget {
   final String text;
@@ -17,7 +18,7 @@ class CustomText extends StatelessWidget {
     return Text(text,
         style: TextStyle(
             fontSize: size ?? 16,
-            color: colour ?? Colors.black,
+            color: colour ?? MyColours.textColourDark,
             fontWeight: weight ?? FontWeight.normal));
   }
 }

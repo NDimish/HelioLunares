@@ -144,7 +144,7 @@ class AddEventPopupCard extends StatelessWidget {
                               backgroundColor: MaterialStateProperty.all<Color>(
                                   MyColours.light),
                               foregroundColor: MaterialStateProperty.all<Color>(
-                                  MyColours.dark),
+                                  MyColours.panelBackgroundColour),
                             ),
                             onPressed: () {
                               Get.put(obj);

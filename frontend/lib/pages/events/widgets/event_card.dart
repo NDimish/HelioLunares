@@ -48,11 +48,9 @@ class EventCard extends StatelessWidget {
             height: 100,
             padding: EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: MyColours.panelBackgroundColour,
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                  color: isActive ? MyColours.active : MyColours.lightGrey,
-                  width: .5),
+              border: Border.all(color: MyColours.textColourLight, width: .5),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -61,13 +59,13 @@ class EventCard extends StatelessWidget {
                   text: name,
                   size: 20,
                   weight: FontWeight.w300,
-                  colour: isActive ? MyColours.active : MyColours.lightGrey,
+                  colour: MyColours.textColourLight,
                 ),
                 CustomText(
                   text: "£$price",
                   size: 16,
                   weight: FontWeight.bold,
-                  colour: isActive ? MyColours.active : MyColours.dark,
+                  colour: MyColours.textColourDark,
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -77,7 +75,7 @@ class EventCard extends StatelessWidget {
                       text: date,
                       size: 16,
                       weight: FontWeight.bold,
-                      colour: isActive ? MyColours.active : MyColours.dark,
+                      colour: MyColours.textColourDark,
                     )
                   ],
                 ),
@@ -89,7 +87,7 @@ class EventCard extends StatelessWidget {
                       text: location,
                       size: 16,
                       weight: FontWeight.bold,
-                      colour: isActive ? MyColours.active : MyColours.dark,
+                      colour: MyColours.textColourDark,
                     )
                   ],
                 )

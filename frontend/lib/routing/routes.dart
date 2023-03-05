@@ -46,7 +46,7 @@ class EventDetailsRoute<T> extends PageRoute<T> {
   bool get maintainState => true;
 
   @override
-  Color get barrierColor => MyColours.lightGrey.withOpacity(0.5);
+  Color get barrierColor => MyColours.backgroundColour.withOpacity(0.5);
 
   @override
   Widget buildTransitions(BuildContext context, Animation<double> animation,

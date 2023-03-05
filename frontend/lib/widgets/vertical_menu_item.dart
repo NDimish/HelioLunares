@@ -23,7 +23,7 @@ class VerticalMenuItem extends StatelessWidget {
       },
       child: Obx(() => Container(
             color: menuController.isHovering(itemName)
-                ? Colors.blueGrey.withOpacity(.1)
+                ? MyColours.navButtonHoverColour.withOpacity(.1)
                 : Colors.transparent,
             child: Row(children: [
               Visibility(
@@ -32,7 +32,7 @@ class VerticalMenuItem extends StatelessWidget {
                 child: Container(
                   width: 3,
                   height: 72,
-                  color: MyColours.dark,
+                  color: MyColours.navButtonColour,
                 ),
                 maintainSize: true,
                 maintainState: true,
@@ -51,15 +51,15 @@ class VerticalMenuItem extends StatelessWidget {
                       child: CustomText(
                         text: itemName,
                         colour: menuController.isHovering(itemName)
-                            ? MyColours.dark
-                            : Colors.blueGrey,
+                            ? MyColours.elementButtonHoverColour
+                            : MyColours.elementButtonColour,
                       ),
                     )
                   else
                     Flexible(
                       child: CustomText(
                         text: itemName,
-                        colour: MyColours.dark,
+                        colour: MyColours.navButtonColour,
                         size: 18,
                         weight: FontWeight.bold,
                       ),

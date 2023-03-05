@@ -17,7 +17,7 @@ class SideMenu extends StatelessWidget {
     double _width = MediaQuery.of(context).size.width;
 
     return Container(
-      color: MyColours.light,
+      color: MyColours.navbarColour,
       child: ListView(
         children: [
           if (ResponsiveWidget.isSmallScreen(context))
@@ -39,7 +39,7 @@ class SideMenu extends StatelessWidget {
                         text: "University Ticketing App",
                         size: 20,
                         weight: FontWeight.bold,
-                        colour: MyColours.active,
+                        colour: MyColours.elementButtonColour,
                       ),
                     ),
                     SizedBox(width: _width / 48),
@@ -51,7 +51,7 @@ class SideMenu extends StatelessWidget {
               ],
             ),
           Divider(
-            color: MyColours.lightGrey.withOpacity(.1),
+            color: MyColours.navButtonColour.withOpacity(.1),
           ),
           Column(
             mainAxisSize: MainAxisSize.min,

@@ -37,11 +37,14 @@ class MenuController extends GetxController {
   }
 
   Widget _customIcon(IconData icon, String itemName) {
-    if (isActive(itemName)) return Icon(icon, size: 22, color: MyColours.dark);
+    if (isActive(itemName))
+      return Icon(icon, size: 22, color: MyColours.elementButtonColour);
 
     return Icon(
       icon,
-      color: isHovering(itemName) ? MyColours.dark : MyColours.lightGrey,
+      color: isHovering(itemName)
+          ? MyColours.navButtonHoverColour
+          : MyColours.navButtonColour,
     );
   }
 }

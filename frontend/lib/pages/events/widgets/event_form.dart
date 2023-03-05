@@ -206,7 +206,7 @@ class _EventFormState extends State<EventForm> {
                 backgroundColor:
                     MaterialStateProperty.all<Color>(MyColours.light),
                 foregroundColor:
-                    MaterialStateProperty.all<Color>(MyColours.dark),
+                    MaterialStateProperty.all<Color>(MyColours.navbarColour),
               ),
               onPressed: () {
                 setState(
