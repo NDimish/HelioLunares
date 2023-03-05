@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:university_ticketing_system/user_hub_widgets/widgets/MainAppBar.dart';
-import 'package:university_ticketing_system/user_hub_widgets/widgets/SideAppBarWidgets/SideAppBar.dart';
-import 'package:university_ticketing_system/user_hub_widgets/widgets/EventsGrid/EventGridView.dart';
+import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/MainAppBar.dart';
+import 'package:university_ticketing_system/user_hub/widgets/SideAppBarWidgets/SideAppBar.dart';
+import 'package:university_ticketing_system/user_hub/widgets/EventsGrid/EventGridView.dart';
 
 class HomePage extends StatefulWidget{
   HomePage({
