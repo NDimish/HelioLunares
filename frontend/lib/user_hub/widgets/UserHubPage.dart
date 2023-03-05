@@ -21,7 +21,7 @@ class _UserHubPageState extends State<UserHubPage> {
         // MainAppBar(),
         body:Center(
             child: Container(
-              color: Color(0xFF161A1D),
+              color: Color(0xFFF4E7FA),
               child: EventsGridView(),
             ),
           ),

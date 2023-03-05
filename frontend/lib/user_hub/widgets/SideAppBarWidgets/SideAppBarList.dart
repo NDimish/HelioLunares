@@ -9,8 +9,17 @@ class SideAppBarList extends ListView{
     children: [
       const DrawerHeader(child: Text("Tickets For Two")),
 
-      SideAppBarListTile("Show events", Icons.search, sayHello),
-      SideAppBarListTile("Show societies", Icons.access_time_filled_rounded,emptyFunc),
+      // Ugly hack until i figure out how to get functions working
+      SideAppBarListTile("Show events", Icons.calendar_month, (){
+        Navigator.push(
+          context, 
+          MaterialPageRoute(builder: (context) => Scaffold(body:Center(child:Text("Page for profile here (???)")),)));}),
+
+      SideAppBarListTile("Show societies", Icons.group,(){
+        Navigator.push(
+          context, 
+          MaterialPageRoute(builder: (context) => Scaffold(body:Center(child:Text("Page for profile here (???)")),)));
+      }),
     ]
   );
 }

@@ -12,7 +12,7 @@ class EventGridTile extends GridTile{
     header: Container(
       height: 25,
       decoration: BoxDecoration(
-        color: Colors.red[300],
+        color: Color(0xFF70587C),
       ),
       child: Center(
         child: Text(
@@ -31,10 +31,16 @@ class EventGridTile extends GridTile{
       child:Ink(
         height: 1000,
         child: InkWell(
+          splashColor: Color.fromARGB(255, 195, 172, 223),
+          hoverColor: Color(0xFFE6D6F9),
 
+          // TODO
+          // Add links to other pages as an arguments
           onTap: () {
+            //TEMPLATE FOR NOW
             
           },
+
           child: Container(
             padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
             child: SingleChildScrollView(
