@@ -55,40 +55,44 @@ class EventCard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                CustomText(
+                Flexible(
+                    child: CustomText(
                   text: name,
                   size: 20,
                   weight: FontWeight.w300,
                   colour: MyColours.textColourLight,
-                ),
-                CustomText(
+                )),
+                Flexible(
+                    child: CustomText(
                   text: "£$price",
                   size: 16,
                   weight: FontWeight.bold,
                   colour: MyColours.textColourDark,
-                ),
+                )),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.date_range),
-                    CustomText(
+                    Flexible(
+                        child: CustomText(
                       text: date,
                       size: 16,
-                      weight: FontWeight.bold,
+                      weight: FontWeight.w300,
                       colour: MyColours.textColourDark,
-                    )
+                    ))
                   ],
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.location_on_outlined),
-                    CustomText(
+                    Flexible(
+                        child: CustomText(
                       text: location,
                       size: 16,
-                      weight: FontWeight.bold,
+                      weight: FontWeight.w300,
                       colour: MyColours.textColourDark,
-                    )
+                    ))
                   ],
                 )
               ],
