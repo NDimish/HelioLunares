@@ -10,17 +10,17 @@ class EventsGridView extends GridView{
     padding: EdgeInsets.all(20),
     
     children: [
-      EventGridTile("lib/images/blue-lock-anime.gif", "Test event", DateTime.now(), "Wesley"),
-      EventGridTile("lib/images/blue-lock-gin-gagamaru.gif", "Test event", DateTime.now(), "Wesley"),
-      EventGridTile("lib/images/event.png", "Test event", DateTime.now(), "Wesley"),
-      EventGridTile("lib/images/event.png", "Test event", DateTime.now(), "Wesley"),
-      EventGridTile("lib/images/event.png", "Test event", DateTime.now(), "Wesley"),
-      EventGridTile("lib/images/event.png", "Test event", DateTime.now(), "Wesley"),
-      EventGridTile("lib/images/event.png", "Test event", DateTime.now(), "Wesley"),
-      EventGridTile("lib/images/event.png", "Test event", DateTime.now(), "Wesley"),
-      EventGridTile("lib/images/event.png", "Test event", DateTime.now(), "Wesley"),
-      EventGridTile("lib/images/event.png", "Test event", DateTime.now(), "Wesley"),
-      EventGridTile("lib/images/event.png", "Test event", DateTime.now(), "Wesley"),
+      EventGridTile("Test event", DateTime.now(), "Wesley"),
+      EventGridTile("Test event", DateTime.now(), "Wesley"),
+      EventGridTile("Test event", DateTime.now(), "Wesley"),
+      EventGridTile("Test event", DateTime.now(), "Wesley"),
+      EventGridTile("Test event", DateTime.now(), "Wesley"),
+      EventGridTile("Test event", DateTime.now(), "Wesley"),
+      EventGridTile("Test event", DateTime.now(), "Wesley"),
+      EventGridTile("Test event", DateTime.now(), "Wesley"),
+      EventGridTile("Test event", DateTime.now(), "Wesley"),
+      EventGridTile("Test event", DateTime.now(), "Wesley"),
+      EventGridTile("Test event", DateTime.now(), "Wesley"),
     ]
   );
 

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 // Organiser
 
 class EventGridTile extends GridTile{
-  EventGridTile(String imagePath, String eventName, DateTime dateTime, String org):super(
+  EventGridTile(String eventName, DateTime dateTime, String org):super(
     
     header: Container(
       height: 25,
@@ -40,7 +40,6 @@ class EventGridTile extends GridTile{
             child: SingleChildScrollView(
               child: Column(
               children: <Widget>[
-                Image.asset(imagePath, scale: 6,),
                 SizedBox(height:4),
                 Text(eventName),
                 SizedBox(height:4),

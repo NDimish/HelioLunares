@@ -9,10 +9,8 @@ class SideAppBarList extends ListView{
     children: [
       const DrawerHeader(child: Text("Tickets For Two")),
 
-      SideAppBarListTile("[[ SEARCH BAR ]]", Icons.search, sayHello),
-      SideAppBarListTile("Search With Tags", Icons.access_time_filled_rounded,emptyFunc),
-      SideAppBarListTile("My Registered Events", Icons.access_time_filled_rounded,emptyFunc),
-      SideAppBarListTile("Show Events For My Societies", Icons.access_time_filled_rounded,emptyFunc)
+      SideAppBarListTile("Show events", Icons.search, sayHello),
+      SideAppBarListTile("Show societies", Icons.access_time_filled_rounded,emptyFunc),
     ]
   );
 }
