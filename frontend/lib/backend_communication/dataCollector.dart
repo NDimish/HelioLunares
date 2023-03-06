@@ -7,7 +7,7 @@ export '../models/all.dart';
 import '../models/all.dart';
 
 final Map<Type, Databases> sets = {
-  User: Databases.usersadd,
+  User: Databases.users,
   Event: Databases.event
 };
 
