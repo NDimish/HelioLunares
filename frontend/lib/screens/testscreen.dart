@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../backend_communication/get.dart' as data;
+import '../backend_communication/dataCollector.dart' as data;
 import 'package:provider/provider.dart';
 
 class testscreen extends StatefulWidget {
@@ -30,11 +30,18 @@ class _testscreen extends State<testscreen> {
   // // @override
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (context) => data.dataCollector<data.Event>(
-            filter: widget.filter, order: widget.Orderby),
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+              create: (context) => data.dataCollector<data.Event>(
+                  filter: widget.filter, order: widget.Orderby)),
+          ChangeNotifierProvider(
+              create: (context) => data.dataCollector<data.User>(
+                  filter: widget.filter, order: widget.Orderby)),
+        ],
         builder: (context, child) {
-          final DataP = Provider.of<data.dataCollector<data.Event>>(context);
+          final DataP2 = Provider.of<data.dataCollector<data.Event>>(context);
+          final DataP = Provider.of<data.dataCollector<data.User>>(context);
           return Scaffold(
             appBar: AppBar(
               title: Text('Todo App'),
@@ -50,12 +57,12 @@ class _testscreen extends State<testscreen> {
                           // todoP.deleteTodo(todoP.todos[index]);
                         }),
                     title: Text(
-                      DataP.collection[index].title,
+                      DataP.collection[index].username,
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     subtitle: Text(
-                      DataP.collection[index].date.toString(),
+                      DataP2.collection[index].date.toString(),
                       style: TextStyle(fontSize: 15, color: Colors.black),
                     ));
               },

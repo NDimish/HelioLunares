@@ -3,24 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-
-//enumerations
-
-enum Databases {
-  users,
-  event,
-}
-
-enum Tag {
-  E,
-}
-
-enum OrderType {
-  CHRONOLOGICAL,
-}
+export '../models/all.dart';
+import '../models/all.dart';
 
 final Map<Type, Databases> sets = {
-  Login: Databases.users,
+  User: Databases.usersadd,
   Event: Databases.event
 };
 
@@ -67,13 +54,13 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
 
   getClass(Map<String, dynamic> json, Databases database) {
     switch (database) {
-      case Databases.users:
-        return Login.fromJson(json);
+      case Databases.usersadd:
+        return User.fromJson(json);
       case Databases.event:
         return Event.fromJson(json);
 
       default:
-        return Login.fromJson(json);
+        return User.fromJson(json);
     }
   }
 
@@ -85,66 +72,5 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       i++;
     }
     return output;
-  }
-}
-
-// Classes for models
-
-abstract class dataSets {
-  dataSets() {}
-
-  Databases getDatabase() {
-    return Databases.users;
-  }
-}
-
-class Login extends dataSets {
-  final int id;
-  final String username;
-  // final String password;
-
-  Login({required this.id, required this.username});
-
-  factory Login.fromJson(Map<String, dynamic> json) {
-    return Login(id: json['id'], username: json['email']);
-  }
-
-  String getUsername() {
-    return username;
-  }
-
-  @override
-  Databases getDatabase() {
-    return Databases.users;
-  }
-}
-
-class Event extends dataSets {
-  final String title;
-  final String date;
-  final String time;
-  final String venue;
-  final String description;
-  // final String password;
-
-  Event(
-      {required this.title,
-      required this.date,
-      required this.time,
-      required this.venue,
-      required this.description});
-
-  factory Event.fromJson(Map<String, dynamic> json) {
-    return Event(
-        title: json['event_name'],
-        date: (json['event_date'].split('T')[0]),
-        time: (json['event_date'].split('T')[1]),
-        venue: json['location'],
-        description: json['description']);
-  }
-
-  @override
-  Databases getDatabase() {
-    return Databases.event;
   }
 }
