@@ -30,6 +30,9 @@ class SocietyHubCardsMedium extends StatelessWidget {
                 topColor: Colors.lightBlue,
                 //isActive: isActive,
                 onTap: () {}),
+            SizedBox(
+              width: _width / 64,
+            ),
           ],
         ),
         SizedBox(
@@ -48,6 +51,15 @@ class SocietyHubCardsMedium extends StatelessWidget {
             SizedBox(
               width: _width / 64,
             ),
+          ],
+        ),
+        SizedBox(
+          height: _width / 64,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
             InfoCard(
                 title: "About Us",
                 value:
@@ -56,6 +68,9 @@ class SocietyHubCardsMedium extends StatelessWidget {
                 topColor: Colors.lightGreen,
                 //isActive: isActive,
                 onTap: () {}),
+            SizedBox(
+              width: _width / 64,
+            ),
           ],
         )
       ],

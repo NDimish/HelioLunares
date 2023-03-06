@@ -49,42 +49,28 @@ class InfoCard extends StatelessWidget {
                 ))
               ],
             ),
-            // Expanded(
-            //   child: Container(),
-            // ),
-            Column(
-                //,
-
-                children: [
-                  Row(children: [
-                    Expanded(
-                        child: CustomText(
-                            size: 20,
-                            weight: FontWeight.bold,
-                            //textAlign: TextAlign.center,
-                            text: title))
-                  ]),
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    Expanded(
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                          CustomText(
-                              size: 20,
-                              weight: FontWeight.normal,
-                              //textAlign: TextAlign.center,
-                              text: value)
-                        ]))
-                  ])
-                  //   TextSpan(
-                  //       text: "$value\n",
-                  //       style: GoogleFonts.spaceMono(
-                  //           fontSize: 18, color: MyColours.textColourLight)),
-                  // ]))
-                ]),
-            // Expanded(
-            //   child: Container(),
-            // ),
+            Column(children: [
+              Row(children: [
+                Expanded(
+                    child: CustomText(
+                        size: 20,
+                        weight: FontWeight.bold,
+                        align: TextAlign.center,
+                        text: title))
+              ]),
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                Expanded(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                      CustomText(
+                          size: 18,
+                          weight: FontWeight.normal,
+                          align: TextAlign.center,
+                          text: value)
+                    ]))
+              ])
+            ]),
           ]))
         ]),
       ),
