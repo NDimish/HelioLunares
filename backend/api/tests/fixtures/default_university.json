@@ -1,0 +1,24 @@
+[
+    {
+        "model": "api.university",
+        "pk": 1,
+        "fields": {
+            "name": "Test College London",
+            "latitude": "42.123456",
+            "longitude": "42.123456",
+            "street_name": "test street",
+            "postcode": "TES 1ST"
+        }
+    },
+    {
+        "model": "api.university",
+        "pk": 2,
+        "fields": {
+            "name": "Two College London",
+            "latitude": "42.123456",
+            "longitude": "42.123456",
+            "street_name": "test street",
+            "postcode": "TES 1ST"
+        }
+    }
+]
