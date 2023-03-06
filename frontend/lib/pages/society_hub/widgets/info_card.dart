@@ -26,8 +26,8 @@ class InfoCard extends StatelessWidget {
         child: InkWell(
       onTap: onTap,
       child: Container(
-        height: 150,
-        alignment: Alignment.center,
+        //height: 400,
+        // alignment: Alignment.topLeft,
         decoration: BoxDecoration(
             color: MyColours.panelBackgroundColour,
             boxShadow: [
@@ -37,35 +37,55 @@ class InfoCard extends StatelessWidget {
                   blurRadius: 12)
             ],
             borderRadius: BorderRadius.circular(8)),
-        child: Column(children: [
-          Row(
-            children: [
-              Expanded(
-                  child: Container(
-                color: topColor ?? MyColours.active,
-                height: 5,
-              ))
-            ],
-          ),
+        child: Row(children: [
           Expanded(
-            child: Container(),
-          ),
-          Column(children: [
-            CustomText(
-                size: 20,
-                weight: FontWeight.bold,
-                //textAlign: TextAlign.center,
-                text: title),
-            Text(value)
-            //   TextSpan(
-            //       text: "$value\n",
-            //       style: GoogleFonts.spaceMono(
-            //           fontSize: 18, color: MyColours.textColourLight)),
-            // ]))
-          ]),
-          Expanded(
-            child: Container(),
-          ),
+              child: Column(children: [
+            Row(
+              children: [
+                Expanded(
+                    child: Container(
+                  color: topColor ?? MyColours.active,
+                  height: 5,
+                ))
+              ],
+            ),
+            // Expanded(
+            //   child: Container(),
+            // ),
+            Column(
+                //,
+
+                children: [
+                  Row(children: [
+                    Expanded(
+                        child: CustomText(
+                            size: 20,
+                            weight: FontWeight.bold,
+                            //textAlign: TextAlign.center,
+                            text: title))
+                  ]),
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    Expanded(
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                          CustomText(
+                              size: 20,
+                              weight: FontWeight.normal,
+                              //textAlign: TextAlign.center,
+                              text: value)
+                        ]))
+                  ])
+                  //   TextSpan(
+                  //       text: "$value\n",
+                  //       style: GoogleFonts.spaceMono(
+                  //           fontSize: 18, color: MyColours.textColourLight)),
+                  // ]))
+                ]),
+            // Expanded(
+            //   child: Container(),
+            // ),
+          ]))
         ]),
       ),
     ));
