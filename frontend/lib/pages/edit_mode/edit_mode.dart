@@ -62,7 +62,7 @@ class EditModePage extends StatelessWidget {
                 ),
                 Flexible(
                     child: Container(
-                  height: 10,
+                  height: 20,
                 )),
                 Expanded(
                   flex: 20,
@@ -88,7 +88,11 @@ class EditModePage extends StatelessWidget {
                         size: 20,
                       ),
                       onPressed: () {}),
-                )
+                ),
+                Flexible(
+                    child: Container(
+                  height: 5,
+                )),
               ],
             ))
       ],
