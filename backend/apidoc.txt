@@ -46,9 +46,9 @@ An indentation means that the url procedes it's parent url. e.g:
         - POST
             - will create a user // yet to be implemented
 
-    [<userid:int>/]
+    [/<usersid:int>/]
         - Description:
-            - access to user with id <userid>
+            - access to user with id <usersid>
         - Requires:
             - CSRF and SessionID as cookie
         - Optional:
@@ -74,7 +74,7 @@ An indentation means that the url procedes it's parent url. e.g:
         - POST
             - will create a society // yet to be implemented
     
-    [<societyid:int>/]
+    [/<societyid:int>/]
         - Description:
             - access to society with id <societyid>
         - Requires:
@@ -91,4 +91,67 @@ An indentation means that the url procedes it's parent url. e.g:
                     - university_society_is_at - University (String)
                     - join_date - Date
 
+[event/]
+    - Description:
+        - access to a list of all the events
+    - Requires:
+        - CSRF and SessionID as cookie
+    - Optional:
+        - Accepts query paramaters:
+            - ordering
+            - Any model field such as event_name
+    - Methods:
+        - GET
+            - a list of all the event
+        - POST
+            - will create an event
+    
+    [/<eventpk:int>/]
+        - Description:
+            - access to event with id <eventpk>
+        - Requires:
+            - CSRF and SessionID as cookie
+        - Optional:
+        -Methods:
+            - GET
+                - dict of event data about event with id <eventpk>
+                - Fields:
+                    - id - Int
+                    - society_email - Email
+                    - duration - Int
+                    - event_date - Date
+                    - event_name - String
+                    - location - String
+                    - description - String
+                    - price - Float
+                    - update_time - Date
+                    - create_time - Date
 
+[university/]
+    - Description:
+        - access to a list of all the universities
+    - Requires:
+        - CSRF and SessionID as cookie
+    - Optional:
+        - Accepts query paramaters:
+            - ordering
+            - Any model field such as event_name
+    - Methods:
+        - GET
+            - a list of all the universities
+    
+    [/<universityid:str>/]
+        - Description:
+            - access to university with id <universityid>
+        - Requires:
+            - CSRF and SessionID as cookie
+        - Optional:
+        -Methods:
+            - GET
+                - dict of university data about university with id <universityid>
+                - Fields:
+                    - name - String
+                    - latitude - Float
+                    - longitude - Float
+                    - street_name - String
+                    - postcode - String
