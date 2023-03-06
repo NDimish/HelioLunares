@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 // Organiser
 
 class EventGridTile extends GridTile{
-  EventGridTile(String eventName, DateTime dateTime, String org):super(
+  EventGridTile(BuildContext context, String eventName, DateTime dateTime, String org):super(
     
     header: Container(
       height: 25,
@@ -38,7 +38,12 @@ class EventGridTile extends GridTile{
           // Add links to other pages as an arguments
           onTap: () {
             //TEMPLATE FOR NOW
-            
+            Navigator.push(
+              context, 
+              MaterialPageRoute(builder: (context) => Scaffold(
+                appBar: AppBar(
+                  title: Text("Event here!"),),
+                body:Center(child:Text("Page showing event details here")),)));
           },
 
           child: Container(

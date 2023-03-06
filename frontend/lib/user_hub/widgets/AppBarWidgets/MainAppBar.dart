@@ -15,12 +15,6 @@ class MainAppBar extends AppBar{
           MaterialPageRoute(builder: (context) => Scaffold(body:Center(child:Text("Page for bought tickets here (Isaac)")),)));
       }, icon: Icon(Icons.receipt)),
 
-      IconButton(onPressed: (){
-        Navigator.push(
-          context, 
-          MaterialPageRoute(builder: (context) => Scaffold(body:Center(child:Text("Page for profile here (???)")),)));
-
-      },icon: Icon(Icons.person)),
 
       IconButton(onPressed: (){
         Navigator.push(

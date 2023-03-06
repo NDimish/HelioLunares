@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'EventGridTile.dart';
 
 class EventsGridView extends GridView{
-  EventsGridView():super(
+  EventsGridView(BuildContext context):super(
     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
       crossAxisCount: 4,
       crossAxisSpacing: 30,
@@ -10,17 +10,17 @@ class EventsGridView extends GridView{
     padding: EdgeInsets.all(20),
     
     children: [
-      EventGridTile("Test event", DateTime.now(), "Wesley"),
-      EventGridTile("Test event", DateTime.now(), "Wesley"),
-      EventGridTile("Test event", DateTime.now(), "Wesley"),
-      EventGridTile("Test event", DateTime.now(), "Wesley"),
-      EventGridTile("Test event", DateTime.now(), "Wesley"),
-      EventGridTile("Test event", DateTime.now(), "Wesley"),
-      EventGridTile("Test event", DateTime.now(), "Wesley"),
-      EventGridTile("Test event", DateTime.now(), "Wesley"),
-      EventGridTile("Test event", DateTime.now(), "Wesley"),
-      EventGridTile("Test event", DateTime.now(), "Wesley"),
-      EventGridTile("Test event", DateTime.now(), "Wesley"),
+      EventGridTile(context, "Test event", DateTime.now(), "Wesley"),
+      EventGridTile(context,"Test event", DateTime.now(), "Wesley"),
+      EventGridTile(context,"Test event", DateTime.now(), "Wesley"),
+      EventGridTile(context,"Test event", DateTime.now(), "Wesley"),
+      EventGridTile(context,"Test event", DateTime.now(), "Wesley"),
+      EventGridTile(context,"Test event", DateTime.now(), "Wesley"),
+      EventGridTile(context,"Test event", DateTime.now(), "Wesley"),
+      EventGridTile(context,"Test event", DateTime.now(), "Wesley"),
+      EventGridTile(context,"Test event", DateTime.now(), "Wesley"),
+      EventGridTile(context,"Test event", DateTime.now(), "Wesley"),
+      EventGridTile(context,"Test event", DateTime.now(), "Wesley"),
     ]
   );
 
