@@ -62,13 +62,19 @@ class EventCard extends StatelessWidget {
                   weight: FontWeight.w300,
                   colour: MyColours.textColourLight,
                 )),
-                Flexible(
-                    child: CustomText(
-                  text: "£$price",
-                  size: 16,
-                  weight: FontWeight.bold,
-                  colour: MyColours.textColourDark,
-                )),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.payments_outlined),
+                    Flexible(
+                        child: CustomText(
+                      text: "£$price",
+                      size: 16,
+                      weight: FontWeight.w300,
+                      colour: MyColours.textColourDark,
+                    ))
+                  ],
+                ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
