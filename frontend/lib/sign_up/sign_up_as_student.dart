@@ -1,9 +1,8 @@
 import 'package:university_ticketing_system/gradient_animation.dart';
-import 'package:university_ticketing_system/sign_up/widgets/sign_up_card.dart';
+import 'package:university_ticketing_system/sign_up/widgets/student_sign_up_card.dart';
 import 'package:flutter/material.dart';
 
 class StudentSignUpScreen extends StatefulWidget {
-  static String routeName = "/student_sign_up";
   const StudentSignUpScreen({
     super.key,
   });
