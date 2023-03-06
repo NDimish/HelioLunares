@@ -5,13 +5,13 @@ import '../backend_communication/dataCollector.dart' as data;
 
 class UserBoughtTicketScreen extends StatefulWidget {
   final data.OrderType Orderby;
-  final String filter;
+  final Map<String, String> filter;
   // final int id;
 
   const UserBoughtTicketScreen({
     Key? key,
     this.Orderby = data.OrderType.CHRONOLOGICAL,
-    this.filter = 'none',
+    this.filter = const {},
     // this.id = -1
   }) : super(key: key);
 

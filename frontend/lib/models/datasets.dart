@@ -16,7 +16,9 @@ enum OrderType {
 }
 
 abstract class dataSets {
-  dataSets() {}
+  final int id;
+
+  dataSets({required this.id});
 
   Databases getDatabase() {
     return Databases.users;

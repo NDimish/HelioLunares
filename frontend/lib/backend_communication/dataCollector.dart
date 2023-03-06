@@ -11,6 +11,8 @@ final Map<Type, Databases> sets = {
   Event: Databases.event
 };
 
+enum PostType { READ, ADD, DELETE, UPDATE }
+
 //abstract to use in places
 
 class dataCollector<T extends dataSets> with ChangeNotifier {
@@ -21,7 +23,7 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
   }
 
   dataCollector(
-      {String filter = 'none',
+      {Map<String, String> filter = const {},
       OrderType order = OrderType.CHRONOLOGICAL,
       int ID = -1}) {
     fetchData(
@@ -29,16 +31,23 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
   }
 
   String createUrl(Databases Database,
-      {String filter = 'none',
+      {Map<String, String> filter = const {},
       OrderType order = OrderType.CHRONOLOGICAL,
-      int ID = -1}) {
-    String url = 'http://127.0.0.1:8000/${Database.name}/';
+      int ID = -1,
+      PostType postType = PostType.READ}) {
+    String url = '$DATASOURCE${Database.name}/';
 
-    // if (ID >= 0) {
-    //   url += '$ID/';
-    // } else {
-    //   url += '$filter/${order.index}/';
-    // }
+    if (ID >= 0) {
+      url = '$url${ID}/';
+    } else {
+      if (postType == PostType.READ) {
+        url = '$url?ordering=id';
+        filter.forEach((key, value) {
+          url = '$url&$key=$value';
+        });
+      }
+    }
+
     print(url);
     return '$url?format=json';
   }
@@ -64,13 +73,54 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
     }
   }
 
-  static String generateFilterSet(List<String> filters) {
-    var i = 0;
-    String output = '';
-    while (i < filters.length) {
-      output = '$output|${filters[i]}';
-      i++;
+  Future<bool> addToCollection(T task) async {
+    final response = await http.post(
+      Uri.parse(createUrl(sets[T]!, postType: PostType.ADD)),
+      headers: {
+        "Content-Type": "application/json",
+        "Cookie": Cookie,
+        "X-CSRFToken": CSRFToken
+      },
+      body: json.encode(task),
+    );
+    if (response.statusCode == 201) {
+      collection.add(task);
+      return true;
     }
-    return output;
+    return false;
+  }
+
+  Future<bool> deleteFromCollection(T task) async {
+    final response = await http.delete(
+      Uri.parse(createUrl(sets[T]!, postType: PostType.DELETE, ID: task.id)),
+      headers: {
+        "Content-Type": "application/json",
+        "Cookie": Cookie,
+        "X-CSRFToken": CSRFToken
+      },
+    );
+    if (response.statusCode == 204) {
+      collection.remove(task);
+      notifyListeners();
+      return true;
+    }
+    return false;
+  }
+
+  Future<bool> updateCollection(T task) async {
+    final response = await http.put(
+      Uri.parse(createUrl(sets[T]!, postType: PostType.UPDATE)),
+      headers: {
+        "Content-Type": "application/json",
+        "Cookie": Cookie,
+        "X-CSRFToken": CSRFToken
+      },
+      body: json.encode(task),
+    );
+    if (response.statusCode == 201) {
+      notifyListeners();
+      return true;
+    }
+    return false;
   }
 }

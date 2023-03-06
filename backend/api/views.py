@@ -85,9 +85,12 @@ class UsersListView(generics.ListAPIView):
     filterset_fields = '__all__'
     ordering_fields = '__all__'
     
-    def post(self,request, format='json'):
-        # Will create a user
-        pass
+    def post(self,request):
+        serializer = UserSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
 
 class UserView(APIView):
     """View to retrieve data about a user"""
@@ -99,6 +102,9 @@ class UserView(APIView):
             return Response(serializer.data)
         except:
             return Response({'error':'User not found.'},status=status.HTTP_404_NOT_FOUND)
+    def delete(self, request, pk):
+        User.objects.filter(id=pk).delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 class SocietyListView(generics.ListAPIView):
     """View to retrieve list of societies"""
@@ -109,9 +115,11 @@ class SocietyListView(generics.ListAPIView):
     filterset_fields = '__all__'
     ordering_fields = '__all__'
 
-    def post(self,request,format='json'):
-        # Will create a society
-        pass
+    def post(self,request):
+        serializer = SocietySerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 class SocietyView(APIView):
     """View to retrieve data about a society"""
@@ -122,6 +130,9 @@ class SocietyView(APIView):
             return Response(serializer.data)
         except:
             return Response({'error':'Society not found.'},status=status.HTTP_404_NOT_FOUND)
+    def delete(self, request, pk):
+        Society.objects.filter(id=pk).delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 # @permission_classes([IsAuthenticated])
@@ -190,5 +201,5 @@ class UniversityInfoApiView(APIView):
         return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
 
     def delete(self, request, pk):
-        University.objects.filter(name=pk).delete()
+        University.objects.filter(id=pk).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

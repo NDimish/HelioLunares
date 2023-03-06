@@ -4,13 +4,13 @@ import 'package:provider/provider.dart';
 
 class testscreen extends StatefulWidget {
   final data.OrderType Orderby;
-  final String filter;
+  final Map<String, String> filter;
   final int id;
 
   const testscreen(
       {Key? key,
       this.Orderby = data.OrderType.CHRONOLOGICAL,
-      this.filter = 'none',
+      this.filter = const {},
       this.id = -1})
       : super(key: key);
 
@@ -54,7 +54,7 @@ class _testscreen extends State<testscreen> {
                     trailing: IconButton(
                         icon: Icon(Icons.delete, color: Colors.red),
                         onPressed: () {
-                          // todoP.deleteTodo(todoP.todos[index]);
+                          DataP.deleteFromCollection(DataP.collection[index]);
                         }),
                     title: Text(
                       DataP.collection[index].username,
@@ -62,7 +62,7 @@ class _testscreen extends State<testscreen> {
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     subtitle: Text(
-                      DataP2.collection[index].date.toString(),
+                      DataP.collection[index].id.toString(),
                       style: TextStyle(fontSize: 15, color: Colors.black),
                     ));
               },
@@ -72,7 +72,10 @@ class _testscreen extends State<testscreen> {
                   Icons.add,
                   size: 30,
                 ),
-                onPressed: () {}),
+                onPressed: () {
+                  DataP.addToCollection(
+                      data.User(id: 3, username: "ro3eeeeeeew2rll@gmail.com"));
+                }),
           );
         });
   }

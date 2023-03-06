@@ -1,11 +1,11 @@
 import '/models/datasets.dart';
 
 class User extends dataSets {
-  final int id;
   final String username;
+  late final String password;
   // final String password;
 
-  User({required this.id, required this.username});
+  User({required int id, required this.username}) : super(id: id);
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(id: json['id'], username: json['email']);
@@ -15,4 +15,6 @@ class User extends dataSets {
   Databases getDatabase() {
     return Databases.users;
   }
+
+  dynamic toJson() => {'email': username};
 }
