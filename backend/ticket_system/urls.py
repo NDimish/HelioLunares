@@ -24,23 +24,15 @@ urlpatterns = [
 
     path('log_in/', views.LogInView.as_view(), name='log_in'),
     path('log_out/', views.log_out, name='log_out'),
-    path('sign_up_as_student/', views.student_sign_up, name='sign_up_as_student'),
-    path('sign_up_as_society/', views.society_sign_up, name='sign_up_as_society'),
-    path('users/', views.get_user_list, name="users_list"),
-    path('users/<int:pk>/', views.get_user_with_id, name="user_with_id"),
-    path('society/', views.get_society_list, name="society_list"),
-    path('society/<int:pk>/', views.get_society_with_id, name="society_with_id"),
+    path('users/', views.UsersListView.as_view(), name="users_list"),
+    path('users/<int:pk>/', views.UserView.as_view(), name="user_with_id"),
+    path('society/', views.SocietyListView.as_view(), name="society_list"),
+    path('society/<int:pk>/', views.SocietyView.as_view(), name="society_with_id"),
 
     # event router
-
     path('event/', views.EventApiView.as_view(), name="event"),
     path('event/<int:pk>/', views.EventApiInfoView.as_view(), name="event_info"),
    
-
     path('university/', views.UniversityApiView.as_view(), name="university"),
     path('university/<str:pk>/', views.UniversityInfoApiView.as_view(), name="university_info"),
-
-    path('', include('api.urls')),
-   
-
 ]

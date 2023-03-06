@@ -128,16 +128,3 @@ class Event(models.Model):
     class Meta:
         verbose_name = "event"
         verbose_name_plural = verbose_name
-
-    def __str__(self):
-        # the result must is string type
-        return
-        self.society_email,
-        self.duration,
-        self.event_date,
-        self.event_name,
-        self.location,
-        self.description,
-        self.price,
-        self.update_time,
-        self.create_time
