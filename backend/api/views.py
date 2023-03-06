@@ -116,7 +116,7 @@ class SocietyView(APIView):
 
 
 # @permission_classes([IsAuthenticated])
-class EventApiView(APIView):
+class EventApiView(generics.ListAPIView):
     
     queryset = Event.objects.all()
     serializer_class = EventModelSerializer
@@ -151,7 +151,7 @@ class EventApiInfoView(APIView):
 
 
 # @permission_classes([IsAuthenticated])
-class UniversityApiView(APIView):
+class UniversityApiView(generics.ListAPIView):
     queryset = University.objects.all()
     serializer_class = UniversitySerializer
     filter_backends = [DjangoFilterBackend,OrderingFilter]
