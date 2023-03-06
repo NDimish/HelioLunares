@@ -18,7 +18,7 @@ class InfoCardSmall extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Container(
       child: InkWell(
         onTap: onTap,
         child: Container(
@@ -29,25 +29,30 @@ class InfoCardSmall extends StatelessWidget {
               border: Border.all(
                   color: MyColours.subpanelBackgroundColour, width: .5),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Flexible(
-                    child: CustomText(
-                  text: title,
-                  size: 24,
-                  weight: FontWeight.w300,
-                  colour: MyColours.textColourDark,
-                )),
-                Flexible(
-                    child: CustomText(
-                  text: value,
-                  size: 24,
-                  weight: FontWeight.bold,
-                  colour: MyColours.textColourLight,
-                ))
-              ],
-            )),
+            child: Column(children: [
+              Row(
+                //MediaQuery.of(context).size.width,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Expanded(
+                      child: CustomText(
+                    text: title,
+                    size: 24,
+                    weight: FontWeight.w300,
+                    colour: MyColours.textColourDark,
+                  )),
+                  Expanded(
+                      child: Column(children: [
+                    CustomText(
+                      text: value,
+                      size: 24,
+                      weight: FontWeight.bold,
+                      colour: MyColours.textColourLight,
+                    )
+                  ]))
+                ],
+              )
+            ])),
       ),
     );
   }

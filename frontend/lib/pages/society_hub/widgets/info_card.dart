@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../constants/style.dart';
+import '../../../widgets/custom_text.dart';
 
 class InfoCard extends StatelessWidget {
   final String title;
@@ -25,7 +26,7 @@ class InfoCard extends StatelessWidget {
         child: InkWell(
       onTap: onTap,
       child: Container(
-        height: 136,
+        height: 150,
         alignment: Alignment.center,
         decoration: BoxDecoration(
             color: MyColours.panelBackgroundColour,
@@ -49,18 +50,19 @@ class InfoCard extends StatelessWidget {
           Expanded(
             child: Container(),
           ),
-          RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(children: [
-                TextSpan(
-                    text: "$title\n",
-                    style: GoogleFonts.spaceMono(
-                        fontSize: 20, color: MyColours.textColourDark)),
-                TextSpan(
-                    text: "$value\n",
-                    style: GoogleFonts.spaceMono(
-                        fontSize: 18, color: MyColours.textColourLight)),
-              ])),
+          Column(children: [
+            CustomText(
+                size: 20,
+                weight: FontWeight.bold,
+                //textAlign: TextAlign.center,
+                text: title),
+            Text(value)
+            //   TextSpan(
+            //       text: "$value\n",
+            //       style: GoogleFonts.spaceMono(
+            //           fontSize: 18, color: MyColours.textColourLight)),
+            // ]))
+          ]),
           Expanded(
             child: Container(),
           ),
