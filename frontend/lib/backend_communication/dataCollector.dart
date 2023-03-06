@@ -1,8 +1,8 @@
 import 'dart:async';
-
+import 'dart:io';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'dart:convert';
-import 'package:http/http.dart' as http;
 export '../models/all.dart';
 import '../models/all.dart';
 
@@ -48,7 +48,7 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       }
     }
 
-    print(url);
+    // print(url);
     return '$url?format=json';
   }
 
@@ -78,8 +78,9 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       Uri.parse(createUrl(sets[T]!, postType: PostType.ADD)),
       headers: {
         "Content-Type": "application/json",
-        "Cookie": Cookie,
-        "X-CSRFToken": CSRFToken
+        // "Cookie": Cookies.Cookie,
+        // "X-CSRFToken": Cookies.CSRFToken
+        HttpHeaders.authorizationHeader: Cookies.CSRFToken
       },
       body: json.encode(task),
     );
@@ -95,8 +96,9 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       Uri.parse(createUrl(sets[T]!, postType: PostType.DELETE, ID: task.id)),
       headers: {
         "Content-Type": "application/json",
-        "Cookie": Cookie,
-        "X-CSRFToken": CSRFToken
+        // "Cookie": Cookies.Cookie,
+        // "X-CSRFToken": Cookies.CSRFToken
+        HttpHeaders.authorizationHeader: Cookies.CSRFToken
       },
     );
     if (response.statusCode == 204) {
@@ -112,8 +114,9 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       Uri.parse(createUrl(sets[T]!, postType: PostType.UPDATE)),
       headers: {
         "Content-Type": "application/json",
-        "Cookie": Cookie,
-        "X-CSRFToken": CSRFToken
+        // "Cookie": Cookies.Cookie,
+        // "X-CSRFToken": Cookies.CSRFToken
+        HttpHeaders.authorizationHeader: Cookies.CSRFToken
       },
       body: json.encode(task),
     );

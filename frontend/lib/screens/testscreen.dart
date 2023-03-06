@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../backend_communication/authenticate.dart';
 import '../backend_communication/dataCollector.dart' as data;
 import 'package:provider/provider.dart';
 
@@ -73,8 +74,9 @@ class _testscreen extends State<testscreen> {
                   size: 30,
                 ),
                 onPressed: () {
+                  authenticate("nath@gmail.com", "q");
                   DataP.addToCollection(
-                      data.User(id: 3, username: "ro3eeeeeeew2rll@gmail.com"));
+                      data.User(id: 3, username: "wqeqwe@gmail.com"));
                 }),
           );
         });
