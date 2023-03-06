@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:university_ticketing_system/screens/log_in_screen.dart';
-import 'package:university_ticketing_system/screens/sign_up_as_student_screen.dart';
-import 'package:university_ticketing_system/screens/sign_up_as_society_screen.dart';
+import 'package:university_ticketing_system/gradient_animation.dart';
+import 'package:university_ticketing_system/log_in/log_in_screen.dart';
+import 'package:university_ticketing_system/sign_up/sign_up_as_student.dart';
+import 'package:university_ticketing_system/sign_up/sign_up_as_society.dart';
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({super.key});
@@ -27,32 +28,30 @@ class _LandingScreenState extends State<LandingScreen> {
             style: TextStyle(color: Colors.black),
           ),
         ),
-        body: SafeArea(
-            child: Row(children: [
+        body: CustomLinearGradient(
+            child: SafeArea(
+                child: Row(children: [
           Flexible(
               flex: 10,
               child: Container(
                 width: width / 1.5,
                 margin: const EdgeInsets.only(right: 1.5),
-                color: const Color(0xFFc5afc6),
+                color: Color.fromARGB(255, 66, 46, 96),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
+                  children: const <Widget>[
                     Flexible(
                         flex: 1,
                         child: SizedBox(
                           height: 300,
                           width: 300,
                           child: Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                              child: const Center(
-                                child: Text(
-                                  "Add styling for this, maybe an image. \nOr we can have autosliding images telling the users what our app does. \nAlso, we need an icon",
-                                  textAlign: TextAlign.center,
-                                ),
-                              )),
+                              child: Center(
+                            child: Text(
+                              "Add styling for this, maybe an image. \nOr we can have autosliding images telling the users what our app does. \nAlso, we need an icon",
+                              textAlign: TextAlign.center,
+                            ),
+                          )),
                         ))
                   ],
                 ),
@@ -61,7 +60,7 @@ class _LandingScreenState extends State<LandingScreen> {
               flex: 8,
               child: Container(
                   width: width / 1.5,
-                  color: const Color(0xFFf8edeb),
+                  //color: const Color(0xFFf8edeb),
                   child: Column(children: <Widget>[
                     Expanded(
                         flex: 1,
@@ -69,35 +68,22 @@ class _LandingScreenState extends State<LandingScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               SizedBox(
-                                height: width / 21,
-                                width: width / 3.5,
-                                child: ElevatedButton(
-                                    onPressed: redirectToLogIn,
-                                    style: ElevatedButton.styleFrom(
-                                        foregroundColor: Colors.white,
-                                        backgroundColor:
-                                            const Color(0xFF333951),
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25))),
-                                    child: const Text("Log In",
-                                        textScaleFactor: 1.3)),
-                              ),
+                                  height: width / 21,
+                                  width: width / 3.5,
+                                  child: ElevatedButton(
+                                      onPressed: redirectToLogIn,
+                                      child: const Text("Log In",
+                                          style: TextStyle(fontFamily: "Arvo"),
+                                          textScaleFactor: 1.1))),
                               const SizedBox(height: 35),
                               SizedBox(
                                 height: width / 21,
                                 width: width / 3.5,
                                 child: ElevatedButton(
                                     onPressed: redirectToStudentSignUp,
-                                    style: ElevatedButton.styleFrom(
-                                        foregroundColor: Colors.white,
-                                        backgroundColor:
-                                            const Color(0xFF333951),
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25))),
                                     child: const Text("Sign up as student",
-                                        textScaleFactor: 1.3)),
+                                        style: TextStyle(fontFamily: "Arvo"),
+                                        textScaleFactor: 1.1)),
                               ),
                               const SizedBox(height: 35),
                               SizedBox(
@@ -105,19 +91,13 @@ class _LandingScreenState extends State<LandingScreen> {
                                 width: width / 3.5,
                                 child: ElevatedButton(
                                     onPressed: redirectToSocietySignUp,
-                                    style: ElevatedButton.styleFrom(
-                                        foregroundColor: Colors.white,
-                                        backgroundColor:
-                                            const Color(0xFF333951),
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25))),
                                     child: const Text("Sign up as society",
-                                        textScaleFactor: 1.3)),
+                                        style: TextStyle(fontFamily: "Arvo"),
+                                        textScaleFactor: 1.1)),
                               ),
                             ]))
                   ])))
-        ])));
+        ]))));
   }
 
   // ignore: non_constant_identifier_names
@@ -135,7 +115,7 @@ class _LandingScreenState extends State<LandingScreen> {
     setState(() {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const SignUpAsSocietyScreen()),
+        MaterialPageRoute(builder: (context) => const SocietySignUpScreen()),
       );
     });
   }
@@ -144,7 +124,7 @@ class _LandingScreenState extends State<LandingScreen> {
     setState(() {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const SignUpAsStudentScreen()),
+        MaterialPageRoute(builder: (context) => const StudentSignUpScreen()),
       );
     });
   }
