@@ -36,6 +36,8 @@ class SocietyHubCardsMedium extends StatelessWidget {
           height: _width / 64,
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             InfoCard(
                 title: "University",
