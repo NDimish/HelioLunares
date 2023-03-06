@@ -29,25 +29,26 @@ class InfoCardSmall extends StatelessWidget {
               border: Border.all(
                   color: MyColours.subpanelBackgroundColour, width: .5),
             ),
-            child: Column(children: [
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Row(
-                //MediaQuery.of(context).size.width,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
                       child: CustomText(
                     text: title,
-                    size: 24,
-                    weight: FontWeight.w300,
+                    size: 20,
+                    weight: FontWeight.bold,
                     colour: MyColours.textColourDark,
                   )),
                   Expanded(
                       child: Column(children: [
                     CustomText(
                       text: value,
-                      size: 24,
-                      weight: FontWeight.bold,
-                      colour: MyColours.textColourLight,
+                      size: 18,
+                      weight: FontWeight.normal,
+                      colour: MyColours.textColourDark,
                     )
                   ]))
                 ],
