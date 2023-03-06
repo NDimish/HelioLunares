@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class FinishSignUpTitle extends StatelessWidget {
-  const FinishSignUpTitle({super.key});
+class FormTitle extends StatelessWidget {
+  const FormTitle({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class FinishSignUpTitle extends StatelessWidget {
             ),
             //const SizedBox(height: 15),
             const Text(
-              "Finish your sign up!",
+              "Sign up as a student",
               style: TextStyle(fontSize: 50, fontFamily: "Arvo"),
             ),
             //const Spacer(),
