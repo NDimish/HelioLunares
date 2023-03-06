@@ -139,6 +139,8 @@ An indentation means that the url procedes it's parent url. e.g:
     - Methods:
         - GET
             - a list of all the universities
+        - POST
+            - adds a university
     
     [/<universityid:str>/]
         - Description:
