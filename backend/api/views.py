@@ -20,6 +20,7 @@ from rest_framework.parsers import JSONParser
 from django.shortcuts import render
 from rest_framework import generics
 
+from datetime import date, datetime
 
 
 
@@ -115,11 +116,55 @@ class SocietyListView(generics.ListAPIView):
     filterset_fields = '__all__'
     ordering_fields = '__all__'
 
+    @permission_classes(AllowAny, )
     def post(self,request):
-        serializer = SocietySerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        auth_content = {
+            'email': request.data.get('email'),
+            'password': request.data.get('password')
+        }
+        
+        """
+        data = {
+            'pk': 1
+            'user': {
+                    'email': "biggreg7@example.org",
+                    'password': "Password123",
+                    'user_level': 4},
+            'name': "Society A",
+            'creation_date': datetime.strptime("01/02/2023", '%d/%m/%Y').date(),
+            'university_society_is_at': {
+                    'name': "Uni C",
+                    'latitude': 0,
+                    'longitude': 1,
+                    'street_name': "A",
+                    'postcode': "BBB"},
+            'join_date': datetime.today()}
+            
+        """
+        
+        try:
+            created_user = User.objects.create_user(
+                email = auth_content.get('email'), 
+                password = auth_content.get('password'),
+                user_level = 4)
+            
+        except:
+            return Response(status=status.HTTP_409_CONFLICT)
+        
+        else:
+            society_content = {
+                'user': created_user,
+                'society_name': request.data.get('society_name'),
+                'university':  University.objects.get(name=request.data.get('university')),
+                'date_created': datetime.strptime(request.data.get('date_created'), '%d/%m/%y'),
+                'join_date': date.today()
+            }
+            serializer = SocietySerializer(data=society_content)
+            if serializer.is_valid(raise_exception=True): 
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
 class SocietyView(APIView):
     """View to retrieve data about a society"""

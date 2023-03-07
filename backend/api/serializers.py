@@ -19,6 +19,8 @@ class UniversitySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class SocietySerializer(serializers.ModelSerializer):
+    user = UserSerializer(many=False)
+    university_society_is_at = UniversitySerializer(many=False)
     class Meta:
         model = Society
         fields = ['pk', 'user', 'name', 'creation_date', 'university_society_is_at', 'join_date']
