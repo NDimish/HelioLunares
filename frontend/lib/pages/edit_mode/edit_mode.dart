@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:university_ticketing_system/constants/controllers.dart';
 import 'package:university_ticketing_system/constants/style.dart';
+import 'package:university_ticketing_system/routing/routes.dart';
 import 'package:university_ticketing_system/widgets/custom_text.dart';
 
 import '../../helpers/responsiveness.dart';
@@ -58,7 +59,10 @@ class EditModePage extends StatelessWidget {
                         text: "Edit Hub Page Details",
                         size: 20,
                       ),
-                      onPressed: () {}),
+                      onPressed: () {
+                        navigationController
+                            .navigateTo(editSocietyHubPageDisplayName);
+                      }),
                 ),
                 Flexible(
                     child: Container(

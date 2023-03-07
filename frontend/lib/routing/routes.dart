@@ -23,6 +23,10 @@ const eventDetailsPageRoute = "/AddEventPopupCard";
 const editEventDetailsPageDisplayName = "Edit Details";
 const editEventDetailsPageRoute = "/EditEventDetails";
 
+//edit society hub page
+const editSocietyHubPageDisplayName = "Edit Society Hub Page";
+const editSocietyHubPageRoute = "/EditSocietyHub";
+
 class EventDetailsRoute<T> extends PageRoute<T> {
   EventDetailsRoute({
     required WidgetBuilder builder,
