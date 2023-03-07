@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:university_ticketing_system/screens/buy_ticket_screen.dart';
+import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/bought_tickets/buy_ticket_screen.dart';
 import 'package:provider/provider.dart';
 // import '../backend_communication/get.dart' as data;
 
