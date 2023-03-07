@@ -73,8 +73,7 @@ class _LogInFormState extends State<LogInForm> {
                   print("Valid form");
                   _formKey.currentState!.save();
                   try {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => UserHubPage()));
+                    Navigator.pushNamed(context, '/userhub');
                   } catch (error) {
                     print(error.toString());
                   }

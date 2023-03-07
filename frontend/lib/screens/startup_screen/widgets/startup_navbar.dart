@@ -85,11 +85,7 @@ class _StartupNavbarState extends State<StartupNavbar> {
             padding: const EdgeInsets.all(15),
             child: TextButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const LandingScreen()),
-                );
+                Navigator.pushNamed(context, '/auth');
               },
               child: Text(
                 'Log in',
