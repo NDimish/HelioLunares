@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/user_hub/widgets/ThemeDataWidgets/UserHubThemes.dart';
+import '../../../screens/user_settings/user_settings.dart';
+
 
 class MainAppBar extends AppBar{
   MainAppBar(BuildContext context):super(
@@ -19,7 +21,7 @@ class MainAppBar extends AppBar{
       IconButton(onPressed: (){
         Navigator.push(
           context, 
-          MaterialPageRoute(builder: (context) => Scaffold(body:Center(child:Text("Page for settings here (Shakeeb)")),)));
+          MaterialPageRoute(builder: (context) => UserSettingsPage()));
       }, icon: Icon(Icons.settings))
     ]
     // 
