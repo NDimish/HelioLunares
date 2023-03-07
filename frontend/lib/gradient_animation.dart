@@ -10,10 +10,10 @@ class CustomLinearGradient extends StatefulWidget {
 
 class _CustomLinearGradientState extends State<CustomLinearGradient> {
   List<Color> colors = [
-    Color(0xFFE8CBC0),
-    Color(0xFF636FA4),
-    Color(0xFF114357),
-    Color(0xFF9796f0)
+    Color(0xFF502F4C),
+    Color(0xFF70587C),
+    Color(0xFFC8B8Db),
+    Color(0xFFFFb7c5)
   ];
 
   List<Alignment> alignments = [
