@@ -5,8 +5,7 @@ import 'package:university_ticketing_system/screens/testscreen.dart';
 import 'package:university_ticketing_system/log_in/log_in_screen.dart';
 import 'package:university_ticketing_system/sign_up/sign_up_as_society.dart';
 import 'package:university_ticketing_system/theme.dart';
-import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/bought_tickets/buy_ticket_screen.dart';
-import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/bought_tickets/user_bought_ticket_screen.dart';
+
 
 void main() {
   runApp(const UniversityTicketingSystem());
