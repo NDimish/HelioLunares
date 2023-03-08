@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:university_ticketing_system/gradient_animation.dart';
 import 'package:university_ticketing_system/screens/startup_screen/sections/about.dart';
 import 'package:university_ticketing_system/screens/startup_screen/sections/contact.dart';
@@ -8,7 +6,6 @@ import 'package:university_ticketing_system/screens/startup_screen/sections/hero
 import 'package:university_ticketing_system/screens/startup_screen/sections/howtouse.dart';
 import 'package:university_ticketing_system/screens/startup_screen/widgets/startup_footer.dart';
 import 'package:university_ticketing_system/screens/startup_screen/widgets/startup_navbar.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class StartupScreen extends StatefulWidget {
   const StartupScreen({super.key});

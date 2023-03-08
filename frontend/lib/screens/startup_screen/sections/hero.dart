@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:university_ticketing_system/screens/startup_screen/widgets/3d_model.dart';
 import 'package:university_ticketing_system/screens/startup_screen/widgets/hero_card.dart';
-import 'package:university_ticketing_system/screens/startup_screen/widgets/social_icons.dart';
 import 'package:university_ticketing_system/screens/startup_screen/widgets/widget_carousel.dart';
 
 //'Hero' subpage - First thing the user sees when they click on the app - Has
@@ -50,7 +46,7 @@ class _StartupHeroState extends State<StartupHero> {
                 style: TextStyle(fontSize: 16, color: Colors.white38),
               ),
               Padding(
-                padding: EdgeInsets.only(bottom: 10, top: 10),
+                padding: const EdgeInsets.only(bottom: 10, top: 10),
                 child: SizedBox(
                   width: 150,
                   height: 50,
@@ -58,14 +54,14 @@ class _StartupHeroState extends State<StartupHero> {
                       onPressed: () => print("press"),
                       style: ElevatedButton.styleFrom(
                           foregroundColor: Colors.white,
-                          backgroundColor: Color(0xFFc8b8db),
+                          backgroundColor: const Color(0xFFc8b8db),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10))),
                       child: const Text("Get started!", textScaleFactor: 1.3)),
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(bottom: 10),
+                padding: const EdgeInsets.only(bottom: 10),
                 child: SizedBox(
                   width: 150,
                   height: 50,
@@ -81,14 +77,14 @@ class _StartupHeroState extends State<StartupHero> {
               ),
               SizedBox(
                   child: (Card(
-                      color: Color(0xFFffd1da).withOpacity(0.55),
+                      color: const Color(0xFFffd1da).withOpacity(0.55),
                       child: WidgetCarousel(children: [
                         HeroCard(
                           headerName: "Test feature 1",
                           feature: "Explain feature here...",
                           imageLink:
                               "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png?20220519031949",
-                          key: ValueKey(0),
+                          key: const ValueKey(0),
                         ),
                         HeroCard(
                           headerName: "Test feature 2",
@@ -96,7 +92,7 @@ class _StartupHeroState extends State<StartupHero> {
                           imageLink:
                               "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png?20220519031949",
                           widgets: [const Text("extra info...")],
-                          key: ValueKey(1),
+                          key: const ValueKey(1),
                         ),
                       ], transitionTime: 10)))),
             ])),

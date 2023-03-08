@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SocialIcon extends StatelessWidget {
@@ -18,13 +15,13 @@ class SocialIcon extends StatelessWidget {
         padding: const EdgeInsets.only(left: 5),
         child: Ink(
           decoration: BoxDecoration(
-            color: Color(0xFFc8b8db).withOpacity(0),
+            color: const Color(0xFFc8b8db).withOpacity(0),
             shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.all(Radius.circular(8)),
+            borderRadius: const BorderRadius.all(Radius.circular(8)),
           ),
           child: IconButton(
             icon: icon,
-            color: Color(0xFFc8b8db),
+            color: const Color(0xFFc8b8db),
             onPressed: () async => await launchUrl(Uri.parse(url)),
             tooltip: tooltip,
           ),

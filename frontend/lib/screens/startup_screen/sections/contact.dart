@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:university_ticketing_system/screens/startup_screen/widgets/contact_form.dart';
 
 //'Contact' subpage - Contains contact info and a form to (eventually) send

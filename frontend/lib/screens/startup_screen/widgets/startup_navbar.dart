@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:university_ticketing_system/screens/landing_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class StartupNavbar extends StatefulWidget implements PreferredSizeWidget {
@@ -28,7 +27,7 @@ class _StartupNavbarState extends State<StartupNavbar> {
               style: ButtonStyle(
                   backgroundColor:
                       sections.indexOf(i) + 1 == widget.selectedIndex
-                          ? MaterialStateProperty.all(Color(0xFFc8b8db))
+                          ? MaterialStateProperty.all(const Color(0xFFc8b8db))
                           : MaterialStateProperty.all(Colors.transparent)),
               onPressed: () {
                 callback(sections.indexOf(i) + 1);
@@ -93,11 +92,7 @@ class _StartupNavbarState extends State<StartupNavbar> {
             padding: const EdgeInsets.all(15),
             child: TextButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const LandingScreen()),
-                );
+                Navigator.pushNamed(context, '/auth');
               },
               child: Text(
                 'Log in',
