@@ -155,7 +155,7 @@ class _SocietySignUpCardState extends State<SocietySignUpCard> {
                           onPressed: () {
                             widget.finishFormKey.currentState!.validate();
                             widget.finishFormKey.currentState!.save();
-                            print("Form saved, redirect to next page");
+                            Navigator.pushNamed(context, '/societyhub');
                           },
                           child: const Text("Next",
                               style: TextStyle(

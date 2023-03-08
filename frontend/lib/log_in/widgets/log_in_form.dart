@@ -3,8 +3,6 @@ import 'package:university_ticketing_system/log_in/validators/email_validator.da
 import 'package:university_ticketing_system/log_in/validators/password_validator.dart';
 import 'package:university_ticketing_system/log_in/widgets/submit_button.dart';
 
-import '../../user_hub/widgets/UserHubPage.dart';
-
 class LogInForm extends StatefulWidget {
   const LogInForm({super.key});
 
