@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:university_ticketing_system/constants/controllers.dart';
-import 'package:university_ticketing_system/pages/edit_mode/widgets/manage_members.dart';
 import 'package:university_ticketing_system/widgets/custom_text.dart';
 
 import '../../helpers/responsiveness.dart';
@@ -26,9 +25,6 @@ class EditModePage extends StatelessWidget {
                 )
               ],
             )),
-        Expanded(
-          child: ManageMembers(),
-        )
       ],
     );
   }
