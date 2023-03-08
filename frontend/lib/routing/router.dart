@@ -11,6 +11,8 @@ import 'package:university_ticketing_system/pages/events/events.dart';
 import 'package:university_ticketing_system/pages/society_hub/society_hub.dart';
 import 'package:university_ticketing_system/routing/routes.dart';
 
+import '../pages/society_members/society_members.dart';
+
 Route<dynamic> generateRoute(RouteSettings settings) {
   Get.routing.args = settings.arguments;
   switch (settings.name) {
@@ -29,6 +31,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(EditSocietyEventsPage());
     case editSocietyHubPageDisplayName:
       return _getPageRoute(EditSocietyHubPage());
+    case editSocietyMembersPageDisplayName:
+      return _getPageRoute(SocietyMembersPage());
     default:
       return _getPageRoute(SocietyHubPage());
   }

@@ -156,7 +156,7 @@ class AddEventPopupCard extends StatelessWidget {
                               size: 18,
                               weight: FontWeight.bold,
                             ),
-                          )
+                          ),
                         ]))),
           ),
         ),
