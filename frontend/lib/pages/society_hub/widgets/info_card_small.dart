@@ -18,35 +18,42 @@ class InfoCardSmall extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Container(
       child: InkWell(
         onTap: onTap,
         child: Container(
             padding: EdgeInsets.all(24),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: MyColours.panelBackgroundColour,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                  color: isActive ? MyColours.active : MyColours.lightGrey,
-                  width: .5),
+                  color: MyColours.subpanelBackgroundColour, width: .5),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                CustomText(
-                  text: title,
-                  size: 24,
-                  weight: FontWeight.w300,
-                  colour: isActive ? MyColours.active : MyColours.lightGrey,
-                ),
-                CustomText(
-                  text: value,
-                  size: 24,
-                  weight: FontWeight.bold,
-                  colour: isActive ? MyColours.active : MyColours.dark,
-                )
-              ],
-            )),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                      child: CustomText(
+                    text: title,
+                    size: 20,
+                    weight: FontWeight.bold,
+                    colour: MyColours.textColourDark,
+                  )),
+                  Expanded(
+                      child: Column(children: [
+                    CustomText(
+                      text: value,
+                      size: 18,
+                      weight: FontWeight.normal,
+                      colour: MyColours.textColourDark,
+                    )
+                  ]))
+                ],
+              )
+            ])),
       ),
     );
   }

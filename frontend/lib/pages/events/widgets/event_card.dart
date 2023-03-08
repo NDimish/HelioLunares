@@ -48,49 +48,57 @@ class EventCard extends StatelessWidget {
             height: 100,
             padding: EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: MyColours.panelBackgroundColour,
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                  color: isActive ? MyColours.active : MyColours.lightGrey,
-                  width: .5),
+              border: Border.all(color: MyColours.textColourLight, width: .5),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                CustomText(
+                Flexible(
+                    child: CustomText(
                   text: name,
                   size: 20,
                   weight: FontWeight.w300,
-                  colour: isActive ? MyColours.active : MyColours.lightGrey,
-                ),
-                CustomText(
-                  text: price,
-                  size: 16,
-                  weight: FontWeight.bold,
-                  colour: isActive ? MyColours.active : MyColours.dark,
+                  colour: MyColours.textColourLight,
+                )),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.payments_outlined),
+                    Flexible(
+                        child: CustomText(
+                      text: "£$price",
+                      size: 16,
+                      weight: FontWeight.w300,
+                      colour: MyColours.textColourDark,
+                    ))
+                  ],
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.date_range),
-                    CustomText(
+                    Flexible(
+                        child: CustomText(
                       text: date,
                       size: 16,
-                      weight: FontWeight.bold,
-                      colour: isActive ? MyColours.active : MyColours.dark,
-                    )
+                      weight: FontWeight.w300,
+                      colour: MyColours.textColourDark,
+                    ))
                   ],
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.location_on_outlined),
-                    CustomText(
+                    Flexible(
+                        child: CustomText(
                       text: location,
                       size: 16,
-                      weight: FontWeight.bold,
-                      colour: isActive ? MyColours.active : MyColours.dark,
-                    )
+                      weight: FontWeight.w300,
+                      colour: MyColours.textColourDark,
+                    ))
                   ],
                 )
               ],

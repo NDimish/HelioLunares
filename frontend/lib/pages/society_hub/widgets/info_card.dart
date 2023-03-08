@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../constants/style.dart';
+import '../../../widgets/custom_text.dart';
 
 class InfoCard extends StatelessWidget {
   final String title;
@@ -24,48 +26,52 @@ class InfoCard extends StatelessWidget {
         child: InkWell(
       onTap: onTap,
       child: Container(
-        height: 136,
-        alignment: Alignment.center,
+        //height: 400,
+        // alignment: Alignment.topLeft,
         decoration: BoxDecoration(
-            color: Colors.white,
+            color: MyColours.panelBackgroundColour,
             boxShadow: [
               BoxShadow(
                   offset: Offset(0, 6),
-                  color: MyColours.lightGrey.withOpacity(.1),
+                  color: MyColours.subpanelBackgroundColour.withOpacity(.1),
                   blurRadius: 12)
             ],
             borderRadius: BorderRadius.circular(8)),
-        child: Column(children: [
-          Row(
-            children: [
-              Expanded(
-                  child: Container(
-                color: topColor ?? MyColours.active,
-                height: 5,
-              ))
-            ],
-          ),
+        child: Row(children: [
           Expanded(
-            child: Container(),
-          ),
-          RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(children: [
-                TextSpan(
-                    text: "$title\n",
-                    style: TextStyle(
-                        fontSize: 20,
-                        color:
-                            isActive ? MyColours.active : MyColours.lightGrey)),
-                TextSpan(
-                    text: "$value\n",
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: isActive ? MyColours.active : MyColours.dark))
-              ])),
-          Expanded(
-            child: Container(),
-          ),
+              child: Column(children: [
+            Row(
+              children: [
+                Expanded(
+                    child: Container(
+                  color: topColor ?? MyColours.active,
+                  height: 5,
+                ))
+              ],
+            ),
+            Column(children: [
+              Row(children: [
+                Expanded(
+                    child: CustomText(
+                        size: 20,
+                        weight: FontWeight.bold,
+                        align: TextAlign.center,
+                        text: title))
+              ]),
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                Expanded(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                      CustomText(
+                          size: 18,
+                          weight: FontWeight.normal,
+                          align: TextAlign.center,
+                          text: value)
+                    ]))
+              ])
+            ]),
+          ]))
         ]),
       ),
     ));

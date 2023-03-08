@@ -17,7 +17,7 @@ class SideMenu extends StatelessWidget {
     double _width = MediaQuery.of(context).size.width;
 
     return Container(
-      color: MyColours.light,
+      color: MyColours.navbarColour,
       child: ListView(
         children: [
           if (ResponsiveWidget.isSmallScreen(context))
@@ -39,7 +39,7 @@ class SideMenu extends StatelessWidget {
                         text: "University Ticketing App",
                         size: 20,
                         weight: FontWeight.bold,
-                        colour: MyColours.active,
+                        colour: MyColours.elementButtonColour,
                       ),
                     ),
                     SizedBox(width: _width / 48),
@@ -51,7 +51,7 @@ class SideMenu extends StatelessWidget {
               ],
             ),
           Divider(
-            color: MyColours.lightGrey.withOpacity(.1),
+            color: MyColours.navButtonColour.withOpacity(.1),
           ),
           Column(
             mainAxisSize: MainAxisSize.min,
@@ -65,21 +65,11 @@ class SideMenu extends StatelessWidget {
                       }
                       if (!menuController.isActive(item.name)) {
                         menuController.changeActiveItemTo(item.name);
-                        if (ResponsiveWidget.isSmallScreen(context)) Get.back();
+                        if (ResponsiveWidget.isSmallScreen(context)) {
+                          Get.back();
+                        }
                         navigationController.navigateTo(item.name);
                       }
-
-                      //   if (item.route == editModePageRoute) {
-                      //     Get.offAllNamed(editModePageRoute);
-                      //     menuController
-                      //         .changeActiveItemTo(overviewPageDisplayName);
-                      //   }
-                      //   if (!menuController.isActive(item.name)) {
-                      //     menuController.changeActiveItemTo(item.name);
-                      //     if (ResponsiveWidget.isSmallScreen(context)) Get.back();
-                      //     //navigationController.navigateTo(item.route);
-                      //   }
-                      // })
                     }))
                 .toList(),
           )

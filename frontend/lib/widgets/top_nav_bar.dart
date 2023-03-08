@@ -118,7 +118,7 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                     ResponsiveWidget.isMediumScreen(context)),
                 child: CustomText(
                   text: "Ticket App",
-                  colour: MyColours.lightGrey,
+                  colour: MyColours.textColourLight,
                   size: 18,
                   weight: FontWeight.bold,
                 )),
@@ -126,7 +126,7 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
             IconButton(
                 icon: Icon(
                   Icons.settings,
-                  color: MyColours.dark,
+                  color: MyColours.elementButtonColour,
                 ),
                 onPressed: () {}),
             Stack(
@@ -134,7 +134,7 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                 IconButton(
                     icon: Icon(
                       Icons.notifications,
-                      color: MyColours.dark.withOpacity(.7),
+                      color: MyColours.navbarColour.withOpacity(.7),
                     ),
                     onPressed: () {}),
                 Positioned(
@@ -155,14 +155,14 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
             Container(
               width: 1,
               height: 22,
-              color: MyColours.lightGrey,
+              color: MyColours.elementButtonColour,
             ),
             SizedBox(
               width: 24,
             ),
             CustomText(
               text: "User",
-              colour: MyColours.lightGrey,
+              colour: MyColours.textColourDark,
             ),
             SizedBox(
               width: 16,
@@ -189,7 +189,7 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
           ],
         ),
       ),
-      iconTheme: IconThemeData(color: MyColours.dark),
+      iconTheme: IconThemeData(color: MyColours.navbarColour),
       elevation: 0,
       backgroundColor: Colors.transparent,
     );

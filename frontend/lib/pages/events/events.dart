@@ -11,28 +11,37 @@ class SocietyEventsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Column(
-        children: [
-          Obx(
-            () => Row(
-              children: [
-                Container(
-                    margin: EdgeInsets.only(
-                        top: ResponsiveWidget.isSmallScreen(context) ? 56 : 6),
-                    child: CustomText(
-                      text: menuController.activeItem.value,
-                      size: 24,
-                      weight: FontWeight.bold,
-                    )),
-              ],
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Obx(() => Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(
+                          top:
+                              ResponsiveWidget.isSmallScreen(context) ? 56 : 6),
+                      child: CustomText(
+                        text: menuController.activeItem.value,
+                        size: 24,
+                        weight: FontWeight.bold,
+                      ),
+                    )
+                  ],
+                )),
+            SizedBox(
+              height: ResponsiveWidget.isSmallScreen(context) ? 5 : 30,
             ),
-          ),
-          Expanded(
-              child: ListView(
-            children: [SocietyEventCards()],
-          ))
-        ],
-      ),
-    );
+            MediaQuery.removePadding(
+                context: context,
+                removeTop: true,
+                child: Expanded(
+                    child: ListView(
+                  padding: EdgeInsets.all(1),
+                  children: [SocietyEventCards()],
+                )))
+          ],
+        ));
   }
 }
