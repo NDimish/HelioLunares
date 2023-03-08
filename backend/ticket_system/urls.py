@@ -45,4 +45,10 @@ urlpatterns = [
     # path('university/<int:pk>/', views.get_university_with_id, name="university_with_id"),
     # path('modify_university/<int:pk>/', views.modify_university, name="modify_university"),
     # path('delete_university/<int:pk>/', views.delete_university, name="delete_university"),
+
+    path("buys/", views.BuysApiView.as_view(), name="buys"),
+    path("buys/<int:pk>", views.BuysApiInfoView.as_view(), name="buys_info"),
+
+    path("hosts/", views.HostsApiView.as_view(), name="hosts"),
+    path("hosts/<int:pk>", views.HostsInfoApiView.as_view(), name="hosts_info")
 ]

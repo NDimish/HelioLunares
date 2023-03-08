@@ -6,12 +6,13 @@ from rest_framework.authentication import TokenAuthentication, SessionAuthentica
 
 from rest_framework import status
 
-from .models import User, Society, Event, University
+from .models import User, Society, Event, University, Buys, Hosts
 from rest_framework.views import APIView
 
 from django.contrib.auth import authenticate, login, logout
 
-from .serializers import UserSerializer, SocietySerializer, UniversitySerializer, EventModelSerializer
+from .serializers import UserSerializer, SocietySerializer, UniversitySerializer, EventModelSerializer, \
+    BuysModelSerializer, HostsModelSerializer
 
 
 # Create your views here.
@@ -240,7 +241,7 @@ class UniversityApiView(APIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 class UniversityInfoApiView(APIView):
     def get(self, request, pk):
         university = University.objects.filter(name=pk)
@@ -258,6 +259,7 @@ class UniversityInfoApiView(APIView):
     def delete(self, request, pk):
         University.objects.filter(name=pk).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 # @api_view(['GET'])
 # # @permission_classes([IsAuthenticated])
@@ -304,3 +306,69 @@ class UniversityInfoApiView(APIView):
 #         )
 #     else:
 #         return Response({'error': 'Illegal data'}, status=status.HTTP_400_BAD_REQUEST)
+
+# @permission_classes([IsAuthenticated])
+class BuysApiView(APIView):
+    def get(self, request):
+        buyses = Buys.objects.all()
+        serializer = BuysModelSerializer(instance=buyses, many=True)
+        return Response(data=serializer.data)
+
+    def post(self, request):
+        data = request.data
+        serializer = BuysModelSerializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+
+
+# @permission_classes([IsAuthenticated])
+class BuysApiInfoView(APIView):
+    def get(self, request, pk):
+        buy = Buys.objects.filter(id=pk).first()
+        serializer = BuysModelSerializer(instance=buy)
+        return Response(serializer.data)
+
+    def put(self, request, pk):
+        buy = Buys.objects.filter(id=pk).first()
+        serializer = BuysModelSerializer(instance=buy, data=request.data, many=False)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
+
+    def delete(self, request, pk):
+        Buys.objects.filter(id=pk).delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+# @permission_classes([IsAuthenticated])
+class HostsApiView(APIView):
+    def get(self, request):
+        hosts = Hosts.objects.all()
+        serializer = HostsModelSerializer(instance=hosts, many=True)
+        return Response(data=serializer.data)
+
+    def post(self, request):
+        serializer = HostsModelSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+
+
+# @permission_classes([IsAuthenticated])
+class HostsInfoApiView(APIView):
+    def get(self, request, pk):
+        host = Hosts.objects.filter(id=pk).first()
+        serializer = HostsModelSerializer(instance=host)
+        return Response(data=serializer.data)
+
+    def put(self, request, pk):
+        host = Hosts.objects.filter(id=pk).first()
+        serializer = HostsModelSerializer(instance=host, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
+
+    def delete(self, reuqest, pk):
+        Hosts.objects.filter(id=pk).delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

@@ -116,7 +116,7 @@ class StudentRoleAtSociety(models.Model):
 
 class Event(models.Model):
     society_email = models.CharField(max_length=50, blank=False, unique=False)
-    duration = models.IntegerField(max_length=10, blank=False, unique=False)
+    duration = models.IntegerField(blank=False, unique=False)
     event_date = models.DateTimeField(blank=False)
     event_name = models.CharField(max_length=50, blank=False)
     location = models.CharField(max_length=50, blank=True)
@@ -141,3 +141,18 @@ class Event(models.Model):
         self.price,
         self.update_time,
         self.create_time
+
+
+class Buys(models.Model):
+    """buys """
+    number_of_tickets = models.IntegerField(blank=False)
+    event_id = models.ForeignKey(Event, on_delete=models.CASCADE, blank=False)
+    student_email = models.CharField(blank=True, max_length=50)
+
+    def __str__(self):
+        return self.number_of_tickets, self.event_id, self.student_email
+
+
+class Hosts(models.Model):
+    event_id = models.ForeignKey(Event, models.CASCADE, blank=False)
+    student_email = models.CharField(blank=True, max_length=50)
