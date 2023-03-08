@@ -1,10 +1,5 @@
-import 'dart:html';
 import 'package:university_ticketing_system/constants/controllers.dart';
-import 'package:university_ticketing_system/helpers/local_navigator.dart';
-import 'package:university_ticketing_system/routing/router.dart';
 import 'package:university_ticketing_system/routing/routes.dart';
-
-import 'event_details_popup_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:university_ticketing_system/models/society_event.dart';

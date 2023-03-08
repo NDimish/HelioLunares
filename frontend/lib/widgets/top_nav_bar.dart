@@ -106,7 +106,7 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
               ],
             )
           : IconButton(
-              icon: Icon(Icons.menu),
+              icon: const Icon(Icons.menu),
               onPressed: () {
                 key.currentState?.openDrawer();
               }),
@@ -116,7 +116,7 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
             Visibility(
                 visible: !(ResponsiveWidget.isSmallScreen(context) ||
                     ResponsiveWidget.isMediumScreen(context)),
-                child: CustomText(
+                child: const CustomText(
                   text: "Ticket App",
                   colour: MyColours.textColourLight,
                   size: 18,
@@ -124,7 +124,7 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                 )),
             Expanded(child: Container()),
             IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.settings,
                   color: MyColours.elementButtonColour,
                 ),
@@ -143,7 +143,7 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                   child: Container(
                     width: 12,
                     height: 12,
-                    padding: EdgeInsets.all(4),
+                    padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
                         color: MyColours.active,
                         borderRadius: BorderRadius.circular(30),
@@ -157,14 +157,14 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
               height: 22,
               color: MyColours.elementButtonColour,
             ),
-            SizedBox(
+            const SizedBox(
               width: 24,
             ),
-            CustomText(
+            const CustomText(
               text: "User",
               colour: MyColours.textColourDark,
             ),
-            SizedBox(
+            const SizedBox(
               width: 16,
             ),
             Container(
@@ -175,9 +175,9 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(30)),
-                padding: EdgeInsets.all(2),
-                margin: EdgeInsets.all(2),
-                child: CircleAvatar(
+                padding: const EdgeInsets.all(2),
+                margin: const EdgeInsets.all(2),
+                child: const CircleAvatar(
                   backgroundColor: MyColours.light,
                   child: Icon(
                     Icons.person_outline,
@@ -189,7 +189,7 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
           ],
         ),
       ),
-      iconTheme: IconThemeData(color: MyColours.navbarColour),
+      iconTheme: const IconThemeData(color: MyColours.navbarColour),
       elevation: 0,
       backgroundColor: Colors.transparent,
     );

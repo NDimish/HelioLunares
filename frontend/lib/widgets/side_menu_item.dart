@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:university_ticketing_system/constants/style.dart';
-import 'package:university_ticketing_system/constants/controllers.dart';
 import 'package:university_ticketing_system/helpers/responsiveness.dart';
-import 'package:university_ticketing_system/widgets/custom_text.dart';
-import 'package:get/get.dart';
 import 'package:university_ticketing_system/widgets/horizontal_menu_item.dart';
 import 'package:university_ticketing_system/widgets/vertical_menu_item.dart';
 

@@ -13,7 +13,7 @@ class CircularCard extends StatelessWidget {
         height: 200,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          image: DecorationImage(
+          image: const DecorationImage(
             fit: BoxFit.cover,
             image: NetworkImage('assets/icons/kcl.png'),
           ),

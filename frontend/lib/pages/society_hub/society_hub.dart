@@ -10,6 +10,8 @@ import 'package:university_ticketing_system/pages/society_hub/widgets/society_ca
 import 'package:university_ticketing_system/widgets/custom_text.dart';
 
 class SocietyHubPage extends StatelessWidget {
+  const SocietyHubPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,13 +34,13 @@ class SocietyHubPage extends StatelessWidget {
           Expanded(
               child: ListView(
             children: [
-              CircularCard(),
+              const CircularCard(),
               if (ResponsiveWidget.isLargeScreen(context) ||
                   ResponsiveWidget.isMediumScreen(context))
                 if (ResponsiveWidget.isCustomSize(context))
-                  SocietyHubCardsMedium()
+                  const SocietyHubCardsMedium()
                 else
-                  SocietyHubCardsLarge()
+                  const SocietyHubCardsLarge()
               else
                 SocietyHubCardsSmall(),
             ],

@@ -9,7 +9,7 @@ class CustomLinearGradient extends StatefulWidget {
 }
 
 class _CustomLinearGradientState extends State<CustomLinearGradient> {
-  List<Color> colors = [
+  List<Color> colors = const [
     Color(0xFF502F4C),
     Color(0xFF70587C),
     Color(0xFFC8B8Db),

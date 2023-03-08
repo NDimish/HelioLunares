@@ -26,7 +26,7 @@ class SocietyMembersPage extends StatelessWidget {
                 )
               ],
             )),
-        Expanded(child: ManageMembers())
+        const Expanded(child: ManageMembers())
       ],
     );
   }

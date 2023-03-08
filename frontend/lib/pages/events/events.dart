@@ -5,9 +5,9 @@ import 'package:university_ticketing_system/helpers/responsiveness.dart';
 import 'package:university_ticketing_system/pages/events/widgets/society_events.dart';
 import 'package:university_ticketing_system/widgets/custom_text.dart';
 
-import '../society_hub/widgets/circular_card.dart';
-
 class SocietyEventsPage extends StatelessWidget {
+  const SocietyEventsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,7 +38,7 @@ class SocietyEventsPage extends StatelessWidget {
                 removeTop: true,
                 child: Expanded(
                     child: ListView(
-                  padding: EdgeInsets.all(1),
+                  padding: const EdgeInsets.all(1),
                   children: [SocietyEventCards()],
                 )))
           ],

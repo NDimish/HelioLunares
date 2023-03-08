@@ -9,6 +9,8 @@ import 'package:university_ticketing_system/widgets/custom_text.dart';
 import '../../../constants/style.dart';
 
 class SocietyHubForm extends StatefulWidget {
+  const SocietyHubForm({super.key});
+
   @override
   State<StatefulWidget> createState() => _SocietyHubFormState();
 }
@@ -86,7 +88,7 @@ class _SocietyHubFormState extends State<SocietyHubForm> {
                   errorText:
                       _validateAboutUs ? 'About section Can\'t Be Empty' : null,
                   labelText: "About Us",
-                  icon: Icon(Icons.event)),
+                  icon: const Icon(Icons.event)),
               controller: aboutUsController,
             ),
             const SizedBox(
@@ -108,9 +110,9 @@ class _SocietyHubFormState extends State<SocietyHubForm> {
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+                  children: const [
                     Icon(Icons.image),
-                    const SizedBox(
+                    SizedBox(
                       width: 16,
                     ),
                     CustomText(
@@ -127,7 +129,7 @@ class _SocietyHubFormState extends State<SocietyHubForm> {
             ),
 
             (_file.path == "zz")
-                ? FlutterLogo(
+                ? const FlutterLogo(
                     size: 200,
                   )
                 : (kIsWeb)
@@ -142,7 +144,7 @@ class _SocietyHubFormState extends State<SocietyHubForm> {
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(18.0),
-                      side: BorderSide(color: MyColours.light)),
+                      side: const BorderSide(color: MyColours.light)),
                 ),
                 backgroundColor:
                     MaterialStateProperty.all<Color>(MyColours.light),

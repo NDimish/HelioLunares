@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../constants/style.dart';
 import '../../../widgets/custom_text.dart';
@@ -32,7 +31,7 @@ class InfoCard extends StatelessWidget {
             color: MyColours.panelBackgroundColour,
             boxShadow: [
               BoxShadow(
-                  offset: Offset(0, 6),
+                  offset: const Offset(0, 6),
                   color: MyColours.subpanelBackgroundColour.withOpacity(.1),
                   blurRadius: 12)
             ],
