@@ -27,6 +27,10 @@ const editEventDetailsPageRoute = "/EditEventDetails";
 const editSocietyHubPageDisplayName = "Edit Society Hub Page";
 const editSocietyHubPageRoute = "/EditSocietyHub";
 
+//edit society members page
+const editSocietyMembersPageDisplayName = "Members";
+const editSocietyMembersPageRoute = "/EditSocietyMembers";
+
 class EventDetailsRoute<T> extends PageRoute<T> {
   EventDetailsRoute({
     required WidgetBuilder builder,
@@ -80,4 +84,5 @@ List<MenuItem> sideMenuItemRoutes = [
   MenuItem(societyEventsPageDisplayName, societyEventsPageRoute),
   MenuItem(statisticsPageDisplayName, statisticsPageRoute),
   MenuItem(editModePageDisplayName, editModePageRoute),
+  MenuItem(editSocietyMembersPageDisplayName, editSocietyMembersPageRoute)
 ];

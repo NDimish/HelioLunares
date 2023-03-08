@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/MainAppBar.dart';
 import 'package:university_ticketing_system/user_hub/widgets/SideAppBarWidgets/SideAppBar.dart';
-import 'package:university_ticketing_system/user_hub/widgets/EventsGrid/EventGridView.dart';
+import 'package:university_ticketing_system/user_hub/widgets/EventsList/EventGridView.dart';
 
-class UserHubPage extends StatefulWidget{
-  UserHubPage({
+class UserHubPage_events extends StatefulWidget{
+  UserHubPage_events({
     super.key
   }
   );
 
   @override
-  State<UserHubPage> createState() => _UserHubPageState();
+  State<UserHubPage_events> createState() => _UserHubPage_eventsState();
 }
 
-class _UserHubPageState extends State<UserHubPage> {
+class _UserHubPage_eventsState extends State<UserHubPage_events> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

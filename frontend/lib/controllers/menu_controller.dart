@@ -31,6 +31,9 @@ class MenuController extends GetxController {
         return _customIcon(Icons.auto_graph_outlined, itemName);
       case editModePageDisplayName:
         return _customIcon(Icons.edit, itemName);
+      case editSocietyMembersPageDisplayName:
+        return _customIcon(Icons.group, itemName);
+
       default:
         return _customIcon(Icons.exit_to_app, itemName);
     }
