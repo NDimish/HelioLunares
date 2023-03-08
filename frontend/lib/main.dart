@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/screens/landing_screen.dart';
 import 'package:university_ticketing_system/screens/startup_screen/startup_screen.dart';
@@ -18,6 +20,7 @@ void main() {
       '/': (context) => const StartupScreen(),
       '/auth': (context) => const LandingScreen(),
       '/userhub': (context) => UserHubPage(),
+      '/societyhub': (context) => const StartupScreen(),
     },
   ));
 }
