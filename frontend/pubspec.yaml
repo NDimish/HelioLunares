@@ -72,14 +72,8 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-<<<<<<< HEAD
-  assets:
-   - assets/images/
-   - assets/icons/
-=======
 
  
->>>>>>> 408fd5609f889cf7b759cfa6b179d4ea7283b25f
 
   fonts:
     - family: Cinzel
@@ -108,17 +102,9 @@ flutter:
     - assets/icons/
   #   - images/a_dot_ham.jpeg
 
-<<<<<<< HEAD
-  # # An image asset can refer to one or more resolution-specific "variants", see
-  # # https://flutter.dev/assets-and-images/#resolution-aware
-  # assets:
-  #   - assets/icons/
-
-=======
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
  
->>>>>>> 408fd5609f889cf7b759cfa6b179d4ea7283b25f
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
 
