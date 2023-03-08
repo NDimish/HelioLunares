@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:university_ticketing_system/user_hub/widgets/UserHubPage_societies.dart';
 import 'SideAppBarListTile.dart';
 import 'SideAppBarFunctions.dart';
 import 'SideAppBarListWidgetTile.dart';
-import 'package:university_ticketing_system/user_hub/widgets/UserHubPage.dart';
+import 'package:university_ticketing_system/user_hub/widgets/UserHubPage_events.dart';
 
 class SideAppBarList extends ListView{
   SideAppBarList(BuildContext context):super(
@@ -14,13 +15,13 @@ class SideAppBarList extends ListView{
       ListTile(leading:Icon(Icons.calendar_month),title: Text("Show events"), onTap: (){
         Navigator.push(
           context, 
-          MaterialPageRoute(builder: (context) => UserHubPage()));
+          MaterialPageRoute(builder: (context) => UserHubPage_events()));
       },),
 
       ListTile(leading:Icon(Icons.group),title: Text("Show societies"), onTap: (){
         Navigator.push(
           context, 
-          MaterialPageRoute(builder: (context) => Scaffold(body:Center(child:Text("Page showing societies here")),)));
+          MaterialPageRoute(builder: (context) => UserHubPage_societies()));
       },)
 
       
