@@ -20,6 +20,7 @@ from api import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
     path('log_in/', views.LogInView.as_view(), name='log_in'),
     path('log_out/', views.log_out, name='log_out'),
     path('sign_up_as_student/', views.student_sign_up, name='sign_up_as_student'),
@@ -33,11 +34,7 @@ urlpatterns = [
 
     path('event/', views.EventApiView.as_view(), name="event"),
     path('event/<int:pk>/', views.EventApiInfoView.as_view(), name="event_info"),
-    # path('event_list/', views.get_event_list, name="event_with_id"),
-    # path('add_event/', views.add_event, name="add_event"),
-    # path('event/<int:pk>/', views.get_event_with_id, name="event_list"),
-    # path('modify_event/<int:pk>/', views.modify_event, name="modify_event"),
-    # path('delete_event/<int:pk>/', views.delete_event, name="delete_event"),
+   
 
     path('university/', views.UniversityApiView.as_view(), name="university"),
     path('university/<str:pk>/', views.UniversityInfoApiView.as_view(), name="university_info"),

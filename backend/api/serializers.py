@@ -2,7 +2,6 @@ from rest_framework import serializers
 from api.models import Student, User, University, Society, Event, Buys, Hosts
 import re
 
-
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
@@ -51,16 +50,4 @@ class EventModelSerializer(serializers.ModelSerializer):
 class UniversityModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = University
-        fields = "__all__"
-
-
-class BuysModelSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Buys
-        fields = "__all__"
-
-
-class HostsModelSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Hosts
         fields = "__all__"
