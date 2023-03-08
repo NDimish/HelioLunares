@@ -20,7 +20,8 @@ void main() {
       '/': (context) => const StartupScreen(),
       '/auth': (context) => const LandingScreen(),
       '/userhub': (context) => UserHubPage(),
-      '/societyhub': (context) => const StartupScreen(),
+      '/societyhub': (context) =>
+          const StartupScreen(), // SocietyHub transition page
     },
   ));
 }
