@@ -1,0 +1,159 @@
+API Documentation
+This contains the API Endpoints, what the endpoint does, data it requires/can have and the data it returns.
+
+Query paramaters work as follows:
+'/users/?email=jamesbond@example.org&ordering=name'
+
+Variables in urls are encapsulated in angular brackets <>
+[users/<userid:int>/]
+When <userid> is used in a description, it is refering to the userid in the url.
+
+An indentation means that the url procedes it's parent url. e.g:
+[test/]
+    - Description: 
+        - Contains information about test
+    - Requires:
+        - email (string)
+        - password (string)
+    - Returns:
+        - token (string)
+        - email (string)
+
+    [user/]
+        - Description:
+            - This URL to be called will be './test/user/'
+        - Requires:
+            - email (string)
+            - password (string)
+            - option (string)
+                - Extra information about paramaters that may be required
+
+--- Documentation Begins ---
+
+[users/]
+    - Description:
+        - access to a list of all the users
+    - Requires:
+        - CSRF and SessionID as cookie
+    - Optional:
+        - Accepts query paramaters:
+            - ordering
+            - Any model field such as email,user_level
+
+    - Methods:
+        - GET
+            - a list of all the users
+        - POST
+            - will create a user // yet to be implemented
+
+    [/<usersid:int>/]
+        - Description:
+            - access to user with id <usersid>
+        - Requires:
+            - CSRF and SessionID as cookie
+        - Optional:
+        -Methods:
+            - GET
+                - dict of user data about user with id <userid>
+                - Fields:
+                    - id - Int
+                    - email - String
+
+[society/]
+    - Description:
+        - access to a list of all the society
+    - Requires:
+        - CSRF and SessionID as cookie
+    - Optional:
+        - Accepts query paramaters:
+            - ordering
+            - Any model field such as user,name
+    - Methods:
+        - GET
+            - a list of all the societies
+        - POST
+            - will create a society // yet to be implemented
+    
+    [/<societyid:int>/]
+        - Description:
+            - access to society with id <societyid>
+        - Requires:
+            - CSRF and SessionID as cookie
+        - Optional:
+        -Methods:
+            - GET
+                - dict of society data about society with id <societyid>
+                - Fields:
+                    - pk - Int
+                    - user - User (String)
+                    - name - String
+                    - creation_date - Date
+                    - university_society_is_at - University (String)
+                    - join_date - Date
+
+[event/]
+    - Description:
+        - access to a list of all the events
+    - Requires:
+        - CSRF and SessionID as cookie
+    - Optional:
+        - Accepts query paramaters:
+            - ordering
+            - Any model field such as event_name
+    - Methods:
+        - GET
+            - a list of all the event
+        - POST
+            - will create an event
+    
+    [/<eventpk:int>/]
+        - Description:
+            - access to event with id <eventpk>
+        - Requires:
+            - CSRF and SessionID as cookie
+        - Optional:
+        -Methods:
+            - GET
+                - dict of event data about event with id <eventpk>
+                - Fields:
+                    - id - Int
+                    - society_email - Email
+                    - duration - Int
+                    - event_date - Date
+                    - event_name - String
+                    - location - String
+                    - description - String
+                    - price - Float
+                    - update_time - Date
+                    - create_time - Date
+
+[university/]
+    - Description:
+        - access to a list of all the universities
+    - Requires:
+        - CSRF and SessionID as cookie
+    - Optional:
+        - Accepts query paramaters:
+            - ordering
+            - Any model field such as event_name
+    - Methods:
+        - GET
+            - a list of all the universities
+        - POST
+            - adds a university
+    
+    [/<universityid:str>/]
+        - Description:
+            - access to university with id <universityid>
+        - Requires:
+            - CSRF and SessionID as cookie
+        - Optional:
+        -Methods:
+            - GET
+                - dict of university data about university with id <universityid>
+                - Fields:
+                    - name - String
+                    - latitude - Float
+                    - longitude - Float
+                    - street_name - String
+                    - postcode - String
