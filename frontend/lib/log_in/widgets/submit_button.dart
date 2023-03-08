@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:university_ticketing_system/user_hub/widgets/UserHubPage.dart';
+import 'package:university_ticketing_system/user_hub/widgets/UserHubPage_events.dart';
 
 class SubmitButton extends StatefulWidget {
   Function()? onPressed;
@@ -20,7 +20,7 @@ class _SubmitButtonState extends State<SubmitButton> {
         child: ElevatedButton(
           onPressed: (){
             Navigator.push(context, 
-            MaterialPageRoute(builder: (context) => UserHubPage()));
+            MaterialPageRoute(builder: (context) => UserHubPage_events()));
           },
           style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,
