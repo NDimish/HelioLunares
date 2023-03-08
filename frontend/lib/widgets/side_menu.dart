@@ -5,8 +5,6 @@ import 'package:university_ticketing_system/helpers/responsiveness.dart';
 import 'package:university_ticketing_system/routing/routes.dart';
 import 'package:university_ticketing_system/widgets/custom_text.dart';
 import 'package:get/get.dart';
-import 'package:university_ticketing_system/widgets/horizontal_menu_item.dart';
-import 'package:university_ticketing_system/widgets/vertical_menu_item.dart';
 import 'side_menu_item.dart';
 
 class SideMenu extends StatelessWidget {
@@ -24,14 +22,14 @@ class SideMenu extends StatelessWidget {
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 Row(
                   children: [
                     SizedBox(width: _width / 48),
                     Padding(
-                      padding: EdgeInsets.only(right: 12),
+                      padding: const EdgeInsets.only(right: 12),
                       child: Image.asset("assets/icons/ticket.png"),
                     ),
                     const Flexible(
@@ -45,7 +43,7 @@ class SideMenu extends StatelessWidget {
                     SizedBox(width: _width / 48),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
               ],

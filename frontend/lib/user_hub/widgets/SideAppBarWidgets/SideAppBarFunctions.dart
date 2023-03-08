@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/src/material/search.dart';
-
-
-void emptyFunc(){}
+void emptyFunc() {}
 
 // Route redirectToEvents(BuildContext context){
 //   Navigator.push(

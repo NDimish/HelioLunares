@@ -22,7 +22,7 @@ class InfoCardSmall extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: Container(
-            padding: EdgeInsets.all(24),
+            padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
               color: MyColours.panelBackgroundColour,
               borderRadius: BorderRadius.circular(8),

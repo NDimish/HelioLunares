@@ -3,9 +3,7 @@ import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/bough
 // import '../backend_communication/get.dart' as data;
 // import 'package:url_launcher/url_launcher.dart';
 
-
-
-class BuyTicketScreen extends StatelessWidget{
+class BuyTicketScreen extends StatelessWidget {
   // // final data.OrderType Orderby;
   // // final String filter;
   // final int id;
@@ -24,145 +22,125 @@ class BuyTicketScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFE0BBE4),
+      backgroundColor: const Color(0xFFE0BBE4),
       body: Column(
-      // mainAxisAlignment: MainAxisAlignment.start,
-      // crossAxisAlignment: CrossAxisAlignment.stretch,
+        // mainAxisAlignment: MainAxisAlignment.start,
+        // crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
-            flex: 8,
-            child: Padding(
-              padding: const EdgeInsets.all(50.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Color(0xFFFEC8D8),
-                    border: Border.all(
-                      width: 4,
-                      color: Colors.black
+              flex: 8,
+              child: Padding(
+                  padding: const EdgeInsets.all(50.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFFEC8D8),
+                      border: Border.all(width: 4, color: Colors.black),
+                      borderRadius: BorderRadius.circular(5),
                     ),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: Column(
-                    children: [
-                      
-                      
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 10, 
-                            color: Color(0xFFFEC8D8),
-                          ),
-                        ),
-                        child: Row(
-                          children: const [
-                            Expanded(
-                              child: Text ('Title: ', textAlign: TextAlign.left),
+                    child: Column(
+                      children: [
+                        Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 10,
+                                color: const Color(0xFFFEC8D8),
+                              ),
                             ),
-                          ],
-                        )
-                      ),
-
-
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 10, 
-                            color: Color(0xFFFEC8D8),
-                          ),
-                        ),
-                        child: Row(
-                          children: const [
-                            Expanded(
-                              child: Text ('Date: ', textAlign: TextAlign.left),
+                            child: Row(
+                              children: const [
+                                Expanded(
+                                  child: Text('Title: ',
+                                      textAlign: TextAlign.left),
+                                ),
+                              ],
+                            )),
+                        Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 10,
+                                color: const Color(0xFFFEC8D8),
+                              ),
                             ),
-                          ],
-                        )
-                      ),
-
-
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 10, 
-                            color: Color(0xFFFEC8D8),
-                          ),
-                        ),
-                        child: Row(
-                          children: const [
-                            Expanded(
-                              child: Text ('Venue: ', textAlign: TextAlign.left),
+                            child: Row(
+                              children: const [
+                                Expanded(
+                                  child:
+                                      Text('Date: ', textAlign: TextAlign.left),
+                                ),
+                              ],
+                            )),
+                        Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 10,
+                                color: const Color(0xFFFEC8D8),
+                              ),
                             ),
-                          ],
-                        )
-                      ),
-
-
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 10, 
-                            color: Color(0xFFFEC8D8),
-                          ),
-                        ),
-                        child: Row(
-                          children: const [
-                            Expanded(
-                              child: Text ('Seat: ', textAlign: TextAlign.left),
+                            child: Row(
+                              children: const [
+                                Expanded(
+                                  child: Text('Venue: ',
+                                      textAlign: TextAlign.left),
+                                ),
+                              ],
+                            )),
+                        Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 10,
+                                color: const Color(0xFFFEC8D8),
+                              ),
                             ),
-                          ],
-                        )
-                      ),
-
-
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 10, 
-                            color: Color(0xFFFEC8D8),
-                          ),
-                        ),
-                        child: Row(
-                          children: const [
-                            Expanded(
-                              child: Text ('Gate: ', textAlign: TextAlign.left),
+                            child: Row(
+                              children: const [
+                                Expanded(
+                                  child:
+                                      Text('Seat: ', textAlign: TextAlign.left),
+                                ),
+                              ],
+                            )),
+                        Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 10,
+                                color: const Color(0xFFFEC8D8),
+                              ),
                             ),
-                          ],
-                        )
-                      ),
-
-
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 10, 
-                            color: Color(0xFFFEC8D8),
-                          ),
-                        ),
-                        child: Row(
-                          children: const [
-                            Expanded(
-                              child: Text ('Description: ', textAlign: TextAlign.left),
+                            child: Row(
+                              children: const [
+                                Expanded(
+                                  child:
+                                      Text('Gate: ', textAlign: TextAlign.left),
+                                ),
+                              ],
+                            )),
+                        Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 10,
+                                color: const Color(0xFFFEC8D8),
+                              ),
                             ),
-                          ],
-                        )
-                      ),
-                    
-                      ElevatedButton(
-                        onPressed: (){
-                          Navigator.pop(
-                            context, 
-                            MaterialPageRoute(builder: (context) => const UserBoughtTicketScreen())
-                          );
-                        }, 
-                        child: const Text('back')
-                      )
-
-                    ],
-                  ),
-                )
-              )
-            
-          ),
+                            child: Row(
+                              children: const [
+                                Expanded(
+                                  child: Text('Description: ',
+                                      textAlign: TextAlign.left),
+                                ),
+                              ],
+                            )),
+                        ElevatedButton(
+                            onPressed: () {
+                              Navigator.pop(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const UserBoughtTicketScreen()));
+                            },
+                            child: const Text('back'))
+                      ],
+                    ),
+                  ))),
 
           // Expanded(
           //   flex: 1,
@@ -177,21 +155,20 @@ class BuyTicketScreen extends StatelessWidget{
           //       ),
           //     ),
           //   ),
-            
+
           // )
-          
+
           const Expanded(
             flex: 1,
             child: Text(
               'Purchase Ticket Here',
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.blue,
-                  decoration: TextDecoration.underline,
-                ),
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.blue,
+                decoration: TextDecoration.underline,
+              ),
             ),
           )
-
         ],
       ),
     );
@@ -204,9 +181,6 @@ class BuyTicketScreen extends StatelessWidget{
   //     } else {
   //       throw 'Could not launch $url';
   //     }
-  //   } 
-
+  //   }
 
 }
-
-  

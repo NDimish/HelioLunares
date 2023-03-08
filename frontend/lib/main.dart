@@ -23,24 +23,6 @@ class UniversityTicketingApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return MaterialApp(
-    //   title: 'University Ticketing System',
-    //   theme: ThemeData(
-    //       useMaterial3: true,
-    //       brightness: Brightness.light,
-    //       colorScheme:
-    //           ColorScheme.fromSwatch().copyWith(secondary: Colors.pinkAccent)),
-    //   themeMode: ThemeMode.light,
-    //   debugShowCheckedModeBanner: false,
-    //   initialRoute: '/',
-    //   routes: {
-    //     '/': (context) => const StartupScreen(),
-    //     '/auth': (context) => const LandingScreen(),
-    //     '/userhub': (context) => UserHubPage_events(),
-    //     '/societyhub': (context) => SiteLayout(), // SocietyHub transition page
-    //   },
-    // );
-
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'University Ticketing',

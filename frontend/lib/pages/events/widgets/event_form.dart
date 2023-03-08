@@ -9,6 +9,8 @@ import 'package:university_ticketing_system/widgets/custom_text.dart';
 import '../../../constants/style.dart';
 
 class EventForm extends StatefulWidget {
+  const EventForm({super.key});
+
   @override
   State<StatefulWidget> createState() => _EventFormState();
 }
@@ -77,7 +79,7 @@ class _EventFormState extends State<EventForm> {
                 decoration: InputDecoration(
                     errorText: _validateName ? 'Name Can\'t Be Empty' : null,
                     labelText: "Event Name",
-                    icon: Icon(Icons.event)),
+                    icon: const Icon(Icons.event)),
                 controller: nameController,
                 onChanged: (String value) {
                   // obj.name = value;
@@ -96,7 +98,7 @@ class _EventFormState extends State<EventForm> {
                   ),
                 ],
                 decoration: InputDecoration(
-                    icon: Icon(Icons.payments_outlined),
+                    icon: const Icon(Icons.payments_outlined),
                     labelText: "Ticket Price",
                     errorText: _validatePrice ? 'Value Can\'t Be Empty' : null),
                 controller: priceController,
@@ -113,7 +115,7 @@ class _EventFormState extends State<EventForm> {
               },
               decoration: InputDecoration(
                   errorText: _validateDate ? 'Date Can\'t Be Empty' : null,
-                  icon: Icon(Icons.calendar_today), //icon of text field
+                  icon: const Icon(Icons.calendar_today), //icon of text field
                   labelText: "Enter Date"),
               readOnly: true,
               onTap: () async {
@@ -155,7 +157,7 @@ class _EventFormState extends State<EventForm> {
             TextField(
                 decoration: InputDecoration(
                     labelText: "Event Location",
-                    icon: Icon(Icons.location_on_outlined),
+                    icon: const Icon(Icons.location_on_outlined),
                     errorText:
                         _validateLocation ? 'Location Can\'t Be Empty' : null),
                 controller: locationController,
@@ -167,7 +169,7 @@ class _EventFormState extends State<EventForm> {
             ),
             TextField(
                 decoration: InputDecoration(
-                    icon: Icon(Icons.timer),
+                    icon: const Icon(Icons.timer),
                     errorText:
                         _validateDuration ? 'Duration Can\'t Be Empty' : null,
                     labelText: "Event Duration",
@@ -190,7 +192,7 @@ class _EventFormState extends State<EventForm> {
                   errorText:
                       _validateDescription ? 'Value Can\'t Be Empty' : null,
                   labelText: "Event Description",
-                  icon: Icon(Icons.description)),
+                  icon: const Icon(Icons.description)),
               controller: descriptionController,
             ),
             const SizedBox(
@@ -201,7 +203,7 @@ class _EventFormState extends State<EventForm> {
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(18.0),
-                      side: BorderSide(color: MyColours.light)),
+                      side: const BorderSide(color: MyColours.light)),
                 ),
                 backgroundColor:
                     MaterialStateProperty.all<Color>(MyColours.light),

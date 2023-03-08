@@ -3,10 +3,8 @@ import 'package:get/get.dart';
 import 'package:university_ticketing_system/constants/controllers.dart';
 import 'package:university_ticketing_system/constants/style.dart';
 import 'package:university_ticketing_system/models/society_event.dart';
-import 'package:university_ticketing_system/pages/events/widgets/event_card.dart';
 import 'package:university_ticketing_system/routing/routes.dart';
 import '../../../widgets/custom_text.dart';
-import 'society_events.dart';
 
 const String _heroAddTodo = 'add-todo-hero';
 
@@ -39,17 +37,17 @@ class AddEventPopupCard extends StatelessWidget {
                             weight: FontWeight.bold,
                             colour: MyColours.active,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.payments_outlined,
                                 color: MyColours.active,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 2,
                               ),
                               CustomText(
@@ -59,13 +57,13 @@ class AddEventPopupCard extends StatelessWidget {
                               )
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.date_range,
                                 color: MyColours.active,
                               ),
@@ -76,13 +74,13 @@ class AddEventPopupCard extends StatelessWidget {
                               )
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.location_on_outlined,
                                 color: MyColours.active,
                               ),
@@ -93,13 +91,13 @@ class AddEventPopupCard extends StatelessWidget {
                               )
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.timer,
                                 color: MyColours.active,
                               ),
@@ -110,13 +108,13 @@ class AddEventPopupCard extends StatelessWidget {
                               )
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.description,
                                 color: MyColours.active,
                               ),
@@ -130,7 +128,7 @@ class AddEventPopupCard extends StatelessWidget {
                               ))
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           TextButton(
@@ -139,7 +137,8 @@ class AddEventPopupCard extends StatelessWidget {
                                   RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(18.0),
-                                    side: BorderSide(color: MyColours.light)),
+                                    side: const BorderSide(
+                                        color: MyColours.light)),
                               ),
                               backgroundColor: MaterialStateProperty.all<Color>(
                                   MyColours.light),
@@ -151,7 +150,7 @@ class AddEventPopupCard extends StatelessWidget {
                               navigationController
                                   .navigateTo(editEventDetailsPageDisplayName);
                             },
-                            child: CustomText(
+                            child: const CustomText(
                               text: "Edit",
                               size: 18,
                               weight: FontWeight.bold,

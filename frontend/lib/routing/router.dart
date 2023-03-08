@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:university_ticketing_system/pages/edit_mode/edit_mode.dart';
@@ -17,24 +15,24 @@ Route<dynamic> generateRoute(RouteSettings settings) {
   Get.routing.args = settings.arguments;
   switch (settings.name) {
     case societyHubPageDisplayName:
-      return _getPageRoute(SocietyHubPage());
+      return _getPageRoute(const SocietyHubPage());
     case societyEventsPageDisplayName:
-      return _getPageRoute(SocietyEventsPage());
+      return _getPageRoute(const SocietyEventsPage());
     case statisticsPageDisplayName:
-      return _getPageRoute(StatisticsPage());
+      return _getPageRoute(const StatisticsPage());
     case editModePageDisplayName:
-      return _getPageRoute(EditModePage());
+      return _getPageRoute(const EditModePage());
     case eventDetailsPageDisplayName:
       return EventDetailsRoute(
           builder: ((context) => AddEventPopupCard()), settings: settings);
     case editEventDetailsPageDisplayName:
       return _getPageRoute(EditSocietyEventsPage());
     case editSocietyHubPageDisplayName:
-      return _getPageRoute(EditSocietyHubPage());
+      return _getPageRoute(const EditSocietyHubPage());
     case editSocietyMembersPageDisplayName:
-      return _getPageRoute(SocietyMembersPage());
+      return _getPageRoute(const SocietyMembersPage());
     default:
-      return _getPageRoute(SocietyHubPage());
+      return _getPageRoute(const SocietyHubPage());
   }
 }
 

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/pages/society_hub/widgets/info_card_small.dart';
 
 class SocietyHubCardsSmall extends StatelessWidget {
+  const SocietyHubCardsSmall({super.key});
+
   @override
   Widget build(BuildContext context) {
     double _width = MediaQuery.of(context).size.width;

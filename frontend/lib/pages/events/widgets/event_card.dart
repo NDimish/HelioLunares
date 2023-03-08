@@ -46,7 +46,7 @@ class EventCard extends StatelessWidget {
         onTap: onTap,
         child: Container(
             height: 100,
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: MyColours.panelBackgroundColour,
               borderRadius: BorderRadius.circular(8),
@@ -65,7 +65,7 @@ class EventCard extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.payments_outlined),
+                    const Icon(Icons.payments_outlined),
                     Flexible(
                         child: CustomText(
                       text: "£$price",
@@ -78,7 +78,7 @@ class EventCard extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.date_range),
+                    const Icon(Icons.date_range),
                     Flexible(
                         child: CustomText(
                       text: date,
@@ -91,7 +91,7 @@ class EventCard extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.location_on_outlined),
+                    const Icon(Icons.location_on_outlined),
                     Flexible(
                         child: CustomText(
                       text: location,

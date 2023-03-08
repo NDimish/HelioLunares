@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:university_ticketing_system/screens/startup_screen/widgets/howtouse_card.dart';
 
 //'How to use' subpage - Contains helpful information for users and societies on
@@ -19,7 +17,7 @@ class _HowToUseSectionState extends State<HowToUseSection> {
       backgroundColor: const Color(0xFFc8b8db),
       foregroundColor: Colors.white,
       disabledForegroundColor: Colors.white12,
-      fixedSize: Size(300, 50));
+      fixedSize: const Size(300, 50));
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -31,7 +29,7 @@ class _HowToUseSectionState extends State<HowToUseSection> {
                 color: const Color(0xFF70587c).withOpacity(0.6),
                 child: Center(
                     child: Padding(
-                        padding: EdgeInsets.only(top: 10, bottom: 15),
+                        padding: const EdgeInsets.only(top: 10, bottom: 15),
                         child: Column(
                           children: [
                             const Text(
@@ -70,7 +68,7 @@ class _HowToUseSectionState extends State<HowToUseSection> {
                               height: 100,
                             ),
                             Padding(
-                              padding: EdgeInsets.all(5),
+                              padding: const EdgeInsets.all(5),
                               child: Column(
                                 children: [
                                   //Two different set of cards for both the student and societies.
