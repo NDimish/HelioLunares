@@ -18,8 +18,9 @@ class authenticate {
         body: {"email": username, "password": password});
     if (response.statusCode == 200) {
       Map<String, dynamic> cookies = json.decode(response.body);
+      print(response.headers.keys);
 
-      Cookies.eatCookies(cookies['token'], cookies['token'], cookies['email']);
+      //Cookies.eatCookies(cookies['token'], cookies['token'], cookies['email']);
       // print(Cookies.CSRFToken);
       // print(Cookies.Email);
       // print(Cookies.Cookie);
