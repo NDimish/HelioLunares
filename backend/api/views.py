@@ -11,7 +11,7 @@ from django.contrib.auth import authenticate, login, logout
 from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import User, Society, Event, University
-from .serializers import UserSerializer, SocietySerializer, UniversitySerializer, EventModelSerializer
+from .serializers import UserSerializer, SocietySerializer, UniversitySerializer, EventModelSerializer, SocietyCreationSerializer
 
 #nathan testing
 from django.http import HttpResponse, JsonResponse
@@ -21,7 +21,6 @@ from django.shortcuts import render
 from rest_framework import generics
 
 from datetime import date, datetime
-
 
 
 @api_view(['GET'])
@@ -48,7 +47,9 @@ class LogInView(APIView):
     
         if username is None or password is None:
             return Response(
-                {'error': 'Please provide both email and password'},
+                {
+                    'error': 'Please provide both email and password'
+                },
                 status = status.HTTP_400_BAD_REQUEST
             )
         
@@ -56,7 +57,9 @@ class LogInView(APIView):
     
         if not user:
             return Response(
-                {'error': 'Invalid credentials'},
+                {
+                    'error': 'Invalid credentials'
+                },
                 status = status.HTTP_404_NOT_FOUND
             )
         
@@ -71,9 +74,10 @@ class LogInView(APIView):
         #     })
         
         return Response(
-            {'token': token.key,
-            'email': user.email,
-            'is_authenticated' : user.is_authenticated
+            {
+                'token': token.key,
+                'email': user.email,
+                'is_authenticated' : user.is_authenticated
             },
             status = status.HTTP_200_OK
         )
@@ -115,56 +119,97 @@ class SocietyListView(generics.ListAPIView):
     filter_backends = [DjangoFilterBackend,OrderingFilter]
     filterset_fields = '__all__'
     ordering_fields = '__all__'
-
+    
+    """Override the serializer class for creating the society.
+        So we use the other serializers which are described on the serializer page.
+    """
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return SocietyCreationSerializer
+        return SocietySerializer
+    
     @permission_classes(AllowAny, )
     def post(self,request):
         
-        auth_content = {
-            'email': request.data.get('email'),
-            'password': request.data.get('password')
-        }
-        
         """
-        data = {
-            'pk': 1
-            'user': {
-                    'email': "biggreg7@example.org",
-                    'password': "Password123",
-                    'user_level': 4},
-            'name': "Society A",
-            'creation_date': datetime.strptime("01/02/2023", '%d/%m/%Y').date(),
-            'university_society_is_at': {
-                    'name': "Uni C",
-                    'latitude': 0,
-                    'longitude': 1,
-                    'street_name': "A",
-                    'postcode': "BBB"},
-            'join_date': datetime.today()}
+            @Jaidev,
             
+            When the data is posted, we take the user nested model which contains the email and password.
+            The same for the uni model.
         """
+        auth_content = request.data.get('user')
+        uni_content = request.data.get('university_society_is_at')
+
+
+        """ Here, im able to get the uni object by the name. For some reason, I cant do this later on."""
+        u = University.objects.get(name=uni_content['name'])
+        print(u)
+        print(u.id)
+        print(u.name)
         
         try:
+            """
+            First, we create the user object, before we can actually create the society model.
+            """
             created_user = User.objects.create_user(
-                email = auth_content.get('email'), 
-                password = auth_content.get('password'),
-                user_level = 4)
+                email = auth_content['email'], 
+                password = auth_content['password'],
+                # Level 4 as its the society being created.
+                user_level = 4
+            )
             
         except:
+            # If there is already an account with that email, we throw an error.
             return Response(status=status.HTTP_409_CONFLICT)
         
         else:
-            society_content = {
-                'user': created_user,
-                'society_name': request.data.get('society_name'),
-                'university':  University.objects.get(name=request.data.get('university')),
-                'date_created': datetime.strptime(request.data.get('date_created'), '%d/%m/%y'),
-                'join_date': date.today()
+            """ 
+            If there is no error, then we take the primary key of the user object,
+            we keep the user content that we created above, 
+            we take the name of the society they want to create,
+            we get the creation date, which was taken in as a string and then turn it into a date format,
+            then we keep the uni content data.
+            """
+            data = {
+                'pk': created_user.id,
+                'user': auth_content,
+                'name': request.data.get('name'),
+                'creation_date': datetime.strptime(request.data.get('creation_date'), '%d/%m/%Y').date(),
+                #Assume that the uni data is correct since it will be seeded.
+                'university_society_is_at': uni_content,
             }
-            serializer = SocietySerializer(data=society_content)
-            if serializer.is_valid(raise_exception=True): 
-                serializer.save()
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-            return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+            
+            # Again, we can get the uni object from the name.
+            uni = University.objects.get(name=uni_content['name'])
+        
+            """
+            Then when i try to create a new society from the data, 
+            i get a FOREIGN KEY INTEGRITY ERROR. 
+            
+            I don't know why this happens, but if it's a foreign key error, it must have
+            to do with the uni object in the society model, as that is an FK into the university schema.
+            
+            """
+            new_society = Society.objects.create(
+                user = created_user,
+                name = data['name'],
+                creation_date = data['creation_date'],
+                university_society_is_at = u
+            )
+            
+            if new_society.full_clean():
+                new_society.save()
+                print("\nsaved\n")
+                serializer = SocietySerializer(new_society)
+                
+                if serializer.is_valid():
+                    
+                    serializer.save()
+                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+                
+                return Response(serializer.data, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            
+            return Response({'errorM': "An error message"}, status=status.HTTP_400_BAD_REQUEST)
 
 class SocietyView(APIView):
     """View to retrieve data about a society"""
