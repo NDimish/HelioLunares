@@ -15,7 +15,7 @@ class ManageMembers extends StatelessWidget {
         SizedBox(
           height: 20,
         ),
-        Text("committee"),
+        Text("Committee"),
         MembersTable(),
         SizedBox(
           height: 20,
