@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/log_in/widgets/submit_button.dart';
+import 'package:university_ticketing_system/screens/startup_screen/widgets/contact_submit.dart';
 
 const List<String> dropdownChoices = [
   'General',
@@ -31,6 +32,14 @@ class _ContactFormState extends State<ContactForm> {
       "[_a-zA-Z]+[_a-zA-Z0-9]?[\._]?[_a-zA-Z0-9]*@([a-zA-Z]+\.)?([a-zA-Z]+\.)?[a-zA-Z]+\.(com|net|de|uk|ro|jp)");
 
   @override
+  void dispose() {
+    super.dispose();
+    nameController.dispose();
+    emailController.dispose();
+    messageController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
@@ -40,6 +49,7 @@ class _ContactFormState extends State<ContactForm> {
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             TextFormField(
                 controller: nameController,
+                key: const Key("ContactName"),
                 onFieldSubmitted: (value) => print("name submitted"),
                 onChanged: (value) => {},
                 onSaved: (newValue) => name = newValue!,
@@ -55,6 +65,7 @@ class _ContactFormState extends State<ContactForm> {
             const SizedBox(height: 35),
             TextFormField(
                 controller: emailController,
+                key: const Key("ContactEmail"),
                 onFieldSubmitted: (value) => print("email submitted"),
                 onChanged: (value) => {},
                 onSaved: (newValue) => email = newValue!,
@@ -94,6 +105,7 @@ class _ContactFormState extends State<ContactForm> {
             ),
             const SizedBox(height: 35),
             TextFormField(
+              key: const Key("ContactMessage"),
               controller: messageController,
               onFieldSubmitted: (value) => print("message submitted"),
               onChanged: (value) => {
@@ -114,9 +126,12 @@ class _ContactFormState extends State<ContactForm> {
               style: const TextStyle(color: Color(0xFFc8b8db)),
             ),
             const SizedBox(height: 40),
-            SubmitButton(
+            ContactSubmit(
                 buttonText: "Send Feedback",
                 onPressed: () async {
+                  if (_formKey.currentState == null) {
+                    return;
+                  }
                   if (_formKey.currentState!.validate()) {
                     print("Valid form");
 
