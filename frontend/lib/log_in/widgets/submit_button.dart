@@ -18,9 +18,7 @@ class _SubmitButtonState extends State<SubmitButton> {
         height: height * 0.065,
         width: width / 4,
         child: ElevatedButton(
-          onPressed: () {
-            Navigator.popAndPushNamed(context, '/userhub');
-          },
+          onPressed: widget.onPressed,
           style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,
               backgroundColor: Colors.black,

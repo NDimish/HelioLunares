@@ -71,7 +71,7 @@ class _LogInFormState extends State<LogInForm> {
                   print("Valid form");
                   _formKey.currentState!.save();
                   try {
-                    Navigator.pushNamed(context, '/userhub');
+                    Navigator.popAndPushNamed(context, '/userhub');
                   } catch (error) {
                     print(error.toString());
                   }
