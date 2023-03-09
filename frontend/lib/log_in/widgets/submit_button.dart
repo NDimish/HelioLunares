@@ -19,7 +19,7 @@ class _SubmitButtonState extends State<SubmitButton> {
         width: width / 4,
         child: ElevatedButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/userhub');
+            Navigator.popAndPushNamed(context, '/userhub');
           },
           style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,

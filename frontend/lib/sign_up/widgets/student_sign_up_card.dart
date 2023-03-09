@@ -179,7 +179,7 @@ class _SignUpCardState extends State<SignUpCard> {
                   widget.finishFormKey.currentState!.validate();
                   widget.finishFormKey.currentState!.save();
                   print("Form saved, redirect to next page");
-                  Navigator.pushNamed(context, '/userhub');
+                  Navigator.popAndPushNamed(context, '/userhub');
                 },
                 child: const Text("Next",
                     style: TextStyle(fontFamily: 'Arvo', color: Colors.white))))
