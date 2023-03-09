@@ -48,11 +48,23 @@ class _StartupNavbarState extends State<StartupNavbar> {
   }
 
   Widget navbarTitle(Function(int) callback) {
+    var width = MediaQuery.of(context).size.width;
     return InkWell(
-      child: Text(
-        "University Ticketing System",
-        style: GoogleFonts.poppins(
-            color: Colors.white, fontWeight: FontWeight.w600),
+      child: Row(
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(left: 8, right: 8),
+            child: Icon(
+              Icons.airplane_ticket_rounded,
+              size: 50,
+            ),
+          ),
+          Text(
+            width > 920 ? "University Ticketing System" : "",
+            style: GoogleFonts.poppins(
+                color: Colors.white, fontWeight: FontWeight.w600),
+          ),
+        ],
       ),
       onTap: () => callback(0),
     );
@@ -68,10 +80,6 @@ class _StartupNavbarState extends State<StartupNavbar> {
         centerTitle: true,
         iconTheme: const IconThemeData(
           color: Colors.white, //change your color here
-        ),
-        leading: const Icon(
-          Icons.airplane_ticket_rounded,
-          size: 50,
         ),
         title: Row(
           children: <Widget>[

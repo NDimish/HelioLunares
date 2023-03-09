@@ -37,10 +37,14 @@ class _ContactSectionState extends State<ContactSection> {
                           Divider(
                             color: Colors.white70,
                           ),
-                          Text(
-                            " • Want to leave some positive feedback? Or perhaps you found a sneaky bug? Whatever it is, don't hesitate to fill out the contact form.\n • We take utmost pride in this application and continually strive to create a better experience. \n\n • For online meetings, we can use any popular video conferencing service.\n • For in-person meetings, our team resides in Bush House (@ 30 Aldwych, London WC2B 4BG).\n\n We eagerly look forward to hearing from you!",
-                            style:
-                                TextStyle(fontSize: 21, color: Colors.white54),
+                          FittedBox(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                " • Want to leave some positive feedback? Or perhaps you found a sneaky bug? Whatever it is, don't hesitate to fill out the contact form.\n • We take utmost pride in this application and continually strive to create a better experience. \n\n • For online meetings, we can use any popular video conferencing service.\n • For in-person meetings, our team resides in Bush House (@ 30 Aldwych, London WC2B 4BG).\n\n We eagerly look forward to hearing from you!",
+                                style: TextStyle(color: Colors.white54),
+                              ),
+                            ),
                           )
                         ],
                       )))),

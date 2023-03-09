@@ -49,6 +49,7 @@ class _ContactFormState extends State<ContactForm> {
                   }
                   return null;
                 },
+                style: const TextStyle(color: Color(0xFFc8b8db)),
                 decoration: customDecoration(
                     "Name", "Enter your name", Icons.person, false)),
             const SizedBox(height: 35),
@@ -65,10 +66,17 @@ class _ContactFormState extends State<ContactForm> {
                   }
                   return null;
                 },
+                style: const TextStyle(color: Color(0xFFc8b8db)),
                 decoration: customDecoration(
                     "Email", "Enter your email", Icons.email_rounded, false)),
             const SizedBox(height: 35),
             DropdownButtonFormField(
+              style: const TextStyle(color: Color(0xFFc8b8db)),
+              icon: const Visibility(
+                visible: false,
+                child: Icon(Icons.arrow_drop_down_circle),
+              ),
+              dropdownColor: const Color(0xFF70587c),
               value: contactType,
               decoration: customDecoration(
                   "Feedback Type", "", Icons.question_mark, false),
@@ -83,7 +91,6 @@ class _ContactFormState extends State<ContactForm> {
                   contactType = value!;
                 });
               },
-              icon: const Icon(Icons.arrow_drop_down_circle_rounded),
             ),
             const SizedBox(height: 35),
             TextFormField(
@@ -103,7 +110,8 @@ class _ContactFormState extends State<ContactForm> {
                   customDecoration("Message", "", Icons.chat_bubble, true),
               keyboardType: TextInputType.multiline,
               maxLength: null,
-              maxLines: null,
+              maxLines: 5,
+              style: const TextStyle(color: Color(0xFFc8b8db)),
             ),
             const SizedBox(height: 40),
             SubmitButton(
@@ -154,9 +162,11 @@ class _ContactFormState extends State<ContactForm> {
       String labelText, String hintText, IconData iconIn, bool countChars) {
     return InputDecoration(
         counterText: countChars ? '${message.length.toString()} char(s)' : null,
+        counterStyle: const TextStyle(color: Colors.white60),
         labelStyle: const TextStyle(color: Colors.white),
         hintStyle: const TextStyle(color: Colors.white54),
-        contentPadding: const EdgeInsets.only(left: 40.0, right: 40.0),
+        contentPadding: const EdgeInsets.only(
+            left: 40.0, right: 40.0, top: 10.0, bottom: 10.0),
         suffixIcon: Padding(
           padding: const EdgeInsetsDirectional.only(end: 25.0),
           child: Icon(iconIn,

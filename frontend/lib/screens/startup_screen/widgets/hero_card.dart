@@ -25,6 +25,7 @@ class _HeroCardState extends State<HeroCard> {
   bool isHover = false;
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
     return MouseRegion(
         onEnter: (event) => setState(() {
               isHover = true;
@@ -33,8 +34,8 @@ class _HeroCardState extends State<HeroCard> {
               isHover = false;
             }),
         child: SizedBox(
-            width: 500,
-            height: 500,
+            width: width / 2,
+            height: width / 3.6,
             child: Container(
               decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(10.0)),

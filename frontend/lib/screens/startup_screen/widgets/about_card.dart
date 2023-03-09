@@ -66,35 +66,47 @@ class _AboutCardState extends State<AboutCard> {
                         Text(
                           widget.devName,
                           style: const TextStyle(
-                              fontWeight: FontWeight.w700, fontSize: 20),
+                              fontWeight: FontWeight.w700,
+                              fontSize: 20,
+                              color: Colors.white),
                         ),
-                        const Divider(),
+                        const Divider(
+                          color: Colors.white,
+                        ),
                         const Text("Project roles:",
                             style: TextStyle(
-                                fontWeight: FontWeight.w600, fontSize: 16)),
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                                color: Colors.white60)),
                         const Spacer(),
                         Align(
                           alignment: Alignment.center,
                           child: Column(children: [
-                            for (var role in widget.roles) Text("• $role"),
+                            for (var role in widget.roles)
+                              Text(
+                                "• $role",
+                                style: const TextStyle(color: Colors.white),
+                              ),
                           ]),
                         ),
                         const Spacer(),
-                        const Divider(),
+                        const Divider(
+                          color: Colors.white,
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             IconButton(
                               iconSize: 30,
                               icon: const Icon(FontAwesomeIcons.github),
-                              color: Colors.black45,
+                              color: Colors.white60,
                               onPressed: () async =>
                                   await launchUrl(Uri.parse(widget.githubLink)),
                             ),
                             IconButton(
                               iconSize: 30,
                               icon: Icon(widget.secondaryIcon),
-                              color: Colors.black45,
+                              color: Colors.white60,
                               onPressed: () async => await launchUrl(
                                   Uri.parse(widget.secondaryLink)),
                             ),
