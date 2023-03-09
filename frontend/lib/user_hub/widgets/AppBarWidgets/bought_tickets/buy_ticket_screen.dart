@@ -1,22 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:university_ticketing_system/screens/user_bought_ticket_screen.dart';
-import '../backend_communication/dataCollector.dart' as data;
+import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/bought_tickets/user_bought_ticket_screen.dart';
+// import '../backend_communication/get.dart' as data;
+// import 'package:url_launcher/url_launcher.dart';
 
 class BuyTicketScreen extends StatelessWidget {
-  // final data.OrderType Orderby;
-  // final String filter;
-  final int id;
+  // // final data.OrderType Orderby;
+  // // final String filter;
+  // final int id;
 
-  const BuyTicketScreen(
-      {Key? key,
-      // this.Orderby = data.OrderType.CHRONOLOGICAL,
-      // this.filter = 'none',
-      this.id = -1})
-      : super(key: key);
+  // const BuyTicketScreen(
+  //     {Key? key,
+  //     // this.Orderby = data.OrderType.CHRONOLOGICAL,
+  //     // this.filter = 'none',
+  //     this.id = -1
+  //     }
+  //   )
+  //     : super(key: key);
+
+  const BuyTicketScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFE0BBE4),
       body: Column(
         // mainAxisAlignment: MainAxisAlignment.start,
         // crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -27,6 +33,7 @@ class BuyTicketScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(50.0),
                   child: Container(
                     decoration: BoxDecoration(
+                      color: const Color(0xFFFEC8D8),
                       border: Border.all(width: 4, color: Colors.black),
                       borderRadius: BorderRadius.circular(5),
                     ),
@@ -34,8 +41,10 @@ class BuyTicketScreen extends StatelessWidget {
                       children: [
                         Container(
                             decoration: BoxDecoration(
-                              border:
-                                  Border.all(width: 10, color: Colors.white),
+                              border: Border.all(
+                                width: 10,
+                                color: const Color(0xFFFEC8D8),
+                              ),
                             ),
                             child: Row(
                               children: const [
@@ -45,13 +54,12 @@ class BuyTicketScreen extends StatelessWidget {
                                 ),
                               ],
                             )),
-                        const SizedBox(
-                          height: 10,
-                        ),
                         Container(
                             decoration: BoxDecoration(
-                              border:
-                                  Border.all(width: 10, color: Colors.white),
+                              border: Border.all(
+                                width: 10,
+                                color: const Color(0xFFFEC8D8),
+                              ),
                             ),
                             child: Row(
                               children: const [
@@ -63,8 +71,10 @@ class BuyTicketScreen extends StatelessWidget {
                             )),
                         Container(
                             decoration: BoxDecoration(
-                              border:
-                                  Border.all(width: 10, color: Colors.white),
+                              border: Border.all(
+                                width: 10,
+                                color: const Color(0xFFFEC8D8),
+                              ),
                             ),
                             child: Row(
                               children: const [
@@ -76,8 +86,10 @@ class BuyTicketScreen extends StatelessWidget {
                             )),
                         Container(
                             decoration: BoxDecoration(
-                              border:
-                                  Border.all(width: 10, color: Colors.white),
+                              border: Border.all(
+                                width: 10,
+                                color: const Color(0xFFFEC8D8),
+                              ),
                             ),
                             child: Row(
                               children: const [
@@ -89,8 +101,10 @@ class BuyTicketScreen extends StatelessWidget {
                             )),
                         Container(
                             decoration: BoxDecoration(
-                              border:
-                                  Border.all(width: 10, color: Colors.white),
+                              border: Border.all(
+                                width: 10,
+                                color: const Color(0xFFFEC8D8),
+                              ),
                             ),
                             child: Row(
                               children: const [
@@ -102,8 +116,10 @@ class BuyTicketScreen extends StatelessWidget {
                             )),
                         Container(
                             decoration: BoxDecoration(
-                              border:
-                                  Border.all(width: 10, color: Colors.white),
+                              border: Border.all(
+                                width: 10,
+                                color: const Color(0xFFFEC8D8),
+                              ),
                             ),
                             child: Row(
                               children: const [
@@ -119,21 +135,52 @@ class BuyTicketScreen extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          UserBoughtTicketScreen()));
+                                          const UserBoughtTicketScreen()));
                             },
-                            child: Text('previous page'))
+                            child: const Text('back'))
                       ],
                     ),
                   ))),
-          Expanded(
+
+          // Expanded(
+          //   flex: 1,
+          //   child: InkWell(
+          //     // onTap: _launchURL,
+          //     child: const Text(
+          //       'Purchase Ticket Here',
+          //       style: TextStyle(
+          //         fontSize: 20,
+          //         color: Colors.blue,
+          //         decoration: TextDecoration.underline,
+          //       ),
+          //     ),
+          //   ),
+
+          // )
+
+          const Expanded(
             flex: 1,
             child: Text(
-              'Link to ticket website',
-              textAlign: TextAlign.center,
+              'Purchase Ticket Here',
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.blue,
+                decoration: TextDecoration.underline,
+              ),
             ),
           )
         ],
       ),
     );
   }
+
+  // _launchURL() async {
+  //     Uri url = Uri.parse('https://www.google.com');
+  //     if (await launchUrl(url)) {
+  //       await launchUrl(url);
+  //     } else {
+  //       throw 'Could not launch $url';
+  //     }
+  //   }
+
 }
