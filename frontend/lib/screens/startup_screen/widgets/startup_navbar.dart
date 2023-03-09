@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../helpers/responsiveness.dart';
+
 class StartupNavbar extends StatefulWidget implements PreferredSizeWidget {
   final Function(int i) callback;
   final int selectedIndex;
@@ -60,7 +62,10 @@ class _StartupNavbarState extends State<StartupNavbar> {
             ),
           ),
           Text(
-            width > 920 ? "University Ticketing System" : "",
+            ResponsiveWidget.isMediumScreen(context) ||
+                    ResponsiveWidget.isSmallScreen(context)
+                ? ""
+                : "University Ticketing System",
             style: GoogleFonts.poppins(
                 color: Colors.white, fontWeight: FontWeight.w600),
           ),
