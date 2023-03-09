@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'dart:convert';
-export '../models/all.dart';
-import '../models/all.dart';
+export 'models/all.dart';
+import 'models/all.dart';
 
 final Map<Type, Databases> sets = {
   User: Databases.users,
@@ -53,7 +53,11 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
   }
 
   fetchData(String url, Databases Database) async {
-    final response = await http.get(Uri.parse(url));
+    final response = await http.get(Uri.parse(url), headers: {
+      // "Cookie": Cookies.Cookie,
+      // "X-CSRFToken": Cookies.CSRFToken
+      //HttpHeaders.authorizationHeader: Cookies.CSRFToken
+    });
     if (response.statusCode == 200) {
       var data = json.decode(response.body) as List;
       output = data.map<T>((json) => (getClass(json, Database))).toList();
@@ -80,7 +84,7 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
         "Content-Type": "application/json",
         // "Cookie": Cookies.Cookie,
         // "X-CSRFToken": Cookies.CSRFToken
-        HttpHeaders.authorizationHeader: Cookies.CSRFToken
+        //HttpHeaders.authorizationHeader: Cookies.CSRFToken
       },
       body: json.encode(task),
     );
@@ -98,7 +102,7 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
         "Content-Type": "application/json",
         // "Cookie": Cookies.Cookie,
         // "X-CSRFToken": Cookies.CSRFToken
-        HttpHeaders.authorizationHeader: Cookies.CSRFToken
+        // HttpHeaders.authorizationHeader: Cookies.CSRFToken
       },
     );
     if (response.statusCode == 204) {
@@ -116,7 +120,7 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
         "Content-Type": "application/json",
         // "Cookie": Cookies.Cookie,
         // "X-CSRFToken": Cookies.CSRFToken
-        HttpHeaders.authorizationHeader: Cookies.CSRFToken
+        //HttpHeaders.authorizationHeader: Cookies.CSRFToken
       },
       body: json.encode(task),
     );

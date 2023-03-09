@@ -45,7 +45,7 @@ class _testscreen extends State<testscreen> {
           final DataP = Provider.of<data.dataCollector<data.User>>(context);
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Todo App'),
+              title: Text('Todo App'),
             ),
             body: ListView.builder(
               shrinkWrap: true,
@@ -53,23 +53,23 @@ class _testscreen extends State<testscreen> {
               itemBuilder: (BuildContext context, int index) {
                 return ListTile(
                     trailing: IconButton(
-                        icon: const Icon(Icons.delete, color: Colors.red),
+                        icon: Icon(Icons.delete, color: Colors.red),
                         onPressed: () {
                           DataP.deleteFromCollection(DataP.collection[index]);
                         }),
                     title: Text(
                       DataP.collection[index].username,
-                      style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     subtitle: Text(
                       DataP.collection[index].id.toString(),
-                      style: const TextStyle(fontSize: 15, color: Colors.black),
+                      style: TextStyle(fontSize: 15, color: Colors.black),
                     ));
               },
             ),
             floatingActionButton: FloatingActionButton(
-                child: const Icon(
+                child: Icon(
                   Icons.add,
                   size: 30,
                 ),

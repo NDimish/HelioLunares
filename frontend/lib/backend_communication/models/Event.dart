@@ -1,4 +1,4 @@
-import '/models/datasets.dart';
+import 'datasets.dart';
 
 class Event extends dataSets {
   final String title;
