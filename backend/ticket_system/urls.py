@@ -29,10 +29,26 @@ urlpatterns = [
     path('society/', views.SocietyListView.as_view(), name="society_list"),
     path('society/<int:pk>/', views.SocietyView.as_view(), name="society_with_id"),
 
-    # event router
+   # event router
+
     path('event/', views.EventApiView.as_view(), name="event"),
     path('event/<int:pk>/', views.EventApiInfoView.as_view(), name="event_info"),
-   
+    # path('event_list/', views.get_event_list, name="event_with_id"),
+    # path('add_event/', views.add_event, name="add_event"),
+    # path('event/<int:pk>/', views.get_event_with_id, name="event_list"),
+    # path('modify_event/<int:pk>/', views.modify_event, name="modify_event"),
+    # path('delete_event/<int:pk>/', views.delete_event, name="delete_event"),
+
     path('university/', views.UniversityApiView.as_view(), name="university"),
     path('university/<str:pk>/', views.UniversityInfoApiView.as_view(), name="university_info"),
+    # path('university_list/', views.get_university_list, name="university_list"),
+    # path('university/<int:pk>/', views.get_university_with_id, name="university_with_id"),
+    # path('modify_university/<int:pk>/', views.modify_university, name="modify_university"),
+    # path('delete_university/<int:pk>/', views.delete_university, name="delete_university"),
+
+    path("buys/", views.BuysApiView.as_view(), name="buys"),
+    path("buys/<int:pk>", views.BuysApiInfoView.as_view(), name="buys_info"),
+
+    path("hosts/", views.HostsApiView.as_view(), name="hosts"),
+    path("hosts/<int:pk>", views.HostsInfoApiView.as_view(), name="hosts_info")
 ]

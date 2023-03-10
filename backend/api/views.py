@@ -10,9 +10,8 @@ from rest_framework.views import APIView
 from django.contrib.auth import authenticate, login, logout
 from django_filters.rest_framework import DjangoFilterBackend
 
-from .models import User, Society, Event, University
-from .serializers import UserSerializer, SocietySerializer, UniversitySerializer, EventModelSerializer
-
+from .models import User, Society, Event, University, Buys, Hosts
+from .serializers import UserSerializer, SocietySerializer, UniversitySerializer, EventModelSerializer,    BuysModelSerializer, HostsModelSerializer
 #nathan testing
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -42,6 +41,7 @@ class LogInView(APIView):
     
     #@csrf_exempt
     def post(self, request, format=None):
+        obj = request.data
         username = request.data.get('email')
         password = request.data.get('password')
     
@@ -135,23 +135,21 @@ class SocietyView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-# @permission_classes([IsAuthenticated])
-class EventApiView(generics.ListAPIView):
-    
-    queryset = Event.objects.all()
-    serializer_class = EventModelSerializer
-    filter_backends = [DjangoFilterBackend,OrderingFilter]
-    filterset_fields = '__all__'
-    ordering_fields = '__all__'
-    
+@permission_classes([IsAuthenticated])
+class EventApiView(APIView):
     def post(self, request):
         serializer = EventModelSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+    def get(self, request):
+        events = Event.objects.all()
+        serializer = EventModelSerializer(instance=events, many=True)
+        return Response(serializer.data)
 
-# @permission_classes([IsAuthenticated])
+
+@permission_classes([IsAuthenticated])
 class EventApiInfoView(APIView):
     def get(self, request, pk):
         event = Event.objects.filter(id=pk)
@@ -164,19 +162,89 @@ class EventApiInfoView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    
+
     def delete(self, request, pk):
         Event.objects.filter(id=pk).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+    # @api_view(['GET'])
+
+
+# # @permission_classes([IsAuthenticated])
+# def get_event_with_id(request, pk):
+#     """query event by primary key (id)"""
+#
+#     events = Event.objects.all()
+#     event = Event.objects.get(id=pk)
+#     if event:
+#         serializer = EventModelSerializer(event)
+#         return Response(serializer.data)
+#     else:
+#         return Response({'error': 'Event not found.'},
+#                         status=status.HTTP_404_NOT_FOUND)
+
+#
+# @api_view(['GET'])
+# # @permission_classes([IsAuthenticated])
+# def get_event_list(request):
+#     """query all event objects"""
+#     events = Event.objects.all()
+#     serializer = EventModelSerializer(events, many=True)
+#     return Response(serializer.data)
+#
+#
+# @api_view(['POST'])
+# # @permission_classes([IsAuthenticated])
+# def add_event(request):
+#     """add event"""
+#     data = JSONParser().parse(request)
+#     serializer = EventModelSerializer(data=data)
+#     if serializer.is_valid():
+#         serializer.save()
+#         return Response(serializer.data)
+#     return Response({'error': 'Illegal data'},
+#                     status=status.HTTP_400_BAD_REQUEST)
+
+# @api_view(['POST'])
+# # @permission_classes([IsAuthenticated])
+# def modify_event(request, pk):
+#     """modify event"""
+#     event = Event.objects.get(id=pk)
+#     data = JSONParser().parse(request)
+#     serializer = EventModelSerializer(event, data=data)
+#     if serializer.is_valid():
+#         serializer.save()
+#         return Response(serializer.data)
+#     return Response(
+#         {'error': 'Illegal data'},
+#         status=status.HTTP_400_BAD_REQUEST
+#     )
+
+
+# @api_view(['GET'])
+# # @permission_classes([IsAuthenticated])
+# def delete_event(pk):
+#     """delete event"""
+#     event = Event.objects.get(id=pk)
+#     if event is not None:
+#         event.delete()
+#         return Response(
+#             {'ok': 'Successful operation'},
+#             status=status.HTTP_200_OK
+#         )
+#     else:
+#         return Response(
+#             {'error': 'Illegal data'},
+#             status=status.HTTP_400_BAD_REQUEST
+#         )
+
 
 # @permission_classes([IsAuthenticated])
-class UniversityApiView(generics.ListAPIView):
-    queryset = University.objects.all()
-    serializer_class = UniversitySerializer
-    filter_backends = [DjangoFilterBackend,OrderingFilter]
-    filterset_fields = '__all__'
-    ordering_fields = '__all__'
+class UniversityApiView(APIView):
+    def get(self, request):
+        university = University.objects.all()
+        serializer = UniversitySerializer(instance=university, many=True)
+        return Response(serializer.data)
 
     def post(self, request):
         serializer = UniversitySerializer(data=request.data)
@@ -185,7 +253,7 @@ class UniversityApiView(generics.ListAPIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 class UniversityInfoApiView(APIView):
     def get(self, request, pk):
         university = University.objects.filter(name=pk)
@@ -201,5 +269,118 @@ class UniversityInfoApiView(APIView):
         return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
 
     def delete(self, request, pk):
-        University.objects.filter(id=pk).delete()
+        University.objects.filter(name=pk).delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+# @api_view(['GET'])
+# # @permission_classes([IsAuthenticated])
+# def get_university_with_id(pk):
+#     university = University.objects.get(id=pk)
+#     if university is not None:
+#         serializer = UniversitySerializer(university)
+#         return Response(serializer.data)
+#     else:
+#         return Response({'error': 'Event not found.'},
+#                         status=status.HTTP_404_NOT_FOUND)
+
+
+#
+# @api_view(['GET'])
+# # @permission_classes([IsAuthenticated])
+# def get_university_list():
+#     university = University.objects.all()
+#     serializer = UniversitySerializer(university, many=True)
+#     return Response(serializer.data)
+#
+#
+# @api_view(['POST'])
+# # @permission_classes([IsAuthenticated])
+# def modify_university(request, pk):
+#     university = University.objects.get(id=pk)
+#     data = JSONParser().parse(request)
+#     serializer = UniversitySerializer(university, data=data)
+#     if serializer.is_valid():
+#         serializer.save()
+#         return Response(serializer.data)
+#     return Response({'error': 'Illegal data'}, status=status.HTTP_400_BAD_REQUEST)
+#
+#
+# @api_view(['GET'])
+# # @permission_classes([IsAuthenticated])
+# def delete_university(pk):
+#     university = Event.objects.get(id=pk)
+#     if university is not None:
+#         university.delete()
+#         return Response(
+#             {'ok': 'Successful operation'},
+#             status=status.HTTP_200_OK
+#         )
+#     else:
+#         return Response({'error': 'Illegal data'}, status=status.HTTP_400_BAD_REQUEST)
+
+@permission_classes([IsAuthenticated])
+class BuysApiView(APIView):
+    def get(self, request):
+        buyses = Buys.objects.all()
+        serializer = BuysModelSerializer(instance=buyses, many=True)
+        return Response(data=serializer.data)
+
+    def post(self, request):
+        data = request.data
+        serializer = BuysModelSerializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+
+
+@permission_classes([IsAuthenticated])
+class BuysApiInfoView(APIView):
+    def get(self, request, pk):
+        buy = Buys.objects.filter(id=pk).first()
+        serializer = BuysModelSerializer(instance=buy)
+        return Response(serializer.data)
+
+    def put(self, request, pk):
+        buy = Buys.objects.filter(id=pk).first()
+        serializer = BuysModelSerializer(instance=buy, data=request.data, many=False)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
+
+    def delete(self, request, pk):
+        Buys.objects.filter(id=pk).delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@permission_classes([IsAuthenticated])
+class HostsApiView(APIView):
+    def get(self, request):
+        hosts = Hosts.objects.all()
+        serializer = HostsModelSerializer(instance=hosts, many=True)
+        return Response(data=serializer.data)
+
+    def post(self, request):
+        serializer = HostsModelSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+
+
+@permission_classes([IsAuthenticated])
+class HostsInfoApiView(APIView):
+    def get(self, request, pk):
+        host = Hosts.objects.filter(id=pk).first()
+        serializer = HostsModelSerializer(instance=host)
+        return Response(data=serializer.data)
+
+    def put(self, request, pk):
+        host = Hosts.objects.filter(id=pk).first()
+        serializer = HostsModelSerializer(instance=host, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
+
+    def delete(self, reuqest, pk):
+        Hosts.objects.filter(id=pk).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

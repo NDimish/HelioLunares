@@ -6,13 +6,21 @@ from api.models import Event, User
 
 
 class EventTestCase(APITestCase):
+
     def setUp(self):
         self.user = User.objects.filter(email='johndoe@example.org').first()
-        
+
+    def login(self):
+        response = self.client.post('/log_in/',  {"email":"johndoe@example.org","password":"Password123"},
+                                    format='json')
+        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.data['token'] = response.data['token']
+
     def test_event_create(self):
         """
           Ensure we can get all the event objects.
         """
+        self.login()
         url = reverse("event")
         data = {
             "society_email": "justin003@gmail.com",
@@ -36,7 +44,7 @@ class EventTestCase(APITestCase):
 
           we have two steps:1.create data 2.query data list
         """
-        # self.client.force_authenticate(self.user)
+        self.login()
 
         url = reverse("event")
 
