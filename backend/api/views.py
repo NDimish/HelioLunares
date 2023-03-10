@@ -10,8 +10,8 @@ from rest_framework.views import APIView
 from django.contrib.auth import authenticate, login, logout
 from django_filters.rest_framework import DjangoFilterBackend
 
-from .models import User, Society, Event, University
-from .serializers import UserSerializer, SocietySerializer, UniversitySerializer, EventModelSerializer, SocietyCreationSerializer
+from .models import User, Society, Event, University, Student
+from .serializers import UserSerializer, SocietySerializer, UniversitySerializer, EventModelSerializer, SocietyCreationSerializer, StudentSerializer, StudentCreationSerializer
 
 #nathan testing
 from django.http import HttpResponse, JsonResponse
@@ -84,17 +84,71 @@ class LogInView(APIView):
 
 class UsersListView(generics.ListAPIView):
     """View to retrieve list of users"""
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
     filter_backends = [DjangoFilterBackend,OrderingFilter]
     filterset_fields = '__all__'
     ordering_fields = '__all__'
     
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return StudentCreationSerializer
+        return StudentSerializer
+    
     def post(self,request):
-        serializer = UserSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        auth_content = request.data.get('user')
+        uni_content = request.data.get('university_studying_at')
+
+        # Will change this to obtain the uni via id not name as discussed.
+        u = University.objects.get(name=uni_content['name'])
+        
+        try:
+            # First, we create the user object, before we can actually create the society model.
+            created_user = User.objects.create_user(
+                email = auth_content['email'], 
+                password = auth_content['password'],
+                # Level 1 as a student is being created.
+                user_level = 1
+            )
+            
+        except:
+            # If there is already an account with that email, we throw an error.
+            return Response(status=status.HTTP_409_CONFLICT)
+        
+        else:
+            data = {
+                'pk': created_user.id,
+                'user': auth_content,
+                'first_name': request.data.get('first_name'),
+                'last_name': request.data.get('last_name'),
+                'field_of_study': request.data.get('field_of_study'),
+                
+                #Assume that the uni data is correct since it will be seeded.
+                'university_studying_at': uni_content,
+            }
+            
+            # Create a new society model.
+            new_student = Student.objects.create(
+                user = created_user,
+                first_name = data['first_name'],
+                last_name = data['last_name'],
+                field_of_study = data['field_of_study'],
+                university_studying_at = u
+            )
+            
+            try:
+                new_student.full_clean()
+            except:
+                return Response({'errorM': "An error message"}, status=status.HTTP_400_BAD_REQUEST)
+            
+            new_student.save()
+            
+            try:
+                # Serialize the new model and send back to the frontend.
+                serializer = StudentSerializer(new_student)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            except:
+                return Response(serializer.data, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
 
 class UserView(APIView):
