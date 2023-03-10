@@ -131,26 +131,16 @@ class SocietyListView(generics.ListAPIView):
     @permission_classes(AllowAny, )
     def post(self,request):
         
-        """
-            @Jaidev,
-            
-            When the data is posted, we take the user nested model which contains the email and password.
-            The same for the uni model.
-        """
         auth_content = request.data.get('user')
         uni_content = request.data.get('university_society_is_at')
 
-
-        """ Here, im able to get the uni object by the name. For some reason, I cant do this later on."""
+        # Will change this to obtain the uni via id not name as discussed.
         u = University.objects.get(name=uni_content['name'])
-        print(u)
-        print(u.id)
-        print(u.name)
         
         try:
-            """
-            First, we create the user object, before we can actually create the society model.
-            """
+            
+            # First, we create the user object, before we can actually create the society model.
+
             created_user = User.objects.create_user(
                 email = auth_content['email'], 
                 password = auth_content['password'],
@@ -163,14 +153,6 @@ class SocietyListView(generics.ListAPIView):
             return Response(status=status.HTTP_409_CONFLICT)
         
         else:
-            
-            """ 
-            If there is no error, then we take the primary key of the user object,
-            we keep the user content that we created above, 
-            we take the name of the society they want to create,
-            we get the creation date, which was taken in as a string and then turn it into a date format,
-            then we keep the uni content data.
-            """
             data = {
                 'pk': created_user.id,
                 'user': auth_content,
@@ -180,17 +162,7 @@ class SocietyListView(generics.ListAPIView):
                 'university_society_is_at': uni_content,
             }
             
-            # Again, we can get the uni object from the name.
-            #uni = University.objects.get(name=uni_content['name'])
-        
-            """
-            Then when i try to create a new society from the data, 
-            i get a FOREIGN KEY INTEGRITY ERROR. 
-            
-            I don't know why this happens, but if it's a foreign key error, it must have
-            to do with the uni object in the society model, as that is an FK into the university schema.
-            
-            """
+            # Create a new society model.
             new_society = Society.objects.create(
                 user = created_user,
                 name = data['name'],
@@ -204,16 +176,14 @@ class SocietyListView(generics.ListAPIView):
                 return Response({'errorM': "An error message"}, status=status.HTTP_400_BAD_REQUEST)
             
             new_society.save()
-            print("\nsaved\n")
             
             try:
+                # Serialize the new model and send back to the frontend.
                 serializer = SocietySerializer(new_society)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             except:
                 return Response(serializer.data, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             
-            
-
 class SocietyView(APIView):
     """View to retrieve data about a society"""
     def get(self, request, pk, format='json'):
