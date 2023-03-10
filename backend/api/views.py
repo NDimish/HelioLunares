@@ -142,7 +142,7 @@ class SocietyListView(generics.ListAPIView):
 
 
         """ Here, im able to get the uni object by the name. For some reason, I cant do this later on."""
-        u = University.objects.get(name=uni_content['name'])
+        u = University.objects.get(id=uni_content)
         print(u)
         print(u.id)
         print(u.name)
@@ -163,6 +163,7 @@ class SocietyListView(generics.ListAPIView):
             return Response(status=status.HTTP_409_CONFLICT)
         
         else:
+            
             """ 
             If there is no error, then we take the primary key of the user object,
             we keep the user content that we created above, 
@@ -180,7 +181,7 @@ class SocietyListView(generics.ListAPIView):
             }
             
             # Again, we can get the uni object from the name.
-            uni = University.objects.get(name=uni_content['name'])
+            #uni = University.objects.get(name=uni_content['name'])
         
             """
             Then when i try to create a new society from the data, 
@@ -197,19 +198,22 @@ class SocietyListView(generics.ListAPIView):
                 university_society_is_at = u
             )
             
-            if new_society.full_clean():
-                new_society.save()
-                print("\nsaved\n")
+            try:
+                new_society.full_clean()
+            except:
+                return Response({'errorM': "An error message"}, status=status.HTTP_400_BAD_REQUEST)
+            
+            new_society.save()
+            print("\nsaved\n")
+            
+            try:
                 serializer = SocietySerializer(new_society)
-                
-                if serializer.is_valid():
-                    
-                    serializer.save()
-                    return Response(serializer.data, status=status.HTTP_201_CREATED)
-                
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            except:
                 return Response(serializer.data, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             
-            return Response({'errorM': "An error message"}, status=status.HTTP_400_BAD_REQUEST)
+            
 
 class SocietyView(APIView):
     """View to retrieve data about a society"""
