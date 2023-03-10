@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/bought_tickets/user_bought_ticket_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 // import '../backend_communication/get.dart' as data;
-// import 'package:url_launcher/url_launcher.dart';
 
 
 
@@ -164,49 +164,49 @@ class BuyTicketScreen extends StatelessWidget{
             
           ),
 
-          // Expanded(
-          //   flex: 1,
-          //   child: InkWell(
-          //     // onTap: _launchURL,
-          //     child: const Text(
-          //       'Purchase Ticket Here',
-          //       style: TextStyle(
-          //         fontSize: 20,
-          //         color: Colors.blue,
-          //         decoration: TextDecoration.underline,
-          //       ),
-          //     ),
-          //   ),
-            
-          // )
-          
           const Expanded(
             flex: 1,
-            child: Text(
-              'Purchase Ticket Here',
+            child: InkWell(
+              onTap: _launchURL,
+              child: Text(
+                'Purchase Ticket Here',
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.blue,
                   decoration: TextDecoration.underline,
                 ),
+              ),
             ),
+            
           )
+          
+          // const Expanded(
+          //   flex: 1,
+          //   child: Text(
+          //     'Purchase Ticket Here',
+          //       style: TextStyle(
+          //         fontSize: 20,
+          //         color: Colors.blue,
+          //         decoration: TextDecoration.underline,
+          //       ),
+          //   ),
+          // )
 
         ],
       ),
     );
   }
 
-  // _launchURL() async {
-  //     Uri url = Uri.parse('https://www.google.com');
-  //     if (await launchUrl(url)) {
-  //       await launchUrl(url);
-  //     } else {
-  //       throw 'Could not launch $url';
-  //     }
-  //   } 
+
 
 
 }
 
-  
+  _launchURL() async {
+    Uri url = Uri.parse('https://www.google.com');
+    if (await launchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  } 
