@@ -34,7 +34,6 @@ class SocietySerializer(serializers.ModelSerializer):
     Then when we create a society object, we just put in the recently created user, the soc name, 
     the university, which we get via putting in the name of the uni into the uni relation, and the join date should
     be genererated automatically.
-
 """
 class UserCreationSerializer(serializers.ModelSerializer):
     class Meta:

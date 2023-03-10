@@ -142,7 +142,7 @@ class SocietyListView(generics.ListAPIView):
 
 
         """ Here, im able to get the uni object by the name. For some reason, I cant do this later on."""
-        u = University.objects.get(id=uni_content)
+        u = University.objects.get(name=uni_content['name'])
         print(u)
         print(u.id)
         print(u.name)
@@ -208,7 +208,6 @@ class SocietyListView(generics.ListAPIView):
             
             try:
                 serializer = SocietySerializer(new_society)
-                serializer.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             except:
                 return Response(serializer.data, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
