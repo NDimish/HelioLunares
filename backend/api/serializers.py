@@ -27,14 +27,7 @@ class SocietySerializer(serializers.ModelSerializer):
         
         
         
-        
-        
-"""@Jaidev, I added these two creation serializers because im not too sure on how to deserialize a nested object.
-    So when creating a society object, the user just puts in their email and password, which is what we want.
-    Then when we create a society object, we just put in the recently created user, the soc name, 
-    the university, which we get via putting in the name of the uni into the uni relation, and the join date should
-    be genererated automatically.
-"""
+"""Serializers for creating users"""
 class UserCreationSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -53,11 +46,10 @@ class StudentCreationSerializer(serializers.ModelSerializer):
         model = Student
         fields = '__all__'
 
-
-
-
 """
 """
+
+
 class EventModelSerializer(serializers.ModelSerializer):
     """Event Model Serializer """
 
