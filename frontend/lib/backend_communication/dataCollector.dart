@@ -116,7 +116,7 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
 
   Future<bool> updateCollection(T task) async {
     final response = await http.put(
-      Uri.parse(createUrl(sets[T]!, postType: PostType.UPDATE)),
+      Uri.parse(createUrl(sets[T]!, postType: PostType.UPDATE, ID: task.id)),
       headers: {
         "Content-Type": "application/json",
         // "Cookie": Cookies.Cookie,

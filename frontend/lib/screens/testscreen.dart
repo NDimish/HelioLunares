@@ -76,7 +76,9 @@ class _testscreen extends State<testscreen> {
                 onPressed: () {
                   //authenticate("nath@gmail.com", "q");
                   DataP.addToCollection(
-                      data.User(id: 3, username: "wqeqwe@gmail.com"));
+                      data.User(id: 3, username: "reffdwe@gmail.com"));
+                  // change whateves in dataP collection[3]
+                  // DataP.updateCollection(DataP.collection[3]);
                 }),
           );
         });
