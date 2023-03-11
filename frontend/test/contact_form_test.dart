@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:university_ticketing_system/log_in/widgets/submit_button.dart';
 import 'package:university_ticketing_system/screens/startup_screen/widgets/contact_form.dart';
 import 'package:university_ticketing_system/screens/startup_screen/widgets/contact_submit.dart';
-import 'package:university_ticketing_system/screens/startup_screen/widgets/startup_navbar.dart';
 
 //flutter run -d chrome --web-port 2021 test/contact_form_test.dart
 void main() {
   // Define a test. The TestWidgets function also provides a WidgetTester
   // to work with. The WidgetTester allows you to build and interact
   // with widgets in the test environment.
+
+  final TestWidgetsFlutterBinding binding =
+      TestWidgetsFlutterBinding.ensureInitialized();
   group("Josh Contact Form Tests", () {
+    binding.window.physicalSizeTestValue = const Size(1920, 1080);
+    binding.window.devicePixelRatioTestValue = 1.0;
     testWidgets('Contact form renders correct fields and submitButton',
         (tester) async {
       await tester.pumpWidget(const MaterialApp(
