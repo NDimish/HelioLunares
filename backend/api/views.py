@@ -105,7 +105,8 @@ class UserView(APIView):
     def delete(self, request, pk):
         User.objects.filter(id=pk).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
+    
+@permission_classes([IsAuthenticated])
 class SocietyListView(generics.ListAPIView):
     """View to retrieve list of societies"""
     
