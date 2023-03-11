@@ -5,10 +5,10 @@ import 'package:university_ticketing_system/user_hub/widgets/ThemeDataWidgets/Us
 import 'bought_tickets/user_bought_ticket_screen.dart';
 
 class MainAppBar extends AppBar {
-  MainAppBar(BuildContext context)
+  MainAppBar(BuildContext context, {super.key})
       : super(
-            title: Text("TickEX"),
-            backgroundColor: Color(0xff70587C),
+            title: const Text("TickEX"),
+            backgroundColor: const Color(0xff70587C),
             iconTheme: MainAppBarTheme(),
             titleTextStyle: MainAppBarTextTheme(),
             actions: [
@@ -17,9 +17,10 @@ class MainAppBar extends AppBar {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const UserBoughtTicketScreen()));
+                            builder: (context) =>
+                                const UserBoughtTicketScreen()));
                   },
-                  icon: Icon(Icons.receipt)),
+                  icon: const Icon(Icons.receipt)),
               IconButton(
                   onPressed: () {
                     Navigator.push(
@@ -27,7 +28,7 @@ class MainAppBar extends AppBar {
                         MaterialPageRoute(
                             builder: (context) => const UserSettingsPage()));
                   },
-                  icon: Icon(Icons.settings))
+                  icon: const Icon(Icons.settings))
             ]
             //
             );

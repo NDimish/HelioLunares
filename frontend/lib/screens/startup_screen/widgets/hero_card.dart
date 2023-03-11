@@ -1,7 +1,4 @@
 import 'dart:ui';
-
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 
 //Create a hero card - Containing a main image, overview of an app feature alongside any optional widgets to put
@@ -28,6 +25,7 @@ class _HeroCardState extends State<HeroCard> {
   bool isHover = false;
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
     return MouseRegion(
         onEnter: (event) => setState(() {
               isHover = true;
@@ -36,11 +34,11 @@ class _HeroCardState extends State<HeroCard> {
               isHover = false;
             }),
         child: SizedBox(
-            width: 500,
-            height: 500,
+            width: width / 2,
+            height: width / 3.6,
             child: Container(
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                   image: (DecorationImage(
                       image: NetworkImage(widget.imageLink),
                       fit: BoxFit.cover))),
@@ -78,6 +76,5 @@ class _HeroCardState extends State<HeroCard> {
                     : null,
               ),
             )));
-    ;
   }
 }

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class HomeCard extends StatefulWidget {
   const HomeCard({super.key});
@@ -15,7 +13,7 @@ class _HomeCardState extends State<HomeCard> {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-        duration: Duration(seconds: 1),
+        duration: const Duration(seconds: 1),
         curve: Curves.easeInOut,
         height: (isHover ? 400 : 300),
         width: (isHover ? 400 : 300),
@@ -43,11 +41,11 @@ class _HomeCardState extends State<HomeCard> {
                     child: Center(
                         child: AnimatedCrossFade(
                       duration: const Duration(seconds: 1),
-                      firstChild: Text(
+                      firstChild: const Text(
                         "Text 1",
                         textAlign: TextAlign.start,
                       ),
-                      secondChild: Text(
+                      secondChild: const Text(
                         "Text 2",
                         textAlign: TextAlign.center,
                       ),

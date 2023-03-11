@@ -1,6 +1,5 @@
 import 'package:university_ticketing_system/sign_up/widgets/finish_form_title.dart';
 import 'package:university_ticketing_system/sign_up/widgets/society_form_title.dart';
-import 'package:university_ticketing_system/sign_up/widgets/student_form_title.dart';
 import 'package:flutter/material.dart';
 
 class SocietySignUpCard extends StatefulWidget {
@@ -50,7 +49,7 @@ class _SocietySignUpCardState extends State<SocietySignUpCard> {
             child: Center(
                 child: PageView(
                     controller: widget.pageController,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     pageSnapping: true,
                     children: <Widget>[
                   stageOneForm(context),
@@ -155,7 +154,7 @@ class _SocietySignUpCardState extends State<SocietySignUpCard> {
                           onPressed: () {
                             widget.finishFormKey.currentState!.validate();
                             widget.finishFormKey.currentState!.save();
-                            print("Form saved, redirect to next page");
+                            Navigator.pushNamed(context, '/societyhub');
                           },
                           child: const Text("Next",
                               style: TextStyle(
@@ -177,7 +176,7 @@ class _SocietySignUpCardState extends State<SocietySignUpCard> {
               Expanded(
                   flex: 1,
                   child: Container(
-                      padding: EdgeInsets.only(left: 32.0),
+                      padding: const EdgeInsets.only(left: 32.0),
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
@@ -262,7 +261,8 @@ class _SocietySignUpCardState extends State<SocietySignUpCard> {
                                     widget.fKey.currentState!.save();
                                     print("Form saved");
                                     widget.pageController.nextPage(
-                                        duration: Duration(milliseconds: 500),
+                                        duration:
+                                            const Duration(milliseconds: 500),
                                         curve: Curves.easeInSine);
                                   }
                                 },
