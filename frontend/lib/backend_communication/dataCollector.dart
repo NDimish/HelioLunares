@@ -54,9 +54,9 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
 
   fetchData(String url, Databases Database) async {
     final response = await http.get(Uri.parse(url), headers: {
-      "csrftoken": Cookies.CSRFToken,
-      "sessionid": Cookies.Cookie,
-      "X-CSRFToken": Cookies.CSRFToken
+      //"csrftoken": Cookies.CSRFToken,
+      //"sessionid": Cookies.Cookie,
+      //"X-CSRFToken": Cookies.CSRFToken
       //HttpHeaders.authorizationHeader: Cookies.CSRFToken
     });
     if (response.statusCode == 200) {
@@ -84,7 +84,7 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       headers: {
         "Content-Type": "application/json",
         //"Cookie": Cookies.Cookie,
-        "X-CSRFToken": Cookies.CSRFToken
+        //"X-CSRFToken": Cookies.CSRFToken
         //HttpHeaders.authorizationHeader: Cookies.CSRFToken
       },
       body: json.encode(task),
@@ -120,7 +120,7 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       headers: {
         "Content-Type": "application/json",
         // "Cookie": Cookies.Cookie,
-        "X-CSRFToken": Cookies.CSRFToken
+        // "X-CSRFToken": Cookies.CSRFToken
         //HttpHeaders.authorizationHeader: Cookies.CSRFToken
       },
       body: json.encode(task),
