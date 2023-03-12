@@ -10,3 +10,4 @@ Major group project SEG Kings
 - Josh Susak
 - Shun Sheng Lee
 - Israfeel Ashraf
+- Shakeeb Jumaan
