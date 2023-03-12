@@ -11,15 +11,15 @@ import '../../../constants/style.dart';
 class EventForm extends StatefulWidget {
   const EventForm({super.key});
 
+  //const EventForm({super.key});
+
   @override
   State<StatefulWidget> createState() => _EventFormState();
 }
 
 class _EventFormState extends State<EventForm> {
-  _EventFormState() {}
-
   final SocietyEvent obj = Get.find<SocietyEvent>();
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   //Controllers
   final nameController = TextEditingController();
   final priceController = TextEditingController();
@@ -37,12 +37,12 @@ class _EventFormState extends State<EventForm> {
   bool _validateLocation = false;
   bool _validateDuration = false;
   bool _validateDescription = false;
-  final _formatCurrencyInputNoDecimal = NumberFormat.currency(
-      locale: 'en_GB', name: "", symbol: "£", decimalDigits: 0);
+
   final _formatCurrencyInput = NumberFormat.currency(
       locale: 'en_GB', name: "", symbol: "£", decimalDigits: 2);
 
   bool checkAllValidators() {
+    //final FormState form = _formKey.currentState;
     return (!_validateName &&
             !_validatePrice &&
             !_validateDate &&
@@ -75,7 +75,7 @@ class _EventFormState extends State<EventForm> {
           Expanded(
               child: SingleChildScrollView(
                   child: Column(children: [
-            TextField(
+            TextFormField(
                 decoration: InputDecoration(
                     errorText: _validateName ? 'Name Can\'t Be Empty' : null,
                     labelText: "Event Name",
@@ -87,7 +87,7 @@ class _EventFormState extends State<EventForm> {
             const SizedBox(
               height: 20,
             ),
-            TextField(
+            TextFormField(
                 keyboardType: TextInputType.number,
                 inputFormatters: <TextInputFormatter>[
                   //FilteringTextInputFormatter.digitsOnly,
@@ -108,7 +108,7 @@ class _EventFormState extends State<EventForm> {
             const SizedBox(
               height: 20,
             ),
-            TextField(
+            TextFormField(
               controller: dateController,
               onChanged: (String value) {
                 //obj.date = value;
@@ -146,7 +146,7 @@ class _EventFormState extends State<EventForm> {
                       formattedDate); //formatted date output using intl package =>  2021-03-16
                   setState(() {
                     dateController.text =
-                        formattedDate; //set output date to TextField value.
+                        formattedDate; //set output date to TextFormField value.
                   });
                 } else {}
               },
@@ -154,7 +154,7 @@ class _EventFormState extends State<EventForm> {
             const SizedBox(
               height: 20,
             ),
-            TextField(
+            TextFormField(
                 decoration: InputDecoration(
                     labelText: "Event Location",
                     icon: const Icon(Icons.location_on_outlined),
@@ -167,7 +167,7 @@ class _EventFormState extends State<EventForm> {
             const SizedBox(
               height: 20,
             ),
-            TextField(
+            TextFormField(
                 decoration: InputDecoration(
                     icon: const Icon(Icons.timer),
                     errorText:
@@ -184,7 +184,7 @@ class _EventFormState extends State<EventForm> {
             const SizedBox(
               height: 20,
             ),
-            TextField(
+            TextFormField(
               maxLines: null,
               keyboardType: TextInputType.multiline,
               inputFormatters: [LengthLimitingTextInputFormatter(500)],
@@ -235,20 +235,24 @@ class _EventFormState extends State<EventForm> {
                         : _validateDescription = false;
                   },
                 );
-                if (checkAllValidators()) obj.name = nameController.text;
-                obj.date = dateController.text;
-                obj.location = locationController.text;
-                obj.price = priceController.text.replaceAll("£", "");
-                obj.duration = durationController.text;
-                obj.description = descriptionController.text;
-                print(obj.price);
-                Get.put(obj);
+                if (checkAllValidators()) {
+                  obj.name = nameController.text;
+                  obj.date = dateController.text;
+                  obj.location = locationController.text;
+                  obj.price = priceController.text.replaceAll("£", "");
+                  obj.duration = durationController.text;
+                  obj.description = descriptionController.text;
+                  print(obj.price);
+                  Get.put(obj);
 
-                navigationController.goBack();
+                  navigationController.goBack();
 
-                navigationController.refresh();
-                navigationController.goBack();
-                navigationController.refresh();
+                  navigationController.refresh();
+                  navigationController.goBack();
+                  navigationController.refresh();
+                } else {
+                  print("input error");
+                }
               },
               child: const CustomText(
                 text: "Save",
