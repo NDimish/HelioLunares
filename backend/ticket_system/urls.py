@@ -36,5 +36,5 @@ urlpatterns = [
     path('event/<int:pk>/', views.EventApiInfoView.as_view(), name="event_info"),
    
     path('university/', views.UniversityApiView.as_view(), name="university"),
-    path('university/<id:pk>/', views.UniversityInfoApiView.as_view(), name="university_info"),
+    path('university/<int:pk>/', views.UniversityInfoApiView.as_view(), name="university_info"),
 ]
