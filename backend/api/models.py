@@ -13,6 +13,7 @@ class University(models.Model):
     longitude = models.FloatField(max_length=10, blank=False, unique=False)
     street_name = models.CharField(max_length=50, blank=False, unique=False)
     postcode = models.CharField(max_length=15, blank=False, unique=False)
+    
 class User(AbstractUser):
     username = None
 

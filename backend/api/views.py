@@ -306,12 +306,12 @@ class UniversityApiView(generics.ListAPIView):
 @permission_classes([IsAuthenticated])
 class UniversityInfoApiView(APIView):
     def get(self, request, pk):
-        university = University.objects.filter(name=pk)
+        university = University.objects.filter(id=pk)
         serializer = UniversitySerializer(instance=university, many=True)
         return Response(serializer.data)
 
     def put(self, request, pk):
-        university = University.objects.filter(name=pk).first()
+        university = University.objects.filter(id=pk).first()
         request.data["name"] = pk
         serializer = UniversitySerializer(instance=university, data=request.data)
         serializer.is_valid(raise_exception=True)
