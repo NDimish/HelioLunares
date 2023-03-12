@@ -24,11 +24,9 @@ class User(AbstractUser):
     REQUIRED_FIELDS = []
 
     USER_TYPE_CHOICES = (
-        (1, 'student'),
-        (2, 'committee'),
-        (3, 'inner_circle_of_society'),
-        (4, 'president_of_society'),  # This is the person who accessess the actual society email.
-        (5, 'administrator'),
+        (1, 'nonstudent'),
+        (2, 'student'),
+        (3, 'society'),
     )
 
     user_level = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES, default=1)
