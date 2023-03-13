@@ -123,12 +123,32 @@ class _AddEventFormState extends State<AddEventForm> {
               readOnly: true,
               onTap: () async {
                 DateTime? pickedDate = await showDatePicker(
+                    builder: (context, child) {
+                      return Theme(
+                        data: ThemeData.light().copyWith(
+                          colorScheme: const ColorScheme.light().copyWith(
+                            primary: MyColours.navButtonColour,
+                          ),
+                        ),
+                        child: child!,
+                      );
+                    },
                     context: context,
                     initialDate: DateTime.now(),
                     firstDate: DateTime.now(),
                     lastDate: DateTime(2100));
                 // ignore: use_build_context_synchronously
                 TimeOfDay? pickedTime = await showTimePicker(
+                  builder: (context, child) {
+                    return Theme(
+                      data: ThemeData.light().copyWith(
+                        colorScheme: const ColorScheme.light().copyWith(
+                          primary: MyColours.navButtonColour,
+                        ),
+                      ),
+                      child: child!,
+                    );
+                  },
                   context: context,
                   initialTime: TimeOfDay.now(),
                 );
