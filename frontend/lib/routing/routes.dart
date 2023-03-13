@@ -23,6 +23,10 @@ const eventDetailsPageRoute = "/AddEventPopupCard";
 const editEventDetailsPageDisplayName = "Edit Details";
 const editEventDetailsPageRoute = "/EditEventDetails";
 
+//add event page
+const addEventPageDisplayName = "Add Event";
+const addEventPageRoute = "/AddEvent";
+
 //edit society hub page
 const editSocietyHubPageDisplayName = "Edit Society Hub Page";
 const editSocietyHubPageRoute = "/EditSocietyHub";
