@@ -41,7 +41,7 @@ urlpatterns = [
     path('university/<int:pk>/', views.UniversityInfoApiView.as_view(), name="university_info"),
 
     path('societyrole/', views.PeopleRoleAtSociety.as_view(), name="society_role"),
-    path('societyrole/update', views.society_add_role),
-    path('societyrole/remove',views.society_add_role),
-    path('societyrole/add',views.society_add_role),
+    path('societyrole/update', views.society_update_user),
+    path('societyrole/remove',views.society_remove_user),
+    path('societyrole/join',views.society_join),
 ]

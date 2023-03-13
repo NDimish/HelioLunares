@@ -89,6 +89,7 @@ class UsersListView(generics.ListAPIView):
     filter_backends = [DjangoFilterBackend,OrderingFilter]
     filterset_fields = '__all__'
     ordering_fields = '__all__'
+    permission_classes = [AllowAny]
 
     
     def post(self,request):
@@ -96,7 +97,7 @@ class UsersListView(generics.ListAPIView):
         uni_content = request.data.get('university_studying_at')
 
         # Will change this to obtain the uni via id not name as discussed.
-        u = University.objects.get(name=uni_content['name'])
+        u = University.objects.get(id=uni_content)
         
         try:
             # First, we create the user object, before we can actually create the society model.
@@ -270,9 +271,102 @@ class SocietyView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['POST'])
-def society_add_role(request):
-    print(request.user)
-    return Response()
+def society_join(request):
+    #if user if society email, allow access
+    print(request.user.user_level)
+    if request.user.user_level == 3:
+        #Society account can not join other societies
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+    else:
+        #check if they have adequte permission
+        #search for the society that they want
+        try:
+            soc = Society.objects.get(user_id=request.data['society'])
+        except:
+            return Response({'error':'Society not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        #check if they are already part of the society
+        try:
+            role = PeopleRoleAtSociety.objects.get(society=soc,user_at_society=request.user)
+            return Response({'error':'Already joined society'},status=status.HTTP_400_BAD_REQUEST)
+        except:
+            soc.set_role(request.user)
+            soc.save()
+
+            return Response(status=status.HTTP_201_CREATED)
+
+@api_view(['POST'])
+def society_remove_user(request):
+    print(request.user.user_level)
+    if request.user.user_level == 3:
+        #Society account can not leave their own society
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+    else:
+        #check if they have adequte permission
+        #search for the society that they want
+        try:
+            soc = Society.objects.get(user_id=request.data['society'])
+        except:
+            return Response({'error':'Society not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        #check if they are already part of the society
+        try:
+            role = PeopleRoleAtSociety.objects.get(society=soc,user_at_society=request.user)
+        except:
+            return Response({'error':'Not joined society'},status=status.HTTP_400_BAD_REQUEST)
+
+        role.delete()
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['POST'])
+def society_update_user(request):
+    print(request.user.user_level)
+    if request.user.user_level == 3:
+        #Look for society
+        try:
+            soc = Society.objects.get(user_id=request.data['society'])
+        except:
+            return Response({'error':'Society not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        #check if they are already part of the society
+        try:
+            update_role = PeopleRoleAtSociety.objects.get(society=soc,user_at_society=request.data['user'])
+        except:
+            return Response({'error':'User not joined society'},status=status.HTTP_400_BAD_REQUEST)
+
+        if request.data['role_level'] in {1,2,3}:
+            update_role.role = request.data['role_level']
+            update_role.save()
+        else:
+            return Response({'error':'Can not set level'},status=status.HTTP_400_BAD_REQUEST)
+    else:
+        #check if they have adequte permission
+        #search for the society that they want
+        try:
+            soc = Society.objects.get(user_id=request.data['society'])
+        except:
+            return Response({'error':'Society not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        #check if current user is part of the society
+        try:
+            curr_role = PeopleRoleAtSociety.objects.get(society=soc,user_at_society=request.user)
+        except:
+            return Response({'error':'Not joined society'},status=status.HTTP_400_BAD_REQUEST)
+
+        #check if they are already part of the society
+        try:
+            update_role = PeopleRoleAtSociety.objects.get(society=soc,user_at_society=request.data['user'])
+        except:
+            return Response({'error':'User not joined society'},status=status.HTTP_400_BAD_REQUEST)
+
+        if request.data['role_level'] in {1,2}:
+            update_role.role = request.data['role_level']
+            update_role.save()
+        else:
+            return Response({'error':'Can not set level'},status=status.HTTP_400_BAD_REQUEST)
+
+        
 
 class PeopleRoleAtSociety(generics.ListAPIView):
     queryset = PeopleRoleAtSociety.objects.all()
