@@ -10,7 +10,6 @@ import '../../../backend_communication/dataCollector.dart';
 import '../../../constants/style.dart';
 import 'dart:js_util';
 
-import 'package:flutter/material.dart';
 import '../../../backend_communication/authenticate.dart';
 import '../../../backend_communication/dataCollector.dart' as data;
 import '../../../backend_communication/models/society_event.dart' as Model;
@@ -105,8 +104,8 @@ class _AddEventFormState extends State<AddEventForm> {
                     errorText: _validatePrice ? 'Value Can\'t Be Empty' : null),
                 controller: priceController,
                 onSaved: (String? price) {
-                  model.price = price!;
-                  print("event price saved");
+                  model.price = price!.replaceAll("£", "");
+                  print("event price of ${model.price} saved");
                 }),
             const SizedBox(
               height: 20,
