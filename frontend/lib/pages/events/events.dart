@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:university_ticketing_system/constants/controllers.dart';
 import 'package:university_ticketing_system/helpers/responsiveness.dart';
 import 'package:university_ticketing_system/pages/events/widgets/society_events.dart';
+import 'package:university_ticketing_system/routing/routes.dart';
 import 'package:university_ticketing_system/widgets/custom_text.dart';
 
 import '../../constants/style.dart';
@@ -58,8 +59,7 @@ class SocietyEventsPage extends StatelessWidget {
                     size: 20,
                   ),
                   onPressed: () {
-                    // navigationController
-                    //     .navigateTo();
+                    navigationController.navigateTo(addEventPageDisplayName);
                   }),
             ),
             SizedBox(
