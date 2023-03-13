@@ -6,7 +6,15 @@ import 'package:intl/intl.dart';
 import 'package:university_ticketing_system/constants/controllers.dart';
 import 'package:university_ticketing_system/backend_communication/models/society_event.dart';
 import 'package:university_ticketing_system/widgets/custom_text.dart';
+import '../../../backend_communication/dataCollector.dart';
 import '../../../constants/style.dart';
+import 'dart:js_util';
+
+import 'package:flutter/material.dart';
+import '../../../backend_communication/authenticate.dart';
+import '../../../backend_communication/dataCollector.dart' as data;
+import '../../../backend_communication/models/society_event.dart' as Model;
+import 'package:provider/provider.dart';
 
 class AddEventForm extends StatefulWidget {
   const AddEventForm({super.key});
@@ -18,6 +26,9 @@ class AddEventForm extends StatefulWidget {
 }
 
 class _AddEventFormState extends State<AddEventForm> {
+  //Model
+  late Model.SocietyEvent model = SocietyEvent(
+      "name", "price", "date", "location", "duration", "description");
   //final SocietyEvent obj = Get.find<SocietyEvent>();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   //Controllers
@@ -53,6 +64,10 @@ class _AddEventFormState extends State<AddEventForm> {
         : false;
   }
 
+  String getFormattedDate() {
+    return "";
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -67,8 +82,9 @@ class _AddEventFormState extends State<AddEventForm> {
                     labelText: "Event Name",
                     icon: const Icon(Icons.event)),
                 controller: nameController,
-                onChanged: (String value) {
-                  // obj.name = value;
+                onSaved: (String? name) {
+                  model.name = name!;
+                  print("event name saved");
                 }),
             const SizedBox(
               height: 20,
@@ -88,14 +104,19 @@ class _AddEventFormState extends State<AddEventForm> {
                     labelText: "Ticket Price",
                     errorText: _validatePrice ? 'Value Can\'t Be Empty' : null),
                 controller: priceController,
-                onChanged: (String value) {
-                  // obj.price = value;
+                onSaved: (String? price) {
+                  model.price = price!;
+                  print("event price saved");
                 }),
             const SizedBox(
               height: 20,
             ),
             TextFormField(
               controller: dateController,
+              onSaved: (String? date) {
+                model.date = date!;
+                print("event date is $date  saved");
+              },
               decoration: InputDecoration(
                   errorText: _validateDate ? 'Date Can\'t Be Empty' : null,
                   icon: const Icon(Icons.calendar_today), //icon of text field
@@ -125,8 +146,8 @@ class _AddEventFormState extends State<AddEventForm> {
                       pickedTime.minute);
                   String formattedDate =
                       DateFormat('yyyy-MM-dd HH:mm').format(pickedDateTime);
-                  print(
-                      formattedDate); //formatted date output using intl package =>  2021-03-16
+
+                  //formatted date output using intl package =>  2021-03-16
                   setState(() {
                     dateController.text =
                         formattedDate; //set output date to TextFormField value.
@@ -144,8 +165,9 @@ class _AddEventFormState extends State<AddEventForm> {
                     errorText:
                         _validateLocation ? 'Location Can\'t Be Empty' : null),
                 controller: locationController,
-                onChanged: (String value) {
-                  //obj.location = value;
+                onSaved: (String? location) {
+                  model.location = location!;
+                  print("event location saved");
                 }),
             const SizedBox(
               height: 20,
@@ -161,23 +183,27 @@ class _AddEventFormState extends State<AddEventForm> {
                   FilteringTextInputFormatter.digitsOnly,
                 ],
                 controller: durationController,
-                onChanged: (String value) {
-                  //obj.duration = value;
+                onSaved: (String? duration) {
+                  model.duration = duration!;
+                  print("event duration saved");
                 }),
             const SizedBox(
               height: 20,
             ),
             TextFormField(
-              maxLines: null,
-              keyboardType: TextInputType.multiline,
-              inputFormatters: [LengthLimitingTextInputFormatter(500)],
-              decoration: InputDecoration(
-                  errorText:
-                      _validateDescription ? 'Value Can\'t Be Empty' : null,
-                  labelText: "Event Description",
-                  icon: const Icon(Icons.description)),
-              controller: descriptionController,
-            ),
+                maxLines: null,
+                keyboardType: TextInputType.multiline,
+                inputFormatters: [LengthLimitingTextInputFormatter(500)],
+                decoration: InputDecoration(
+                    errorText:
+                        _validateDescription ? 'Value Can\'t Be Empty' : null,
+                    labelText: "Event Description",
+                    icon: const Icon(Icons.description)),
+                controller: descriptionController,
+                onSaved: (String? description) {
+                  model.description = description!;
+                  print("event description saved");
+                }),
             const SizedBox(
               height: 20,
             ),
@@ -219,16 +245,16 @@ class _AddEventFormState extends State<AddEventForm> {
                   },
                 );
                 if (checkAllValidators()) {
-                  navigationController.goBack();
+                  //SAVE EVENT MODEL FIELDS & ADD TO DB
+                  _formKey.currentState?.save();
+                  //UNCOMMENT ONCE IMPLEMENTED :
+                  //data.dataCollector<SocietyEvent> collector = data.dataCollector<SocietyEvent>();
+                  //collector.addToCollection(model);
 
+                  navigationController.goBack();
                   navigationController.refresh();
                   navigationController.goBack();
                   navigationController.refresh();
-
-                  /**
-                   * TODO : 
-                   * CREATE EVENT OBJECT USING BACKEND COMMUNICATION 
-                   */
                 } else {
                   print("input error");
                 }
