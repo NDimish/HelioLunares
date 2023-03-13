@@ -84,8 +84,8 @@ class LogInView(APIView):
 
 class UsersListView(generics.ListAPIView):
     """View to retrieve list of users"""
-    queryset = People.objects.all()
-    serializer_class = PeopleSerializer
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
     filter_backends = [DjangoFilterBackend,OrderingFilter]
     filterset_fields = '__all__'
     ordering_fields = '__all__'
