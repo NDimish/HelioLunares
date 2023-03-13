@@ -28,13 +28,20 @@ urlpatterns = [
     path('users/', views.UsersListView.as_view(), name="users_list"),
     path('users/<int:pk>/', views.UserView.as_view(), name="user_with_id"),
     
+    path('users/', views.PeopleListView.as_view(), name="people_list"),
+    path('users/<int:pk>/', views.PeopleView.as_view(), name="people_with_id"),
+
     path('society/', views.SocietyListView.as_view(), name="society_list"),
     path('society/<int:pk>/', views.SocietyView.as_view(), name="society_with_id"),
 
-    # event router
     path('event/', views.EventApiView.as_view(), name="event"),
     path('event/<int:pk>/', views.EventApiInfoView.as_view(), name="event_info"),
    
     path('university/', views.UniversityApiView.as_view(), name="university"),
     path('university/<int:pk>/', views.UniversityInfoApiView.as_view(), name="university_info"),
+
+    path('societyrole/', views.PeopleRoleAtSociety.as_view(), name="society_role"),
+    path('societyrole/update', views.society_add_role),
+    path('societyrole/remove',views.society_add_role),
+    path('societyrole/add',views.society_add_role),
 ]

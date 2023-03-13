@@ -10,7 +10,7 @@ from rest_framework.views import APIView
 from django.contrib.auth import authenticate, login, logout
 from django_filters.rest_framework import DjangoFilterBackend
 
-from .models import User, Society, Event, University, People
+from .models import User, Society, Event, University, People, PeopleRoleAtSociety
 from .serializers import UserSerializer, SocietySerializer, UniversitySerializer, EventModelSerializer, PeopleCreationSerializer, PeopleSerializer, PeopleRoleAtSocietySerializer
 
 #nathan testing
@@ -269,6 +269,17 @@ class SocietyView(APIView):
         Society.objects.filter(id=pk).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+@api_view(['POST'])
+def society_add_role(request):
+    print(request.user)
+    return Response()
+
+class PeopleRoleAtSociety(generics.ListAPIView):
+    queryset = PeopleRoleAtSociety.objects.all()
+    serializer_class = PeopleRoleAtSocietySerializer
+    filter_backends = [DjangoFilterBackend,OrderingFilter]
+    filterset_fields = '__all__'
+    ordering_fields = '__all__'
 
 # @permission_classes([IsAuthenticated])
 class EventApiView(generics.ListAPIView):
