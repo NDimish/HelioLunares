@@ -89,11 +89,7 @@ class UsersListView(generics.ListAPIView):
     filter_backends = [DjangoFilterBackend,OrderingFilter]
     filterset_fields = '__all__'
     ordering_fields = '__all__'
-    
-    # def get_serializer_class(self):
-    #     if self.request.method == 'POST':
-    #         return PeopleCreationSerializer
-    #     return PeopleSerializer
+
     
     def post(self,request):
         auth_content = request.data.get('user')
@@ -139,7 +135,7 @@ class UsersListView(generics.ListAPIView):
             try:
                 new_person.full_clean()
             except:
-                created_user.delete()
+                created_user.delete() # delete user since error
                 return Response({'errorM': "An error message"}, status=status.HTTP_400_BAD_REQUEST)
             
             new_person.save()
@@ -150,8 +146,7 @@ class UsersListView(generics.ListAPIView):
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             except:
                 # If there is an error, delete the data
-                created_user.delete()
-                new_person.delete()
+                created_user.delete() # due to cascade it will auto delete new_person
                 return Response(serializer.data, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
 
@@ -168,8 +163,31 @@ class UserView(APIView):
     def delete(self, request, pk):
         User.objects.filter(id=pk).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class PeopleListView(generics.ListAPIView):
+    """ View list of all people accounds"""
+
+    queryset = People.objects.all()
+    serializer_class = PeopleSerializer
+    filter_backends = [DjangoFilterBackend,OrderingFilter]
+    filterset_fields = '__all__'
+    ordering_fields = '__all__'
+
+class PeopleView(APIView):
+    """ View a specific people account"""
+    def get(self, request, pk):
+        try:
+            user = People.objects.get(user=pk)
+            serializer = PeopleSerializer(user)
+            return Response(serializer.data)
+        except:
+            return Response({'error':'User not found.'},status=status.HTTP_404_NOT_FOUND)
     
-@permission_classes([IsAuthenticated])
+    def delete(self, request, pk):
+        User.objects.filter(id=pk).delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 class SocietyListView(generics.ListAPIView):
     """View to retrieve list of societies"""
     
@@ -178,23 +196,15 @@ class SocietyListView(generics.ListAPIView):
     filter_backends = [DjangoFilterBackend,OrderingFilter]
     filterset_fields = '__all__'
     ordering_fields = '__all__'
+    permission_classes = [AllowAny]
     
-    """Override the serializer class for creating the society.
-        So we use the other serializers which are described on the serializer page.
-    """
-    # def get_serializer_class(self):
-    #     if self.request.method == 'POST':
-    #         return SocietyCreationSerializer
-    #     return SocietySerializer
-    
-    @permission_classes(AllowAny, )
     def post(self,request):
         
         auth_content = request.data.get('user')
         uni_content = request.data.get('university_society_is_at')
 
         # Will change this to obtain the uni via id not name as discussed.
-        u = University.objects.get(name=uni_content['name'])
+        u = University.objects.get(id=uni_content)
         
         try:
             

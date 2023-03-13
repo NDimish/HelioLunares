@@ -23,7 +23,7 @@ class SocietySerializer(serializers.ModelSerializer):
     university_society_is_at = UniversitySerializer()
     class Meta:
         model = Society
-        fields = '_all__'
+        fields = '__all__'
         
 class PeopleRoleAtSocietySerializer(serializers.ModelSerializer):
     class Meta:
