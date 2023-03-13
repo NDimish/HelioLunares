@@ -1,17 +1,17 @@
 from rest_framework import serializers
 
-from api.models import Student, User, University, Society, Event
+from api.models import People, User, University, Society, Event, PeopleRoleAtSociety
 import re
 
-class StudentSerializer(serializers.ModelSerializer):
+class PeopleSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Student
+        model = People
         fields = '__all__'
  
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id','email']
+        fields = ['id','email','user_level']
         
 class UniversitySerializer(serializers.ModelSerializer):
     class Meta:
@@ -23,9 +23,12 @@ class SocietySerializer(serializers.ModelSerializer):
     university_society_is_at = UniversitySerializer()
     class Meta:
         model = Society
-        fields = ['pk', 'user', 'name', 'creation_date', 'university_society_is_at', 'join_date']
+        fields = '_all__'
         
-        
+class PeopleRoleAtSocietySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PeopleRoleAtSociety
+        fields = '__all__'
         
 """Serializers for creating users"""
 class UserCreationSerializer(serializers.ModelSerializer):
@@ -39,11 +42,11 @@ class SocietyCreationSerializer(serializers.ModelSerializer):
         model = Society
         fields = ['user', 'name', 'creation_date', 'university_society_is_at', 'join_date']
 
-class StudentCreationSerializer(serializers.ModelSerializer):
+class PeopleCreationSerializer(serializers.ModelSerializer):
     user = UserCreationSerializer()
     university_studying_at = UniversitySerializer()
     class Meta:
-        model = Student
+        model = People
         fields = '__all__'
 
 """

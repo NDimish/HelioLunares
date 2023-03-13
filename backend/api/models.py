@@ -37,7 +37,7 @@ class User(AbstractUser):
         return self.email
 
 
-class Student(models.Model):
+class People(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     university_studying_at = models.ForeignKey(University, on_delete=models.CASCADE)
 
@@ -57,53 +57,49 @@ class Society(models.Model):
     university_society_is_at = models.ForeignKey(University, on_delete=models.CASCADE)
     join_date = models.DateField(auto_now_add=True)
 
-    def set_role(self, user: User, level):
-        # Assign the role that the society wants to give to the user.
-        user.user_level = level
-        user.save()
+    def set_role(self, user: User, level=1):
 
         # Store this info in the StudentRoleAtSociety database.
-        role_given = StudentRoleAtSociety.objects.create(
+        role_given = PeopleRoleAtSociety.objects.create(
             society=self,
-            user_at_society=user
+            user_at_society=user,
+            level=level
         )
         role_given.full_clean()
         role_given.save()
 
-    def update_student_role(self, user: User, level):
+    def update_student_role(self, user: User, level=1):
         # Retrieve the user from the societal roles db and delete them to avoid violating the unique constraint.
-        user_working_for_society = StudentRoleAtSociety.objects.get(
+        role_given = PeopleRoleAtSociety.objects.get(
             society=self,
-            user_at_society=Student.objects.get(user=user)
+            user_at_society=People.objects.get(user=user)
         )
 
-        user_working_for_society.delete()
+        role_given.level = level
 
-        self.set_role(user, level)
+        role_given.full_clean()
+        role_given.save()
 
     def delete_student_role(self, user: User):
-        user_working_for_society = StudentRoleAtSociety.objects.get(
+        role_given = PeopleRoleAtSociety.objects.get(
             society=self,
-            user_at_society=Student.objects.get(user=user)
+            user_at_society= People.objects.get(user=user)
         )
-        user_working_for_society.delete()
+        role_given.delete()
 
 
-class StudentRoleAtSociety(models.Model):
-    class Meta:
-        db_table = 'tickets'
-        constraints = [
-            models.UniqueConstraint(
-                fields=[
-                    'society',
-                    'user_at_society'
-                ],
-                name='user_identification'
-            )
-        ]
+class PeopleRoleAtSociety(models.Model):
 
     society = models.ForeignKey(Society, on_delete=models.CASCADE, blank=False)
-    user_at_society = models.ForeignKey(Student, on_delete=models.CASCADE, blank=False)
+    user_at_society = models.ForeignKey(People, on_delete=models.CASCADE, blank=False)
+
+    SOCIETY_ROLE = (
+        (1, 'member'),
+        (2, 'admin'),
+        (3, 'committee'),
+    )
+
+    role = models.PositiveSmallIntegerField(choices=SOCIETY_ROLE, default=1)
 
     def __str__(self):
         str1 = self.society.name + " --- " + self.user_at_society.first_name + self.user_at_society.last_name + " --- "

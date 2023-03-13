@@ -10,8 +10,8 @@ from rest_framework.views import APIView
 from django.contrib.auth import authenticate, login, logout
 from django_filters.rest_framework import DjangoFilterBackend
 
-from .models import User, Society, Event, University, Student
-from .serializers import UserSerializer, SocietySerializer, UniversitySerializer, EventModelSerializer, SocietyCreationSerializer, StudentSerializer, StudentCreationSerializer
+from .models import User, Society, Event, University, People
+from .serializers import UserSerializer, SocietySerializer, UniversitySerializer, EventModelSerializer, PeopleCreationSerializer, PeopleSerializer, PeopleRoleAtSocietySerializer
 
 #nathan testing
 from django.http import HttpResponse, JsonResponse
@@ -30,7 +30,7 @@ def log_out(request):
 
 class LogInView(APIView):
     """Log in view to authenticate the user."""
-    authentication_classes = [SessionAuthentication, TokenAuthentication]
+    authentication_classes = [TokenAuthentication]
     permission_classes = [AllowAny,]
 
     def get(self, request, format=None):
@@ -84,16 +84,16 @@ class LogInView(APIView):
 
 class UsersListView(generics.ListAPIView):
     """View to retrieve list of users"""
-    queryset = Student.objects.all()
-    serializer_class = StudentSerializer
+    queryset = People.objects.all()
+    serializer_class = PeopleSerializer
     filter_backends = [DjangoFilterBackend,OrderingFilter]
     filterset_fields = '__all__'
     ordering_fields = '__all__'
     
-    def get_serializer_class(self):
-        if self.request.method == 'POST':
-            return StudentCreationSerializer
-        return StudentSerializer
+    # def get_serializer_class(self):
+    #     if self.request.method == 'POST':
+    #         return PeopleCreationSerializer
+    #     return PeopleSerializer
     
     def post(self,request):
         auth_content = request.data.get('user')
@@ -107,7 +107,7 @@ class UsersListView(generics.ListAPIView):
             created_user = User.objects.create_user(
                 email = auth_content['email'], 
                 password = auth_content['password'],
-                # Level 1 as a student is being created.
+                # Level 1 as a nonstudent is being created.
                 user_level = 1
             )
             
@@ -128,7 +128,7 @@ class UsersListView(generics.ListAPIView):
             }
             
             # Create a new society model.
-            new_student = Student.objects.create(
+            new_person = People.objects.create(
                 user = created_user,
                 first_name = data['first_name'],
                 last_name = data['last_name'],
@@ -137,17 +137,21 @@ class UsersListView(generics.ListAPIView):
             )
             
             try:
-                new_student.full_clean()
+                new_person.full_clean()
             except:
+                created_user.delete()
                 return Response({'errorM': "An error message"}, status=status.HTTP_400_BAD_REQUEST)
             
-            new_student.save()
+            new_person.save()
             
             try:
                 # Serialize the new model and send back to the frontend.
-                serializer = StudentSerializer(new_student)
+                serializer = PeopleSerializer(new_person)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             except:
+                # If there is an error, delete the data
+                created_user.delete()
+                new_person.delete()
                 return Response(serializer.data, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
 
@@ -178,10 +182,10 @@ class SocietyListView(generics.ListAPIView):
     """Override the serializer class for creating the society.
         So we use the other serializers which are described on the serializer page.
     """
-    def get_serializer_class(self):
-        if self.request.method == 'POST':
-            return SocietyCreationSerializer
-        return SocietySerializer
+    # def get_serializer_class(self):
+    #     if self.request.method == 'POST':
+    #         return SocietyCreationSerializer
+    #     return SocietySerializer
     
     @permission_classes(AllowAny, )
     def post(self,request):
@@ -199,8 +203,8 @@ class SocietyListView(generics.ListAPIView):
             created_user = User.objects.create_user(
                 email = auth_content['email'], 
                 password = auth_content['password'],
-                # Level 4 as its the society being created.
-                user_level = 4
+                # Level 3 for society type.
+                user_level = 3
             )
             
         except:
@@ -228,6 +232,7 @@ class SocietyListView(generics.ListAPIView):
             try:
                 new_society.full_clean()
             except:
+                created_user.delete()
                 return Response({'errorM': "An error message"}, status=status.HTTP_400_BAD_REQUEST)
             
             new_society.save()
@@ -237,6 +242,8 @@ class SocietyListView(generics.ListAPIView):
                 serializer = SocietySerializer(new_society)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             except:
+                created_user.delete()
+                new_society.delete()
                 return Response(serializer.data, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             
 class SocietyView(APIView):
