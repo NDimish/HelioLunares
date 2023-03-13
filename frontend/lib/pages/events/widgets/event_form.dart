@@ -7,18 +7,20 @@ import 'package:university_ticketing_system/constants/controllers.dart';
 import 'package:university_ticketing_system/backend_communication/models/society_event.dart';
 import 'package:university_ticketing_system/widgets/custom_text.dart';
 import '../../../constants/style.dart';
+import '../../../backend_communication/authenticate.dart';
+import '../../../backend_communication/dataCollector.dart' as data;
+import '../../../backend_communication/models/society_event.dart' as Model;
+import 'package:provider/provider.dart';
 
 class EventForm extends StatefulWidget {
   const EventForm({super.key});
-
-  //const EventForm({super.key});
 
   @override
   State<StatefulWidget> createState() => _EventFormState();
 }
 
 class _EventFormState extends State<EventForm> {
-  final SocietyEvent obj = Get.find<SocietyEvent>();
+  final SocietyEvent model = Get.find<SocietyEvent>();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   //Controllers
   final nameController = TextEditingController();
@@ -56,14 +58,15 @@ class _EventFormState extends State<EventForm> {
   //populate the fields with current event details
   @override
   void initState() {
-    nameController.text = obj.name;
+    nameController.text = model.name;
     //.format function requires int not string
-    priceController.text = _formatCurrencyInput.format(double.parse(obj.price));
+    priceController.text =
+        _formatCurrencyInput.format(double.parse(model.price));
     dateController.text =
-        DateFormat('yyyy-MM-dd HH:mm').format(DateTime.parse(obj.date));
-    locationController.text = obj.location;
-    durationController.text = obj.duration;
-    descriptionController.text = obj.description;
+        DateFormat('yyyy-MM-dd HH:mm').format(DateTime.parse(model.date));
+    locationController.text = model.location;
+    durationController.text = model.duration;
+    descriptionController.text = model.description;
     return super.initState();
   }
 
@@ -81,8 +84,9 @@ class _EventFormState extends State<EventForm> {
                     labelText: "Event Name",
                     icon: const Icon(Icons.event)),
                 controller: nameController,
-                onChanged: (String value) {
-                  // obj.name = value;
+                onSaved: (String? name) {
+                  model.name = name!;
+                  print("event name saved");
                 }),
             const SizedBox(
               height: 20,
@@ -102,16 +106,18 @@ class _EventFormState extends State<EventForm> {
                     labelText: "Ticket Price",
                     errorText: _validatePrice ? 'Value Can\'t Be Empty' : null),
                 controller: priceController,
-                onChanged: (String value) {
-                  // obj.price = value;
+                onSaved: (String? price) {
+                  model.price = price!.replaceAll("£", "");
+                  print("event price of ${model.price} saved");
                 }),
             const SizedBox(
               height: 20,
             ),
             TextFormField(
               controller: dateController,
-              onChanged: (String value) {
-                //obj.date = value;
+              onSaved: (String? date) {
+                model.date = date!;
+                print("event date is $date  saved");
               },
               decoration: InputDecoration(
                   errorText: _validateDate ? 'Date Can\'t Be Empty' : null,
@@ -161,8 +167,9 @@ class _EventFormState extends State<EventForm> {
                     errorText:
                         _validateLocation ? 'Location Can\'t Be Empty' : null),
                 controller: locationController,
-                onChanged: (String value) {
-                  //obj.location = value;
+                onSaved: (String? location) {
+                  model.location = location!;
+                  print("event location saved");
                 }),
             const SizedBox(
               height: 20,
@@ -178,23 +185,27 @@ class _EventFormState extends State<EventForm> {
                   FilteringTextInputFormatter.digitsOnly,
                 ],
                 controller: durationController,
-                onChanged: (String value) {
-                  //obj.duration = value;
+                onSaved: (String? duration) {
+                  model.duration = duration!;
+                  print("event duration saved");
                 }),
             const SizedBox(
               height: 20,
             ),
             TextFormField(
-              maxLines: null,
-              keyboardType: TextInputType.multiline,
-              inputFormatters: [LengthLimitingTextInputFormatter(500)],
-              decoration: InputDecoration(
-                  errorText:
-                      _validateDescription ? 'Value Can\'t Be Empty' : null,
-                  labelText: "Event Description",
-                  icon: const Icon(Icons.description)),
-              controller: descriptionController,
-            ),
+                maxLines: null,
+                keyboardType: TextInputType.multiline,
+                inputFormatters: [LengthLimitingTextInputFormatter(500)],
+                decoration: InputDecoration(
+                    errorText:
+                        _validateDescription ? 'Value Can\'t Be Empty' : null,
+                    labelText: "Event Description",
+                    icon: const Icon(Icons.description)),
+                controller: descriptionController,
+                onSaved: (String? description) {
+                  model.description = description!;
+                  print("event description saved");
+                }),
             const SizedBox(
               height: 20,
             ),
@@ -236,20 +247,22 @@ class _EventFormState extends State<EventForm> {
                   },
                 );
                 if (checkAllValidators()) {
-                  obj.name = nameController.text;
-                  obj.date = dateController.text;
-                  obj.location = locationController.text;
-                  obj.price = priceController.text.replaceAll("£", "");
-                  obj.duration = durationController.text;
-                  obj.description = descriptionController.text;
-                  print(obj.price);
-                  Get.put(obj);
+                  _formKey.currentState?.save();
+                  //UNCOMMENT ONCE IMPLEMENTED :
+                  // data.dataCollector<SocietyEvent> collector = data.dataCollector<SocietyEvent>();
+                  // collector.updateCollection(model);
+
+                  Get.put(model);
 
                   navigationController.goBack();
 
                   navigationController.refresh();
                   navigationController.goBack();
                   navigationController.refresh();
+
+                  /**
+                   * UPDATE THE EVENT model 
+                   */
                 } else {
                   print("input error");
                 }
