@@ -35,6 +35,10 @@ const editSocietyHubPageRoute = "/EditSocietyHub";
 const editSocietyMembersPageDisplayName = "Members";
 const editSocietyMembersPageRoute = "/EditSocietyMembers";
 
+//society settings page
+const societySettingsPageDisplayName = "Settings";
+const societySettingsPageRoute = "/SocietySettings";
+
 class EventDetailsRoute<T> extends PageRoute<T> {
   EventDetailsRoute({
     required WidgetBuilder builder,

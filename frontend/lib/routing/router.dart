@@ -9,6 +9,7 @@ import 'package:university_ticketing_system/pages/statistics/statistics.dart';
 import 'package:university_ticketing_system/pages/events/events.dart';
 import 'package:university_ticketing_system/pages/society_hub/society_hub.dart';
 import 'package:university_ticketing_system/routing/routes.dart';
+import 'package:university_ticketing_system/society_settings/society_settings_page.dart';
 
 import '../pages/society_members/society_members.dart';
 
@@ -34,6 +35,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(const EditSocietyHubPage());
     case editSocietyMembersPageDisplayName:
       return _getPageRoute(const SocietyMembersPage());
+    case societySettingsPageDisplayName:
+      return _getPageRoute(const SocietySettingsPage());
 
     default:
       return _getPageRoute(const SocietyHubPage());
