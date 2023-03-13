@@ -28,6 +28,7 @@ class UniversityTicketingApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'University Ticketing',
       theme: ThemeData(
+          canvasColor: Colors.white,
           useMaterial3: true,
           brightness: Brightness.light,
           colorScheme:
@@ -41,7 +42,7 @@ class UniversityTicketingApp extends StatelessWidget {
             TargetPlatform.windows: FadeUpwardsPageTransitionsBuilder(),
             TargetPlatform.linux: FadeUpwardsPageTransitionsBuilder(),
           }),
-          primaryColor: Colors.blue),
+          primaryColor: Colors.white),
       themeMode: ThemeMode.light,
       initialRoute: '/',
       routes: {
