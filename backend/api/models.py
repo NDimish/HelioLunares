@@ -67,7 +67,7 @@ class Society(models.Model):
     
     image = models.ImageField(upload_to = upload_img, blank=True, null=True)
 
-    def set_role(self, user: User, level=1):
+    def join_soc(self, user: User, level=1):
 
         # Store this info in the StudentRoleAtSociety database.
         role_given = PeopleRoleAtSociety.objects.create(
