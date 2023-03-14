@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from api.models import People, User, University, Society, Event, PeopleRoleAtSociety
+from api.models import *
 import re
 
 class PeopleSerializer(serializers.ModelSerializer):
@@ -40,7 +40,7 @@ class SocietyCreationSerializer(serializers.ModelSerializer):
     university_society_is_at = UniversitySerializer()
     class Meta:
         model = Society
-        fields = ['user', 'name', 'creation_date', 'university_society_is_at', 'join_date']
+        fields = ['user', 'name', 'creation_date', 'university_society_is_at', 'join_date', 'image']
 
 class PeopleCreationSerializer(serializers.ModelSerializer):
     user = UserCreationSerializer()

@@ -4,7 +4,9 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import EmailValidator
 from .managers import UserManager
+from django.conf import settings
 
+#Image functions
 
 # Create your models here.
 class University(models.Model):
@@ -48,6 +50,8 @@ class People(models.Model):
 
 
 class Society(models.Model):
+
+
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, blank=False)
     name = models.CharField(blank=False, unique=False, max_length=40)
     creation_date = models.DateField(blank=False)
@@ -56,6 +60,12 @@ class Society(models.Model):
 
     university_society_is_at = models.ForeignKey(University, on_delete=models.CASCADE)
     join_date = models.DateField(auto_now_add=True)
+
+
+    def upload_img(instance, filename):
+        return "{0}/{1}".format(instance.user.id,filename)
+    
+    image = models.ImageField(upload_to = upload_img, blank=True, null=True)
 
     def set_role(self, user: User, level=1):
 
@@ -87,7 +97,6 @@ class Society(models.Model):
         )
         role_given.delete()
 
-
 class PeopleRoleAtSociety(models.Model):
 
     society = models.ForeignKey(Society, on_delete=models.CASCADE, blank=False)
@@ -108,6 +117,7 @@ class PeopleRoleAtSociety(models.Model):
 
 
 class Event(models.Model):
+
     society_email = models.CharField(max_length=50, blank=False, unique=False)
     duration = models.IntegerField(max_length=10, blank=False, unique=False)
     event_date = models.DateTimeField(blank=False)
