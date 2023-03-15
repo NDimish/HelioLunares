@@ -19,16 +19,16 @@ class UsersTestCase(APITestCase):
         self.data = {}
     
     ###URLS WITH GET REQUESTS
-    def test_url_exists(self):
+    def test_url_exists_with_get(self):
         response = self.client.get(self.url, {}, format='json')
         self.assertNotEqual(response.status_code,404)
     
-    def test_url_access_denied_without_authentication(self):
+    def test_url_access_denied_without_authentication_for_get(self):
         response = self.client.get(self.url, {}, format='json')
         self.assertEqual(response.status_code,status.HTTP_401_UNAUTHORIZED)
         self.assertEqual(response.data['detail'].code,"not_authenticated")
     
-    def test_url_access_allowed_with_api_login(self):
+    def test_url_access_allowed_with_api_login_for_get(self):
         response = self.client.post('/log_in/',{'email':'johndoe@example.org','password':'Password123'},format='json')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
@@ -141,5 +141,5 @@ class UsersTestCase(APITestCase):
         self.assertEquals(response.data[2]['email'],'jamesondoe@example.org')
     
     ###URLS WITH POST Requests
-    
+    def test_url_
     
