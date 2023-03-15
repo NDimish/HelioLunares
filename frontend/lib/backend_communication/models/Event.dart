@@ -1,4 +1,4 @@
-import '/models/datasets.dart';
+import 'datasets.dart';
 
 class Event extends dataSets {
   final String title;
@@ -8,8 +8,8 @@ class Event extends dataSets {
   final String description;
 
   final String society_email;
-  final int duration;
-  final int price;
+  final double duration;
+  final double price;
   final String update_time;
   final String create_time;
   // final String password;
@@ -50,7 +50,7 @@ class Event extends dataSets {
 
   dynamic toJson() => {
         'society_email': society_email,
-        'duration': duration,
+        // 'duration': duration,
         'price': price,
         'update_time': update_time,
         'create_time': create_time,
