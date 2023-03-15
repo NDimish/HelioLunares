@@ -646,7 +646,6 @@ class SocietyCategoriesTypeInfoApiView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-<<<<<<< HEAD
 @permission_classes([IsAuthenticated])
 class SocietyCategoriesApiView(APIView):
     def get(self, request):
@@ -678,5 +677,3 @@ class SocietyCategoriesInfoApiView(APIView):
     def delete(self, reuqest, pk):
         SocietyCategories.objects.filter(id=pk).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-=======
->>>>>>> 3b0b920e61bf4c26f991523405df4e62b1c69f2a
