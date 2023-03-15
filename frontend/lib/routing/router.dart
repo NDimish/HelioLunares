@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:university_ticketing_system/pages/edit_mode/edit_mode.dart';
+import 'package:university_ticketing_system/pages/edit_mode/edit_society_details.dart';
 import 'package:university_ticketing_system/pages/edit_mode/edit_society_hub.dart';
 import 'package:university_ticketing_system/pages/events/add_events.dart';
 import 'package:university_ticketing_system/pages/events/edit_events.dart';
@@ -35,6 +36,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(const EditSocietyHubPage());
     case editSocietyMembersPageDisplayName:
       return _getPageRoute(const SocietyMembersPage());
+    case editSocietyDetailsPageDisplayName:
+      return _getPageRoute(const EditSocietyDetailsPage());
     case societySettingsPageDisplayName:
       return _getPageRoute(const SocietySettingsPage());
 

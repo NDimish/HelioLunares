@@ -31,6 +31,10 @@ const addEventPageRoute = "/AddEvent";
 const editSocietyHubPageDisplayName = "Edit Society Hub Page";
 const editSocietyHubPageRoute = "/EditSocietyHub";
 
+//edit society details page
+const editSocietyDetailsPageDisplayName = "Edit Society Details";
+const editSocietyDetailsPageRoute = "/EditSocietyDetails";
+
 //edit society members page
 const editSocietyMembersPageDisplayName = "Members";
 const editSocietyMembersPageRoute = "/EditSocietyMembers";
