@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/gradient_animation.dart';
-import 'package:university_ticketing_system/home/homepage.dart';
 import 'package:university_ticketing_system/responsive.dart';
 import 'package:university_ticketing_system/theme.dart';
 
