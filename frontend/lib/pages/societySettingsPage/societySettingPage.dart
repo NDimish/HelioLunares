@@ -88,14 +88,7 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
               const SizedBox(
                 width: 50,
               ),
-              customTextFormField(
-                  'Last Name', 'Enter your last name', Icons.person,null,(value) {
-                     if (value == null ||
-                        value.isEmpty) {
-                      return "Please enter your password.";
-                    }
-                    return null;
-                  }),
+              
                   
               const SizedBox(
                 width: 50,
@@ -147,8 +140,8 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
               const SizedBox(
                 width: 50,
               ),
-              customTextFormField(
-                  'University', 'Enter your university', Icons.book,null,null),//query a database 
+              const Text(
+                  'University'),//query a database 
             ],
                   ),
                   const SizedBox(height: 17),

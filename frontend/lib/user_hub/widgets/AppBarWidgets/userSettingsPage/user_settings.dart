@@ -200,7 +200,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
 
 //Add if stataemetns to determine if studnet or not 
 //loading the data in Nmani
-//testing 
+//testing - improve code coverage 
 //make page responsive 
 //try catch block submit database
 
