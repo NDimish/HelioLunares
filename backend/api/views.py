@@ -13,14 +13,7 @@ from django.core.exceptions import ValidationError
 from django_filters.rest_framework import DjangoFilterBackend
 
 from .serializers import *
-import json
-from .models import User, Society, Event, University, Ticket, EventCategoriesType, EventCategories, SocietyCategoriesType, SocietyCategories, People, PeopleRoleAtSociety
-#nathan testing
-from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework.parsers import JSONParser
-from django.shortcuts import render
-from rest_framework import generics
+from .models import *
 
 from datetime import date, datetime
 
@@ -414,6 +407,7 @@ def society_update_user(request):
 
     return Response(status=status.HTTP_204_NO_CONTENT)
 
+#get a list of all the roles in society
 class PeopleRoleAtSociety(generics.ListAPIView):
     queryset = PeopleRoleAtSociety.objects.all()
     serializer_class = PeopleRoleAtSocietySerializer
@@ -421,9 +415,8 @@ class PeopleRoleAtSociety(generics.ListAPIView):
     filterset_fields = '__all__'
     ordering_fields = '__all__'
 
-# @permission_classes([IsAuthenticated])
+# Get list of all events
 class EventApiView(generics.ListAPIView):
-    
     queryset = Event.objects.all()
     serializer_class = EventModelSerializer
     filter_backends = [DjangoFilterBackend,OrderingFilter]
@@ -437,7 +430,7 @@ class EventApiView(generics.ListAPIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-# @permission_classes([IsAuthenticated])
+#Event with id
 class EventApiInfoView(APIView):
     def get(self, request, pk):
         event = Event.objects.filter(id=pk)
@@ -456,7 +449,7 @@ class EventApiInfoView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-# @permission_classes([IsAuthenticated])
+# list of all the universitues
 class UniversityApiView(generics.ListAPIView):
     queryset = University.objects.all()
     serializer_class = UniversitySerializer
@@ -470,7 +463,7 @@ class UniversityApiView(generics.ListAPIView):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-
+#Get university with id
 class UniversityInfoApiView(APIView):
     def get(self, request, pk):
         university = University.objects.filter(id=pk)
@@ -489,12 +482,13 @@ class UniversityInfoApiView(APIView):
         University.objects.filter(id=pk).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-@permission_classes([IsAuthenticated])
+#get a list of all the tickets
 class TicketApiView(APIView):
-    def get(self, request):
-        ticket = Ticket.objects.all()
-        serializer = TicketModelSerializer(instance=ticket, many=True)
-        return Response(data=serializer.data)
+    queryset = Ticket.objects.all()
+    serializer_class = TicketModelSerializer
+    filter_backends = [DjangoFilterBackend,OrderingFilter]
+    filterset_fields = '__all__'
+    ordering_fields = '__all__'
 
     def post(self, request):
         serializer = TicketModelSerializer(data=request.data)
@@ -502,8 +496,7 @@ class TicketApiView(APIView):
         serializer.save()
         return Response(data=serializer.data, status=status.HTTP_201_CREATED)
 
-
-@permission_classes([IsAuthenticated])
+#ticket with id
 class TicketInfoApiView(APIView):
     def get(self, request, pk):
         ticket = Ticket.objects.filter(id=pk).first()
@@ -521,13 +514,13 @@ class TicketInfoApiView(APIView):
         Ticket.objects.filter(id=pk).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
-@permission_classes([IsAuthenticated])
+#get list of all event category types
 class EventCategoriesTypeApiView(APIView):
-    def get(self, request):
-        eventCategoriesType = EventCategoriesType.objects.all()
-        serializer = EventCategoriesTypeModelSerializer(instance=eventCategoriesType, many=True)
-        return Response(data=serializer.data)
+    queryset = EventCategoriesType.objects.all()
+    serializer_class = EventCategoriesTypeModelSerializer
+    filter_backends = [DjangoFilterBackend,OrderingFilter]
+    filterset_fields = '__all__'
+    ordering_fields = '__all__'
 
     def post(self, request):
         serializer = EventCategoriesTypeModelSerializer(data=request.data)
@@ -535,8 +528,7 @@ class EventCategoriesTypeApiView(APIView):
         serializer.save()
         return Response(data=serializer.data, status=status.HTTP_201_CREATED)
 
-
-@permission_classes([IsAuthenticated])
+#Get event category type with id
 class EventCategoriesTypeInfoApiView(APIView):
     def get(self, request, pk):
         eventCategoriesType = EventCategoriesTypeModelSerializer.objects.filter(id=pk).first()
@@ -554,13 +546,13 @@ class EventCategoriesTypeInfoApiView(APIView):
         EventCategoriesType.objects.filter(id=pk).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
-@permission_classes([IsAuthenticated])
+# Get all event catergories
 class EventCategoriesApiView(APIView):
-    def get(self, request):
-        eventCategories = EventCategories.objects.all()
-        serializer = TicketModelSerializer(instance=eventCategories, many=True)
-        return Response(data=serializer.data)
+    queryset = EventCategories.objects.all()
+    serializer_class = EventCategoriesModelSerializer
+    filter_backends = [DjangoFilterBackend,OrderingFilter]
+    filterset_fields = '__all__'
+    ordering_fields = '__all__'
 
     def post(self, request):
         serializer = EventCategoriesModelSerializer(data=request.data)
@@ -568,17 +560,16 @@ class EventCategoriesApiView(APIView):
         serializer.save()
         return Response(data=serializer.data, status=status.HTTP_201_CREATED)
 
-
-@permission_classes([IsAuthenticated])
+#Get event category with id
 class EventCategoriesInfoApiView(APIView):
     def get(self, request, pk):
         eventCategories = EventCategories.objects.filter(id=pk).first()
-        serializer = TicketModelSerializer(instance=eventCategories)
+        serializer = EventCategoriesModelSerializer(instance=eventCategories)
         return Response(data=serializer.data)
 
     def put(self, request, pk):
         eventCategories = EventCategories.objects.filter(id=pk).first()
-        serializer = TicketModelSerializer(instance=eventCategories, data=request.data)
+        serializer = EventCategoriesModelSerializer(instance=eventCategories, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
@@ -587,13 +578,13 @@ class EventCategoriesInfoApiView(APIView):
         EventCategories.objects.filter(id=pk).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
-@permission_classes([IsAuthenticated])
+# get all society category types
 class SocietyCategoriesTypeApiView(APIView):
-    def get(self, request):
-        societyCategoriesType = SocietyCategoriesType.objects.all()
-        serializer = SocietyCategoriesTypeModelSerializer(instance=societyCategoriesType, many=True)
-        return Response(data=serializer.data)
+    queryset = SocietyCategoriesType.objects.all()
+    serializer_class = SocietyCategoriesTypeModelSerializer
+    filter_backends = [DjangoFilterBackend,OrderingFilter]
+    filterset_fields = '__all__'
+    ordering_fields = '__all__'
 
     def post(self, request):
         serializer = SocietyCategoriesTypeModelSerializer(data=request.data)
@@ -601,9 +592,9 @@ class SocietyCategoriesTypeApiView(APIView):
         serializer.save()
         return Response(data=serializer.data, status=status.HTTP_201_CREATED)
 
-
-@permission_classes([IsAuthenticated])
+#Get society category type with id
 class SocietyCategoriesTypeInfoApiView(APIView):
+    
     def get(self, request, pk):
         societyCategoriesType = SocietyCategoriesType.objects.filter(id=pk).first()
         serializer = TicketModelSerializer(instance=societyCategoriesType)
@@ -620,13 +611,14 @@ class SocietyCategoriesTypeInfoApiView(APIView):
         SocietyCategoriesType.objects.filter(id=pk).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+#Get all society categories
+class SocietyCategoriesApiView(generics.ListAPIView):
 
-@permission_classes([IsAuthenticated])
-class SocietyCategoriesApiView(APIView):
-    def get(self, request):
-        societyCategories = SocietyCategories.objects.all()
-        serializer = TicketModelSerializer(instance=societyCategories, many=True)
-        return Response(data=serializer.data)
+    queryset = SocietyCategories.objects.all()
+    serializer_class = SocietyCategoriesModelSerializer
+    filter_backends = [DjangoFilterBackend,OrderingFilter]
+    filterset_fields = '__all__'
+    ordering_fields = '__all__'
 
     def post(self, request):
         serializer = SocietyCategoriesModelSerializer(data=request.data)
@@ -634,8 +626,7 @@ class SocietyCategoriesApiView(APIView):
         serializer.save()
         return Response(data=serializer.data, status=status.HTTP_201_CREATED)
 
-
-@permission_classes([IsAuthenticated])
+#Get society categories with id
 class SocietyCategoriesInfoApiView(APIView):
     def get(self, request, pk):
         societyCategories = SocietyCategories.objects.filter(id=pk).first()
