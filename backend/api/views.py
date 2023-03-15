@@ -10,8 +10,13 @@ from rest_framework.views import APIView
 from django.contrib.auth import authenticate, login, logout
 from django_filters.rest_framework import DjangoFilterBackend
 
-from .models import User, Society, Event, University, Buys, Hosts
-from .serializers import UserSerializer, SocietySerializer, UniversitySerializer, EventModelSerializer,    BuysModelSerializer, HostsModelSerializer
+from .models import User, Society, Event, University, Ticket, EventCategoriesType, EventCategories, \
+    SocietyCategoriesType, SocietyCategories
+
+from .serializers import UserSerializer, SocietySerializer, UniversitySerializer, EventModelSerializer, \
+    TicketModelSerializer, EventCategoriesTypeModelSerializer, EventCategoriesModelSerializer, \
+    SocietyCategoriesTypeModelSerializer, SocietyCategoriesModelSerializer
+
 #nathan testing
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -135,7 +140,7 @@ class SocietyView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 class EventApiView(APIView):
     def post(self, request):
         serializer = EventModelSerializer(data=request.data)
@@ -149,7 +154,7 @@ class EventApiView(APIView):
         return Response(serializer.data)
 
 
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 class EventApiInfoView(APIView):
     def get(self, request, pk):
         event = Event.objects.filter(id=pk)
@@ -319,68 +324,234 @@ class UniversityInfoApiView(APIView):
 #     else:
 #         return Response({'error': 'Illegal data'}, status=status.HTTP_400_BAD_REQUEST)
 
+# @permission_classes([IsAuthenticated])
+
+# class BuysApiView(APIView):
+#     def get(self, request):
+#         buyses = Buys.objects.all()
+#         serializer = BuysModelSerializer(instance=buyses, many=True)
+#         return Response(data=serializer.data)
+#
+#     def post(self, request):
+#         data = request.data
+#         serializer = BuysModelSerializer(data=data)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+#
+#
+# # @permission_classes([IsAuthenticated])
+# class BuysApiInfoView(APIView):
+#     def get(self, request, pk):
+#         buy = Buys.objects.filter(id=pk).first()
+#         serializer = BuysModelSerializer(instance=buy)
+#         return Response(serializer.data)
+#
+#     def put(self, request, pk):
+#         buy = Buys.objects.filter(id=pk).first()
+#         serializer = BuysModelSerializer(instance=buy, data=request.data, many=False)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
+#
+#     def delete(self, request, pk):
+#         Buys.objects.filter(id=pk).delete()
+#         return Response(status=status.HTTP_204_NO_CONTENT)
+#
+#
+# # @permission_classes([IsAuthenticated])
+# class HostsApiView(APIView):
+#     def get(self, request):
+#         hosts = Hosts.objects.all()
+#         serializer = HostsModelSerializer(instance=hosts, many=True)
+#         return Response(data=serializer.data)
+#
+#     def post(self, request):
+#         serializer = HostsModelSerializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+#
+#
+# # @permission_classes([IsAuthenticated])
+# class HostsInfoApiView(APIView):
+#     def get(self, request, pk):
+#         host = Hosts.objects.filter(id=pk).first()
+#         serializer = HostsModelSerializer(instance=host)
+#         return Response(data=serializer.data)
+#
+#     def put(self, request, pk):
+#         host = Hosts.objects.filter(id=pk).first()
+#         serializer = HostsModelSerializer(instance=host, data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
+#
+#     def delete(self, reuqest, pk):
+#         Hosts.objects.filter(id=pk).delete()
+#         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 @permission_classes([IsAuthenticated])
-class BuysApiView(APIView):
+class TicketApiView(APIView):
     def get(self, request):
-        buyses = Buys.objects.all()
-        serializer = BuysModelSerializer(instance=buyses, many=True)
+        ticket = Ticket.objects.all()
+        serializer = TicketModelSerializer(instance=ticket, many=True)
         return Response(data=serializer.data)
 
     def post(self, request):
-        data = request.data
-        serializer = BuysModelSerializer(data=data)
+        serializer = TicketModelSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(data=serializer.data, status=status.HTTP_201_CREATED)
 
 
 @permission_classes([IsAuthenticated])
-class BuysApiInfoView(APIView):
+class TicketInfoApiView(APIView):
     def get(self, request, pk):
-        buy = Buys.objects.filter(id=pk).first()
-        serializer = BuysModelSerializer(instance=buy)
-        return Response(serializer.data)
+        ticket = Ticket.objects.filter(id=pk).first()
+        serializer = TicketModelSerializer(instance=ticket)
+        return Response(data=serializer.data)
 
     def put(self, request, pk):
-        buy = Buys.objects.filter(id=pk).first()
-        serializer = BuysModelSerializer(instance=buy, data=request.data, many=False)
+        ticket = Ticket.objects.filter(id=pk).first()
+        serializer = TicketModelSerializer(instance=ticket, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
 
     def delete(self, request, pk):
-        Buys.objects.filter(id=pk).delete()
+        Ticket.objects.filter(id=pk).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 @permission_classes([IsAuthenticated])
-class HostsApiView(APIView):
+class EventCategoriesTypeApiView(APIView):
     def get(self, request):
-        hosts = Hosts.objects.all()
-        serializer = HostsModelSerializer(instance=hosts, many=True)
+        eventCategoriesType = EventCategoriesType.objects.all()
+        serializer = EventCategoriesTypeModelSerializer(instance=eventCategoriesType, many=True)
         return Response(data=serializer.data)
 
     def post(self, request):
-        serializer = HostsModelSerializer(data=request.data)
+        serializer = EventCategoriesTypeModelSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(data=serializer.data, status=status.HTTP_201_CREATED)
 
 
 @permission_classes([IsAuthenticated])
-class HostsInfoApiView(APIView):
+class EventCategoriesTypeInfoApiView(APIView):
     def get(self, request, pk):
-        host = Hosts.objects.filter(id=pk).first()
-        serializer = HostsModelSerializer(instance=host)
+        eventCategoriesType = EventCategoriesTypeModelSerializer.objects.filter(id=pk).first()
+        serializer = EventCategoriesTypeModelSerializer(instance=eventCategoriesType)
         return Response(data=serializer.data)
 
     def put(self, request, pk):
-        host = Hosts.objects.filter(id=pk).first()
-        serializer = HostsModelSerializer(instance=host, data=request.data)
+        eventCategoriesType = EventCategoriesTypeModelSerializer.objects.filter(id=pk).first()
+        serializer = EventCategoriesTypeModelSerializer(instance=eventCategoriesType, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
 
     def delete(self, reuqest, pk):
-        Hosts.objects.filter(id=pk).delete()
+        EventCategoriesType.objects.filter(id=pk).delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@permission_classes([IsAuthenticated])
+class EventCategoriesApiView(APIView):
+    def get(self, request):
+        eventCategories = EventCategories.objects.all()
+        serializer = TicketModelSerializer(instance=eventCategories, many=True)
+        return Response(data=serializer.data)
+
+    def post(self, request):
+        serializer = EventCategoriesModelSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+
+
+@permission_classes([IsAuthenticated])
+class EventCategoriesInfoApiView(APIView):
+    def get(self, request, pk):
+        eventCategories = EventCategories.objects.filter(id=pk).first()
+        serializer = TicketModelSerializer(instance=eventCategories)
+        return Response(data=serializer.data)
+
+    def put(self, request, pk):
+        eventCategories = EventCategories.objects.filter(id=pk).first()
+        serializer = TicketModelSerializer(instance=eventCategories, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
+
+    def delete(self, reuqest, pk):
+        EventCategories.objects.filter(id=pk).delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@permission_classes([IsAuthenticated])
+class SocietyCategoriesTypeApiView(APIView):
+    def get(self, request):
+        societyCategoriesType = SocietyCategoriesType.objects.all()
+        serializer = SocietyCategoriesTypeModelSerializer(instance=societyCategoriesType, many=True)
+        return Response(data=serializer.data)
+
+    def post(self, request):
+        serializer = SocietyCategoriesTypeModelSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+
+
+@permission_classes([IsAuthenticated])
+class SocietyCategoriesTypeInfoApiView(APIView):
+    def get(self, request, pk):
+        societyCategoriesType = SocietyCategoriesType.objects.filter(id=pk).first()
+        serializer = TicketModelSerializer(instance=societyCategoriesType)
+        return Response(data=serializer.data)
+
+    def put(self, request, pk):
+        societyCategoriesType = SocietyCategoriesType.objects.filter(id=pk).first()
+        serializer = TicketModelSerializer(instance=societyCategoriesType, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
+
+    def delete(self, reuqest, pk):
+        SocietyCategoriesType.objects.filter(id=pk).delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@permission_classes([IsAuthenticated])
+class SocietyCategoriesApiView(APIView):
+    def get(self, request):
+        societyCategories = SocietyCategories.objects.all()
+        serializer = TicketModelSerializer(instance=societyCategories, many=True)
+        return Response(data=serializer.data)
+
+    def post(self, request):
+        serializer = SocietyCategoriesModelSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+
+
+@permission_classes([IsAuthenticated])
+class SocietyCategoriesInfoApiView(APIView):
+    def get(self, request, pk):
+        societyCategories = SocietyCategories.objects.filter(id=pk).first()
+        serializer = SocietyCategoriesModelSerializer(instance=societyCategories)
+        return Response(data=serializer.data)
+
+    def put(self, request, pk):
+        societyCategories = SocietyCategories.objects.filter(id=pk).first()
+        serializer = SocietyCategoriesModelSerializer(instance=societyCategories, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
+
+    def delete(self, reuqest, pk):
+        SocietyCategories.objects.filter(id=pk).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

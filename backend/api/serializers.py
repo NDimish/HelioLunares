@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
-from api.models import Student, User, University, Society, Event, Buys, Hosts
-import re
+from api.models import Student, User, University, Society, Event, Ticket, EventCategoriesType, \
+    EventCategories, SocietyCategoriesType, SocietyCategories
 
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -27,10 +27,10 @@ class SocietySerializer(serializers.ModelSerializer):
 class EventModelSerializer(serializers.ModelSerializer):
     """Event Model Serializer """
 
-    def validate_society_email(self, data):
-        if not re.match(r'^[a-z0-9][\w\.\-]*@[a-z0-9\-]+(\.[a-z]{2,5}){1,2}$', data):
-            raise serializers.ValidationError(detail="Incorrect email format")
-        return data
+    # def validate_society_email(self, data):
+    #     if not re.match(r'^[a-z0-9][\w\.\-]*@[a-z0-9\-]+(\.[a-z]{2,5}){1,2}$', data):
+    #         raise serializers.ValidationError(detail="Incorrect email format")
+    #     return data
 
     class Meta:
         model = Event
@@ -51,13 +51,42 @@ class UniversityModelSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class BuysModelSerializer(serializers.ModelSerializer):
+class TicketModelSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Buys
+        model = Ticket
         fields = "__all__"
 
 
-class HostsModelSerializer(serializers.ModelSerializer):
+class EventCategoriesTypeModelSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Hosts
+        model = EventCategoriesType
         fields = "__all__"
+
+
+class EventCategoriesModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EventCategories
+        fields = "__all__"
+
+
+class SocietyCategoriesTypeModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SocietyCategoriesType
+        fields = "__all__"
+
+
+class SocietyCategoriesModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SocietyCategories
+        fields = "__all__"
+
+# class BuysModelSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Buys
+#         fields = "__all__"
+#
+#
+# class HostsModelSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Hosts
+#         fields = "__all__"

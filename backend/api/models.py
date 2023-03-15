@@ -115,7 +115,8 @@ class StudentRoleAtSociety(models.Model):
 
 
 class Event(models.Model):
-    society_email = models.CharField(max_length=50, blank=False, unique=False)
+    # modify here
+    society_id = models.ForeignKey(Society, on_delete=models.CASCADE, blank=False)
     duration = models.IntegerField(blank=False, unique=False)
     event_date = models.DateTimeField(blank=False)
     event_name = models.CharField(max_length=50, blank=False)
@@ -132,7 +133,7 @@ class Event(models.Model):
     def __str__(self):
         # the result must is string type
         return
-        self.society_email,
+        self.society_id,
         self.duration,
         self.event_date,
         self.event_name,
@@ -143,16 +144,40 @@ class Event(models.Model):
         self.create_time
 
 
-class Buys(models.Model):
-    """buys """
-    number_of_tickets = models.IntegerField(blank=False)
-    event_id = models.ForeignKey(Event, on_delete=models.CASCADE, blank=False)
-    student_email = models.CharField(blank=True, max_length=50)
-
-    def __str__(self):
-        return self.number_of_tickets, self.event_id, self.student_email
+class Ticket(models.Model):
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, null=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
+    date = models.DateTimeField(blank=False)
+    price = models.FloatField(blank=False, default=0.0)
 
 
-class Hosts(models.Model):
-    event_id = models.ForeignKey(Event, models.CASCADE, blank=False)
-    student_email = models.CharField(blank=True, max_length=50)
+class EventCategoriesType(models.Model):
+    category_name = models.CharField(max_length=200, null=False)
+
+
+class EventCategories(models.Model):
+    societyId = models.ForeignKey(Society, on_delete=models.CASCADE, null=False)
+    categoryId = models.ForeignKey(EventCategoriesType, on_delete=models.CASCADE, null=False)
+
+
+class SocietyCategoriesType(models.Model):
+    category_name = models.CharField(max_length=200, null=False)
+
+
+class SocietyCategories(models.Model):
+    societyId = models.ForeignKey(Society, on_delete=models.CASCADE, null=False)
+    categoryId = models.ForeignKey(SocietyCategoriesType, on_delete=models.CASCADE, null=False)
+
+# class Buys(models.Model):
+#     """buys """
+#     number_of_tickets = models.IntegerField(blank=False)
+#     event_id = models.ForeignKey(Event, on_delete=models.CASCADE, blank=False)
+#     student_email = models.CharField(blank=True, max_length=50)
+#
+#     def __str__(self):
+#         return self.number_of_tickets, self.event_id, self.student_email
+#
+#
+# class Hosts(models.Model):
+#     event_id = models.ForeignKey(Event, models.CASCADE, blank=False)
+#     student_email = models.CharField(blank=True, max_length=50)
