@@ -3,10 +3,9 @@ from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from rest_framework.authentication import TokenAuthentication, SessionAuthentication
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.filters import OrderingFilter
 from rest_framework.views import APIView
-from rest_framework.parsers import MultiPartParser, FormParser
 
 from django.contrib.auth import authenticate, login, logout
 from django_filters.rest_framework import DjangoFilterBackend
@@ -202,7 +201,7 @@ class SocietyListView(generics.ListAPIView):
     
     def post(self,request):
         
-        auth_content = json.loads(request.data.get('user'))
+        auth_content = request.data.get('user')
         uni_content = request.data.get('university_society_is_at')
         # Will change this to obtain the uni via id not name as discussed.
         u = University.objects.get(id=uni_content)
@@ -220,7 +219,7 @@ class SocietyListView(generics.ListAPIView):
             
         except:
             # If there is already an account with that email, we throw an error.
-            return Response(status=status.HTTP_409_CONFLICT)
+            return Response({'error':'Email is taken.'},status=status.HTTP_409_CONFLICT)
         
         else:
             data = {
