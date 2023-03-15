@@ -65,11 +65,6 @@ class PeopleCreationSerializer(serializers.ModelSerializer):
 class EventModelSerializer(serializers.ModelSerializer):
     """Event Model Serializer """
 
-    def validate_society_email(self, data):
-        if not re.match(r'^[a-z0-9][\w\.\-]*@[a-z0-9\-]+(\.[a-z]{2,5}){1,2}$', data):
-            raise serializers.ValidationError(detail="Incorrect email format")
-        return data
-
     class Meta:
         model = Event
         fields = "__all__"
@@ -80,4 +75,35 @@ class EventModelSerializer(serializers.ModelSerializer):
                     "min_value": "The duration value must be greater than 0"
                 }
             }
+
         }
+
+
+class TicketModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ticket
+        fields = "__all__"
+
+
+class EventCategoriesTypeModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EventCategoriesType
+        fields = "__all__"
+
+
+class EventCategoriesModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EventCategories
+        fields = "__all__"
+
+
+class SocietyCategoriesTypeModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SocietyCategoriesType
+        fields = "__all__"
+
+
+class SocietyCategoriesModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SocietyCategories
+        fields = "__all__"

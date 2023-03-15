@@ -6,7 +6,7 @@ from api.models import Event
 
 class EventInfoTestCase(APITestCase):
     def login(self):
-        response = self.client.post('/log_in/', {"email":"johndoe@example.org","password":"Password123"},
+        response = self.client.post('/log_in/', {'email': 'johndoe@example.org', 'password': 'Password123'},
                                     format='json')
         self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         self.data['token'] = response.data['token']
@@ -16,7 +16,7 @@ class EventInfoTestCase(APITestCase):
         self.login()
         url = "/event/"
         data = {
-            "society_email": "justin003@gmail.com",
+            "society_id": "1",
             "duration": 10,
             "event_date": "2023-02-22T00:00:00Z",
             "event_name": "football-match",
