@@ -23,6 +23,10 @@ const eventDetailsPageRoute = "/AddEventPopupCard";
 const editEventDetailsPageDisplayName = "Edit Details";
 const editEventDetailsPageRoute = "/EditEventDetails";
 
+//add event page
+const addEventPageDisplayName = "Add Event";
+const addEventPageRoute = "/AddEvent";
+
 //edit society hub page
 const editSocietyHubPageDisplayName = "Edit Society Hub Page";
 const editSocietyHubPageRoute = "/EditSocietyHub";
@@ -30,6 +34,10 @@ const editSocietyHubPageRoute = "/EditSocietyHub";
 //edit society members page
 const editSocietyMembersPageDisplayName = "Members";
 const editSocietyMembersPageRoute = "/EditSocietyMembers";
+
+//society settings page
+const societySettingsPageDisplayName = "Settings";
+const societySettingsPageRoute = "/SocietySettings";
 
 class EventDetailsRoute<T> extends PageRoute<T> {
   EventDetailsRoute({

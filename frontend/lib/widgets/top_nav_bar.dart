@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:university_ticketing_system/constants/controllers.dart';
 import 'package:university_ticketing_system/constants/style.dart';
 import 'package:university_ticketing_system/helpers/responsiveness.dart';
+import 'package:university_ticketing_system/routing/routes.dart';
 import 'package:university_ticketing_system/widgets/custom_text.dart';
 
 // AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
@@ -128,7 +130,10 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                   Icons.settings,
                   color: MyColours.elementButtonColour,
                 ),
-                onPressed: () {}),
+                onPressed: () {
+                  navigationController
+                      .navigateTo(societySettingsPageDisplayName);
+                }),
             Stack(
               children: [
                 IconButton(

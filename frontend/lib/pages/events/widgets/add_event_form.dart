@@ -6,21 +6,29 @@ import 'package:intl/intl.dart';
 import 'package:university_ticketing_system/constants/controllers.dart';
 import 'package:university_ticketing_system/backend_communication/models/society_event.dart';
 import 'package:university_ticketing_system/widgets/custom_text.dart';
+import '../../../backend_communication/dataCollector.dart';
 import '../../../constants/style.dart';
+import 'dart:js_util';
+
 import '../../../backend_communication/authenticate.dart';
 import '../../../backend_communication/dataCollector.dart' as data;
 import '../../../backend_communication/models/society_event.dart' as Model;
 import 'package:provider/provider.dart';
 
-class EventForm extends StatefulWidget {
-  const EventForm({super.key});
+class AddEventForm extends StatefulWidget {
+  const AddEventForm({super.key});
+
+  //const EventForm({super.key});
 
   @override
-  State<StatefulWidget> createState() => _EventFormState();
+  State<StatefulWidget> createState() => _AddEventFormState();
 }
 
-class _EventFormState extends State<EventForm> {
-  final SocietyEvent model = Get.find<SocietyEvent>();
+class _AddEventFormState extends State<AddEventForm> {
+  //Model
+  late Model.SocietyEvent model = SocietyEvent(
+      "name", "price", "date", "location", "duration", "description");
+  //final SocietyEvent obj = Get.find<SocietyEvent>();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   //Controllers
   final nameController = TextEditingController();
@@ -55,19 +63,8 @@ class _EventFormState extends State<EventForm> {
         : false;
   }
 
-  //populate the fields with current event details
-  @override
-  void initState() {
-    nameController.text = model.name;
-    //.format function requires int not string
-    priceController.text =
-        _formatCurrencyInput.format(double.parse(model.price));
-    dateController.text =
-        DateFormat('yyyy-MM-dd HH:mm').format(DateTime.parse(model.date));
-    locationController.text = model.location;
-    durationController.text = model.duration;
-    descriptionController.text = model.description;
-    return super.initState();
+  String getFormattedDate() {
+    return "";
   }
 
   @override
@@ -168,8 +165,8 @@ class _EventFormState extends State<EventForm> {
                       pickedTime.minute);
                   String formattedDate =
                       DateFormat('yyyy-MM-dd HH:mm').format(pickedDateTime);
-                  print(
-                      formattedDate); //formatted date output using intl package =>  2021-03-16
+
+                  //formatted date output using intl package =>  2021-03-16
                   setState(() {
                     dateController.text =
                         formattedDate; //set output date to TextFormField value.
@@ -267,22 +264,16 @@ class _EventFormState extends State<EventForm> {
                   },
                 );
                 if (checkAllValidators()) {
+                  //SAVE EVENT MODEL FIELDS & ADD TO DB
                   _formKey.currentState?.save();
                   //UNCOMMENT ONCE IMPLEMENTED :
-                  // data.dataCollector<SocietyEvent> collector = data.dataCollector<SocietyEvent>();
-                  // collector.updateCollection(model);
-
-                  Get.put(model);
+                  //data.dataCollector<SocietyEvent> collector = data.dataCollector<SocietyEvent>();
+                  //collector.addToCollection(model);
 
                   navigationController.goBack();
-
                   navigationController.refresh();
                   navigationController.goBack();
                   navigationController.refresh();
-
-                  /**
-                   * UPDATE THE EVENT model 
-                   */
                 } else {
                   print("input error");
                 }
