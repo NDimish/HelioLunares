@@ -53,7 +53,7 @@ class Society(models.Model):
 
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, blank=False)
-    name = models.CharField(blank=False, unique=False, max_length=40)
+    name = models.CharField(blank=False, unique=True, max_length=40)
     creation_date = models.DateField(blank=False)
 
     # Add category stuff later
@@ -119,7 +119,7 @@ class PeopleRoleAtSociety(models.Model):
 class Event(models.Model):
 
     society_email = models.CharField(max_length=50, blank=False, unique=False)
-    duration = models.IntegerField(max_length=10, blank=False, unique=False)
+    duration = models.IntegerField(blank=False, unique=False)
     event_date = models.DateTimeField(blank=False)
     event_name = models.CharField(max_length=50, blank=False)
     location = models.CharField(max_length=50, blank=True)
@@ -127,6 +127,7 @@ class Event(models.Model):
     price = models.FloatField(max_length=10, blank=False)
     update_time = models.DateTimeField(auto_now=datetime.datetime.now(), blank=False)
     create_time = models.DateTimeField(auto_now_add=datetime.datetime.now(), blank=False)
+    attendance = models.IntegerField(blank=True, unique=False, default=0) # This will be manually entered by the user once an event has finished
 
     class Meta:
         verbose_name = "event"
