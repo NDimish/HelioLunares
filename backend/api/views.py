@@ -171,9 +171,6 @@ class UserView(APIView):
             return Response(serializer.data)
         except:
             return Response({'error':'User not found.'},status=status.HTTP_404_NOT_FOUND)
-    def delete(self, request, pk):
-        User.objects.filter(id=pk).delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
 
 class PeopleListView(generics.ListAPIView):
     """ View list of all people accounds"""

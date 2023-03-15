@@ -11,7 +11,7 @@ class PeopleSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id','email','user_level']
+        fields = ['id','email','user_level','date_joined']
         
 class UniversitySerializer(serializers.ModelSerializer):
     class Meta:
