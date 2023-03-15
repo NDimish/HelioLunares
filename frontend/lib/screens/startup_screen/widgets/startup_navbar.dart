@@ -26,6 +26,7 @@ class _StartupNavbarState extends State<StartupNavbar> {
           (i) => Padding(
             padding: const EdgeInsets.only(left: 20),
             child: TextButton(
+              key: Key(i),
               style: ButtonStyle(
                   backgroundColor:
                       sections.indexOf(i) + 1 == widget.selectedIndex
@@ -52,6 +53,7 @@ class _StartupNavbarState extends State<StartupNavbar> {
   Widget navbarTitle(Function(int) callback) {
     var width = MediaQuery.of(context).size.width;
     return InkWell(
+      key: const Key("navbarTitle"),
       child: Row(
         children: [
           const Padding(
@@ -96,6 +98,7 @@ class _StartupNavbarState extends State<StartupNavbar> {
           Padding(
             padding: const EdgeInsets.all(15),
             child: TextButton(
+              key: const Key("loginButton"),
               onPressed: () {
                 Navigator.pushNamed(context, '/auth');
               },
