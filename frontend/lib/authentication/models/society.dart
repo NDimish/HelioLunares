@@ -1,4 +1,4 @@
-import 'package:rd3/authentication/models/user_account.dart';
+import 'package:university_ticketing_system/authentication/models/user_account.dart';
 
 class Society {
   late UserAccount user;
