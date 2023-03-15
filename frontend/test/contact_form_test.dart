@@ -11,6 +11,7 @@ void main() {
 
   final TestWidgetsFlutterBinding binding =
       TestWidgetsFlutterBinding.ensureInitialized();
+
   group("Josh Contact Form Tests", () {
     binding.window.physicalSizeTestValue = const Size(1920, 1080);
     binding.window.devicePixelRatioTestValue = 1.0;
@@ -50,16 +51,20 @@ void main() {
       expect(contactMessage, findsOneWidget);
 
       await tester.tap(submitButtonFieldFinder);
-      await tester.pumpAndSettle(const Duration(seconds: 1));
+      await tester.pumpAndSettle();
 
-//After clicking the button there should be an overlay thanking the user.
       final submitMessageOverlay = find.byType(AlertDialog);
       final acknowledgementButton = find.text("OK");
 
       expect(submitMessageOverlay, findsNothing);
       expect(acknowledgementButton, findsNothing);
+      expect(find.text("Please enter a valid email."), findsOneWidget);
+      expect(find.text("Please enter a valid message."), findsOneWidget);
+      expect(find.text("Please enter a valid name."), findsOneWidget);
 
       await tester.pumpAndSettle(const Duration(seconds: 1));
     });
+
+    //Add text input tests as well as validation checking (regexes)
   });
 }
