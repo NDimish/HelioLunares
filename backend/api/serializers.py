@@ -1,7 +1,6 @@
 from rest_framework import serializers
 
 from api.models import *
-import re
 
 class PeopleSerializer(serializers.ModelSerializer):
     class Meta:
@@ -44,6 +43,7 @@ class UserCreationSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['email', 'password']
+
 class SocietyCreationSerializer(serializers.ModelSerializer):
     user = UserCreationSerializer()
     university_society_is_at = UniversitySerializer()
