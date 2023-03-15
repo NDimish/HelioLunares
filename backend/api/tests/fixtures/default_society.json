@@ -1,34 +1,31 @@
 [
     {
         "model":"api.society",
-        "pk": 1,
-        "fields": {
-            "user": 1,
-            "name": "test_soc_one",
-            "creation_date": "2022-01-01",
-            "university_society_is_at": "Test College London",
-            "join_date": "2022-01-01"
-        }
-    },
-    {
-        "model":"api.society",
-        "pk": 2,
-        "fields": {
-            "user": 2,
-            "name": "test_soc_two",
-            "creation_date": "2022-01-01",
-            "university_society_is_at": "Test College London",
-            "join_date": "2022-01-01"
-        }
-    },
-    {
-        "model":"api.society",
-        "pk": 3,
         "fields": {
             "user": 3,
+            "name": "test_soc_one",
+            "creation_date": "2022-01-01",
+            "university_society_is_at": 1,
+            "join_date": "2022-01-01"
+        }
+    },
+    {
+        "model":"api.society",
+        "fields": {
+            "user": 4,
+            "name": "test_soc_two",
+            "creation_date": "2022-01-01",
+            "university_society_is_at": 1,
+            "join_date": "2022-01-01"
+        }
+    },
+    {
+        "model":"api.society",
+        "fields": {
+            "user": 5,
             "name": "test_soc_three",
             "creation_date": "2022-01-01",
-            "university_society_is_at": "Two College London",
+            "university_society_is_at": 2,
             "join_date": "2022-01-01"
         }
     }

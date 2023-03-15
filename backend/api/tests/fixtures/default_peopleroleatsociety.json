@@ -1,0 +1,38 @@
+[
+    {
+        "model": "api.peopleroleatsociety",
+        "pk": 1,
+        "fields": {
+            "society": 3,
+            "user_at_society": 1,
+            "role": 1
+        }
+    },
+    {
+        "model": "api.peopleroleatsociety",
+        "pk": 2,
+        "fields": {
+            "society": 4,
+            "user_at_society": 1,
+            "role": 1
+        }
+    },
+    {
+        "model": "api.peopleroleatsociety",
+        "pk": 3,
+        "fields": {
+            "society": 3,
+            "user_at_society": 2,
+            "role": 3
+        }
+    },
+    {
+        "model": "api.peopleroleatsociety",
+        "pk": 1,
+        "fields": {
+            "society": 5,
+            "user_at_society": 1,
+            "role": 2
+        }
+    }
+]
