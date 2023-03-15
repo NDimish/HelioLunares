@@ -6,9 +6,10 @@ class EventsListView extends ListView {
       : super(
             padding: const EdgeInsets.all(20),
             children: [
-              EventListTile(context, "Test event 1", 0, DateTime.now(), "the fog is coming. the fog is coming. the fog is coming. the fog is coming.",  "EVIL"),
-              EventListTile(context, "Test event 2", 0, DateTime.now(), "ASYLUM","EVIL"),
-              EventListTile(context, "Test event 3", 0, DateTime.now(), "ASYLUM","GOOD"),
-              EventListTile(context, "Test event 4", 0, DateTime.now(), "ASYLUM","Marshall, Carter and Dark"),
+              EventListTile(context, "ABC Event", 0, DateTime.now(), "the fog is coming. the fog is coming. the fog is coming. the fog is coming.",  "EVIL"),
+              EventListTile(context, "DEF Event", 0, DateTime.now(), "ASYLUM","EVIL"),
+              EventListTile(context, "Black Market Auction UK", 0, DateTime.now(), "ASYLUM","Marshall, Carter and Dark"),
+              EventListTile(context, "Black Market Auction INTERNATIONAL", 0, DateTime.now(), "ASYLUM","Marshall, Carter and Dark"),
+              EventListTile(context, "OPEN CONTRACT, JOHN WICK, \$7 MILLION", 0, DateTime.now(), "New York","The High Table"),
             ]);
 }

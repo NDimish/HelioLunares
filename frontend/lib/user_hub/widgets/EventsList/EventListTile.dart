@@ -7,15 +7,13 @@ import 'package:intl/intl.dart';
 // Date/Time of event
 // Organiser
 
-class EventListTile extends Material {
+class EventListTile extends Visibility {
   EventListTile(
       BuildContext context, String eventName, int price, DateTime dateTime, String location, String org,
       {super.key})
       : super(
-        color: Color(0x00000000),
-
-        // Using Card avoids a lot of hassle with spacing
-        child: Card(
+        child:Material(color: Color(0x00000000),
+          child: Card(
           child: ListTile(
           title: Text(eventName),
           tileColor: Color(0xFFD2C2E5),
@@ -47,9 +45,7 @@ class EventListTile extends Material {
                       )));
           },
         ),
+        ),
         )
-        
-        
-            
   );
 }
