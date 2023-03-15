@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/MainAppBar.dart';
 import 'package:university_ticketing_system/user_hub/widgets/SideAppBarWidgets/SideAppBar.dart';
-import 'package:university_ticketing_system/user_hub/widgets/EventsList/EventGridView.dart';
+import 'package:university_ticketing_system/user_hub/widgets/EventsList/EventListView.dart';
 
 class UserHubPage_events extends StatefulWidget {
   UserHubPage_events({super.key});
@@ -19,7 +19,7 @@ class _UserHubPage_eventsState extends State<UserHubPage_events> {
       body: Center(
         child: Container(
           color: const Color(0xFFF4E7FA),
-          child: EventsGridView(context),
+          child: EventsListView(context),
         ),
       ),
       drawer: SideAppBar(context),

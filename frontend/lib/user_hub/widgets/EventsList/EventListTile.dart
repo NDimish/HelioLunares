@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 // Should have:
 // Image
@@ -6,9 +7,9 @@ import 'package:flutter/material.dart';
 // Date/Time of event
 // Organiser
 
-class SocietyListTile extends Material {
-  SocietyListTile(
-      BuildContext context, String societyName, String summary, String uni,
+class EventListTile extends Material {
+  EventListTile(
+      BuildContext context, String eventName, int price, DateTime dateTime, String location, String org,
       {super.key})
       : super(
         color: Color(0x00000000),
@@ -16,16 +17,18 @@ class SocietyListTile extends Material {
         // Using Card avoids a lot of hassle with spacing
         child: Card(
           child: ListTile(
-          title: Text(societyName),
+          title: Text(eventName),
           tileColor: Color(0xFFD2C2E5),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          leading: Icon(Icons.group),
+          leading: Icon(Icons.event),
 
           subtitle: Row(crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween, 
+            mainAxisAlignment: MainAxisAlignment.start, 
             mainAxisSize: MainAxisSize.max,
-            children: [Flexible(child:Row(children: [Icon(Icons.info_outline),SizedBox(width: 5),Flexible(child:Text(summary, overflow: TextOverflow.ellipsis,maxLines: 2,))])),
-              Flexible(child:Row(children: [Icon(Icons.school_outlined),SizedBox(width: 5),Flexible(child:Text(uni, overflow: TextOverflow.ellipsis,maxLines: 1,))])),
+            children: [Flexible(child:Row(children: [Icon(Icons.monetization_on_outlined),SizedBox(width: 5),Text("£" + price.toString())])),
+              Flexible(child:Row(children: [Icon(Icons.calendar_month_outlined),SizedBox(width: 5),Text(DateFormat("dd/MM/yyyy HH:mm").format(dateTime))])),
+              Flexible(child:Row(children: [Icon(Icons.pin_drop_outlined),SizedBox(width: 5),Flexible(child:Text(location, overflow: TextOverflow.ellipsis,maxLines: 2,))])),
+              Flexible(child:Row(children: [Icon(Icons.group_outlined),SizedBox(width: 5),Flexible(child:Text(org, overflow: TextOverflow.ellipsis,maxLines: 1,))])),
             ],
           ),
           
@@ -45,6 +48,8 @@ class SocietyListTile extends Material {
           },
         ),
         )
-      );
+        
+        
             
+  );
 }
