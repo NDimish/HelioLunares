@@ -19,11 +19,20 @@ class UniversitySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class SocietySerializer(serializers.ModelSerializer):
+    # image = serializers.SerializerMethodField()
     user = UserSerializer()
     university_society_is_at = UniversitySerializer()
+    
+
     class Meta:
         model = Society
-        fields = '__all__'
+        fields = ['user','name','creation_date','about_us','university_society_is_at','join_date']
+    
+    def get_image(self, society):
+        print("THIS")
+        print(society.image.url)
+        return society.image.url
+
         
 class PeopleRoleAtSocietySerializer(serializers.ModelSerializer):
     class Meta:

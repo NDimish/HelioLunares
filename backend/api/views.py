@@ -190,10 +190,6 @@ class PeopleView(APIView):
             return Response(serializer.data)
         except:
             return Response({'error':'User not found.'},status=status.HTTP_404_NOT_FOUND)
-    
-    def delete(self, request, pk):
-        User.objects.filter(id=pk).delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class SocietyListView(generics.ListAPIView):
@@ -204,7 +200,7 @@ class SocietyListView(generics.ListAPIView):
     filter_backends = [DjangoFilterBackend,OrderingFilter]
     filterset_fields = '__all__'
     ordering_fields = '__all__'
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated|AllowPost]
     
     def post(self,request):
         

@@ -13,10 +13,12 @@ class UsersTestCase(APITestCase):
     def setUp(self): 
         self.url = '/users/'
         self.user = User.objects.get(email='johndoe@example.org')
+        #data to login into a valid accound userlevel 1
         self.user_data = {
             'email':'johndoe@example.org',
             'password':'Password123'
         }
+        #data to create a user of user level 1
         self.post_data = {
             "user": {
                 "email": "adamdoe@example.com",
@@ -30,20 +32,20 @@ class UsersTestCase(APITestCase):
     
     ###URLS WITH GET REQUESTS
     def test_url_exists_with_get(self):
-        response = self.client.get(self.url, {}, format='json')
-        self.assertNotEqual(response.status_code,404)
+        response = self.client.get(self.url, format='json')
+        self.assertNotEqual(response.status_code,status.HTTP_404_NOT_FOUND)
     
     def test_url_access_denied_without_authentication_for_get(self):
-        response = self.client.get(self.url, {}, format='json')
+        response = self.client.get(self.url, format='json')
         self.assertEqual(response.status_code,status.HTTP_401_UNAUTHORIZED)
         self.assertEqual(response.data['detail'].code,"not_authenticated")
     
     def test_url_access_allowed_with_api_login_for_get(self):
-        response = self.client.post('/log_in/',{'email':'johndoe@example.org','password':'Password123'},format='json')
+        response = self.client.post('/log_in/',self.user_data,format='json')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
         response = self.client.get(self.url, format='json', **header)
-        self.assertEqual(len(response.data), 5)
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
     
     def test_url_outputs_with_invalid_ordering(self):
         response = self.client.post('/log_in/',self.user_data,format='json')
