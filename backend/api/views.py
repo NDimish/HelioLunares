@@ -8,6 +8,8 @@ from rest_framework.filters import OrderingFilter
 from rest_framework.views import APIView
 
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
 from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import User, Society, Event, University, People, PeopleRoleAtSociety
@@ -111,16 +113,18 @@ class UsersListView(generics.ListAPIView):
 
         try:
             # First, we create the user object, before we can actually create the society model.
+            validate_password(auth_content['password'])
             created_user = User.objects.create_user(
                 email = auth_content['email'], 
                 password = auth_content['password'],
                 # Level 1 as a nonstudent is being created.
                 user_level = 1
             )
-            
+        except ValidationError as e:
+            return Response(e,status=status.HTTP_409_CONFLICT)
         except:
             # If there is already an account with that email, we throw an error.
-            return Response({'error':'Email taken or not provided.'},status=status.HTTP_409_CONFLICT)
+            return Response({'error':'User could not be created.'},status=status.HTTP_409_CONFLICT)
         
         else:
             data = {
@@ -151,14 +155,10 @@ class UsersListView(generics.ListAPIView):
             
             new_person.save()
             
-            try:
-                # Serialize the new model and send back to the frontend.
-                serializer = PeopleSerializer(new_person)
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-            except:
-                # If there is an error, delete the data
-                created_user.delete() # due to cascade it will auto delete new_person
-                return Response(serializer.data, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            # Serialize the new model and send back to the frontend.
+            serializer = PeopleSerializer(new_person)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            
     
 
 class UserView(APIView):

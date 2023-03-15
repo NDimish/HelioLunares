@@ -1,12 +1,13 @@
 from rest_framework import status
 from rest_framework.test import APITestCase
-from api.models import User
+from api.models import User, People
 
 
 class UsersTestCase(APITestCase):
     """/users/ Test cases"""
     fixtures = [
-        'api/tests/fixtures/default_users.json'
+        'api/tests/fixtures/default_users.json',
+        'api/tests/fixtures/default_university.json'
     ]
 
     def setUp(self): 
@@ -16,7 +17,16 @@ class UsersTestCase(APITestCase):
             'email':'johndoe@example.org',
             'password':'Password123'
         }
-        self.data = {}
+        self.post_data = {
+            "user": {
+                "email": "adamdoe@example.com",
+                "password": "This.4938.is.best"
+            },
+            "university_studying_at" : 1,
+            "first_name": "Adam",
+            "last_name": "Doe",
+            "field_of_study": "Chemistry"
+        }
     
     ###URLS WITH GET REQUESTS
     def test_url_exists_with_get(self):
@@ -141,5 +151,106 @@ class UsersTestCase(APITestCase):
         self.assertEquals(response.data[2]['email'],'jamesondoe@example.org')
     
     ###URLS WITH POST Requests
-    def test_url_
+    def test_url_exists_with_post(self):
+        response = self.client.post(self.url, {}, format='json')
+        self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
+    
+    def test_url_access_allowed_without_authentication_for_post(self):
+        response = self.client.post(self.url, {}, format='json')
+        self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data,{"error": "University not found"})
+    
+    def test_url_with_valid_post_data(self):
+        response = self.client.post(self.url, self.post_data, format='json')
+        
+        self.assertEqual(response.status_code,status.HTTP_201_CREATED)
+        #find created user
+        new_user = User.objects.get(email="adamdoe@example.com")
+        self.assertEqual(new_user.id, 6)
+        self.assertEqual(new_user.email, self.post_data["user"]["email"])
+        self.assertEqual(new_user.user_level, 1)
+
+        #Check it is created in people model
+        new_people = People.objects.get(user=new_user.id)
+        self.assertEqual(new_people.university_studying_at.id, self.post_data["university_studying_at"])
+        self.assertEqual(new_people.first_name, self.post_data["first_name"])
+        self.assertEqual(new_people.last_name, self.post_data["last_name"])
+        self.assertEqual(new_people.field_of_study, self.post_data["field_of_study"])
+    
+    def test_url_with_invalid_university_data(self):
+        self.post_data["university_studying_at"] = 10
+        response = self.client.post(self.url, self.post_data, format='json')
+        
+        self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
+        #find created user
+
+        try:
+            User.objects.get(email="adamdoe@example.com")
+        except User.DoesNotExist:
+            return True
+        self.assertFail()
+    
+    def test_url_with_invalid_first_name_data(self):
+        self.post_data["first_name"] = ""
+        response = self.client.post(self.url, self.post_data, format='json')
+        
+        self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
+        
+        #Check if user is not created
+        try:
+            User.objects.get(email="adamdoe@example.com")
+        except User.DoesNotExist:
+            return True
+        self.assertFail()
+    
+    def test_url_with_invalid_last_name_data(self):
+        self.post_data["last_name"] = ""
+        response = self.client.post(self.url, self.post_data, format='json')
+        
+        self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
+        #find created user
+
+        try:
+            User.objects.get(email="adamdoe@example.com")
+        except User.DoesNotExist:
+            return True
+        self.assertFail()
+
+    def test_url_with_invalid_field_of_study_data(self):
+        self.post_data["field_of_study"] = ""
+        response = self.client.post(self.url, self.post_data, format='json')
+        
+        self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
+        #find created user
+
+        try:
+            User.objects.get(email="adamdoe@example.com")
+        except User.DoesNotExist:
+            return True
+        self.assertFail()
+    
+    def test_url_with_invalid_email_data(self):
+        self.post_data["user"]["email"] = ""
+        response = self.client.post(self.url, self.post_data, format='json')
+        self.assertEqual(response.status_code,status.HTTP_409_CONFLICT)
+        #find created user
+
+        try:
+            User.objects.get(email="adamdoe@example.com")
+        except User.DoesNotExist:
+            return True
+        self.assertFail()
+    
+    def test_url_with_invalid_password_data(self):
+        self.post_data["user"]["password"] = ""
+        response = self.client.post(self.url, self.post_data, format='json')
+        self.assertEqual(response.status_code,status.HTTP_409_CONFLICT)
+        #find created user
+
+        try:
+            User.objects.get(email="adamdoe@example.com")
+        except User.DoesNotExist:
+            return True
+        self.assertFail()
+
     
