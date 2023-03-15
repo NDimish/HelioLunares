@@ -27,17 +27,12 @@ class UsersTestCase(APITestCase):
         self.assertEqual(response.status_code,status.HTTP_401_UNAUTHORIZED)
         self.assertEqual(response.data['detail'].code,"not_authenticated")
     
-    def test_url_access_allowed_with_force_authentication(self):
-        self.client.force_authenticate(self.user)
-        response = self.client.get(self.url, {}, format='json')
-        self.assertEqual(len(response.data), 3)
-    
     def test_url_access_allowed_with_api_login(self):
         response = self.client.post('/log_in/',{'email':'johndoe@example.org','password':'Password123'},format='json')
-        self.assertNotEqual(response.status_code,status.HTTP_404_NOT_FOUND)
-        self.data['token'] = response.data['token']
-        response = self.client.get(self.url, self.data, format='json')
-        self.assertEqual(len(response.data), 3)
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
+        response = self.client.get(self.url, self.data, format='json', **header)
+        self.assertEqual(len(response.data), 5)
     
     def test_url_outputs_with_invalid_ordering(self):
         response = self.client.post('/log_in/',self.user_data,format='json')

@@ -2,7 +2,7 @@ from rest_framework import status, generics
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated, BasePermission
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.filters import OrderingFilter
 from rest_framework.views import APIView
@@ -22,6 +22,13 @@ from rest_framework import generics
 
 from datetime import date, datetime
 
+
+#Permission classes
+class AllowPost(BasePermission):
+    def has_permission(self, request, view):
+        return request.method == "POST"
+
+#URl Endpoints
 
 @api_view(['GET'])
 def log_out(request):
@@ -89,16 +96,19 @@ class UsersListView(generics.ListAPIView):
     filter_backends = [DjangoFilterBackend,OrderingFilter]
     filterset_fields = '__all__'
     ordering_fields = '__all__'
-    permission_classes = [AllowAny]
-
+    permission_classes = [IsAuthenticated|AllowPost]
     
     def post(self,request):
         auth_content = request.data.get('user')
         uni_content = request.data.get('university_studying_at')
 
         # Will change this to obtain the uni via id not name as discussed.
-        u = University.objects.get(id=uni_content)
-        
+        u = ""
+        try:
+            u = University.objects.get(id=uni_content)
+        except:
+            return Response({'error':'University not found'},status=status.HTTP_400_BAD_REQUEST)
+
         try:
             # First, we create the user object, before we can actually create the society model.
             created_user = User.objects.create_user(
@@ -110,7 +120,7 @@ class UsersListView(generics.ListAPIView):
             
         except:
             # If there is already an account with that email, we throw an error.
-            return Response(status=status.HTTP_409_CONFLICT)
+            return Response({'error':'Email taken or not provided.'},status=status.HTTP_409_CONFLICT)
         
         else:
             data = {
