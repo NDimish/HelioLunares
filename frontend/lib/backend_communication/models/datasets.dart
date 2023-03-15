@@ -15,6 +15,10 @@ enum OrderType {
   CHRONOLOGICAL,
 }
 
+enum Relatiions {
+  HOSTS,
+}
+
 abstract class dataSets {
   final int id;
 

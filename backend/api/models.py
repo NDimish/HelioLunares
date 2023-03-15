@@ -8,13 +8,11 @@ from .managers import UserManager
 
 # Create your models here.
 class University(models.Model):
-    name = models.CharField(primary_key=True, max_length=50, blank=False)
+    name = models.CharField(max_length=50, blank=False, unique=True)
     latitude = models.FloatField(max_length=10, blank=False, unique=False)
     longitude = models.FloatField(max_length=10, blank=False, unique=False)
     street_name = models.CharField(max_length=50, blank=False, unique=False)
     postcode = models.CharField(max_length=15, blank=False, unique=False)
-
-
 class User(AbstractUser):
     username = None
 
