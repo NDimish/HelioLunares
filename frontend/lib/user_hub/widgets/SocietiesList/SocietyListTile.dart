@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:university_ticketing_system/user_hub/widgets/SocietiesList/IndividualSocietyPage.dart';
 
 // Should have:
 // Image
@@ -40,13 +41,8 @@ class SocietyListTile extends GridTile {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => Scaffold(
-                                  appBar: AppBar(
-                                    title: const Text("Event here!"),
-                                  ),
-                                  body: const Center(
-                                      child: Text(
-                                          "Page showing event details here")),
+                            builder: (context) => SocietyEventsPage(societyName: 'Music'
+                                  
                                 )));
                   },
 

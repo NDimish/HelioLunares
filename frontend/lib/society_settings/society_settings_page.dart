@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class SocietySettingsPage extends StatefulWidget {
   const SocietySettingsPage({super.key});
 
@@ -9,19 +10,16 @@ class SocietySettingsPage extends StatefulWidget {
 
 class _SocietySettingsPageState extends State<SocietySettingsPage> {
   Widget customTextFormField(
-      String headerName,
-      String name,
-      IconData nameIcon,
-      TextEditingController? formController,
-      String? Function(String?)? validation) {
+      String headerName, String name, IconData nameIcon, TextEditingController? formController, String? Function(String?)? validation) {
     return SizedBox(
         width: 300,
+        
         child: TextFormField(
-            controller: formController == null ? null : formController,
-            validator: validation == null ? null : validation,
+          controller: formController == null ? null : formController,
+          validator: validation == null ? null : validation,
             decoration: customDecoration(headerName, name, nameIcon)));
+        
   }
-
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
@@ -32,147 +30,132 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
   final emailRegex = RegExp(
       "[_a-zA-Z]+[_a-zA-Z0-9]?[\._]?[_a-zA-Z0-9]*@([a-zA-Z]+\.)?([a-zA-Z]+\.)?[a-zA-Z]+\.(com|net|de|uk|ro|jp)");
   final phoneRegex = RegExp(
-      "[_a-zA-Z]+[_a-zA-Z0-9]?[\._]?[_a-zA-Z0-9]*@([a-zA-Z]+\.)?([a-zA-Z]+\.)?[a-zA-Z]+\.(com|net|de|uk|ro|jp)");
-
+     "[_a-zA-Z]+[_a-zA-Z0-9]?[\._]?[_a-zA-Z0-9]*@([a-zA-Z]+\.)?([a-zA-Z]+\.)?[a-zA-Z]+\.(com|net|de|uk|ro|jp)");
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: const Icon(
-          Icons.settings,
-          size: 30,
-        ),
-      ),
+      
       backgroundColor: const Color(0xFFf5f5f5),
       body: SafeArea(
           child: Form(
-        key: _formKey,
-        child: Center(
-            child: Column(children: [
-          const SizedBox(height: 35),
-          const Text(
+            key: _formKey,
+            child: Center(
+                child: Column(children: [
+                  const SizedBox(height: 35),
+                  const Text(
             'Account',
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 48),
-          ),
-          const SizedBox(height: 17),
-          const Text(
+                  ),
+                  const SizedBox(height: 17),
+                  const Text(
             'Profile',
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 28),
-          ),
-          const SizedBox(height: 17),
-          Center(
+                  ),
+                  const SizedBox(height: 17),
+                  Center(
             child: Container(
               child: const Text(
-                'Student',
+                'Society',
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
               ),
               margin: const EdgeInsets.all(10.0),
               color: Colors.green[600],
               height: 24.0,
             ),
-          ),
-          const SizedBox(height: 35),
-          Row(
+                  ),
+                  const SizedBox(height: 35),
+                  Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children:  [
               customTextFormField(
-                  'Society Name', 'Enter your societiy name', Icons.house, null,
-                  (value) {
-                if (value == null || value.isEmpty) {
-                  return "Please enter your society name.";
-                }
-                return null;
-              }),
+                
+                  'Society Name', 'Enter your societiy name', Icons.house,null,(value) {
+                     if (value == null ||
+                        value.isEmpty) {
+                      return "Please enter your society name.";
+                    }
+                    return null;
+                  }),
+
+              const SizedBox(
+                width: 50,
+              ),
+              
+                  
               const SizedBox(
                 width: 50,
               ),
               customTextFormField(
-                  'Last Name', 'Enter your last name', Icons.person, null,
-                  (value) {
-                if (value == null || value.isEmpty) {
-                  return "Please enter your password.";
-                }
-                return null;
-              }),
-              const SizedBox(
-                width: 50,
-              ),
-              customTextFormField(
-                  'Password', 'Enter your password', Icons.password, null,
-                  (value) {
-                if (value == null || value.isEmpty) {
-                  return "Please enter your password.";
-                }
-                return null;
-              })
+                  'Password', 'Enter your password', Icons.password,null,(value) {
+                     if (value == null ||
+                        value.isEmpty) {
+                      return "Please enter your password.";
+                    }
+                    return null;
+                  })
             ],
-          ),
-          const SizedBox(height: 35),
-          const SizedBox(height: 35),
-          const Text(
+                  ),
+                  const SizedBox(height: 35),
+                  const SizedBox(height: 35),
+                  const Text(
             'Personal Information',
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 28),
-          ),
-          const SizedBox(height: 17),
-          const SizedBox(height: 35),
-          Row(
+                  ),
+                  const SizedBox(height: 17),
+                  const SizedBox(height: 35),
+                  Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              customTextFormField('Email Address', 'Enter your email',
-                  Icons.email, emailController, (value) {
-                if (value == null ||
-                    value.isEmpty ||
-                    !emailRegex.hasMatch(value)) {
-                  return "Please enter a valid email.";
-                }
-                return null;
-              }),
-
+              customTextFormField(
+                  'Email Address', 'Enter your email', Icons.email, emailController, (value) {
+                     if (value == null ||
+                        value.isEmpty ||
+                        !emailRegex.hasMatch(value)) {
+                      return "Please enter a valid email.";
+                    }
+                    return null;
+                  }),
+              
               const SizedBox(
                 width: 50,
               ),
-              customTextFormField('Phone Number', 'Enter your phone number',
-                  Icons.phone, phoneController, (value) {
-                if (value == null ||
-                    value.isEmpty ||
-                    !phoneRegex.hasMatch(value)) {
-                  return "Please enter a valid phone number.";
-                }
-                return null;
-              }),
-
+              customTextFormField(
+                  'Phone Number', 'Enter your phone number', Icons.phone, phoneController, (value) {
+                     if (value == null ||
+                        value.isEmpty ||
+                        !phoneRegex.hasMatch(value)) {
+                      return "Please enter a valid phone number.";
+                    }
+                    return null;
+                  }),
+              
               const SizedBox(
                 width: 50,
               ),
-              customTextFormField('University', 'Enter your university',
-                  Icons.book, null, null), //query a database
+              const Text(
+                  'University'),//query a database 
             ],
-          ),
-          const SizedBox(height: 17),
-          Row(
+                  ),
+                  const SizedBox(height: 17),
+                  Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextButton(
                 style: ButtonStyle(
-                  foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.blue),
+                  foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                 ),
                 onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
-                    print("Valid form");
-                  }
-                  ;
+              if (_formKey.currentState!.validate()) {
+                print("Valid form");};
 
-                  _formKey.currentState!.save();
-                },
+                _formKey.currentState!.save();},
                 child: const Text('Save'),
               ),
             ],
-          )
-        ])),
-      )),
+                  )
+                ])),
+          )),
     );
   }
 
@@ -202,8 +185,9 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
   }
 }
 
-//Add if stataemetns to determine if studnet or not
+//Add if stataemetns to determine if studnet or not 
+//if statements lvl1 and lvl2 fields acccesible same as user hub 
 //loading the data in Nmani
-//testing
-//make page responsive
+//testing 
+//make page responsive 
 //try catch block submit database
