@@ -470,4 +470,8 @@ GeneratedPluginRegistrant.java
 key.properties
 **/*.keystore
 **/*.jks
+<<<<<<< HEAD
 projectc
+=======
+projectk
+>>>>>>> 373748b6c2ec31cc4ce38dc9c8d7b12eb64ca1f4
