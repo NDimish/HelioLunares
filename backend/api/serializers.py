@@ -42,30 +42,6 @@ class PeopleRoleAtSocietySerializer(serializers.ModelSerializer):
     class Meta:
         model = PeopleRoleAtSociety
         fields = '__all__'
-        
-"""Serializers for creating users"""
-class UserCreationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['email', 'password']
-
-class SocietyCreationSerializer(serializers.ModelSerializer):
-    user = UserCreationSerializer()
-    university_society_is_at = UniversitySerializer()
-    class Meta:
-        model = Society
-        fields = ['user', 'name', 'creation_date', 'university_society_is_at', 'join_date', 'image']
-
-class PeopleCreationSerializer(serializers.ModelSerializer):
-    user = UserCreationSerializer()
-    university_studying_at = UniversitySerializer()
-    class Meta:
-        model = People
-        fields = '__all__'
-
-"""
-"""
-
 
 class EventModelSerializer(serializers.ModelSerializer):
     """Event Model Serializer """
