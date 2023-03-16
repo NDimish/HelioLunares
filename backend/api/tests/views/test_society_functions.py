@@ -90,7 +90,6 @@ class SocietyTestCase(APITestCase):
         response = self.client.post(self.url+'remove/',self.post_data , format='json',**header)
         self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
 
-
     def test_society_user_cannot_leave_society(self):
         self.user_data['email'] = "jamesdoe@example.org"
         response = self.client.post('/log_in/',self.user_data,format='json')
