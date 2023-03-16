@@ -1,5 +1,4 @@
 from rest_framework import serializers
-
 from api.models import *
 
 class PeopleSerializer(serializers.ModelSerializer):
@@ -18,19 +17,19 @@ class UniversitySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class SocietySerializer(serializers.ModelSerializer):
-    # image = serializers.SerializerMethodField()
+    image = serializers.SerializerMethodField()
     user = UserSerializer()
     university_society_is_at = UniversitySerializer()
-    
 
     class Meta:
         model = Society
-        fields = ['user','name','creation_date','about_us','university_society_is_at','join_date']
+        fields = '__all__'
     
     def get_image(self, society):
-        print("THIS")
-        print(society.image.url)
-        return society.image.url
+        if society.image:
+            return society.image.url
+        else:
+            return "media/default-image.png"
 
         
 class PeopleRoleAtSocietySerializer(serializers.ModelSerializer):

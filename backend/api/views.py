@@ -6,7 +6,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated, BasePermission
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.filters import OrderingFilter
 from rest_framework.views import APIView
-
+from django.db import IntegrityError
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
@@ -132,7 +132,7 @@ class UsersListView(generics.ListAPIView):
                 'university_studying_at': uni_content,
             }
             
-            # Create a new society model.
+            # Create a new person model.
             new_person = People.objects.create(
                 user = created_user,
                 first_name = data['first_name'],
@@ -150,9 +150,13 @@ class UsersListView(generics.ListAPIView):
             new_person.save()
             
             # Serialize the new model and send back to the frontend.
-            serializer = PeopleSerializer(new_person)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-            
+            try:
+                serializer = PeopleSerializer(new_person)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            except Exception as e:
+                created_user.delete()
+                new_person.delete()
+                return Response(e, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
 
 class UserView(APIView):
@@ -192,7 +196,7 @@ class SocietyListView(generics.ListAPIView):
     queryset = Society.objects.all()
     serializer_class = SocietySerializer
     filter_backends = [DjangoFilterBackend,OrderingFilter]
-    filterset_fields = '__all__'
+    filterset_fields = ['user','name','creation_date','university_society_is_at','join_date']
     ordering_fields = '__all__'
     permission_classes = [IsAuthenticated|AllowPost]
     
@@ -201,19 +205,22 @@ class SocietyListView(generics.ListAPIView):
         auth_content = request.data.get('user')
         uni_content = request.data.get('university_society_is_at')
         # Will change this to obtain the uni via id not name as discussed.
-        u = University.objects.get(id=uni_content)
-        
         try:
-            
-            # First, we create the user object, before we can actually create the society model.
+            u = University.objects.get(id=uni_content)
+        except:
+            return Response({'error':'University not found.'},status=status.HTTP_400_BAD_REQUEST)
 
+        try:
+            # First, we create the user object, before we can actually create the society model.
+            validate_password(auth_content['password'])
             created_user = User.objects.create_user(
                 email = auth_content['email'], 
                 password = auth_content['password'],
                 # Level 3 for society type.
                 user_level = 3
             )
-            
+        except ValidationError as e:
+            return Response(e,status=status.HTTP_409_CONFLICT)
         except:
             # If there is already an account with that email, we throw an error.
             return Response({'error':'Email is taken.'},status=status.HTTP_409_CONFLICT)
@@ -227,32 +234,33 @@ class SocietyListView(generics.ListAPIView):
                 #Assume that the uni data is correct since it will be seeded.
                 'university_society_is_at': uni_content,
             }
-            
+
             # Create a new society model.
             new_society = Society.objects.create(
                 user = created_user,
                 name = data['name'],
                 creation_date = data['creation_date'],
                 university_society_is_at = u,
-                image = request.data.get('image')
+                image = request.data.get('image'),
+                about_us = request.data.get('about_us')
             )
-            
+                      
             try:
                 new_society.full_clean()
-            except:
+            except Exception as e:
                 created_user.delete()
-                return Response({'errorM': "An error message"}, status=status.HTTP_400_BAD_REQUEST)
+                return Response(e, status=status.HTTP_400_BAD_REQUEST)
             
             new_society.save()
-            
+
             try:
                 # Serialize the new model and send back to the frontend.
                 serializer = SocietySerializer(new_society)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
-            except:
+            except Exception as e:
                 created_user.delete()
                 new_society.delete()
-                return Response(serializer.data, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                return Response(e, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             
 class SocietyView(APIView):
     """View to retrieve data about a society"""
@@ -264,7 +272,7 @@ class SocietyView(APIView):
         except:
             return Response({'error':'Society not found.'},status=status.HTTP_404_NOT_FOUND)
     def delete(self, request, pk):
-        Society.objects.filter(id=pk).delete()
+        Society.objects.filter(user_id=pk).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['POST'])
@@ -617,7 +625,7 @@ class SocietyCategoriesApiView(generics.ListAPIView):
     queryset = SocietyCategories.objects.all()
     serializer_class = SocietyCategoriesModelSerializer
     filter_backends = [DjangoFilterBackend,OrderingFilter]
-    filterset_fields = '__all__'
+    filterset_fields = "__all__"
     ordering_fields = '__all__'
 
     def post(self, request):

@@ -53,9 +53,9 @@ class Society(models.Model):
 
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, blank=False)
-    name = models.CharField(blank=False, unique=True, max_length=40)
+    name = models.CharField(blank=False, unique=False, max_length=40)
     creation_date = models.DateField(blank=False)
-    about_us = models.TextField(blank=True)
+    about_us = models.TextField(blank=True, null=True)
     # Add category stuff later
 
     university_society_is_at = models.ForeignKey(University, on_delete=models.CASCADE)
@@ -65,7 +65,7 @@ class Society(models.Model):
     def upload_img(instance, filename):
         return "{0}/{1}".format(instance.user.id,filename)
     
-    image = models.ImageField(upload_to = upload_img, default='/default_image.png')
+    image = models.ImageField(upload_to = upload_img, blank=True, null=True)
 
     def join_soc(self, user: User, level=1):
 
