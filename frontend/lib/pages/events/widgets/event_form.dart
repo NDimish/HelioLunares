@@ -205,6 +205,14 @@ class _EventFormState extends State<EventForm> {
                   FilteringTextInputFormatter.digitsOnly,
                 ],
                 controller: durationController,
+                validator: (value) {
+                  if (value == null || value.isEmpty || int.parse(value) <= 0) {
+                    _validateDuration = true;
+                    return 'Duration Can\'t Be Empty';
+                  }
+                  _validateDuration = false;
+                  return null;
+                },
                 onSaved: (String? duration) {
                   model.duration = duration!;
                   print("event duration saved");
@@ -242,6 +250,7 @@ class _EventFormState extends State<EventForm> {
                     MaterialStateProperty.all<Color>(MyColours.navbarColour),
               ),
               onPressed: () {
+                _formKey.currentState!.validate();
                 setState(
                   () {
                     nameController.text.isEmpty
@@ -266,7 +275,7 @@ class _EventFormState extends State<EventForm> {
                         : _validateDescription = false;
                   },
                 );
-                if (checkAllValidators()) {
+                if (checkAllValidators() && _formKey.currentState!.validate()) {
                   _formKey.currentState?.save();
                   //UNCOMMENT ONCE IMPLEMENTED :
                   // data.dataCollector<SocietyEvent> collector = data.dataCollector<SocietyEvent>();

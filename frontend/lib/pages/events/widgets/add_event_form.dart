@@ -8,7 +8,6 @@ import 'package:university_ticketing_system/backend_communication/models/society
 import 'package:university_ticketing_system/widgets/custom_text.dart';
 import '../../../backend_communication/dataCollector.dart';
 import '../../../constants/style.dart';
-import 'dart:js_util';
 
 import '../../../backend_communication/authenticate.dart';
 import '../../../backend_communication/dataCollector.dart' as data;
@@ -76,6 +75,7 @@ class _AddEventFormState extends State<AddEventForm> {
               child: SingleChildScrollView(
                   child: Column(children: [
             TextFormField(
+                key: const Key("EventName"),
                 decoration: InputDecoration(
                     errorText: _validateName ? 'Name Can\'t Be Empty' : null,
                     labelText: "Event Name",
@@ -89,6 +89,7 @@ class _AddEventFormState extends State<AddEventForm> {
               height: 20,
             ),
             TextFormField(
+                key: const Key("EventPrice"),
                 keyboardType: TextInputType.number,
                 inputFormatters: <TextInputFormatter>[
                   //FilteringTextInputFormatter.digitsOnly,
@@ -101,7 +102,7 @@ class _AddEventFormState extends State<AddEventForm> {
                 decoration: InputDecoration(
                     icon: const Icon(Icons.payments_outlined),
                     labelText: "Ticket Price",
-                    errorText: _validatePrice ? 'Value Can\'t Be Empty' : null),
+                    errorText: _validatePrice ? 'Price Can\'t Be Empty' : null),
                 controller: priceController,
                 onSaved: (String? price) {
                   model.price = price!.replaceAll("£", "");
@@ -111,6 +112,7 @@ class _AddEventFormState extends State<AddEventForm> {
               height: 20,
             ),
             TextFormField(
+              key: const Key("EventDate"),
               controller: dateController,
               onSaved: (String? date) {
                 model.date = date!;
@@ -178,6 +180,7 @@ class _AddEventFormState extends State<AddEventForm> {
               height: 20,
             ),
             TextFormField(
+                key: const Key("EventLocation"),
                 decoration: InputDecoration(
                     labelText: "Event Location",
                     icon: const Icon(Icons.location_on_outlined),
@@ -192,6 +195,15 @@ class _AddEventFormState extends State<AddEventForm> {
               height: 20,
             ),
             TextFormField(
+                key: const Key("EventDuration"),
+                validator: (value) {
+                  if (value == null || value.isEmpty || int.parse(value) <= 0) {
+                    _validateDuration = true;
+                    return 'Duration Can\'t Be Empty';
+                  }
+                  _validateDuration = false;
+                  return null;
+                },
                 decoration: InputDecoration(
                     icon: const Icon(Icons.timer),
                     errorText:
@@ -210,12 +222,14 @@ class _AddEventFormState extends State<AddEventForm> {
               height: 20,
             ),
             TextFormField(
+                key: const Key("EventDescription"),
                 maxLines: null,
                 keyboardType: TextInputType.multiline,
                 inputFormatters: [LengthLimitingTextInputFormatter(500)],
                 decoration: InputDecoration(
-                    errorText:
-                        _validateDescription ? 'Value Can\'t Be Empty' : null,
+                    errorText: _validateDescription
+                        ? 'Description Can\'t Be Empty'
+                        : null,
                     labelText: "Event Description",
                     icon: const Icon(Icons.description)),
                 controller: descriptionController,
@@ -239,6 +253,7 @@ class _AddEventFormState extends State<AddEventForm> {
                     MaterialStateProperty.all<Color>(MyColours.navbarColour),
               ),
               onPressed: () {
+                _formKey.currentState!.validate();
                 setState(
                   () {
                     nameController.text.isEmpty
@@ -255,15 +270,16 @@ class _AddEventFormState extends State<AddEventForm> {
                     locationController.text.isEmpty
                         ? _validateLocation = true
                         : _validateLocation = false;
-                    durationController.text.isEmpty
-                        ? _validateDuration = true
-                        : _validateDuration = false;
+
+                    // durationController.text.isEmpty
+                    //     ? _validateDuration = true
+                    //     : _validateDuration = false;
                     descriptionController.text.isEmpty
                         ? _validateDescription = true
                         : _validateDescription = false;
                   },
                 );
-                if (checkAllValidators()) {
+                if (checkAllValidators() && _formKey.currentState!.validate()) {
                   //SAVE EVENT MODEL FIELDS & ADD TO DB
                   _formKey.currentState?.save();
                   //UNCOMMENT ONCE IMPLEMENTED :
