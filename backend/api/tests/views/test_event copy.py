@@ -11,7 +11,7 @@ class EventTestCase(APITestCase):
         self.user = User.objects.filter(email='johndoe@example.org').first()
 
     def login(self):
-        response = self.client.post('/log_in/',  {"email":"johndoe@example.org","password":"Password123"},
+        response = self.client.post('/log_in/', {'email': 'johndoe@example.org', 'password': 'Password123'},
                                     format='json')
         self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         self.data['token'] = response.data['token']

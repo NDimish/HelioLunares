@@ -1,0 +1,22 @@
+[
+    {
+        "model": "api.people",
+        "fields": {
+            "user": 1,
+            "university_studying_at": 1,
+            "first_name": "John",
+            "last_name": "Doe",
+            "field_of_study": "Chemistry"
+        }
+    },
+    {
+        "model": "api.people",
+        "fields": {
+            "user": 2,
+            "university_studying_at": 2,
+            "first_name": "Jane",
+            "last_name": "Doe",
+            "field_of_study": "Mathematics"
+        }
+    }
+]
