@@ -7,15 +7,12 @@ export 'User.dart';
 final DATASOURCE = 'http://127.0.0.1:8000/';
 
 class Cookies {
-  static String CSRFToken = "";
-
-  static String Cookie = '';
+  static String Token = "";
 
   static String Email = '';
 
-  static void eatCookies(String csrfToken, String cookie, String email) {
-    CSRFToken = csrfToken;
-    Cookie = cookie;
+  static void eatCookies(String Token, String email) {
+    Token = Token;
     Email = email;
   }
 }
