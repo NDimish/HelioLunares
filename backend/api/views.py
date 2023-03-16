@@ -291,7 +291,7 @@ def society_join(request):
         
         #check if they are already part of the society
         try:
-            role = PeopleRoleAtSociety.objects.get(society=soc,user_at_society=request.user)
+            role = PeopleRoleAtSociety.objects.get(society=soc,user_at_society=People.objects.get(user=request.user))
             return Response({'error':'Already joined society'},status=status.HTTP_400_BAD_REQUEST)
         except:
             soc.join_soc(request.user)
@@ -301,7 +301,12 @@ def society_join(request):
 
 @api_view(['POST'])
 def society_remove_user(request):
-    if request.data['user']:
+    try:
+        user = request.data['user']
+    except:
+        user = ""
+
+    if user:
         #THIS IS FOR REMOVING ANOTHER USER
 
         #search for the society that they want
@@ -313,7 +318,7 @@ def society_remove_user(request):
         if request.user.user_level == 3:
              #check if they are already part of the society
             try:
-                role = PeopleRoleAtSociety.objects.get(society=soc,user_at_society=request.user)
+                role = PeopleRoleAtSociety.objects.get(society=soc,user_at_society=People.objects.get(user_id=user))
             except:
                 return Response({'error':'Not joined society'},status=status.HTTP_400_BAD_REQUEST)
 
@@ -321,15 +326,15 @@ def society_remove_user(request):
         else:
             #check for society level of the current user to be deleted
             try:
-                user_role = PeopleRoleAtSociety.objects.get(society=soc,user_at_society=request.user)
+                user_role = PeopleRoleAtSociety.objects.get(society=soc,user_at_society=People.objects.get(user=request.user))
             except:
                 return Response({'error':'User has not joined society'},status=status.HTTP_400_BAD_REQUEST)
             
             #check if the user to be removed is in the society
             try:
-                role = PeopleRoleAtSociety.objects.get(society=soc,user_at_society=request.user)
+                role = PeopleRoleAtSociety.objects.get(society=soc,user_at_society=People.objects.get(user_id=user))
             except:
-                return Response({'error':'Not joined society'},status=status.HTTP_400_BAD_REQUEST)
+                return Response({'error':'User to delete has not joined society'},status=status.HTTP_400_BAD_REQUEST)
 
             #check if the user has more power than the user being removed
             if user_role.role > role.role:
@@ -349,14 +354,15 @@ def society_remove_user(request):
             #search for the society that they want
             try:
                 soc = Society.objects.get(user_id=request.data['society'])
-            except:
-                return Response({'error':'Society not found'}, status=status.HTTP_404_NOT_FOUND)
+            except Exception as e:
+                return Response(e, status=status.HTTP_404_NOT_FOUND)
             
             #check if they are already part of the society
+            people = People.objects.get(user=request.user)
             try:
-                role = PeopleRoleAtSociety.objects.get(society=soc,user_at_society=request.user)
+                role = PeopleRoleAtSociety.objects.get(society=soc,user_at_society=people)
             except:
-                return Response({'error':'Not joined society'},status=status.HTTP_400_BAD_REQUEST)
+                return Response({'error':'Not part of society'},status=status.HTTP_400_BAD_REQUEST)
 
             role.delete()
 
@@ -415,7 +421,7 @@ def society_update_user(request):
     return Response(status=status.HTTP_204_NO_CONTENT)
 
 #get a list of all the roles in society
-class PeopleRoleAtSociety(generics.ListAPIView):
+class PeopleRoleAtSocietyView(generics.ListAPIView):
     queryset = PeopleRoleAtSociety.objects.all()
     serializer_class = PeopleRoleAtSocietySerializer
     filter_backends = [DjangoFilterBackend,OrderingFilter]

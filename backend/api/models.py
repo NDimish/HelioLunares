@@ -50,8 +50,6 @@ class People(models.Model):
 
 
 class Society(models.Model):
-
-
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, blank=False)
     name = models.CharField(blank=False, unique=False, max_length=40)
     creation_date = models.DateField(blank=False)
@@ -98,7 +96,6 @@ class Society(models.Model):
         role_given.delete()
 
 class PeopleRoleAtSociety(models.Model):
-
     society = models.ForeignKey(Society, on_delete=models.CASCADE, blank=False)
     user_at_society = models.ForeignKey(People, on_delete=models.CASCADE, blank=False)
 
@@ -110,10 +107,10 @@ class PeopleRoleAtSociety(models.Model):
 
     role = models.PositiveSmallIntegerField(choices=SOCIETY_ROLE, default=1)
 
-    def __str__(self):
-        str1 = self.society.name + " --- " + self.user_at_society.first_name + self.user_at_society.last_name + " --- "
-        str2 = str(self.user_at_society.user.user_level)
-        return str1 + str2
+    # def __str__(self):
+    #     str1 = self.society.name + " --- " + self.user_at_society.first_name + self.user_at_society.last_name + " --- "
+    #     str2 = str(self.user_at_society.user.user_level)
+    #     return str1 + str2
 
 
 class Event(models.Model):
