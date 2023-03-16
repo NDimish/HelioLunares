@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/bought_tickets/buy_ticket_screen.dart';
-import '../backend_communication/authenticate.dart';
-import '../backend_communication/dataCollector.dart' as data;
+import '../../../../backend_communication/authenticate.dart';
+import '../../../../backend_communication/dataCollector.dart' as data;
 
 class UserBoughtTicketScreen extends StatefulWidget {
   final data.OrderType Orderby;
-  final String filter;
+  final Map<String,String> filter;
   // final int id;
 
   const UserBoughtTicketScreen(
       {Key? key,
       this.Orderby = data.OrderType.CHRONOLOGICAL,
-      this.filter = 'none',
+      this.filter = const{},
       // this.id = -1
       }
     )
@@ -34,20 +34,27 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
         ChangeNotifierProvider(
           create: (context) => data.dataCollector<data.Event>(
             filter: widget.filter, order: widget.Orderby)),
-        ChangeNotifierProvider(
-          create: (context) => data.dataCollector<data.User>(
-            filter: widget.filter, order: widget.Orderby)),
       ],
       builder: (context, child) {
-        final DataP2 = Provider.of<data.dataCollector<data.Event>>(context);
-        final DataP = Provider.of<data.dataCollector<data.User>>(context);
+        
         return Scaffold(
-          backgroundColor: const Color(0xFFC8B8D8), body: _buildPanel());
+          backgroundColor: const Color(0xFFC8B8D8), body: _buildPanel(context));
       }
     );
   }
 
-  Widget _buildPanel() {
+  // Widget leftbuild(BuildContext context, int id){
+  //   return ChangeNotifierProvider(
+  //         create: (context) => data.dataCollector<data.Event>(
+  //           ID:id),
+  //       builder:(context,child){
+
+  //       }
+  //       );
+  // }
+
+  Widget _buildPanel(BuildContext context) {
+    final DataP = Provider.of<data.dataCollector<data.Event>>(context);
     return Row(children: <Widget>[
       Container(
         color: const Color(0xFF8C7099),
@@ -121,13 +128,13 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                                   width: 10, color: const Color(0xFF8C7099)),
                               borderRadius: BorderRadius.circular(20)),
                           child: Row(
-                            children: const [
+                            children: [
                               Expanded(
                                 child: Text(
                                   '  Title: '
-                                   + DataP.collection[index].title,
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(fontSize: 20),
+                                  
+                                  // textAlign: TextAlign.left,
+                                  // style: TextStyle(fontSize: 20),
                                 ),
                               ),
                             ],
@@ -137,45 +144,45 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                         height: 10,
                       ),
 
-                      Container(
-                          height: 60,
-                          decoration: BoxDecoration(
-                              color: const Color(0xFFB08BBB),
-                              border: Border.all(
-                                  width: 10, color: const Color(0xFF8C7099)),
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Row(
-                            children: const [
-                              Expanded(
-                                child: Text(
-                                  '  Date: '
-                                   + DataP.collection[index].date,
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(fontSize: 20),
-                                ),
-                              ),
-                            ],
-                          )),
+                      // Container(
+                      //     height: 60,
+                      //     decoration: BoxDecoration(
+                      //         color: const Color(0xFFB08BBB),
+                      //         border: Border.all(
+                      //             width: 10, color: const Color(0xFF8C7099)),
+                      //         borderRadius: BorderRadius.circular(20)),
+                      //     child: Row(
+                      //       children: const [
+                      //         Expanded(
+                      //           child: Text(
+                      //             '  Date: '
+                      //              + DataP.collection[index].date,
+                      //             textAlign: TextAlign.left,
+                      //             style: TextStyle(fontSize: 20),
+                      //           ),
+                      //         ),
+                      //       ],
+                      //     )),
 
-                      Container(
-                          height: 60,
-                          decoration: BoxDecoration(
-                              color: const Color(0xFFB08BBB),
-                              border: Border.all(
-                                  width: 10, color: const Color(0xFF8C7099)),
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Row(
-                            children: const [
-                              Expanded(
-                                child: Text(
-                                  '  Venue: '
-                                   + DataP.collection[index].venue,
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(fontSize: 20),
-                                ),
-                              ),
-                            ],
-                          )),
+                      // Container(
+                      //     height: 60,
+                      //     decoration: BoxDecoration(
+                      //         color: const Color(0xFFB08BBB),
+                      //         border: Border.all(
+                      //             width: 10, color: const Color(0xFF8C7099)),
+                      //         borderRadius: BorderRadius.circular(20)),
+                      //     child: Row(
+                      //       children: const [
+                      //         Expanded(
+                      //           child: Text(
+                      //             '  Venue: '
+                      //              + DataP.collection[index].venue,
+                      //             textAlign: TextAlign.left,
+                      //             style: TextStyle(fontSize: 20),
+                      //           ),
+                      //         ),
+                      //       ],
+                      //     )),
 
                       // Container(
                       //     height: 60,
@@ -224,25 +231,25 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
 
                       // ),
 
-                      Container(
-                          height: 60,
-                          decoration: BoxDecoration(
-                              color: const Color(0xFFB08BBB),
-                              border: Border.all(
-                                  width: 10, color: const Color(0xFF8C7099)),
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Row(
-                            children: const [
-                              Expanded(
-                                child: Text(
-                                  '  Description: '
-                                   + DataP.collection[index].description,
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(fontSize: 20),
-                                ),
-                              ),
-                            ],
-                          )),
+                      // Container(
+                      //     height: 60,
+                      //     decoration: BoxDecoration(
+                      //         color: const Color(0xFFB08BBB),
+                      //         border: Border.all(
+                      //             width: 10, color: const Color(0xFF8C7099)),
+                      //         borderRadius: BorderRadius.circular(20)),
+                      //     child: Row(
+                      //       children: const [
+                      //         Expanded(
+                      //           child: Text(
+                      //             '  Description: '
+                      //              + DataP.collection[index].description,
+                      //             textAlign: TextAlign.left,
+                      //             style: TextStyle(fontSize: 20),
+                      //           ),
+                      //         ),
+                      //       ],
+                      //     )),
                     ],
                   ))
             ],
@@ -276,12 +283,16 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
           padding: const EdgeInsets.all(20.0),
           child: Container(
             // color:Colors.amberAccent,
-            child: Column(
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: DataP.collection.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const SizedBox(height: 10),
-                _buildCollapsible(),
+                _buildCollapsible(context),
                 const SizedBox(
                   height: 50,
                 ),
@@ -314,7 +325,7 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Row(
-                      children: const [
+                      children:  [
                         // Expanded(
                         //   child: Text(
                         //     'Venue',
@@ -331,16 +342,19 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                         // ),
                         Expanded(
                           child: Text(
-                            "" + DataP.collection[index].title,
+                            "${DataP.collection[index].title}",
                             textAlign: TextAlign.left,
                             selectionColor: Colors.black,
                           ),
                         )
+
                       ],
                     ),
                   ),
                 )),
               ],
+                );
+              },
             ),
           ),
         ),
@@ -348,7 +362,8 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
     ]);
   }
 
-  Widget _buildCollapsible() {
+  Widget _buildCollapsible(BuildContext context) {
+    final DataP = Provider.of<data.dataCollector<data.Event>>(context);
     return ExpansionPanelList(
       elevation: 0,
       expansionCallback: (int index, bool isExpanded) {
@@ -370,7 +385,10 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
               ),
             );
           },
-          body: Column(
+          body:ListView.builder(
+              shrinkWrap: true,
+              itemCount: 3, //DataP.collection.length,
+              itemBuilder: (BuildContext context, int index) {
             children: [
               _OnHover(
                 child: OutlinedButton(
@@ -393,7 +411,7 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Row(
-                      children: const [
+                      children: [
                         // Expanded(
                         //   child: Text(
                         //     'Venue',
@@ -401,26 +419,21 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                         //     selectionColor: Colors.black,
                         //   ),
                         // ),
-                        // Expanded(
-                        //   child: Text(
-                        //     'Date',
-                        //     textAlign: TextAlign.center,
-                        //     selectionColor: Colors.black,
-                        //   ),
-                        // ),
                         Expanded(
                           child: Text(
-                            "" + DataP.collection[index].title,
+                            "${index}",
+                            //"${DataP.collection[index].title}",
                             textAlign: TextAlign.left,
                             selectionColor: Colors.black,
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
                 ),
               ),
-            ],
+            ];
+              },
           ),
           isExpanded: item.isExpanded,
         );
