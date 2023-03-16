@@ -1,19 +1,22 @@
 from rest_framework import serializers
 from api.models import *
-
-class PeopleSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = People
-        fields = '__all__'
  
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id','email','user_level','date_joined']
-        
+
 class UniversitySerializer(serializers.ModelSerializer):
     class Meta:
         model = University
+        fields = '__all__'
+
+class PeopleSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+    university_studying_at = UniversitySerializer()
+
+    class Meta:
+        model = People
         fields = '__all__'
 
 class SocietySerializer(serializers.ModelSerializer):
@@ -33,6 +36,9 @@ class SocietySerializer(serializers.ModelSerializer):
 
         
 class PeopleRoleAtSocietySerializer(serializers.ModelSerializer):
+    society = SocietySerializer()
+    user_at_society = PeopleSerializer()
+
     class Meta:
         model = PeopleRoleAtSociety
         fields = '__all__'

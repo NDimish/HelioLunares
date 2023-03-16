@@ -30,8 +30,8 @@ urlpatterns = [
     path('users/', views.UsersListView.as_view(), name="users_list"),
     path('users/<int:pk>/', views.UserView.as_view(), name="user_with_id"),
     
-    path('users/', views.PeopleListView.as_view(), name="people_list"),
-    path('users/<int:pk>/', views.PeopleView.as_view(), name="people_with_id"),
+    path('people/', views.PeopleListView.as_view(), name="people_list"),
+    path('people/<int:pk>/', views.PeopleView.as_view(), name="people_with_id"),
 
     path('society/', views.SocietyListView.as_view(), name="society_list"),
     path('society/<int:pk>/', views.SocietyView.as_view(), name="society_with_id"),
