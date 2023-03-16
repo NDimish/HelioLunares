@@ -1,6 +1,6 @@
 export '../models/datasets.dart';
 export 'Event.dart';
-export '../models/student.dart';
+export 'People.dart';
 export '../models/society.dart';
 export 'User.dart';
 
