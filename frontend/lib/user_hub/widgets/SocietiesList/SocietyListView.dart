@@ -6,8 +6,9 @@ class SocietyListView extends ListView {
       : super(
             padding: const EdgeInsets.all(20),
             children: [
-              SocietyListTile(context, "Soc 1", "A very long text. A very long text. A very long text. A very long text. A very long text.", "KCL"),
-              SocietyListTile(context, "Soc 2", "Hi hello", "Imperial"),
-              SocietyListTile(context, "Soc 3", "Hi hello", "Oxford"),
+              SocietyListTile(societyName: "Soc 1", summary:"A very long text. A very long text. A very long text. A very long text. A very long text.", uni: "KCL"),
+              SocietyListTile(societyName: "Soc 2",summary: "Hi hello", uni:"Imperial"),
+              SocietyListTile(societyName: "Soc yummy",summary: "Hi hello", uni:"Oxford"),
+              SocietyListTile(societyName: "The High Table",summary: "", uni:"---"),
             ]);
 }

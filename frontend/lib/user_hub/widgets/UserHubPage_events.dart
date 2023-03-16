@@ -100,7 +100,7 @@ class _UserHubPage_eventsState extends State<UserHubPage_events> {
                   icon: const Icon(Icons.settings))
             ]
       ),
-      // MainAppBar(),
+
       body: Center(
         child: Container(
           color: const Color(0xFFF4E7FA),
