@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:university_ticketing_system/user_hub/widgets/SocietiesList/EventsListPage.dart';
 import 'package:university_ticketing_system/user_hub/widgets/SocietiesList/IndividualSocietyPage.dart';
 
 // Should have:
@@ -41,7 +42,7 @@ class SocietyListTile extends GridTile {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => SocietyEventsPage(societyName: 'Music'
+                            builder: (context) => MainSocietyPage(
                                   
                                 )));
                   },

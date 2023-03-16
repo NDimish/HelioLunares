@@ -1,116 +1,82 @@
 import 'package:flutter/material.dart';
+import 'package:university_ticketing_system/pages/society_hub/widgets/circular_card.dart';
+import 'package:university_ticketing_system/user_hub/widgets/SocietiesList/EventsListPage.dart';
+import 'package:university_ticketing_system/user_hub/widgets/SocietiesList/widgets/SocietyButton.dart';
 
-class SocietyEventsPage extends StatelessWidget {
-  final String societyName;
+import '../../../gradient_animation.dart';
 
-  SocietyEventsPage({required this.societyName});
 
-  final List<Event> events = [
-    Event(
-      name: 'Painting Workshop',
-      description:
-          'Join us for a workshop on watercolor painting techniques!',
-      date: 'Saturday, April 2, 2022',
-    ),
-    Event(
-      name: 'Movie Night',
-      description: 'Come watch a movie with us and enjoy some popcorn!',
-      date: 'Friday, April 8, 2022',
-    ),
-    Event(
-      name: 'Book Club Meeting',
-      description: 'We will be discussing "To Kill a Mockingbird" this month.',
-      date: 'Monday, April 18, 2022',
-    ),
-     Event(
-      name: 'Book Club Meeting',
-      description: 'We will be discussing "To Kill a Mockingbird" this month.',
-      date: 'Monday, April 18, 2022',
-    ),
-     Event(
-      name: 'Book Club Meeting',
-      description: 'We will be discussing "To Kill a Mockingbird" this month.',
-      date: 'Monday, April 18, 2022',
-    ),
-     Event(
-      name: 'Book Club Meeting',
-      description: 'We will be discussing "To Kill a Mockingbird" this month.',
-      date: 'Monday, April 18, 2022',
-    ),
-     Event(
-      name: 'Book Club Meeting',
-      description: 'We will be discussing "To Kill a Mockingbird" this month.',
-      date: 'Monday, April 18, 2022',
-    ),
-     Event(
-      name: 'Book Club Meeting',
-      description: 'We will be discussing "To Kill a Mockingbird" this month.',
-      date: 'Monday, April 18, 2022',
-    ),
-  ];
+class MainSocietyPage extends StatefulWidget {
+  const MainSocietyPage({super.key});
 
   @override
+  State<MainSocietyPage> createState() => _MainSocietyPageState();
+}
+
+@override
+class _MainSocietyPageState extends State<MainSocietyPage> {
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(societyName),
+    double _width = MediaQuery.of(context).size.width;
+    return 
+    CustomLinearGradient(child:Column(children: [
+      const SizedBox(
+        height: 17,
       ),
-      
-      body: 
-ListView.builder(
-        itemCount: events.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Card(
-            margin: EdgeInsets.all(16.0),
-            child: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    events[index].name,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0,
-                    ),
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    events[index].description,
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    'Date: ${events[index].date}',
-                    style: TextStyle(
-                      fontStyle: FontStyle.italic,
-                    ),
-                  ),
-                ],
+      CircularCard(),
+      const Text(
+        'Data Science Society',
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 48, color: Colors.black),
               ),
-            ),
-          );
-        },
+      const SizedBox(
+        height: 25,
       ),
-    );
+      const Text(
+        'No. of members: 17',
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 24, color: Colors.black),
+      ),
+      const SizedBox(
+        height: 25,),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+
+        children: [
+         Padding(padding:const EdgeInsets.only(right:10.0), child: SocietyButton(onPressed: () => Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const SocietyEventsList(societyName: 'Data Society',)
+            )
+          ),buttonText: "List of Events",)),
+          SocietyButton(onPressed: () => print("he"),buttonText: "Join Society",),
+        ],
+
+        
+      ),
+       const SizedBox(
+            height: 25,
+          ),
+          const Text(
+            'About Us',
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 36, color: Colors.black),
+              ),
+              const SizedBox(
+                height:25
+              ),
+              Padding(padding: const EdgeInsets.all(10.0),child:Card(
+            elevation: 0,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(
+            color: Theme.of(context).colorScheme.outline,
+          ),
+          borderRadius: const BorderRadius.all(Radius.circular(12)),
+        ),
+        child: const SizedBox(
+          child: Center(child: Text('Data Science Society is an international digital community and our team has been building a strong core of members digitally around a body of Data Science knowledge while having fun! So far we have organized multiple Data Science Meetups and International Datathons with attendees from more than 20 countries.')),
+          ),
+              ))
+      
+      
+      
+
+      
+    ],));
   }
 }
-
-class Event {
-  final String name;
-  final String description;
-  final String date;
-
-  Event({
-    required this.name,
-    required this.description,
-    required this.date,
-  });
-}
-
-
-
-
-
-
-
-
