@@ -146,8 +146,13 @@ class Command(BaseCommand):
         
         #We get non society memebers, so student and non-student.
         users = User.objects.filter(user_level=1) | User.objects.filter(user_level=2)
+        unis = University.objects.all()
         
-        university_at = University.objects.get(id = random.randint(1, len(University.objects.all()) - 1))
+        # university_min_key_value = University.objects.first().id
+        # university_max_key_value = University.objects.last().id
+        # university_at = University.objects.get(id = random.randint(university_min_key_value, university_max_key_value - 1))
+        
+        university_at = unis[random.randint(0, len(unis) - 1)]
         obtained_user = users[random.randint(0, len(users) - 1)]
         
         name_of_email = obtained_user.email.split("@")[0]
@@ -170,9 +175,13 @@ class Command(BaseCommand):
     
     def generate_socity(self):
         users = User.objects.filter(user_level=3)
+        unis = University.objects.all()
         
-        #For now keep at one, as no other unis are seeded
-        university_at = University.objects.get(id=random.randint(1, len(University.objects.all()) - 1))
+        # university_min_key_value = University.objects.first().id
+        # university_max_key_value = University.objects.last().id
+        # university_at = University.objects.get(id = random.randint(university_min_key_value, university_max_key_value - 1))
+        
+        university_at = unis[random.randint(0, len(unis) - 1)]
         obtained_user = users[random.randint(0, len(users) - 1)]
         
         try:
@@ -206,14 +215,14 @@ class Command(BaseCommand):
         self.generate_universities()
         
         
-        #NOTE: The number 50, below must be the same for both for loops as socities and persons to user is a 1 to 1 relationship.
-        
+        #NOTE: The number 'counter', below must be the same for both for loops as socities and persons to user is a 1 to 1 relationship.
+        counter = 75
         #Generate default user accounts.
-        for i in range(1,50):
+        for i in range(1, counter):
             self.generate_user()
         
         #Generate people and societies.
-        for i in range(1,50):
+        for i in range(1, counter):
             self.generate_person()
             self.generate_socity()
         
