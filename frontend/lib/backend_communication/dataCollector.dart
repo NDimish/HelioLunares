@@ -56,7 +56,6 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
 
   fetchData(String url, Databases Database) async {
     final response = await http.get(Uri.parse(url), headers: {
-      "Cookie": Cookies.Cookie,
       "X-CSRFToken": Cookies.CSRFToken
       //HttpHeaders.authorizationHeader: Cookies.CSRFToken
     });
@@ -90,7 +89,6 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       Uri.parse(createUrl(sets[T]!, postType: PostType.ADD)),
       headers: {
         "Content-Type": "application/json",
-        "Cookie": Cookies.Cookie,
         "X-CSRFToken": Cookies.CSRFToken
         //HttpHeaders.authorizationHeader: Cookies.CSRFToken
       },
@@ -108,7 +106,6 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       Uri.parse(createUrl(sets[T]!, postType: PostType.DELETE, ID: task.id)),
       headers: {
         "Content-Type": "application/json",
-        "Cookie": Cookies.Cookie,
         "X-CSRFToken": Cookies.CSRFToken
         // HttpHeaders.authorizationHeader: Cookies.CSRFToken
       },
@@ -126,7 +123,6 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       Uri.parse(createUrl(sets[T]!, postType: PostType.UPDATE)),
       headers: {
         "Content-Type": "application/json",
-        "Cookie": Cookies.Cookie,
         "X-CSRFToken": Cookies.CSRFToken
         //HttpHeaders.authorizationHeader: Cookies.CSRFToken
       },
