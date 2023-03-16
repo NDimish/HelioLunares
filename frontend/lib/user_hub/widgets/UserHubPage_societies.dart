@@ -14,7 +14,7 @@ class _UserHubPage_societiesState extends State<UserHubPage_societies> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MainAppBar(context),
+      appBar: AppBar(),
       // MainAppBar(),
       body: Center(
         child: Container(
