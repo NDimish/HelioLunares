@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/bought_tickets/buy_ticket_screen.dart';
-// import '../backend_communication/get.dart' as data;
+import '../backend_communication/authenticate.dart';
+import '../backend_communication/dataCollector.dart' as data;
 
 class UserBoughtTicketScreen extends StatefulWidget {
-  // final data.OrderType Orderby;
-  // final String filter;
-  // // final int id;
+  final data.OrderType Orderby;
+  final String filter;
+  // final int id;
 
-  // const UserBoughtTicketScreen(
-  //     {Key? key,
-  //     this.Orderby = data.OrderType.CHRONOLOGICAL,
-  //     this.filter = 'none',
-  //     // this.id = -1
-  //     }
-  //   )
-  //     : super(key: key);
+  const UserBoughtTicketScreen(
+      {Key? key,
+      this.Orderby = data.OrderType.CHRONOLOGICAL,
+      this.filter = 'none',
+      // this.id = -1
+      }
+    )
+      : super(key: key);
 
-  const UserBoughtTicketScreen({Key? key}) : super(key: key);
+  // const UserBoughtTicketScreen({Key? key}) : super(key: key);
 
   @override
   State<UserBoughtTicketScreen> createState() => _UserBoughtTicketScreenState();
@@ -27,18 +29,22 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // return ChangeNotifierProvider(
-    // create: (context) => data.dataCollector<data.Event>(
-    //   filter: widget.filter,
-    //   order: widget.Orderby,
-    //   // id: widget.id,
-    // ),
-    // builder: (context, child) {
-    //   final DataP = Provider.of<data.dataCollector<data.Event>>(context);
-    return Scaffold(
-        backgroundColor: const Color(0xFFC8B8D8), body: _buildPanel());
-    // }
-    // );
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => data.dataCollector<data.Event>(
+            filter: widget.filter, order: widget.Orderby)),
+        ChangeNotifierProvider(
+          create: (context) => data.dataCollector<data.User>(
+            filter: widget.filter, order: widget.Orderby)),
+      ],
+      builder: (context, child) {
+        final DataP2 = Provider.of<data.dataCollector<data.Event>>(context);
+        final DataP = Provider.of<data.dataCollector<data.User>>(context);
+        return Scaffold(
+          backgroundColor: const Color(0xFFC8B8D8), body: _buildPanel());
+      }
+    );
   }
 
   Widget _buildPanel() {
@@ -118,8 +124,8 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                             children: const [
                               Expanded(
                                 child: Text(
-                                  '  Title: ',
-                                  //  + DataP.collection[index].title,
+                                  '  Title: '
+                                   + DataP.collection[index].title,
                                   textAlign: TextAlign.left,
                                   style: TextStyle(fontSize: 20),
                                 ),
@@ -142,8 +148,8 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                             children: const [
                               Expanded(
                                 child: Text(
-                                  '  Date: ',
-                                  //  + DataP.collection[index].date,
+                                  '  Date: '
+                                   + DataP.collection[index].date,
                                   textAlign: TextAlign.left,
                                   style: TextStyle(fontSize: 20),
                                 ),
@@ -162,8 +168,8 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                             children: const [
                               Expanded(
                                 child: Text(
-                                  '  Venue: ',
-                                  //  + DataP.collection[index].venue,
+                                  '  Venue: '
+                                   + DataP.collection[index].venue,
                                   textAlign: TextAlign.left,
                                   style: TextStyle(fontSize: 20),
                                 ),
@@ -171,25 +177,25 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                             ],
                           )),
 
-                      Container(
-                          height: 60,
-                          decoration: BoxDecoration(
-                              color: const Color(0xFFB08BBB),
-                              border: Border.all(
-                                  width: 10, color: const Color(0xFF8C7099)),
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Row(
-                            children: const [
-                              Expanded(
-                                child: Text(
-                                  '  Seat: ',
-                                  //  + DataP.collection[index].seat,
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(fontSize: 20),
-                                ),
-                              ),
-                            ],
-                          )),
+                      // Container(
+                      //     height: 60,
+                      //     decoration: BoxDecoration(
+                      //         color: const Color(0xFFB08BBB),
+                      //         border: Border.all(
+                      //             width: 10, color: const Color(0xFF8C7099)),
+                      //         borderRadius: BorderRadius.circular(20)),
+                      //     child: Row(
+                      //       children: const [
+                      //         Expanded(
+                      //           child: Text(
+                      //             '  Seat: ',
+                      //              + DataP.collection[index].seat,
+                      //             textAlign: TextAlign.left,
+                      //             style: TextStyle(fontSize: 20),
+                      //           ),
+                      //         ),
+                      //       ],
+                      //     )),
 
                       // Container(
                       //   height: 60,
@@ -229,8 +235,8 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                             children: const [
                               Expanded(
                                 child: Text(
-                                  '  Description: ',
-                                  //  + DataP.collection[index].description,
+                                  '  Description: '
+                                   + DataP.collection[index].description,
                                   textAlign: TextAlign.left,
                                   style: TextStyle(fontSize: 20),
                                 ),
@@ -309,23 +315,23 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                     ),
                     child: Row(
                       children: const [
+                        // Expanded(
+                        //   child: Text(
+                        //     'Venue',
+                        //     textAlign: TextAlign.right,
+                        //     selectionColor: Colors.black,
+                        //   ),
+                        // ),
+                        // Expanded(
+                        //   child: Text(
+                        //     'Date',
+                        //     textAlign: TextAlign.center,
+                        //     selectionColor: Colors.black,
+                        //   ),
+                        // ),
                         Expanded(
                           child: Text(
-                            'Venue',
-                            textAlign: TextAlign.right,
-                            selectionColor: Colors.black,
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            'Date',
-                            textAlign: TextAlign.center,
-                            selectionColor: Colors.black,
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            'Ticket 2',
+                            "" + DataP.collection[index].title,
                             textAlign: TextAlign.left,
                             selectionColor: Colors.black,
                           ),
@@ -388,23 +394,23 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                     ),
                     child: Row(
                       children: const [
+                        // Expanded(
+                        //   child: Text(
+                        //     'Venue',
+                        //     textAlign: TextAlign.right,
+                        //     selectionColor: Colors.black,
+                        //   ),
+                        // ),
+                        // Expanded(
+                        //   child: Text(
+                        //     'Date',
+                        //     textAlign: TextAlign.center,
+                        //     selectionColor: Colors.black,
+                        //   ),
+                        // ),
                         Expanded(
                           child: Text(
-                            'Venue',
-                            textAlign: TextAlign.right,
-                            selectionColor: Colors.black,
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            'Date',
-                            textAlign: TextAlign.center,
-                            selectionColor: Colors.black,
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            'Ticket 1',
+                            "" + DataP.collection[index].title,
                             textAlign: TextAlign.left,
                             selectionColor: Colors.black,
                           ),
