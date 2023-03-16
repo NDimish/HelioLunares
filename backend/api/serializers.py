@@ -69,7 +69,8 @@ class PeopleCreationSerializer(serializers.ModelSerializer):
 
 class EventModelSerializer(serializers.ModelSerializer):
     """Event Model Serializer """
-
+    society_id = SocietySerializer()
+    
     class Meta:
         model = Event
         fields = "__all__"
@@ -85,6 +86,9 @@ class EventModelSerializer(serializers.ModelSerializer):
 
 
 class TicketModelSerializer(serializers.ModelSerializer):
+    event = EventModelSerializer()
+    user = UserSerializer()
+
     class Meta:
         model = Ticket
         fields = "__all__"
@@ -97,6 +101,9 @@ class EventCategoriesTypeModelSerializer(serializers.ModelSerializer):
 
 
 class EventCategoriesModelSerializer(serializers.ModelSerializer):
+    eventId = EventModelSerializer()
+    categoryId = EventCategoriesTypeModelSerializer()
+
     class Meta:
         model = EventCategories
         fields = "__all__"
@@ -109,6 +116,9 @@ class SocietyCategoriesTypeModelSerializer(serializers.ModelSerializer):
 
 
 class SocietyCategoriesModelSerializer(serializers.ModelSerializer):
+    societyId = SocietySerializer()
+    categoryId = SocietyCategoriesTypeModelSerializer()
+
     class Meta:
         model = SocietyCategories
         fields = "__all__"
