@@ -278,7 +278,6 @@ class SocietyView(APIView):
 @api_view(['POST'])
 def society_join(request):
     #if user if society email, allow access
-    print(request.user.user_level)
     if request.user.user_level == 3:
         #Society account can not join other societies
         return Response(status=status.HTTP_400_BAD_REQUEST)

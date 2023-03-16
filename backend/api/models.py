@@ -72,8 +72,8 @@ class Society(models.Model):
         # Store this info in the StudentRoleAtSociety database.
         role_given = PeopleRoleAtSociety.objects.create(
             society=self,
-            user_at_society=user,
-            level=level
+            user_at_society=People.objects.get(user=user),
+            role=level
         )
         role_given.full_clean()
         role_given.save()
