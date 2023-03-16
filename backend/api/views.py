@@ -354,8 +354,8 @@ def society_remove_user(request):
             #search for the society that they want
             try:
                 soc = Society.objects.get(user_id=request.data['society'])
-            except Exception as e:
-                return Response(e, status=status.HTTP_404_NOT_FOUND)
+            except:
+                return Response({'error':'Society not found.'}, status=status.HTTP_404_NOT_FOUND)
             
             #check if they are already part of the society
             people = People.objects.get(user=request.user)
@@ -370,19 +370,22 @@ def society_remove_user(request):
 
 @api_view(['POST'])
 def society_update_user(request):
-    print(request.user.user_level)
     if request.user.user_level == 3:
-        #Look for society
+        #society user can only edit roles for their own society
         try:
-            soc = Society.objects.get(user_id=request.data['society'])
+            soc = request.data['society']
+            return Response({'error':'You can only edit roles in your own society'},status=status.HTTP_400_BAD_REQUEST)
         except:
-            return Response({'error':'Society not found'}, status=status.HTTP_404_NOT_FOUND)
+            pass
+
+        #Get their society
+        soc = Society.objects.get(user=request.user)
 
         #check if they are already part of the society
         try:
             update_role = PeopleRoleAtSociety.objects.get(society=soc,user_at_society=request.data['user'])
         except:
-            return Response({'error':'User not joined society'},status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error':'User has not joined society'},status=status.HTTP_400_BAD_REQUEST)
 
         if request.data['role_level'] in {1,2,3}:
             update_role.role = request.data['role_level']
@@ -399,11 +402,11 @@ def society_update_user(request):
         
         #check if current user is part of the society
         try:
-            curr_role = PeopleRoleAtSociety.objects.get(society=soc,user_at_society=request.user)
+            curr_role = PeopleRoleAtSociety.objects.get(society=soc,user_at_society=request.user.id)
         except:
             return Response({'error':'User has not joined society'},status=status.HTTP_400_BAD_REQUEST)
 
-        if curr_role != 3:
+        if curr_role.role != 3:
             return Response({'error':'User does not have adequte power.'},status=status.HTTP_400_BAD_REQUEST)
 
         #check if they are already part of the society
