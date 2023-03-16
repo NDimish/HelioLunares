@@ -6,7 +6,6 @@ from rest_framework.permissions import AllowAny, IsAuthenticated, BasePermission
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.filters import OrderingFilter
 from rest_framework.views import APIView
-from django.db import IntegrityError
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
@@ -157,7 +156,7 @@ class UsersListView(generics.ListAPIView):
                 created_user.delete()
                 new_person.delete()
                 return Response(e, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    
+
 
 class UserView(APIView):
     """View to retrieve data about a user"""
@@ -169,6 +168,14 @@ class UserView(APIView):
             return Response(serializer.data)
         except:
             return Response({'error':'User not found.'},status=status.HTTP_404_NOT_FOUND)
+
+    def put(self, request, pk):
+        user = User.objects.get(id=pk)
+        serializer = UserSerializer(instance=user, data=request.data,partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 
 class PeopleListView(generics.ListAPIView):
     """ View list of all people accounds"""
@@ -189,6 +196,12 @@ class PeopleView(APIView):
         except:
             return Response({'error':'User not found.'},status=status.HTTP_404_NOT_FOUND)
 
+    def put(self, request, pk):
+        people = People.objects.get(user_id=pk)
+        serializer = PeopleSerializer(instance=people, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 class SocietyListView(generics.ListAPIView):
     """View to retrieve list of societies"""
@@ -271,6 +284,14 @@ class SocietyView(APIView):
             return Response(serializer.data)
         except:
             return Response({'error':'Society not found.'},status=status.HTTP_404_NOT_FOUND)
+    
+    def put(self, request, pk):
+        soc = Society.objects.get(user_id=pk)
+        serializer = SocietySerializer(instance=soc, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
     def delete(self, request, pk):
         Society.objects.filter(user_id=pk).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
@@ -455,7 +476,7 @@ class EventApiInfoView(APIView):
 
     def put(self, request, pk):
         event = Event.objects.filter(id=pk).first()
-        serializer = EventModelSerializer(instance=event, data=request.data)
+        serializer = EventModelSerializer(instance=event, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -489,7 +510,7 @@ class UniversityInfoApiView(APIView):
     def put(self, request, pk):
         university = University.objects.filter(id=pk).first()
         request.data["name"] = pk
-        serializer = UniversitySerializer(instance=university, data=request.data)
+        serializer = UniversitySerializer(instance=university, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
@@ -521,7 +542,7 @@ class TicketInfoApiView(APIView):
 
     def put(self, request, pk):
         ticket = Ticket.objects.filter(id=pk).first()
-        serializer = TicketModelSerializer(instance=ticket, data=request.data)
+        serializer = TicketModelSerializer(instance=ticket, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
@@ -553,7 +574,7 @@ class EventCategoriesTypeInfoApiView(APIView):
 
     def put(self, request, pk):
         eventCategoriesType = EventCategoriesTypeModelSerializer.objects.filter(id=pk).first()
-        serializer = EventCategoriesTypeModelSerializer(instance=eventCategoriesType, data=request.data)
+        serializer = EventCategoriesTypeModelSerializer(instance=eventCategoriesType, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
@@ -585,7 +606,7 @@ class EventCategoriesInfoApiView(APIView):
 
     def put(self, request, pk):
         eventCategories = EventCategories.objects.filter(id=pk).first()
-        serializer = EventCategoriesModelSerializer(instance=eventCategories, data=request.data)
+        serializer = EventCategoriesModelSerializer(instance=eventCategories, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
@@ -618,7 +639,7 @@ class SocietyCategoriesTypeInfoApiView(APIView):
 
     def put(self, request, pk):
         societyCategoriesType = SocietyCategoriesType.objects.filter(id=pk).first()
-        serializer = TicketModelSerializer(instance=societyCategoriesType, data=request.data)
+        serializer = TicketModelSerializer(instance=societyCategoriesType, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
@@ -651,7 +672,7 @@ class SocietyCategoriesInfoApiView(APIView):
 
     def put(self, request, pk):
         societyCategories = SocietyCategories.objects.filter(id=pk).first()
-        serializer = SocietyCategoriesModelSerializer(instance=societyCategories, data=request.data)
+        serializer = SocietyCategoriesModelSerializer(instance=societyCategories, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
