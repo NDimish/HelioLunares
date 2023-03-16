@@ -28,7 +28,7 @@
     },
     {
         "model": "api.peopleroleatsociety",
-        "pk": 1,
+        "pk": 4,
         "fields": {
             "society": 5,
             "user_at_society": 1,
