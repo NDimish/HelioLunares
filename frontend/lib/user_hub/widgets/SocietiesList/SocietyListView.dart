@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'SocietyListTile.dart';
 
-class SocietyListView extends GridView {
+class SocietyListView extends ListView {
   SocietyListView(BuildContext context, {super.key})
       : super(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4, crossAxisSpacing: 30, mainAxisSpacing: 30),
             padding: const EdgeInsets.all(20),
             children: [
-              SocietyListTile(context, "Test event", DateTime.now(), "Wesley"),
-              SocietyListTile(context, "Test event", DateTime.now(), "Wesley"),
-              SocietyListTile(context, "Test event", DateTime.now(), "Wesley"),
+              SocietyListTile(societyName: "Soc 1", summary:"A very long text. A very long text. A very long text. A very long text. A very long text.", uni: "KCL"),
+              SocietyListTile(societyName: "Soc 2",summary: "Hi hello", uni:"Imperial"),
+              SocietyListTile(societyName: "Soc yummy",summary: "Hi hello", uni:"Oxford"),
+              SocietyListTile(societyName: "The High Table",summary: "", uni:"---"),
             ]);
 }
