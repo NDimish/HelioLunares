@@ -25,6 +25,13 @@ class AllowPost(BasePermission):
 #URl Endpoints
 
 @api_view(['GET'])
+@permission_classes({AllowAny})
+def homePage(request):
+    socs = Society.objects.all()
+    serializer = SocietyHomePageSerializer(socs, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
 def log_out(request):
     logout(request)
     return Response(data={'user_logged_out': True}, status=status.HTTP_200_OK)

@@ -34,7 +34,6 @@ class SocietySerializer(serializers.ModelSerializer):
         else:
             return "media/default-image.png"
 
-        
 class PeopleRoleAtSocietySerializer(serializers.ModelSerializer):
     society = SocietySerializer()
     user_at_society = PeopleSerializer()
@@ -60,7 +59,6 @@ class EventModelSerializer(serializers.ModelSerializer):
 
         }
 
-
 class TicketModelSerializer(serializers.ModelSerializer):
     event = EventModelSerializer()
     user = UserSerializer()
@@ -69,12 +67,10 @@ class TicketModelSerializer(serializers.ModelSerializer):
         model = Ticket
         fields = "__all__"
 
-
 class EventCategoriesTypeModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = EventCategoriesType
         fields = "__all__"
-
 
 class EventCategoriesModelSerializer(serializers.ModelSerializer):
     eventId = EventModelSerializer()
@@ -84,12 +80,10 @@ class EventCategoriesModelSerializer(serializers.ModelSerializer):
         model = EventCategories
         fields = "__all__"
 
-
 class SocietyCategoriesTypeModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = SocietyCategoriesType
         fields = "__all__"
-
 
 class SocietyCategoriesModelSerializer(serializers.ModelSerializer):
     societyId = SocietySerializer()
@@ -98,3 +92,16 @@ class SocietyCategoriesModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = SocietyCategories
         fields = "__all__"
+    
+class SocietyHomePageSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Society
+        fields = ['name','image', 'about_us']
+    
+    def get_image(self, society):
+        if society.image:
+            return society.image.url
+        else:
+            return "media/default-image.png"
