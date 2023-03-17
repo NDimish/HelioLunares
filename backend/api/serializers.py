@@ -12,16 +12,42 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id','email']
-
+        
 class UniversitySerializer(serializers.ModelSerializer):
     class Meta:
         model = University
         fields = '__all__'
 
 class SocietySerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+    university_society_is_at = UniversitySerializer()
     class Meta:
         model = Society
         fields = ['pk', 'user', 'name', 'creation_date', 'university_society_is_at', 'join_date']
+        
+        
+        
+"""Serializers for creating users"""
+class UserCreationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['email', 'password']
+class SocietyCreationSerializer(serializers.ModelSerializer):
+    user = UserCreationSerializer()
+    university_society_is_at = UniversitySerializer()
+    class Meta:
+        model = Society
+        fields = ['user', 'name', 'creation_date', 'university_society_is_at', 'join_date']
+
+class StudentCreationSerializer(serializers.ModelSerializer):
+    user = UserCreationSerializer()
+    university_studying_at = UniversitySerializer()
+    class Meta:
+        model = Student
+        fields = '__all__'
+
+"""
+"""
 
 
 class EventModelSerializer(serializers.ModelSerializer):

@@ -130,4 +130,13 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
     }
     return false;
   }
+
+  getRelation(Relatiions relations, int id) {
+    switch (relations) {
+      case Relatiions.HOSTS:
+        return id;
+
+      default:
+    }
+  }
 }
