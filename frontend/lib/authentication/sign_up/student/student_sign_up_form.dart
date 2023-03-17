@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:university_ticketing_system/authentication/log_in/log_in_button.dart';
+import 'package:university_ticketing_system/submit_button.dart';
 import 'package:university_ticketing_system/authentication/log_in/log_in_screen.dart';
 import 'package:university_ticketing_system/authentication/models/user_account.dart';
 import 'package:university_ticketing_system/authentication/sign_up/student/stage_two_student_form.dart';
-import 'package:university_ticketing_system/authentication/tff_decoration.dart';
+import 'package:university_ticketing_system/tff_decoration.dart';
 import 'package:university_ticketing_system/authentication/validators/email_validator.dart';
 import 'package:university_ticketing_system/authentication/validators/password_validator.dart';
 import 'package:university_ticketing_system/gradient_animation.dart';
