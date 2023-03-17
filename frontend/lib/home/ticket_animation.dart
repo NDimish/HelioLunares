@@ -87,29 +87,71 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Society Event Finder",
-                        textScaleFactor: 2.5,
-                        style: TextStyle(
-                            fontFamily: "Arvo",
-                            fontWeight: FontWeight.bold,
-                            fontSize: ResponsiveWidget.isSmallScreen(context)
-                                ? 13
-                                : 20)),
-                    const SizedBox(height: 5),
-                    Text("--- Find Uni Events Across The U.K ---",
-                        textScaleFactor: 1.3,
-                        style: TextStyle(
-                            fontFamily: "Arvo",
-                            fontWeight: FontWeight.bold,
-                            fontSize: ResponsiveWidget.isSmallScreen(context)
-                                ? 9
-                                : 13)),
+                    ResponsiveWidget.isSmallScreen(context)
+                        ? smallTitle(context)
+                        : cardTitle(context)
                   ],
                 ),
               )),
         ),
       ),
     ));
+  }
+
+  Column smallTitle(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text("Society Event Finder",
+            textAlign: TextAlign.center,
+            textScaleFactor: 2.5,
+            style: TextStyle(
+                fontFamily: "Arvo",
+                fontWeight: FontWeight.bold,
+                fontSize: ResponsiveWidget.isSmallScreen(context) ? 13 : 20)),
+        const SizedBox(height: 5),
+        Text("--- Find Uni Events Across The U.K ---",
+            textAlign: TextAlign.center,
+            textScaleFactor: 1.3,
+            style: TextStyle(
+                fontFamily: "Arvo",
+                fontWeight: FontWeight.bold,
+                fontSize: ResponsiveWidget.isSmallScreen(context) ? 9 : 13)),
+      ],
+    );
+  }
+
+  Card cardTitle(BuildContext context) {
+    return Card(
+        color: Colors.white.withOpacity(0.4),
+        elevation: 0,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(15.0))),
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text("Society Event Finder",
+                  textAlign: TextAlign.center,
+                  textScaleFactor: 2.5,
+                  style: TextStyle(
+                      fontFamily: "Arvo",
+                      fontWeight: FontWeight.bold,
+                      fontSize:
+                          ResponsiveWidget.isSmallScreen(context) ? 13 : 20)),
+              const SizedBox(height: 5),
+              Text("--- Find Uni Events Across The U.K ---",
+                  textAlign: TextAlign.center,
+                  textScaleFactor: 1.3,
+                  style: TextStyle(
+                      fontFamily: "Arvo",
+                      fontWeight: FontWeight.bold,
+                      fontSize:
+                          ResponsiveWidget.isSmallScreen(context) ? 9 : 13)),
+            ],
+          ),
+        ));
   }
 
   // Behaviour _buildBehaviour() {

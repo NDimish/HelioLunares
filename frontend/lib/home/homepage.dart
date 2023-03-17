@@ -47,16 +47,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-class tw extends StatelessWidget {
-  const tw({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: const Text("Contact Us")),
-        body: CustomLinearGradient(
-          child: const Center(child: Text("Another test")),
-        ));
-  }
-}

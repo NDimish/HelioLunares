@@ -4,6 +4,8 @@ import 'package:university_ticketing_system/authentication/sign_up/choose_sign_u
 import 'package:university_ticketing_system/authentication/sign_up/society/society_sign_up.dart';
 import 'package:university_ticketing_system/authentication/sign_up/student/student_sign_up.dart';
 import 'package:university_ticketing_system/home/homepage.dart';
+import 'package:university_ticketing_system/home/homepage_screens/contact/contact.dart';
+import 'package:university_ticketing_system/home/homepage_screens/discover/discover_screen.dart';
 
 class HomeScreenDrawer extends StatelessWidget {
   const HomeScreenDrawer({super.key});
@@ -17,10 +19,30 @@ class HomeScreenDrawer extends StatelessWidget {
           const DrawerHeader(
             decoration: BoxDecoration(color: Colors.black),
             child: Text(
-              '- Options -',
+              '- Welcome -',
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.white, fontFamily: "Arvo"),
             ),
+          ),
+          ListTile(
+            title: const Text(
+              'Home',
+              style: TextStyle(fontFamily: "Arvo"),
+            ),
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const HomePage()),
+              );
+            },
+          ),
+          const Divider(),
+          ListTile(
+            title: const Text(
+              'About',
+              style: TextStyle(fontFamily: "Arvo"),
+            ),
+            onTap: () {},
           ),
           ListTile(
             title: const Text(
@@ -28,7 +50,10 @@ class HomeScreenDrawer extends StatelessWidget {
               style: TextStyle(fontFamily: "Arvo"),
             ),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const DiscoverScreen()),
+              );
             },
           ),
           ListTile(
@@ -37,12 +62,13 @@ class HomeScreenDrawer extends StatelessWidget {
               style: TextStyle(fontFamily: "Arvo"),
             ),
             onTap: () {
-              Navigator.push(
+              Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => tw()),
+                MaterialPageRoute(builder: (context) => const ContactScreen()),
               );
             },
           ),
+          const Divider(),
           ListTile(
             title: const Text(
               'Log In',
