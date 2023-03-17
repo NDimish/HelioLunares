@@ -206,7 +206,7 @@ class _SocietySignUpFormState extends State<SocietySignUpForm> {
                 },
                 scaleFactor:
                     ResponsiveWidget.isSmallScreen(context) ? 0.6 : 0.45,
-                textIn: "Sign Up"),
+                textIn: "Continue"),
             const SizedBox(height: 8),
             TextButton(
                 onPressed: () {
