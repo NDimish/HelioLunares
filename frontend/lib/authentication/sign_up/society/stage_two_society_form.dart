@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:university_ticketing_system/authentication/log_in/log_in_button.dart';
+import 'package:university_ticketing_system/authentication/sign_up/society/stage_three_society_form.dart';
+import 'package:university_ticketing_system/submit_button.dart';
 import 'package:university_ticketing_system/authentication/log_in/log_in_screen.dart';
 import 'package:university_ticketing_system/authentication/models/society.dart';
 import 'package:university_ticketing_system/authentication/models/student.dart';
 import 'package:university_ticketing_system/authentication/models/user_account.dart';
-import 'package:university_ticketing_system/authentication/tff_decoration.dart';
+import 'package:university_ticketing_system/tff_decoration.dart';
 import 'package:university_ticketing_system/gradient_animation.dart';
 import 'package:university_ticketing_system/home/home_drawer.dart';
 import 'package:university_ticketing_system/home/topbar.dart';
 import 'package:university_ticketing_system/responsive.dart';
+import 'package:intl/intl.dart';
 
 class StageTwoSocietySignUp extends StatefulWidget {
   UserAccount user;
@@ -24,6 +26,8 @@ class _StageTwoSocietySignUpState extends State<StageTwoSocietySignUp> {
   Society society = Society();
   FocusNode inputNode = FocusNode();
 
+  late DateTime currentDate;
+
   TextEditingController societyNameController = TextEditingController();
   TextEditingController dateCreatedController = TextEditingController();
   TextEditingController uniAtController = TextEditingController();
@@ -33,10 +37,28 @@ class _StageTwoSocietySignUpState extends State<StageTwoSocietySignUp> {
   void initState() {
     //print(widget.user.email);
     super.initState();
+    currentDate = DateTime.now();
   }
 
   void openKeyboard() {
     FocusScope.of(context).requestFocus(inputNode);
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+        context: context,
+        initialDate: currentDate,
+        firstDate: DateTime(2015),
+        lastDate: DateTime(2050));
+    if (pickedDate != null && pickedDate != currentDate) {
+      setState(() {
+        dateCreatedController.clear();
+        currentDate = pickedDate;
+
+        String formattedDate = DateFormat('yyyy-MM-dd').format(currentDate);
+        dateCreatedController.text = formattedDate;
+      });
+    }
   }
 
   @override
@@ -45,14 +67,14 @@ class _StageTwoSocietySignUpState extends State<StageTwoSocietySignUp> {
     return Scaffold(
       appBar: ResponsiveWidget.isSmallScreen(context)
           ? AppBar(
-              title: const Text("Complete Sign Up",
+              title: const Text("Continue Sign Up",
                   style: TextStyle(
                     fontFamily: "Arvo",
                     fontWeight: FontWeight.bold,
                     fontSize: 17,
                   )))
           : AppBar(
-              title: const Text("Complete Sign Up",
+              title: const Text("Continue Sign Up",
                   style: TextStyle(
                     fontFamily: "Arvo",
                     fontWeight: FontWeight.bold,
@@ -87,7 +109,7 @@ class _StageTwoSocietySignUpState extends State<StageTwoSocietySignUp> {
                                       height:
                                           MediaQuery.of(context).size.height *
                                               0.01),
-                                  const Text("Finish Sign Up",
+                                  const Text("Continue Your Sign Up",
                                       textScaleFactor: 2.5,
                                       style: TextStyle(
                                           fontFamily: "Arvo",
@@ -97,7 +119,7 @@ class _StageTwoSocietySignUpState extends State<StageTwoSocietySignUp> {
                                           MediaQuery.of(context).size.height *
                                               0.005),
                                   const Text(
-                                    "----- Finish creating your account! -----",
+                                    "----- Continue creating your account! -----",
                                     style: TextStyle(
                                         fontFamily: "Arvo",
                                         color: Colors.black),
@@ -180,6 +202,14 @@ class _StageTwoSocietySignUpState extends State<StageTwoSocietySignUp> {
                       const TextStyle(fontFamily: "Arvo", color: Colors.black),
                   controller: dateCreatedController,
                   //validator: ,
+                  onTap: () {
+                    _selectDate(context);
+                    // setState(() {
+                    //   dateCreatedController.text =
+                    //       currentDate.toString(); //.split(" ")[0];
+                    // });
+                    print(currentDate.toString());
+                  },
                   onFieldSubmitted: (value) {
                     print("dc submitted");
                   },
@@ -194,50 +224,31 @@ class _StageTwoSocietySignUpState extends State<StageTwoSocietySignUp> {
                   decoration: customDecoration(
                       "Date of Establishment",
                       "Enter the society's creation date",
-                      Icons.school_outlined)),
+                      Icons.date_range_rounded)),
             ),
-            //SizedBox(height: MediaQuery.of(context).size.height * 0.035),
-            // SizedBox(
-            //   width: ResponsiveWidget.isSmallScreen(context)
-            //       ? MediaQuery.of(context).size.width * 0.85
-            //       : MediaQuery.of(context).size.width * 0.60,
-            //   child: TextFormField(
-            //       cursorColor: Colors.black,
-            //       style:
-            //           const TextStyle(fontFamily: "Arvo", color: Colors.black),
-            //       controller: uniAtController,
-            //       //validator: ,
-            //       onFieldSubmitted: (value) {
-            //         print("uniAt submitted");
-            //       },
-            //       onChanged: (value) {
-            //         student.setUniversity(uniAtController.text);
-            //         print(student.university);
-            //       },
-            //       onSaved: (newValue) {
-            //         student.setUniversity(newValue!);
-            //       },
-            //       //obscureText: confirmPasswordVisible,
-            //       decoration: customDecoration(
-            //           "Enter your university",
-            //           "Enter your affiliated university",
-            //           Icons.school_outlined)),
-            // ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.11),
             SubmitButton(
                 onPressed: () {
-                  _formKey.currentState!.validate()
-                      ? print("Society Stage Two Form valid")
-                      : print("Invalid form");
-                  // ? Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => const StudentHomePage()),
-                  //   )
+                  // _formKey.currentState!.validate()
+                  //     ? print("Society Stage Two Form valid")
+                  //     : print("Invalid form");
+                  society.setDateCreated(dateCreatedController.text);
+                  society.setSocName(societyNameController.text);
+                  society.setUni(uniAtController.text);
+                  society.setUserAccount(widget.user);
+
+                  if (_formKey.currentState!.validate()) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              StageThreeSocietySignUp(soc: society)),
+                    );
+                  }
                 },
                 scaleFactor:
                     ResponsiveWidget.isSmallScreen(context) ? 0.6 : 0.45,
-                textIn: "Create account"),
+                textIn: "Continue"),
             const SizedBox(height: 8),
             TextButton(
                 onPressed: () {
