@@ -1,6 +1,6 @@
 class UserAccount {
   //late String email;
-  String email = "f";
+  late String email;
   late String password;
   late String confirmedPassword;
 
