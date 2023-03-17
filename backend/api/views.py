@@ -177,11 +177,32 @@ class UserView(APIView):
             return Response({'error':'User not found.'},status=status.HTTP_404_NOT_FOUND)
 
     def put(self, request, pk):
+        if(pk != request.user.id):
+            return Response({'error':'Can only change our own user data.'},status=status.HTTP_400_BAD_REQUEST)
+        
         user = User.objects.get(id=pk)
         serializer = UserSerializer(instance=user, data=request.data,partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        try:
+            new_pass = request.data['password']
+        except:
+            new_pass = False
+        
+        if new_pass == False:
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            try:
+                validate_password(new_pass)
+                user.set_password(new_pass)
+                user.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            except ValidationError as e:
+                return Response(e, status=status.HTTP_400_BAD_REQUEST)
+            except:
+                return Response({'error':'Details saved except password'}, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 class PeopleListView(generics.ListAPIView):
