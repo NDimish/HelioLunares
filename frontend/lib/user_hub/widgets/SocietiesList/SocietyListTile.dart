@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/user_hub/widgets/SocietiesList/EventsListPage.dart';
-import 'package:university_ticketing_system/user_hub/widgets/SocietiesList/IndividualSocietyPage.dart';
+import 'package:university_ticketing_system/user_hub/widgets/SocietiesList/IndividualSocietyPageLarge.dart';
 
 // Should have:
 // Image
