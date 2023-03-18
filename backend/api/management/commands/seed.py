@@ -363,8 +363,75 @@ class Command(BaseCommand):
                 print(f"object {soc_cat}  was already seeded.")
             
     def generate_event(self):
-        soc_list = Society.objects.all()
+        societies = Society.objects.all()
         
+        obtained_society = societies[random.randint(0, len(societies) - 1)]
+        event_name = obtained_society.name + " - Event " + self.faker.word()
+        try:
+            event = Event.objects.create(
+                society_id = obtained_society,
+                duration = random.randint(15, 180),
+                event_date = self.faker.future_date(),
+                event_name = event_name,
+                event_location = self.faker.county(),
+                description = self.faker.paragraphs(nb=3),
+                price = random.randint(0, 200)
+            )
+            
+            event.save()
+            
+        except (IntegrityError):
+            print(f"object {event, event_name}  was already seeded.")
+        
+    def generate_event_categories(self):
+        events = Event.objects.all()
+        category_types = EventCategoriesType.objects.all()
+        
+        obtained_event = events[random.randint(0, len(events) - 1)]
+        
+        for i in range(0, random.randint(1, 4)):
+            try:
+                e = EventCategories.objects.create(
+                    eventId = obtained_event,
+                    categoryId = category_types[random.randint(0, len(category_types) - 1)]
+                )
+                e.save()
+            except (IntegrityError):
+                print(f"object {obtained_event.event_name}  was already seeded.")
+            
+    def generate_society_categories(self):
+        societies = Society.objects.all()
+        category_types = SocietyCategoriesType.objects.all()
+        
+        obtained_society = societies[random.randint(0, len(societies) - 1)]
+            
+        for i in range(0, random.randint(1, 4)):
+            try:
+                s = SocietyCategories.objects.create(
+                    societyId = obtained_society,
+                    categoryId = category_types[random.randint(0, len(category_types) - 1)]
+                )
+                s.save()
+            except (IntegrityError):
+                print(f"object {obtained_society.name}  was already seeded.")
+                
+    def generate_tickets(self):
+        events = Event.objects.all()
+        #Shouldn't this be People?
+        users = User.objects.all()
+        
+        obtained_event = events[random.randint(0, len(events) - 1)]
+        obtained_user = users[random.randint(0, len(users) - 1)]
+        
+        try:
+            t = Ticket.objects.create(
+                event = obtained_event,
+                user = obtained_user,
+                price = obtained_event.price
+            )
+            t.save()
+        except (IntegrityError):
+            print(f"object {obtained_event.event_name, obtained_user.email}  was already seeded.")
     
     def handle(self, *args, **options):
         print("seeding...")
@@ -378,24 +445,32 @@ class Command(BaseCommand):
         """
         
         self.generate_universities()
-        
+        self.generate_event_categories_type()
+        self.generate_society_categories_type()
         
         #NOTE: The number 'counter', below must be the same for both for loops as socities and persons to user is a 1 to 1 relationship.
-        counter = 75
-        #Generate default user accounts.
-        for i in range(1, counter):
-            self.generate_user()
+        # counter = 75
+        # #Generate default user accounts.
+        # for i in range(1, counter):
+        #     self.generate_user()
         
-        #Generate people and societies.
-        for i in range(1, counter):
-            self.generate_person()
-            self.generate_socity()
+        # #Generate people and societies.
+        # for i in range(1, counter):
+        #     self.generate_person()
+        #     self.generate_socity()
         
         print(f"done.")
         print(f"{University.objects.count()} unis in the db.")
+        
         print(f"{User.objects.count()} users in the db.")
         print(f"{People.objects.count()} people in the db")
         print(f"{Society.objects.count()} socities in the db.")
         
-        # print(f"{Event.objects.count()} events in the db.")
-        # print(f"{Ticket.objects.count()} tickets in the db.")
+        print(f"{Event.objects.count()} events in the db.")
+        print(f"{Ticket.objects.count()} tickets in the db.")
+        
+        print(f"{EventCategories.objects.count()} events / categories in the db.")
+        print(f"{EventCategoriesType.objects.count()} types of event categories in the db.")
+        
+        print(f"{SocietyCategories.objects.count()} societies / categories in the db.")
+        print(f"{SocietyCategoriesType.objects.count()} types of society categories in the db.")
