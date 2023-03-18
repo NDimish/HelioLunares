@@ -318,7 +318,28 @@ class SocietyView(APIView):
         serializer = SocietySerializer(instance=soc, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        try:
+            new_pass = request.data['password']
+        except:
+            new_pass = False
+
+        if new_pass == False:
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            
+            if (pk != request.user.id):
+                return Response({'error':'Can only change our own society password.'},status=status.HTTP_400_BAD_REQUEST)
+            user = User.objects.get(id=pk)
+            try:
+                validate_password(new_pass)
+                user.set_password(new_pass)
+                user.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            except ValidationError as e:
+                return Response(e, status=status.HTTP_400_BAD_REQUEST)
+            except:
+                return Response({'error':'Details saved except password'}, status=status.HTTP_400_BAD_REQUEST)
     
     def delete(self, request, pk):
         Society.objects.filter(user_id=pk).delete()
