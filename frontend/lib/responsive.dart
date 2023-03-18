@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+/// DESIGNED BY ISRAFEEL ASHRAF - K21008936
+///
+/// This responsive widget was used to enable responsive design of the application.
+/// It is used to check the screen sizes and then style the pages accordingly.
+///
 class ResponsiveWidget extends StatelessWidget {
   final Widget largeScreen;
   final Widget? mediumScreen;

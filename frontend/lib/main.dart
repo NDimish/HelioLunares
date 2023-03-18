@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:university_ticketing_system/gradient_animation.dart';
 import 'package:university_ticketing_system/home/homepage.dart';
-import 'package:university_ticketing_system/responsive.dart';
-import 'package:university_ticketing_system/theme.dart';
 
 void main() {
   runApp(const UniversityTicketingApp());
@@ -17,11 +14,7 @@ class UniversityTicketingApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(useMaterial3: true),
-      home: const Scaffold(
-        body: Center(
-          child: HomePage(),
-        ),
-      ),
+      home: const HomePage(),
     );
   }
 }

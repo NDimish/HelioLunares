@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+/// DESIGNED BY ISRAFEEL ASHRAF - K21008936
+///
+/// This is the standard button for the application.
+///
 class SubmitButton extends StatefulWidget {
   Function()? onPressed;
   double scaleFactor;
@@ -17,7 +21,6 @@ class SubmitButton extends StatefulWidget {
 class _SubmitButtonState extends State<SubmitButton> {
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return SizedBox(
         height: 60,
@@ -31,7 +34,7 @@ class _SubmitButtonState extends State<SubmitButton> {
                 borderRadius: BorderRadius.circular(15.0),
               )),
           child: Text(widget.textIn,
-              style: TextStyle(fontFamily: 'Arvo', color: Colors.white)),
+              style: const TextStyle(fontFamily: 'Arvo', color: Colors.white)),
         ));
   }
 }

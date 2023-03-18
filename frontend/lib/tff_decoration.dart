@@ -30,14 +30,14 @@ InputDecoration customDecoration(
 }
 
 InputDecoration customDecorationForPassword(String labelText, String hintText,
-    Function()? _togglePasswordView, bool passwordVisible) {
+    Function()? togglePasswordView, bool passwordVisible) {
   return InputDecoration(
       contentPadding: const EdgeInsets.only(left: 40.0, right: 40.0),
       suffixIcon: Padding(
           padding: const EdgeInsetsDirectional.only(end: 25.0),
           child: InkWell(
             hoverColor: Colors.transparent,
-            onTap: _togglePasswordView,
+            onTap: togglePasswordView,
             child: passwordVisible
                 ? const Icon(Icons.lock_rounded, color: Colors.black)
                 : const Icon(Icons.lock_open_rounded, color: Colors.black),

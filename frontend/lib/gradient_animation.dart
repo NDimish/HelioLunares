@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+/// IMPLEMENTED BY ISRAFEEL ASHRAF - K21008936
+///
+/// This is the gradient background of the application
+///
 class CustomLinearGradient extends StatefulWidget {
   Widget child;
   CustomLinearGradient({super.key, required this.child});
@@ -10,10 +14,10 @@ class CustomLinearGradient extends StatefulWidget {
 
 class _CustomLinearGradientState extends State<CustomLinearGradient> {
   List<Color> colors = [
-    Color(0xFF9796f0),
-    Color.fromARGB(255, 82, 197, 162),
-    Color.fromARGB(255, 214, 203, 81),
-    Color(0xFFE8CBC0)
+    const Color(0xFF9796f0),
+    const Color.fromARGB(255, 82, 197, 162),
+    const Color.fromARGB(255, 214, 203, 81),
+    const Color(0xFFE8CBC0)
   ];
 
   List<Alignment> alignments = [
