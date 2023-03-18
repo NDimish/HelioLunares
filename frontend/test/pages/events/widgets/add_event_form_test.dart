@@ -193,3 +193,5 @@ void main() {
     await tester.pumpAndSettle(const Duration(seconds: 1));
   });
 }
+
+//58% coverage so far - find out how to test date picker
