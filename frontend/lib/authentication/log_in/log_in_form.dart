@@ -8,6 +8,13 @@ import 'package:university_ticketing_system/authentication/validators/password_v
 import 'package:university_ticketing_system/gradient_animation.dart';
 import 'package:university_ticketing_system/responsive.dart';
 
+/// DESIGNED BY ISRAFEEL ASHRAF - K21008936
+///
+/// This widget is used for logging the user in.
+///   1: It contains the email field for the user to enter their email
+///   2: It contains a password field for the user's password.
+///   3: The password icon lock is a button, enabling the user to view/hide their password.
+///
 class LogInForm extends StatefulWidget {
   const LogInForm({super.key});
 
@@ -19,6 +26,8 @@ class _LogInFormState extends State<LogInForm> {
   final _formKey = GlobalKey<FormState>();
   UserAccount userAccount = UserAccount();
   late bool passwordVisible;
+
+  //This allows mobile users to move to the next field automatically when using the keyboard.
   FocusNode inputNode = FocusNode();
 
   TextEditingController emailController = TextEditingController();
@@ -26,7 +35,6 @@ class _LogInFormState extends State<LogInForm> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     passwordVisible = true;
   }
@@ -94,6 +102,8 @@ class _LogInFormState extends State<LogInForm> {
               width: ResponsiveWidget.isSmallScreen(context)
                   ? MediaQuery.of(context).size.width * 0.85
                   : MediaQuery.of(context).size.width * 0.60,
+
+              //This text form takes in the email and validates it.
               child: TextFormField(
                   cursorColor: Colors.black,
                   textInputAction: TextInputAction.next,
@@ -120,6 +130,8 @@ class _LogInFormState extends State<LogInForm> {
               width: ResponsiveWidget.isSmallScreen(context)
                   ? MediaQuery.of(context).size.width * 0.85
                   : MediaQuery.of(context).size.width * 0.60,
+
+              //This text form takes in the password and validates it.
               child: TextFormField(
                   cursorColor: Colors.black,
                   style:
@@ -143,13 +155,11 @@ class _LogInFormState extends State<LogInForm> {
                       _togglePasswordView,
                       passwordVisible)),
             ),
-            SizedBox(
-                // height: ResponsiveWidget.isSmallScreen(context)
-                //     ? MediaQuery.of(context).size.height * 0.12
-                //     : MediaQuery.of(context).size.height * 0.15
-                height: MediaQuery.of(context).size.height * 0.15),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.15),
             SubmitButton(
                 onPressed: () {
+                  //We check if the form is valid and we progress to the next page
+                  //(which is the student screen or society screen) depending on the user account.
                   _formKey.currentState!.validate()
                       ? print("Valid form")
                       : print("Invalid form");
@@ -160,7 +170,7 @@ class _LogInFormState extends State<LogInForm> {
             const SizedBox(height: 8),
             TextButton(
                 onPressed: () {
-                  print("Text Button pressed");
+                  //If the user does not have an account, they can choose to sign up with this button.
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(

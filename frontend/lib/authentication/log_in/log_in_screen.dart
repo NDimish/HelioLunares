@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/authentication/log_in/log_in_form.dart';
-import 'package:university_ticketing_system/gradient_animation.dart';
 import 'package:university_ticketing_system/home/home_drawer.dart';
 import 'package:university_ticketing_system/home/topbar.dart';
 import 'package:university_ticketing_system/responsive.dart';
 
+/// DESIGNED BY ISRAFEEL ASHRAF - K21008936
+///
+///This is the login screen of the application.
+///It houses the login form, and the app drawer/navbar depending on the screen size.
 class LogInScreen extends StatefulWidget {
   const LogInScreen({super.key});
 
