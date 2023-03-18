@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:university_ticketing_system/constants/style.dart';
-import 'package:university_ticketing_system/screens/startup_screen/startup_screen.dart';
 import 'package:university_ticketing_system/screens/landing_screen.dart';
 import 'package:get/get.dart';
 import 'package:university_ticketing_system/controllers/navigation_controller.dart';
