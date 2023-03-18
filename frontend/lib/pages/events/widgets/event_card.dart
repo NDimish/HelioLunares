@@ -10,25 +10,6 @@ class EventCard extends StatelessWidget {
   final bool isActive;
   final VoidCallback onTap;
 
-//VIEW 1:
-  //name
-  //price
-  //date
-  //location
-
-//VIEW 2:
-  //name
-  //price
-  //date
-  //location
-  //duration
-  //description
-
-//OTHER:
-  //max ticket count ?
-  //society email
-  //view details button
-
   const EventCard(
       {Key? key,
       required this.onTap,
@@ -50,7 +31,7 @@ class EventCard extends StatelessWidget {
             decoration: BoxDecoration(
               color: MyColours.panelBackgroundColour,
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: MyColours.textColourLight, width: .5),
+              border: Border.all(color: Colors.transparent, width: .5),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
