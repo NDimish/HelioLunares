@@ -25,33 +25,40 @@ class SocietyEventCards extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     buildList();
+
     return Container(
         height: MediaQuery.of(context).size.height * 0.85,
         child: Scaffold(
-          body: ListView.builder(
-              primary: false,
-              shrinkWrap: true,
-              itemCount: eventList.length,
-              itemBuilder: (context, index) {
-                return EventCard(
-                    onTap: () {
-                      //Get.put
-                      Get.put(SocietyEvent(
-                          eventList[index].name,
-                          eventList[index].price,
-                          eventList[index].date,
-                          eventList[index].location,
-                          eventList[index].duration,
-                          eventList[index].description));
+          backgroundColor: Colors.transparent,
+          body: ListView.separated(
+            primary: false,
+            shrinkWrap: true,
+            itemCount: eventList.length,
+            itemBuilder: (context, index) {
+              return EventCard(
+                  onTap: () {
+                    Get.put(SocietyEvent(
+                        eventList[index].name,
+                        eventList[index].price,
+                        eventList[index].date,
+                        eventList[index].location,
+                        eventList[index].duration,
+                        eventList[index].description));
 
-                      navigationController
-                          .navigateTo(eventDetailsPageDisplayName);
-                    },
-                    name: eventList[index].name,
-                    price: eventList[index].price,
-                    date: eventList[index].date,
-                    location: eventList[index].location);
-              }),
+                    navigationController
+                        .navigateTo(eventDetailsPageDisplayName);
+                  },
+                  name: eventList[index].name,
+                  price: eventList[index].price,
+                  date: eventList[index].date,
+                  location: eventList[index].location);
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return const SizedBox(
+                height: 8,
+              );
+            },
+          ),
         ));
   }
 }
