@@ -325,8 +325,7 @@ class Command(BaseCommand):
     
     def generate_society_categories_type(self):
         soc_categories = [
-                "Business", 
-                "Finance & Entrepreneurship",
+                "Business, Finance & Entrepreneurship",
                 "Culture",
                 "Medical",
                 "Faith & Spirituality",
@@ -339,18 +338,8 @@ class Command(BaseCommand):
                 "Volunteering & Fundraising",
                 "Media",
                 "Fundraising",
-                "Language",
                 "Sports",
-                "Other",
-                "Language",
-                "Film",
-                "Racing",
-                "Dance",
-                "Science",
-                "Astronomy",
-                "Mixed Martial Arts",
-                "Literature",
-                "Law",
+                "Other"
             ]
         for soc_cat in soc_categories:
             try:
@@ -373,7 +362,7 @@ class Command(BaseCommand):
                 duration = random.randint(15, 180),
                 event_date = self.faker.future_date(),
                 event_name = event_name,
-                event_location = self.faker.county(),
+                location = self.faker.county(),
                 description = self.faker.paragraphs(nb=3),
                 price = random.randint(0, 200)
             )
@@ -440,8 +429,14 @@ class Command(BaseCommand):
         Create all the seeded data here.
         
             1: See all of the unis first. You cannot seed them again afterwards.
-            2: We generate users, NOT PEOPLE. These users will be assigned to the people db.
-            3: We generate societies.
+            2: We generate the event category types.
+            3: We generate the society category types.
+            4: We generate users, NOT PEOPLE. These users will be assigned to the people db.
+            5: We generate societies.
+            6: We generate events.
+            7: We then generate tickets.
+            8: We add categories to the societies.
+            9: We add categories to the events.
         """
         
         self.generate_universities()
@@ -449,17 +444,28 @@ class Command(BaseCommand):
         self.generate_society_categories_type()
         
         #NOTE: The number 'counter', below must be the same for both for loops as socities and persons to user is a 1 to 1 relationship.
-        # counter = 75
-        # #Generate default user accounts.
-        # for i in range(1, counter):
-        #     self.generate_user()
+        counter = 75
         
-        # #Generate people and societies.
-        # for i in range(1, counter):
-        #     self.generate_person()
-        #     self.generate_socity()
+        #Generate default user accounts.
+        for i in range(1, counter):
+            self.generate_user()
         
-        print(f"done.")
+        #Generate people and societies.
+        for i in range(1, counter):
+            self.generate_person()
+            self.generate_socity()
+        
+        for i in range(1, 100):
+            self.generate_event()
+            
+        for i in range(1, 200):
+            self.generate_tickets()
+            
+        for i in range(1, 100):
+            self.generate_society_categories()
+            self.generate_event_categories()
+        
+        print(f"\n\ndone.")
         print(f"{University.objects.count()} unis in the db.")
         
         print(f"{User.objects.count()} users in the db.")
