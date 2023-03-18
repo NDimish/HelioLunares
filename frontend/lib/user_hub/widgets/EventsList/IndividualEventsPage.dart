@@ -28,6 +28,7 @@ class _EventPageState extends State<EventPage> {
     body: Padding(
       padding: EdgeInsets.only(top: 32.0, right: 32.0),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Container(
@@ -162,5 +163,5 @@ class _EventPageState extends State<EventPage> {
       ),
     ),
   );
-  
+ }
 }
