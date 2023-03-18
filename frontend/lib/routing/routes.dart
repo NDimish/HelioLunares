@@ -4,7 +4,7 @@ import 'package:university_ticketing_system/constants/style.dart';
 const rootRoute = "/";
 
 const societyHubPageDisplayName = "Profile";
-const societyHubPageRoute = "/society_hub";
+const societyHubPageRoute = "/societyhub/";
 
 const societyEventsPageDisplayName = "Events";
 const societyEventsPageRoute = "/society_events";
