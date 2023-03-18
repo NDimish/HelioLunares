@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class MembersTable extends StatefulWidget {
-  const MembersTable({super.key});
+  final int role;
+  final int user_society_role_level = 2; // this is the user's role in society
+  final int user_level =
+      1; // this is user level, 1/2 for non/student and 3 for society account
+
+  const MembersTable(this.role, {super.key});
 
   @override
   State<MembersTable> createState() => _MembersTableState();
@@ -11,6 +16,56 @@ class _MembersTableState extends State<MembersTable> {
   List<List<String>> data = [
     ["John", "Doe", "johndoe@example.com", "12-02-2022", "yes"]
   ];
+
+  List<DropdownMenuItem> _actionsForRole() {
+    if (widget.user_level == 3) {
+      if (widget.role == 3) {
+        return const [
+          DropdownMenuItem(value: "Remove", child: Text("Remove")),
+          DropdownMenuItem(value: "demote", child: Text("Demote")),
+        ];
+      } else if (widget.role == 2) {
+        return const [
+          DropdownMenuItem(value: "Remove", child: Text("Remove")),
+          DropdownMenuItem(value: "Promote", child: Text("Promote")),
+          DropdownMenuItem(value: "demote", child: Text("Demote")),
+        ];
+      } else {
+        return const [
+          DropdownMenuItem(value: "Remove", child: Text("Remove")),
+          DropdownMenuItem(value: "promote", child: Text("Promote")),
+        ];
+      }
+    } else {
+      //This is if it is not a society account so we need to see if they are in soc
+      if (widget.user_society_role_level == 3) {
+        if (widget.role == 3) {
+          return const [];
+        } else if (widget.role == 2) {
+          return const [
+            DropdownMenuItem(value: "Remove", child: Text("Remove")),
+            DropdownMenuItem(value: "demote", child: Text("Demote")),
+          ];
+        } else {
+          return const [
+            DropdownMenuItem(value: "Remove", child: Text("Remove")),
+            DropdownMenuItem(value: "promote", child: Text("Promote")),
+          ];
+        }
+      } else if (widget.user_society_role_level == 2) {
+        if (widget.role == 3) {
+          return const [];
+        } else if (widget.role == 2) {
+          return const [];
+        } else {
+          return const [
+            DropdownMenuItem(value: "Remove", child: Text("Remove")),
+          ];
+        }
+      }
+    }
+    return const [];
+  }
 
   List<TableRow> _setData() {
     List<TableRow> dataArr = [
@@ -132,11 +187,7 @@ class _MembersTableState extends State<MembersTable> {
           child: DropdownButton(
               hint: const Text("Perform"),
               underline: const SizedBox(width: 0, height: 0),
-              items: const [
-                DropdownMenuItem(value: "block", child: Text("Block")),
-                DropdownMenuItem(value: "promote", child: Text("Promote")),
-                DropdownMenuItem(value: "demote", child: Text("Demote")),
-              ],
+              items: _actionsForRole(),
               onChanged: ((value) => {}))),
     ]);
   }
