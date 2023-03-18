@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 
 class MembersTable extends StatefulWidget {
   final int role;
-  final int user_society_role_level = 2; // this is the user's role in society
-  final int user_level =
-      1; // this is user level, 1/2 for non/student and 3 for society account
+  final int user_society_role_level; // this is the user's role in society
+  final int
+      user_level; // this is user level, 1/2 for non/student and 3 for society account
 
-  const MembersTable(this.role, {super.key});
+  const MembersTable(this.role, this.user_society_role_level, this.user_level,
+      {super.key});
 
   @override
   State<MembersTable> createState() => _MembersTableState();
