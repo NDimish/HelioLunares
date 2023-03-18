@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:university_ticketing_system/gradient_animation.dart';
-import 'package:university_ticketing_system/home/homepage.dart';
 import 'package:university_ticketing_system/responsive.dart';
-import 'package:university_ticketing_system/theme.dart';
-
-import 'dart:math' as math;
-
 import 'package:animated_background/animated_background.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
+/// IMPLEMENTED BY ISRAFEEL ASHRAF - K21008936
+///
+/// This is the ticket animation of the app.
+///
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
@@ -21,20 +17,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   // Particles
   final Image _image = Image.asset('assets/images/coupon.png');
   late int pCount = 0;
-
-  // ParticleOptions particleOptions = ParticleOptions(
-  //   image: Image.asset('assets/images/coupon.png'),
-  //   baseColor: Colors.blue,
-  //   spawnOpacity: 0.1,
-  //   opacityChangeRate: 0.3,
-  //   minOpacity: 0.05,
-  //   maxOpacity: 0.7,
-  //   spawnMinSpeed: 30.0,
-  //   spawnMaxSpeed: 70.0,
-  //   spawnMinRadius: 2.0,
-  //   spawnMaxRadius: 7.0,
-  //   particleCount: pCount,
-  // );
 
   var particlePaint = Paint()
     ..style = PaintingStyle.stroke
@@ -75,27 +57,23 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       );
     }
 
-    return Scaffold(
-        body: CustomLinearGradient(
-      child: AnimatedBackground(
-        behaviour: _behaviour = _buildBehaviour(),
-        vsync: this,
-        child: Center(
-          child: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Center(
+    return AnimatedBackground(
+      behaviour: _behaviour = _buildBehaviour(),
+      vsync: this,
+      child: Center(
+        child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Center(
+                //Remember that a column was used before single child scroll
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ResponsiveWidget.isSmallScreen(context)
-                        ? smallTitle(context)
-                        : cardTitle(context)
-                  ],
-                ),
-              )),
-        ),
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                  ResponsiveWidget.isSmallScreen(context)
+                      ? smallTitle(context)
+                      : cardTitle(context)
+                ]))),
       ),
-    ));
+    );
   }
 
   Column smallTitle(BuildContext context) {
@@ -128,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(15.0))),
         child: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -153,21 +131,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           ),
         ));
   }
-
-  // Behaviour _buildBehaviour() {
-  //   switch (_behaviourIndex) {
-  //     case 0:
-  //       return RandomParticleBehaviour(
-  //         options: particleOptions,
-  //         paint: particlePaint,
-  //       );
-  //   }
-
-  //   return RandomParticleBehaviour(
-  //     options: particleOptions,
-  //     paint: particlePaint,
-  //   );
-  // }
 }
 
 enum ParticleType {

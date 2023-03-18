@@ -4,6 +4,12 @@ import 'package:university_ticketing_system/home/homepage_screens/contact/contac
 import 'package:university_ticketing_system/home/topbar.dart';
 import 'package:university_ticketing_system/responsive.dart';
 
+/// DESIGNED BY JOSHUA SUZAK - K...
+///
+/// This part of the app deals with the contact screen, enabling users
+/// to leave feedback for the devs, whether that be bug fixes, general feedback or
+/// new feature requests.
+///
 class ContactScreen extends StatefulWidget {
   const ContactScreen({super.key});
 

@@ -5,6 +5,12 @@ import 'package:university_ticketing_system/responsive.dart';
 import 'package:university_ticketing_system/submit_button.dart';
 import 'package:university_ticketing_system/tff_decoration.dart';
 
+/// DESIGNED BY JOSHUA SUZAK - K...
+///
+/// This part of the app deals with the contact screen form, enabling users
+/// to leave feedback for the devs, whether that be bug fixes, general feedback or
+/// new feature requests.
+///
 class ContactForm extends StatefulWidget {
   const ContactForm({super.key});
 
@@ -120,15 +126,17 @@ class _ContactFormState extends State<ContactForm> {
           children: <Widget>[
             Container(
                 height: 35,
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(15)),
                 child: DropdownButton(
-                  style: TextStyle(fontFamily: "Arvo", color: Colors.black),
+                  style:
+                      const TextStyle(fontFamily: "Arvo", color: Colors.black),
                   value: dropdownvalue,
                   iconSize: 20,
-                  underline: SizedBox(),
+                  underline: const SizedBox(),
                   icon: const Icon(Icons.keyboard_arrow_down,
                       color: Colors.black),
                   items: items.map((String items) {

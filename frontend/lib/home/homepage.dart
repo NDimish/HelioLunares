@@ -5,6 +5,11 @@ import 'package:university_ticketing_system/home/ticket_animation.dart';
 import 'package:university_ticketing_system/home/topbar.dart';
 import 'package:university_ticketing_system/responsive.dart';
 
+/// DESIGNED BY ISRAFEEL ASHRAF - K21008936
+/// DESIGNED BY JOSHUA SUZAK - K...
+///
+/// This is the home page of the application and is used to welcome the user.
+///
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -25,7 +30,7 @@ class _HomePageState extends State<HomePage> {
                 onTap: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => HomePage()),
+                    MaterialPageRoute(builder: (context) => const HomePage()),
                   );
                 },
                 child: const Text(
@@ -40,7 +45,7 @@ class _HomePageState extends State<HomePage> {
               ))
           : PreferredSize(
               preferredSize: Size(screenSize.width, 1000),
-              child: TopBarContents(),
+              child: const TopBarContents(),
             ),
       drawer: const HomeScreenDrawer(),
       body: CustomLinearGradient(child: const MyHomePage()),

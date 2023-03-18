@@ -3,6 +3,13 @@ import 'package:university_ticketing_system/responsive.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+/// DESIGNED BY JOSHUA SUZAK - K...
+///
+/// This about card deals with getting the images from the internet,
+/// of the GitHub accounts of the app developers, showing their roles in this
+/// application, and displaying it to the users, in a responsive manner depending
+/// on screen size.
+///
 class AboutCard extends StatefulWidget {
   final String devName;
   final List<String> roles;

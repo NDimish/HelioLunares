@@ -5,6 +5,11 @@ import 'package:university_ticketing_system/home/homepage_screens/discover/disco
 import 'package:university_ticketing_system/home/topbar.dart';
 import 'package:university_ticketing_system/responsive.dart';
 
+/// DESIGNED BY JOSHUA SUZAK - K...
+///
+/// This part of the app deals with the discover screen, showing our story
+/// to the users of this application.
+///
 class DiscoverScreen extends StatelessWidget {
   const DiscoverScreen({super.key});
 

@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/authentication/log_in/log_in_screen.dart';
-import 'package:university_ticketing_system/authentication/sign_up/choose_sign_up_screen.dart';
 import 'package:university_ticketing_system/authentication/sign_up/society/society_sign_up.dart';
 import 'package:university_ticketing_system/authentication/sign_up/student/student_sign_up.dart';
 import 'package:university_ticketing_system/home/homepage.dart';
+import 'package:university_ticketing_system/home/homepage_screens/about_the_app/about_app.dart';
 import 'package:university_ticketing_system/home/homepage_screens/contact/contact.dart';
 import 'package:university_ticketing_system/home/homepage_screens/discover/discover_screen.dart';
 
+/// DESIGNED BY ISRAFEEL ASHRAF - K21008936
+///
+/// This is the navbar but for smaller screens, such as mobile apps.
+///
 class HomeScreenDrawer extends StatelessWidget {
   const HomeScreenDrawer({super.key});
 
@@ -42,7 +46,13 @@ class HomeScreenDrawer extends StatelessWidget {
               'About',
               style: TextStyle(fontFamily: "Arvo"),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const HowToUseSection()),
+              );
+            },
           ),
           ListTile(
             title: const Text(

@@ -2,11 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/authentication/log_in/log_in_screen.dart';
 import 'package:university_ticketing_system/authentication/sign_up/choose_sign_up_screen.dart';
 import 'package:university_ticketing_system/home/homepage.dart';
+import 'package:university_ticketing_system/home/homepage_screens/about_the_app/about_app.dart';
 import 'package:university_ticketing_system/home/homepage_screens/contact/contact.dart';
 import 'package:university_ticketing_system/home/homepage_screens/discover/discover_screen.dart';
 
+/// DESIGNED BY ISRAFEEL ASHRAF - K21008936
+///
+/// This is the custom navbar of the application, it is used for
+/// the medium sized and large sized screens.
+///
 class TopBarContents extends StatefulWidget {
-  const TopBarContents();
+  const TopBarContents({super.key});
 
   @override
   _TopBarContentsState createState() => _TopBarContentsState();
@@ -14,6 +20,16 @@ class TopBarContents extends StatefulWidget {
 
 class _TopBarContentsState extends State<TopBarContents> {
   final List<bool> _isHovering = [false, false, false, false];
+
+  void isHoveringUpdated(bool bIn) {
+    setState(() {
+      bIn ? _isHovering[0] = true : _isHovering[0] = false;
+    });
+  }
+
+  List<bool> sendHoveringValues() {
+    return _isHovering;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +52,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                   onTap: () {
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => HomePage()),
+                      MaterialPageRoute(builder: (context) => const HomePage()),
                     );
                   },
                   child: const Text(
@@ -53,36 +69,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     SizedBox(width: screenSize.width / 25),
-                    InkWell(
-                      onHover: (value) {
-                        setState(() {
-                          value
-                              ? _isHovering[0] = true
-                              : _isHovering[0] = false;
-                        });
-                      },
-                      onTap: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const DiscoverScreen()),
-                        );
-                      },
-                      child: Text(
-                        'Discover',
-                        style: TextStyle(
-                            fontFamily: "Arvo",
-                            fontWeight: FontWeight.bold,
-                            color: _isHovering[0]
-                                ? Colors.deepPurple
-                                : Colors.black,
-                            decorationColor: Colors.deepPurple,
-                            decorationThickness: 2,
-                            decoration: _isHovering[0]
-                                ? TextDecoration.underline
-                                : null),
-                      ),
-                    ),
+                    const DiscoverPopupMenu(),
                     SizedBox(width: screenSize.width / 50),
                     InkWell(
                       onHover: (value) {
@@ -159,7 +146,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                   );
                 },
                 child: Text(
-                  'Login',
+                  'Log In',
                   style: TextStyle(
                     fontFamily: "Arvo",
                     fontWeight: FontWeight.bold,
@@ -176,5 +163,87 @@ class _TopBarContentsState extends State<TopBarContents> {
         ),
       ),
     );
+  }
+}
+
+enum PopupChoices { About_Us, About_The_App }
+
+class DiscoverPopupMenu extends StatefulWidget {
+  const DiscoverPopupMenu({super.key});
+
+  @override
+  State<DiscoverPopupMenu> createState() => _DiscoverPopupMenuState();
+}
+
+class _DiscoverPopupMenuState extends State<DiscoverPopupMenu> {
+  bool hovering = false;
+  @override
+  Widget build(BuildContext context) {
+    PopupChoices? selectedMenu;
+    return PopupMenuButton<PopupChoices>(
+        offset: const Offset(-40, 30),
+        position: PopupMenuPosition.under,
+        initialValue: selectedMenu,
+        onSelected: (PopupChoices item) {
+          setState(() {
+            selectedMenu = item;
+            if (selectedMenu == PopupChoices.About_Us) {
+              setState(() {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const DiscoverScreen()),
+                );
+              });
+            } else {
+              setState(() {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const HowToUseSection()),
+                );
+              });
+            }
+          });
+        },
+        itemBuilder: (BuildContext context) => <PopupMenuEntry<PopupChoices>>[
+              const PopupMenuItem<PopupChoices>(
+                value: PopupChoices.About_Us,
+                child: Text(
+                  'About us',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: "Arvo",
+                    color: Colors.black,
+                    decorationColor: Colors.deepPurple,
+                    decorationThickness: 2,
+                  ),
+                ),
+              ),
+              const PopupMenuItem<PopupChoices>(
+                value: PopupChoices.About_The_App,
+                child: Text(
+                  'About the app',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: "Arvo",
+                    color: Colors.black,
+                    decorationColor: Colors.deepPurple,
+                    decorationThickness: 2,
+                  ),
+                ),
+              ),
+            ],
+        child: const Text(
+          'Discover',
+          style: TextStyle(
+              fontFamily: "Arvo",
+              color: Colors.black,
+              decorationColor: Colors.deepPurple,
+              decorationThickness: 2,
+              fontWeight: FontWeight.bold
+              //decoration: _TextDecoration.underline : null
+              ),
+        ));
   }
 }
