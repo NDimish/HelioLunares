@@ -134,29 +134,6 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                   navigationController
                       .navigateTo(societySettingsPageDisplayName);
                 }),
-            Stack(
-              children: [
-                IconButton(
-                    icon: Icon(
-                      Icons.notifications,
-                      color: MyColours.navbarColour.withOpacity(.7),
-                    ),
-                    onPressed: () {}),
-                Positioned(
-                  top: 7,
-                  right: 7,
-                  child: Container(
-                    width: 12,
-                    height: 12,
-                    padding: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                        color: MyColours.active,
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(color: MyColours.light, width: 2)),
-                  ),
-                )
-              ],
-            ),
             Container(
               width: 1,
               height: 22,
@@ -172,25 +149,6 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
             const SizedBox(
               width: 16,
             ),
-            Container(
-              decoration: BoxDecoration(
-                  color: MyColours.active.withOpacity(.5),
-                  borderRadius: BorderRadius.circular(30)),
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30)),
-                padding: const EdgeInsets.all(2),
-                margin: const EdgeInsets.all(2),
-                child: const CircleAvatar(
-                  backgroundColor: MyColours.light,
-                  child: Icon(
-                    Icons.person_outline,
-                    color: MyColours.dark,
-                  ),
-                ),
-              ),
-            )
           ],
         ),
       ),
