@@ -69,7 +69,7 @@ class _SocietyHubFormState extends State<SocietyHubForm> {
     return (!_validateAboutUs) ? true : false;
   }
 
-  //populate the fields with current event details
+  //populate the fields with current details
   @override
   void initState() {
     aboutUsController.text = "...";
@@ -174,11 +174,9 @@ class _SocietyHubFormState extends State<SocietyHubForm> {
                   test = aboutUsController.text;
 
                   print(test);
-                  // Get.put(obj);
+                  //TODO Update backend
 
                   navigationController.goBack();
-
-                  navigationController.refresh();
                 }
               },
               child: const CustomText(
