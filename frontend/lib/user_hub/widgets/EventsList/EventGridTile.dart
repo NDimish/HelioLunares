@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:university_ticketing_system/user_hub/widgets/EventsList/IndividualEventsPage.dart';
+
 
 // Should have:
 // Image
@@ -40,13 +42,14 @@ class EventGridTile extends GridTile {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => Scaffold(
-                                  appBar: AppBar(
-                                    title: const Text("Event here!"),
-                                  ),
-                                  body: const Center(
-                                      child: Text(
-                                          "Page showing event details here")),
+                            builder: (context) => EventPage(
+                              eventName: 'Introduction to AI',
+                              eventDate: '10/04/2013',
+                              eventDescription: 'Great fun',
+                              eventDuration: '1 hour',
+                              eventLocation: 'Bush House',
+                              eventPrice: '£10',
+                                  
                                 )));
                   },
 

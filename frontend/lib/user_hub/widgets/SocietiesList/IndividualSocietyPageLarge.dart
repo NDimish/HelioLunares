@@ -6,7 +6,15 @@ import 'package:university_ticketing_system/user_hub/widgets/SocietiesList/widge
 import '../../../helpers/responsiveness.dart';
 
 class MainSocietyPage extends StatefulWidget {
-  const MainSocietyPage({super.key});
+  final String societyName;
+  final String societyDescription;
+
+  MainSocietyPage({
+    Key? key,
+    required this.societyName,
+    required this.societyDescription,
+  }) : super(key: key);
+
 
   @override
   State<MainSocietyPage> createState() => _MainSocietyPageState();
@@ -23,8 +31,8 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-          title: const Text(
-        'Data Science Society',
+          title: Text(
+        (widget.societyName),
         style: TextStyle(fontFamily: "Arvo", fontWeight: FontWeight.bold),
       )),
       body: Container(
@@ -35,7 +43,7 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
               height: 17,
             ),
        
-              Text("PLACEHOLDER", style: TextStyle(fontSize: height/5)),
+              CircularCard(),
             
             const SizedBox(
               height: 7.5,
@@ -59,8 +67,8 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                     child: SocietyButton(
                       onPressed: () =>
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const SocietyEventsList(
-                                    societyName: 'Data Society',
+                              builder: (context) => SocietyEventsList(
+                                    societyName: (widget.societyName),
                                   ))),
                       buttonText: "List of Events",
                     )),
@@ -159,15 +167,16 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                     ),
                     borderRadius: const BorderRadius.all(Radius.circular(12)),
                   ),
-                  child: const SizedBox(
+                  child: SizedBox(
                     child: Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: const EdgeInsets.all(10.0),
                       child: Center(
                           child: Text(
-                              'Data Science Society is an international digital community and our team has been building a strong core of members digitally around a body of Data Science knowledge while having fun! So far we have organized multiple Data Science Meetups and International Datathons with attendees from more than 20 countries.')),
+                              (widget.societyDescription),),
                     ),
                   ),
                 ))
+            )
           ],
         ),
       ),
