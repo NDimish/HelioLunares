@@ -10,7 +10,7 @@ const String _heroAddTodo = 'add-todo-hero';
 
 class AddEventPopupCard extends StatelessWidget {
   //All event details to display
-  SocietyEvent obj = Get.find<SocietyEvent>();
+  final SocietyEvent obj = Get.find<SocietyEvent>();
   AddEventPopupCard({Key? key}) : super(key: key);
 
   @override
@@ -155,7 +155,7 @@ class AddEventPopupCard extends StatelessWidget {
                               size: 18,
                               weight: FontWeight.bold,
                             ),
-                          ),
+                          )
                         ]))),
           ),
         ),
