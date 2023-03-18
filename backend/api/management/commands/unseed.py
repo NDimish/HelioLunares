@@ -106,10 +106,21 @@ class Command(BaseCommand):
         else:
             print("no seeded users in database.")
             
+    def unseed_roles(self):
+        if (PeopleRoleAtSociety.objects.count() > 0):
+            print("unseeding roles in societies...")
+            for p_role in PeopleRoleAtSociety.objects.all():
+                p_role.delete()
+                    
+            print(f"done. {PeopleRoleAtSociety.objects.count()} people roles in societies in db.")
+        else:
+            print("no seeded roles in database.")
+            
 
     def handle(self, *args, **options):
         self.unseed_tickets()
         self.unseed_events()
+        self.unseed_roles()
         
         self.unseed_event_categories()
         self.unseed_society_categories()

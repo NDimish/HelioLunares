@@ -422,6 +422,24 @@ class Command(BaseCommand):
         except (IntegrityError):
             print(f"object {obtained_event.event_name, obtained_user.email}  was already seeded.")
     
+    def generate_person_role_at_society(self):
+        societies = Society.objects.all()
+        people = People.objects.all()
+        
+        obtained_society = societies[random.randint(0, len(societies) - 1)]
+        obtained_person = people[random.randint(0, len(people) - 1)]
+        
+        try:
+            prole = PeopleRoleAtSociety.objects.create(
+                society = obtained_society,
+                user_at_society = obtained_person,
+                role = random.randint(1, 3)
+            )
+            prole.save()
+            
+        except (IntegrityError):
+            print(f"object {obtained_person.first_name, obtained_society.name}  was already seeded.")
+        
     def handle(self, *args, **options):
         print("seeding...")
         
@@ -456,6 +474,7 @@ class Command(BaseCommand):
             self.generate_socity()
         
         for i in range(1, 100):
+            self.generate_person_role_at_society()
             self.generate_event()
             
         for i in range(1, 200):
@@ -471,6 +490,7 @@ class Command(BaseCommand):
         print(f"{User.objects.count()} users in the db.")
         print(f"{People.objects.count()} people in the db")
         print(f"{Society.objects.count()} socities in the db.")
+        print(f"{PeopleRoleAtSociety.objects.count()} roles in the db.")
         
         print(f"{Event.objects.count()} events in the db.")
         print(f"{Ticket.objects.count()} tickets in the db.")
