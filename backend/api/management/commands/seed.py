@@ -10,39 +10,76 @@ class Command(BaseCommand):
     def __init__(self):
         super().__init__()
         self.faker = Faker("en_GB")
+        
         self.fields_of_study_provider = DynamicProvider(
             provider_name = "field_of_study",
             elements= [
-            'Computer Science',
-            'Electrical Engineering',
-            'Mathematics',
-            'Physics',
-            'General Engineering',
-            'History',
-            'History and Politics',
-            'Computer Science and Maths',
-            'Economics and Politics',
-            'Entomology',
-            'Environmental Science & Ecology',
-            'Food & Nutritional Science',
-            'Forest Ecology & Management',
-            'Horticulture',
-            'Landscape Architecture',
-            'Land & Water Resource Engineering',
-            'Meat Science',
-            'Pathobiology',
-            'Plant Genetics',
-            'Plant Pathology',
-            'Poultry Science',
-            'Aerospace/Aeronautical/Astronautics'
-            'Agricultural',
-            'Architectural (Building & Construction)',
-            'Bioengineering (all Bio-related fields)',
-            'Chemical/Petroleum',
-            'Civil Engineering',
-            'Construction Engineering/Management'
+                "Accounting and Finance",
+                "Aeronautical & Manafacturing Engineering",
+                "Agriculture and Forestry",
+                "Anatomy and Physiology",
+                "Anthropology",
+                "Archaeology",
+                "Architecture",
+                "Art & Design",
+                "Biological Sciences",
+                "Building",
+                "Business and Management Studies",
+                "Chemical Engineering",
+                "Chemistry",
+                "Civil Engineering",
+                "Classics and Ancient History",
+                "Communication and Media Studies",
+                "Complementary Medicine",
+                "Computer Science",
+                "Counselling",
+                "Creative Writing",
+                "Criminology",
+                "Dentistry",
+                "Drama Dance and Cinematics",
+                "Economics",
+                "Education",
+                "Electrical and Electronic Engineering",
+                "English",
+                "Fashion",
+                "Film Making",
+                "Food Science",
+                "Forensic Science",
+                "General Engineering",
+                "Geography and Environmental Science",
+                "Geology",
+                "Health and Social Care",
+                "History",
+                "History of Art Architecture and Design",
+                "Hospitality Leisure Recreation and Tourism",
+                "Information Technology",
+                "Land and Property Management",
+                "Law",
+                "Linguistics",
+                "Marketing",
+                "Materials Technology",
+                "Mathematics",
+                "Mechanical Engineering",
+                "Medical Technology",
+                "Medicine",
+                "Music",
+                "Nursing",
+                "Occupational Therapy",
+                "Pharmacology and Pharmacy",
+                "Philosophy",
+                "Physics and Astronomy",
+                "Physiotherapy",
+                "Psychology",
+                "Robotics",
+                "Social Policy",
+                "Social Work",
+                "Sociology",
+                "Sports Science",
+                "Veterinary Medicine",
+                "Youth Work"
         ])
         self.faker.add_provider(self.fields_of_study_provider)
+        
         self.society_name_provider = DynamicProvider(
             provider_name = "society_name",
             elements= [
@@ -63,6 +100,61 @@ class Command(BaseCommand):
             ]
         )
         self.faker.add_provider(self.society_name_provider)
+        
+        self.society_categories_provider = DynamicProvider(
+            provider_name="society_categories",
+            elements=[
+                "Business, Finance & Entrepreneurship",
+                "Culture",
+                "Medical",
+                "Faith & Spirituality",
+                "Causes & Campaigning",
+                "Common Interest",
+                "Academic",
+                "Music & Performance",
+                "Political",
+                "Arts & Creative",
+                "Volunteering & Fundraising",
+                "Media",
+                "Fundraising",
+                "Other"
+            ]
+        )
+        self.faker.add_provider(self.society_categories_provider)
+        
+        self.event_categories_provider = DynamicProvider(
+            provider_name="event_categories",
+            elements=[
+                "Business", 
+                "Finance & Entrepreneurship",
+                "Culture",
+                "Medical",
+                "Faith & Spirituality",
+                "Causes & Campaigning",
+                "Common Interest",
+                "Academic",
+                "Music & Performance",
+                "Political",
+                "Arts & Creative",
+                "Volunteering & Fundraising",
+                "Media",
+                "Fundraising",
+                "Language",
+                "Sports",
+                "Other",
+                "Language",
+                "Film",
+                "Racing",
+                "Dance",
+                "Science",
+                "Astronomy",
+                "Mixed Martial Arts",
+                "Literature",
+                "Law",
+            ]
+        )
+        self.faker.add_provider(self.event_categories_provider)
+        
         Faker.seed(0)
         random.seed(1)
      
@@ -148,10 +240,6 @@ class Command(BaseCommand):
         users = User.objects.filter(user_level=1) | User.objects.filter(user_level=2)
         unis = University.objects.all()
         
-        # university_min_key_value = University.objects.first().id
-        # university_max_key_value = University.objects.last().id
-        # university_at = University.objects.get(id = random.randint(university_min_key_value, university_max_key_value - 1))
-        
         university_at = unis[random.randint(0, len(unis) - 1)]
         obtained_user = users[random.randint(0, len(users) - 1)]
         
@@ -176,11 +264,7 @@ class Command(BaseCommand):
     def generate_socity(self):
         users = User.objects.filter(user_level=3)
         unis = University.objects.all()
-        
-        # university_min_key_value = University.objects.first().id
-        # university_max_key_value = University.objects.last().id
-        # university_at = University.objects.get(id = random.randint(university_min_key_value, university_max_key_value - 1))
-        
+    
         university_at = unis[random.randint(0, len(unis) - 1)]
         obtained_user = users[random.randint(0, len(users) - 1)]
         
@@ -197,9 +281,90 @@ class Command(BaseCommand):
             
         except (IntegrityError):
             print(f"object {university_at.name, obtained_user.email}  was already seeded.")
+    
+    def generate_event_categories_type(self):
+        event_categories = [
+                "Business", 
+                "Finance & Entrepreneurship",
+                "Culture",
+                "Medical",
+                "Faith & Spirituality",
+                "Causes & Campaigning",
+                "Common Interest",
+                "Academic",
+                "Music & Performance",
+                "Political",
+                "Arts & Creative",
+                "Volunteering & Fundraising",
+                "Media",
+                "Fundraising",
+                "Language",
+                "Sports",
+                "Other",
+                "Language",
+                "Film",
+                "Racing",
+                "Dance",
+                "Science",
+                "Astronomy",
+                "Mixed Martial Arts",
+                "Literature",
+                "Law",
+            ]
+        for event in event_categories:
+            try:
+                event_cat = EventCategoriesType.objects.create(
+                    category_name = event
+                )
+                event_cat.save()
+                
+            except (IntegrityError):
+                print(f"object {event}  was already seeded.")
+                
+            
+    
+    def generate_society_categories_type(self):
+        soc_categories = [
+                "Business", 
+                "Finance & Entrepreneurship",
+                "Culture",
+                "Medical",
+                "Faith & Spirituality",
+                "Causes & Campaigning",
+                "Common Interest",
+                "Academic",
+                "Music & Performance",
+                "Political",
+                "Arts & Creative",
+                "Volunteering & Fundraising",
+                "Media",
+                "Fundraising",
+                "Language",
+                "Sports",
+                "Other",
+                "Language",
+                "Film",
+                "Racing",
+                "Dance",
+                "Science",
+                "Astronomy",
+                "Mixed Martial Arts",
+                "Literature",
+                "Law",
+            ]
+        for soc_cat in soc_categories:
+            try:
+                society_category = SocietyCategoriesType.objects.create(
+                    category_name = soc_cat
+                )
+                society_category.save()
+                
+            except (IntegrityError):
+                print(f"object {soc_cat}  was already seeded.")
             
     def generate_event(self):
-        pass
+        soc_list = Society.objects.all()
+        
     
     def handle(self, *args, **options):
         print("seeding...")
