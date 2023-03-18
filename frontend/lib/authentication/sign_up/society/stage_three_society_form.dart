@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/submit_button.dart';
-import 'package:university_ticketing_system/authentication/log_in/log_in_screen.dart';
 import 'package:university_ticketing_system/authentication/models/society.dart';
-import 'package:university_ticketing_system/authentication/models/student.dart';
-import 'package:university_ticketing_system/authentication/models/user_account.dart';
-import 'package:university_ticketing_system/tff_decoration.dart';
 import 'package:university_ticketing_system/gradient_animation.dart';
-import 'package:university_ticketing_system/home/home_drawer.dart';
-import 'package:university_ticketing_system/home/topbar.dart';
 import 'package:university_ticketing_system/responsive.dart';
 
+/// DESIGNED BY ISRAFEEL ASHRAF - K21008936
+///
+/// This is the society sign up form --> STAGE 3
+/// It sets up the societies' categories and bio.
+///
 class StageThreeSocietySignUp extends StatefulWidget {
   Society soc;
   StageThreeSocietySignUp({super.key, required this.soc});
@@ -24,7 +23,6 @@ class _StageThreeSocietySignUpState extends State<StageThreeSocietySignUp> {
 
   FocusNode inputNode = FocusNode();
   String bio = "";
-  int? _value = 0;
 
   TextEditingController bioController = TextEditingController();
 
@@ -62,7 +60,6 @@ class _StageThreeSocietySignUpState extends State<StageThreeSocietySignUp> {
 
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: ResponsiveWidget.isSmallScreen(context)
           ? AppBar(
@@ -214,15 +211,27 @@ class _StageThreeSocietySignUpState extends State<StageThreeSocietySignUp> {
           SubmitButton(
               onPressed: () {
                 //_formKey.currentState!.validate()
-                if (selectedChoices.length > 3 || selectedChoices.length < 1) {
+                if (selectedChoices.length > 3 || selectedChoices.isEmpty) {
                   print("Invalid form");
-
                   setState(() {
                     selectedChoices = [];
                   });
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 } else {
-                  print("Valid form");
+                  print("\n\n");
+                  print("SOCIETY: ");
+                  print("email: ${widget.soc.user.email}");
+                  print("password: ${widget.soc.user.password}");
+                  print(
+                      "confirmed password: ${widget.soc.user.confirmedPassword}");
+                  print("\n");
+                  print("society_name: ${widget.soc.socName}");
+                  print("society creation_date: ${widget.soc.dateCreated}");
+                  print("society university at: ${widget.soc.universityAt}");
+                  print("\n");
+                  print("society bio: $bio");
+                  print("society categories: ${selectedChoices}");
+                  print("\n\n");
                 }
               },
               scaleFactor: ResponsiveWidget.isSmallScreen(context) ? 0.6 : 0.40,
@@ -230,6 +239,7 @@ class _StageThreeSocietySignUpState extends State<StageThreeSocietySignUp> {
         ]));
   }
 
+  //Separate styling for multi line text fields.
   InputDecoration customDecorationMultiLineTextField(
       String labelText, String hintText, IconData iconIn) {
     return InputDecoration(

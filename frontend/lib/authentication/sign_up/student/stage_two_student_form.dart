@@ -9,6 +9,10 @@ import 'package:university_ticketing_system/home/home_drawer.dart';
 import 'package:university_ticketing_system/home/topbar.dart';
 import 'package:university_ticketing_system/responsive.dart';
 
+/// DESIGNED BY ISRAFEEL ASHRAF - K21008936
+///
+/// This is the last stage of the student sign up form.
+/// The student redirects to the student hub after signing up.
 class StageTwoStudentSignUp extends StatefulWidget {
   UserAccount user;
   StageTwoStudentSignUp({super.key, required this.user});
@@ -30,7 +34,6 @@ class _StageTwoStudentSignUpState extends State<StageTwoStudentSignUp> {
 
   @override
   void initState() {
-    //print(widget.user.email);
     super.initState();
   }
 
@@ -40,7 +43,6 @@ class _StageTwoStudentSignUpState extends State<StageTwoStudentSignUp> {
 
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: ResponsiveWidget.isSmallScreen(context)
           ? AppBar(
@@ -148,11 +150,11 @@ class _StageTwoStudentSignUpState extends State<StageTwoStudentSignUp> {
                   controller: firstNameController,
                   //validator: ,
                   onFieldSubmitted: (value) {
-                    print("fn submitted");
+                    //print("fn submitted");
                   },
                   onChanged: (value) {
                     student.setFirstName(firstNameController.text);
-                    print(student.firstName);
+                    //print(student.firstName);
                   },
                   onSaved: (newValue) {
                     student.setFirstName(newValue!);
@@ -173,11 +175,11 @@ class _StageTwoStudentSignUpState extends State<StageTwoStudentSignUp> {
                   controller: lastNameController,
                   //validator: passwordValidator,
                   onFieldSubmitted: (value) {
-                    print("ln submitted");
+                    //print("ln submitted");
                   },
                   onChanged: (value) {
                     student.setLastName(lastNameController.text);
-                    print(student.lastName);
+                    //print(student.lastName);
                   },
                   onSaved: (newValue) {
                     student.setLastName(newValue!);
@@ -199,11 +201,11 @@ class _StageTwoStudentSignUpState extends State<StageTwoStudentSignUp> {
                   controller: fieldOfStudyController,
                   //validator: ,
                   onFieldSubmitted: (value) {
-                    print("fos submitted");
+                    //print("fos submitted");
                   },
                   onChanged: (value) {
                     student.setFieldOfStudy(fieldOfStudyController.text);
-                    print(student.fieldOfStudy);
+                    //print(student.fieldOfStudy);
                   },
                   onSaved: (newValue) {
                     student.setFieldOfStudy(newValue!);
@@ -225,11 +227,11 @@ class _StageTwoStudentSignUpState extends State<StageTwoStudentSignUp> {
                   controller: uniAtController,
                   //validator: ,
                   onFieldSubmitted: (value) {
-                    print("uniAt submitted");
+                    //print("uniAt submitted");
                   },
                   onChanged: (value) {
                     student.setUniversity(uniAtController.text);
-                    print(student.university);
+                    //print(student.university);
                   },
                   onSaved: (newValue) {
                     student.setUniversity(newValue!);
@@ -246,6 +248,18 @@ class _StageTwoStudentSignUpState extends State<StageTwoStudentSignUp> {
                   _formKey.currentState!.validate()
                       ? print("Student Stage Two Form valid")
                       : print("Invalid form");
+
+                  print("\n\n");
+                  print("STUDENT: ");
+                  print("email: ${widget.user.email}");
+                  print("password: ${widget.user.password}");
+                  print("confirmed password: ${widget.user.confirmedPassword}");
+                  print("\n");
+                  print("first name: ${student.firstName}");
+                  print("last name: ${student.lastName}");
+                  print("university at: ${student.university}");
+                  print("field_of_study: ${student.fieldOfStudy}");
+                  print("\n\n");
                   // ? Navigator.push(
                   //     context,
                   //     MaterialPageRoute(

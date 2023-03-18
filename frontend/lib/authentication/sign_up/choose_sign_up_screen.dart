@@ -6,6 +6,10 @@ import 'package:university_ticketing_system/home/home_drawer.dart';
 import 'package:university_ticketing_system/home/topbar.dart';
 import 'package:university_ticketing_system/responsive.dart';
 
+/// DESIGNED BY ISRAFEEL ASHRAF - K21008936
+///
+/// This screen lets the user choose which sign up type they would like when signing up.
+///
 class ChooseSignUp extends StatefulWidget {
   const ChooseSignUp({super.key});
 

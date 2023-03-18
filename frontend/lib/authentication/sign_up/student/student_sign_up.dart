@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/authentication/sign_up/student/student_sign_up_form.dart';
-import 'package:university_ticketing_system/gradient_animation.dart';
 import 'package:university_ticketing_system/home/home_drawer.dart';
 import 'package:university_ticketing_system/home/topbar.dart';
 import 'package:university_ticketing_system/responsive.dart';
 
+/// DESIGNED BY ISRAFEEL ASHRAF - K21008936
+///
+/// This is the student sign up and is used to create the student's account.
+///
 class StudentSignUp extends StatefulWidget {
   const StudentSignUp({super.key});
 

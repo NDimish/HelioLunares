@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/authentication/sign_up/society/society_sign_up_form.dart';
-import 'package:university_ticketing_system/gradient_animation.dart';
 import 'package:university_ticketing_system/home/home_drawer.dart';
 import 'package:university_ticketing_system/home/topbar.dart';
 import 'package:university_ticketing_system/responsive.dart';
 
+/// DESIGNED BY ISRAFEEL ASHRAF - K21008936
+///
+/// This is the society sign up page
+/// It contains the society sign up form.
+///
 class SocietySignUp extends StatefulWidget {
   const SocietySignUp({super.key});
 

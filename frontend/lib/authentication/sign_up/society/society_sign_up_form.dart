@@ -3,13 +3,18 @@ import 'package:university_ticketing_system/submit_button.dart';
 import 'package:university_ticketing_system/authentication/log_in/log_in_screen.dart';
 import 'package:university_ticketing_system/authentication/models/user_account.dart';
 import 'package:university_ticketing_system/authentication/sign_up/society/stage_two_society_form.dart';
-import 'package:university_ticketing_system/authentication/sign_up/student/stage_two_student_form.dart';
 import 'package:university_ticketing_system/tff_decoration.dart';
 import 'package:university_ticketing_system/authentication/validators/email_validator.dart';
 import 'package:university_ticketing_system/authentication/validators/password_validator.dart';
 import 'package:university_ticketing_system/gradient_animation.dart';
 import 'package:university_ticketing_system/responsive.dart';
 
+/// DESIGNED BY ISRAFEEL ASHRAF - K21008936
+///
+/// This is the society sign up form --> STAGE 1
+/// It sets up the societies username and password.
+///
+/// It must be validated before the sign up can continue.
 class SocietySignUpForm extends StatefulWidget {
   const SocietySignUpForm({super.key});
 
@@ -22,7 +27,6 @@ class _SocietySignUpFormState extends State<SocietySignUpForm> {
   late bool passwordVisible;
   late bool confirmPasswordVisible;
 
-  //Student student = Student();
   UserAccount userAccount = UserAccount();
   FocusNode inputNode = FocusNode();
 
@@ -32,7 +36,6 @@ class _SocietySignUpFormState extends State<SocietySignUpForm> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     passwordVisible = true;
     confirmPasswordVisible = true;
@@ -192,6 +195,7 @@ class _SocietySignUpFormState extends State<SocietySignUpForm> {
             SizedBox(height: MediaQuery.of(context).size.height * 0.11),
             SubmitButton(
                 onPressed: () {
+                  //We set the information of the user before sending it to the next page.
                   if (_formKey.currentState!.validate()) {
                     setUserInformation();
                     Navigator.push(
@@ -206,7 +210,7 @@ class _SocietySignUpFormState extends State<SocietySignUpForm> {
                 },
                 scaleFactor:
                     ResponsiveWidget.isSmallScreen(context) ? 0.6 : 0.45,
-                textIn: "Continue"),
+                textIn: "Sign Up"),
             const SizedBox(height: 8),
             TextButton(
                 onPressed: () {

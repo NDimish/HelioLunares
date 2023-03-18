@@ -1,5 +1,9 @@
 import 'package:university_ticketing_system/authentication/models/user_account.dart';
 
+/// DESIGNED BY ISRAFEEL ASHRAF - K21008936
+///
+/// This is the student model and is used to simplify storing the data
+/// of the student account when signing up.
 class Student {
   late UserAccount user;
   late String firstName;

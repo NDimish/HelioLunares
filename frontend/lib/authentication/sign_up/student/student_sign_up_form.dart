@@ -9,6 +9,10 @@ import 'package:university_ticketing_system/authentication/validators/password_v
 import 'package:university_ticketing_system/gradient_animation.dart';
 import 'package:university_ticketing_system/responsive.dart';
 
+/// DESIGNED BY ISRAFEEL ASHRAF - K21008936
+///
+/// This is the student sign up form and is used to take in the user's information.
+///
 class StudentSignUpForm extends StatefulWidget {
   const StudentSignUpForm({super.key});
 
@@ -21,7 +25,6 @@ class _StudentSignUpFormState extends State<StudentSignUpForm> {
   late bool passwordVisible;
   late bool confirmPasswordVisible;
 
-  //Student student = Student();
   UserAccount userAccount = UserAccount();
   FocusNode inputNode = FocusNode();
 
@@ -31,7 +34,6 @@ class _StudentSignUpFormState extends State<StudentSignUpForm> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     passwordVisible = true;
     confirmPasswordVisible = true;
@@ -109,11 +111,11 @@ class _StudentSignUpFormState extends State<StudentSignUpForm> {
                   controller: emailController,
                   validator: emailValidator,
                   onFieldSubmitted: (value) {
-                    print("submitted");
+                    //print("submitted");
                   },
                   onChanged: (value) {
                     userAccount.setEmail(emailController.text);
-                    print(userAccount.email);
+                    //print(userAccount.email);
                   },
                   onSaved: (newValue) {
                     userAccount.setEmail(newValue!);
@@ -134,12 +136,12 @@ class _StudentSignUpFormState extends State<StudentSignUpForm> {
                   controller: passwordController,
                   validator: passwordValidator,
                   onFieldSubmitted: (value) {
-                    print("submitted");
+                    //print("submitted");
                     FocusScope.of(context).nextFocus();
                   },
                   onChanged: (value) {
                     userAccount.setPassword(passwordController.text);
-                    print(userAccount.password);
+                    //print(userAccount.password);
                   },
                   onSaved: (newValue) {
                     userAccount.setPassword(newValue!);
@@ -172,11 +174,11 @@ class _StudentSignUpFormState extends State<StudentSignUpForm> {
                     }
                   },
                   onFieldSubmitted: (value) {
-                    print("submitted");
+                    //print("submitted");
                   },
                   onChanged: (value) {
                     userAccount.setPassword(passwordController.text);
-                    print(userAccount.password);
+                    //print(userAccount.password);
                   },
                   onSaved: (newValue) {
                     userAccount.setPassword(newValue!);
