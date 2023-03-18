@@ -33,5 +33,11 @@ ThemeData lightTheme() {
             color: Colors.black,
             fontFamily: 'Arvo',
             fontWeight: FontWeight.bold)),
+    pageTransitionsTheme: const PageTransitionsTheme(builders: {
+      TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),
+      TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
+      TargetPlatform.windows: FadeUpwardsPageTransitionsBuilder(),
+      TargetPlatform.linux: FadeUpwardsPageTransitionsBuilder(),
+    }),
   );
 }
