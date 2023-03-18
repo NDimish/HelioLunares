@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:university_ticketing_system/gradient_animation.dart';
 import 'package:university_ticketing_system/helpers/responsiveness.dart';
 import 'package:university_ticketing_system/widgets/large_screen.dart';
 import 'package:university_ticketing_system/widgets/side_menu.dart';
@@ -13,18 +14,19 @@ class SiteLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
-      extendBodyBehindAppBar: true,
-      appBar: topNavBar(context, scaffoldKey),
-      drawer: const Drawer(
-        child: SideMenu(),
-      ),
-      body: ResponsiveWidget(
-          largeScreen: const LargeScreen(),
-          smallScreen: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: localNavigator(),
-          )),
-    );
+        key: scaffoldKey,
+        extendBodyBehindAppBar: true,
+        appBar: topNavBar(context, scaffoldKey),
+        drawer: const Drawer(
+          child: SideMenu(),
+        ),
+        body: CustomLinearGradient(
+          child: ResponsiveWidget(
+              largeScreen: const LargeScreen(),
+              smallScreen: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: localNavigator(),
+              )),
+        ));
   }
 }
