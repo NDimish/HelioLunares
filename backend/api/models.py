@@ -114,7 +114,7 @@ class StudentRoleAtSociety(models.Model):
 
 class Event(models.Model):
     # modify here
-    society_id = models.ForeignKey(Society, on_delete=models.CASCADE, blank=False)
+    society = models.ForeignKey(Society, on_delete=models.CASCADE, blank=False)
     duration = models.IntegerField(blank=False, unique=False)
     event_date = models.DateTimeField(blank=False)
     event_name = models.CharField(max_length=50, blank=False)
@@ -131,7 +131,7 @@ class Event(models.Model):
     def __str__(self):
         # the result must is string type
         return
-        self.society_id,
+        self.society,
         self.duration,
         self.event_date,
         self.event_name,
@@ -152,19 +152,31 @@ class Ticket(models.Model):
 class EventCategoriesType(models.Model):
     category_name = models.CharField(max_length=200, null=False)
 
+    class Meta:
+        db_table = "api_event_categories_type"
+
 
 class EventCategories(models.Model):
-    societyId = models.ForeignKey(Society, on_delete=models.CASCADE, null=False)
-    categoryId = models.ForeignKey(EventCategoriesType, on_delete=models.CASCADE, null=False)
+    society = models.ForeignKey(Society, on_delete=models.CASCADE, null=False)
+    category = models.ForeignKey(EventCategoriesType, on_delete=models.CASCADE, null=False)
+
+    class Meta:
+        db_table = "api_event_categories"
 
 
 class SocietyCategoriesType(models.Model):
     category_name = models.CharField(max_length=200, null=False)
 
+    class Meta:
+        db_table = "api_society_categories_type"
+
 
 class SocietyCategories(models.Model):
-    societyId = models.ForeignKey(Society, on_delete=models.CASCADE, null=False)
-    categoryId = models.ForeignKey(SocietyCategoriesType, on_delete=models.CASCADE, null=False)
+    society = models.ForeignKey(Society, on_delete=models.CASCADE, null=False)
+    category = models.ForeignKey(SocietyCategoriesType, on_delete=models.CASCADE, null=False)
+
+    class Meta:
+        db_table = "api_society_categories"
 
 # class Buys(models.Model):
 #     """buys """

@@ -1,43 +1,45 @@
 from rest_framework.test import APITestCase
-from django.urls import reverse
 from rest_framework import status
 
 from api.models import User, SocietyCategoriesType
 
 
 class SocietyCategoriesTypeTestCase(APITestCase):
-    def setUp(self):
-        self.user = User.objects.filter(email='johndoe@example.org').first()
+    fixtures = [
+        'api/tests/fixtures/default_users.json',
+        'api/tests/fixtures/default_societycategoriestype.json',
+    ]
 
-    def login(self):
-        url = reverse("log_in")
-        response = self.client.post(url, {'email': 'johndoe@example.org', 'password': 'Password123'},
-                                    format='json')
-        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-        self.data['token'] = response.data['token']
+    def setUp(self):
+        self.url = '/society_categories_type/'
+        self.user = User.objects.get(email='johndoe@example.org')
+        self.user_data = {
+            'email': 'johndoe@example.org',
+            'password': 'Password123'
+        }
+        self.data = {
+            "category_name": "music concert01"
+        }
 
     def test_society_categories_type_create(self):
         """create society categories type """
-        self.login()
+        response = self.client.post('/log_in/', self.user_data, format='json')
+        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
-        url = reverse("society_categories_type")
-        data = {
-            "category_name": "music concert"
-        }
-        response = self.client.post(url, data=data, format="json")
+        response = self.client.post(self.url, data=self.data, format="json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(SocietyCategoriesType.objects.count(), 1)
-        self.assertEqual(SocietyCategoriesType.objects.get("category_name"), "music concert")
+        self.assertEqual(response.data.get("category_name"), "music concert01")
+        self.assertEqual(SocietyCategoriesType.objects.count(), 2)
 
     def test_societyCategoriesType_list(self):
         """get all society categories type"""
 
-        self.login()
+        response = self.client.post('/log_in/', self.user_data, format='json')
+        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
         # create obj first
         self.test_society_categories_type_create()
 
-        url = reverse("society_categories_type")
-        response = self.client.post(url, format="json")
+        response = self.client.get(self.url, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assert_(len(response.data) > 0)
+        self.assertEqual(len(response.data), 2)

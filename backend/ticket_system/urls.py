@@ -55,21 +55,21 @@ urlpatterns = [
     # path("hosts/<int:pk>", views.HostsInfoApiView.as_view(), name="hosts_info"),
 
     path("ticket/", views.TicketApiView.as_view(), name="ticket"),
-    path("ticket/<int:pk>", views.TicketInfoApiView.as_view(), name="ticket_info"),
+    path("ticket/<int:pk>/", views.TicketInfoApiView.as_view(), name="ticket_info"),
 
     path("event_categories_type/", views.EventCategoriesTypeApiView.as_view(), name="event_categories_type"),
-    path("event_categories_type/<int:pk>", views.EventCategoriesTypeInfoApiView.as_view(),
+    path("event_categories_type/<int:pk>/", views.EventCategoriesTypeInfoApiView.as_view(),
          name="event_categories_type_info"),
 
     path("event_categories/", views.EventCategoriesApiView.as_view(), name="event_categories"),
-    path("event_categories/<int:pk>", views.EventCategoriesInfoApiView.as_view(),
+    path("event_categories/<int:pk>/", views.EventCategoriesInfoApiView.as_view(),
          name="event_categories_info"),
 
     path("society_categories_type/", views.SocietyCategoriesTypeApiView.as_view(), name="society_categories_type"),
-    path("society_categories_type/<int:pk>", views.SocietyCategoriesTypeInfoApiView.as_view(),
+    path("society_categories_type/<int:pk>/", views.SocietyCategoriesTypeInfoApiView.as_view(),
          name="society_categories_type_info"),
 
     path("society_categories/", views.SocietyCategoriesApiView.as_view(), name="society_categories"),
-    path("society_categories/<int:pk>", views.SocietyCategoriesInfoApiView.as_view(),
+    path("society_categories/<int:pk>/", views.SocietyCategoriesInfoApiView.as_view(),
          name="society_categories_info"),
 ]

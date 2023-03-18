@@ -1,0 +1,10 @@
+[
+  {
+    "model": "api.societycategories",
+    "pk": 1,
+    "fields": {
+      "society": 1,
+      "category": 1
+    }
+  }
+]

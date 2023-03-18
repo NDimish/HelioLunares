@@ -1,48 +1,53 @@
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from api.models import Ticket
+from api.models import Ticket, User
 
 
 class TicketInfoTestCase(APITestCase):
-    def login(self):
-        response = self.client.post('/log_in/', {'email': 'johndoe@example.org', 'password': 'Password123'},
-                                    format='json')
-        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-        self.data['token'] = response.data['token']
+    fixtures = [
+        'api/tests/fixtures/default_users.json',
+        'api/tests/fixtures/default_university.json',
+        'api/tests/fixtures/default_society.json',
+        'api/tests/fixtures/default_event.json',
+        'api/tests/fixtures/default_ticket.json',
+    ]
 
-    def create(self):
-        self.login()
-        data = {
-            "student_email": "justin3@gmail.com",
-            "event_id": 1
+    def setUp(self):
+        self.url = '/ticket/1/'
+        self.user = User.objects.get(email='johndoe@example.org')
+        self.user_data = {
+            'email': 'johndoe@example.org',
+            'password': 'Password123'
         }
-        response = self.client.post("/ticket/", data=data, format="json")
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assert_(len(response.data) > 0)
-        return response.data
+
+        self.data = {
+            "event": 1,
+            "user": 1,
+            "date": "2023-03-15T10:00:20Z",
+            "price": 93.0
+        }
 
     def test_ticket_get_with_id(self):
-        self.login()
-        id = self.create().get("id")
-        response = self.client.get(f"/ticket/{id}", format="json")
+        response = self.client.post('/log_in/', self.user_data, format='json')
+        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+        response = self.client.get(self.url, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assert_(len(response.data) > 0)
+        self.assertEqual(response.data.get("price"), 90.9)
 
     def test_ticket_update_with_id(self):
-        self.login()
-        id = self.create().get("id")
+        response = self.client.post('/log_in/', self.user_data, format='json')
+        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
-        data = {
-            "price": "90"
-        }
-        response = self.client.put(f"/ticket/{id}", data=data, format="json")
+        response = self.client.put(self.url, data=self.data, format="json")
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertEqual(response.data["price"], "90")
+        self.assertEqual(response.data.get("price"), 93.0)
 
     def test_ticket_delete_with_id(self):
-        self.login()
-        id = self.create().get("id")
-        response = self.client.delete(f"/ticket/{id}", format="json")
+        response = self.client.post('/log_in/', self.user_data, format='json')
+        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+        response = self.client.delete(self.url, format="json")
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertEqual(len(Ticket.objects.filter(id=id)), 0)
+        self.assertEqual(len(Ticket.objects.filter(id=1)), 0)
