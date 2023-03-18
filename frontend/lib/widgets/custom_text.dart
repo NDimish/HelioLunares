@@ -22,8 +22,10 @@ class CustomText extends StatelessWidget {
     return Text(text,
         textAlign: align ?? TextAlign.left,
         style: TextStyle(
-            fontSize: size ?? 16,
-            color: colour ?? MyColours.textColourDark,
-            fontWeight: weight ?? FontWeight.normal));
+          fontSize: size ?? 16,
+          color: colour ?? MyColours.textColourDark,
+          fontWeight: weight ?? FontWeight.normal,
+          fontFamily: 'Arvo',
+        ));
   }
 }

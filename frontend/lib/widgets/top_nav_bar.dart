@@ -101,6 +101,7 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                   child: Image.asset(
                     "assets/icons/ticket.png",
                     width: 28,
+                    color: MyColours.light,
                   ),
                 ),
               ],
@@ -110,7 +111,8 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
               onPressed: () {
                 key.currentState?.openDrawer();
               }),
-      title: Container(
+      title: Padding(
+        padding: const EdgeInsets.all(20.0),
         child: Row(
           children: [
             Visibility(
@@ -126,7 +128,7 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
             IconButton(
                 icon: const Icon(
                   Icons.settings,
-                  color: MyColours.elementButtonColour,
+                  color: MyColours.textColourLight,
                 ),
                 onPressed: () {}),
             Stack(
@@ -134,7 +136,7 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                 IconButton(
                     icon: Icon(
                       Icons.notifications,
-                      color: MyColours.navbarColour.withOpacity(.7),
+                      color: MyColours.textColourLight.withOpacity(0.7),
                     ),
                     onPressed: () {}),
                 Positioned(
@@ -155,7 +157,7 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
             Container(
               width: 1,
               height: 22,
-              color: MyColours.elementButtonColour,
+              color: MyColours.textColourDark,
             ),
             const SizedBox(
               width: 24,

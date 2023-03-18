@@ -17,13 +17,13 @@ class _MembersTableState extends State<MembersTable> {
       TableRow(
           decoration: const BoxDecoration(
               color: Color(0xFFF4E7FA),
-              border: Border(
-                  bottom: BorderSide(width: 1, color: Color(0xFF703c6c)))),
+              border:
+                  Border(bottom: BorderSide(width: 1, color: Colors.black))),
           children: [
             Container(
               decoration: const BoxDecoration(
-                border: Border(
-                    right: BorderSide(width: 1, color: Color(0xFF703c6c))),
+                border:
+                    Border(right: BorderSide(width: 1, color: Colors.black)),
               ),
               height: 25,
               alignment: Alignment.center,
@@ -31,8 +31,8 @@ class _MembersTableState extends State<MembersTable> {
             ),
             Container(
               decoration: const BoxDecoration(
-                border: Border(
-                    right: BorderSide(width: 1, color: Color(0xFF703c6c))),
+                border:
+                    Border(right: BorderSide(width: 1, color: Colors.black)),
               ),
               height: 25,
               alignment: Alignment.center,
@@ -40,8 +40,8 @@ class _MembersTableState extends State<MembersTable> {
             ),
             Container(
               decoration: const BoxDecoration(
-                border: Border(
-                    right: BorderSide(width: 1, color: Color(0xFF703c6c))),
+                border:
+                    Border(right: BorderSide(width: 1, color: Colors.black)),
               ),
               height: 25,
               alignment: Alignment.center,
@@ -49,8 +49,8 @@ class _MembersTableState extends State<MembersTable> {
             ),
             Container(
               decoration: const BoxDecoration(
-                border: Border(
-                    right: BorderSide(width: 1, color: Color(0xFF703c6c))),
+                border:
+                    Border(right: BorderSide(width: 1, color: Colors.black)),
               ),
               height: 25,
               alignment: Alignment.center,
@@ -58,8 +58,8 @@ class _MembersTableState extends State<MembersTable> {
             ),
             Container(
               decoration: const BoxDecoration(
-                border: Border(
-                    right: BorderSide(width: 1, color: Color(0xFF703c6c))),
+                border:
+                    Border(right: BorderSide(width: 1, color: Colors.black)),
               ),
               height: 25,
               alignment: Alignment.center,
@@ -144,12 +144,13 @@ class _MembersTableState extends State<MembersTable> {
   @override
   Widget build(BuildContext context) {
     return Table(
-      border: const TableBorder(
-          top: BorderSide(width: 2, color: Color(0xFF703c6c)),
-          bottom: BorderSide(width: 2, color: Color(0xFF703c6c)),
-          right: BorderSide(width: 2, color: Color(0xFF703c6c)),
-          left: BorderSide(width: 2, color: Color(0xFF703c6c)),
-          horizontalInside: BorderSide(width: .5, color: Color(0xFF703c6c))),
+      border: TableBorder(
+          borderRadius: BorderRadius.circular(10),
+          top: const BorderSide(width: 2, color: Colors.black),
+          bottom: const BorderSide(width: 2, color: Colors.black),
+          right: const BorderSide(width: 2, color: Colors.black),
+          left: const BorderSide(width: 2, color: Colors.black),
+          horizontalInside: const BorderSide(width: .5, color: Colors.black)),
       children: _setData(),
     );
   }

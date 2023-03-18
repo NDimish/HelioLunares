@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../helpers/responsiveness.dart';
+
 class CircularCard extends StatelessWidget {
   const CircularCard({Key? key}) : super(key: key);
 
@@ -9,8 +11,8 @@ class CircularCard extends StatelessWidget {
 
     return Column(children: [
       Container(
-        width: 200,
-        height: 200,
+        width: ResponsiveWidget.isSmallScreen(context) ? 330 : _width / 2,
+        height: 330,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           image: const DecorationImage(

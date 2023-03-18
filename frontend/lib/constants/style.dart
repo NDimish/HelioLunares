@@ -8,9 +8,9 @@ class MyColours {
   static const veryLightGrey = Color.fromARGB(255, 233, 231, 231);
   static const active = Color.fromARGB(255, 75, 76, 123);
   static const dark = Color(0xFF143c57);
-  static const textColourLight = Color(0xFFFFFFFF);
+  static const textColourLight = Colors.black;
   static const textColourDark = Color.fromRGBO(97, 97, 97, 1.0);
-  static const navbarColour = Color.fromRGBO(112, 88, 124, 1.0);
+  static const navbarColour = Colors.white;
   static const navButtonColour = Color.fromRGBO(200, 184, 219, 1.0);
   static const navButtonHoverColour = Color.fromRGBO(230, 214, 249, 1.0);
   static const backgroundColour = Color.fromRGBO(244, 231, 250, 1.0);
