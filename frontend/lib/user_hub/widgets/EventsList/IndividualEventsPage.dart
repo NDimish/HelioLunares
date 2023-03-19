@@ -191,6 +191,35 @@ class _EventPageState extends State<EventPage> {
                                   child: const Text("Return to events"),
                                 ),
                               ),
+                              !ResponsiveWidget.isSmallScreen(context)
+                                  ? const SizedBox()
+                                  : ElevatedButton(
+                                      onPressed: () => showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            AlertDialog(
+                                          title: const Text(
+                                            'Further Information',
+                                            style: const TextStyle(
+                                                fontFamily: "Arvo",
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 24),
+                                          ),
+                                          content: const Text(
+                                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              onPressed: () => {
+                                                Navigator.pop(
+                                                    context, 'Return'),
+                                              },
+                                              child: const Text('Return'),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      child: const Text("Details"),
+                                    ),
                             ],
                           )
                         ],
@@ -200,60 +229,71 @@ class _EventPageState extends State<EventPage> {
                 ],
               ),
               const SizedBox(height: 20.0),
-              Padding(
-                padding: const EdgeInsets.only(left: 40, right: 40),
-                child: Card(
-                  elevation: 0,
-                  color: Colors.white.withOpacity(0.7),
-                  shape: RoundedRectangleBorder(
-                    side: const BorderSide(
-                      color: Colors.black,
-                    ),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'Further Information',
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
+              ResponsiveWidget.isSmallScreen(context)
+                  ? const SizedBox()
+                  : Padding(
+                      padding: EdgeInsets.only(
+                          left: ResponsiveWidget.isMediumScreen(context)
+                              ? 30
+                              : 200,
+                          right: ResponsiveWidget.isMediumScreen(context)
+                              ? 30
+                              : 200),
+                      child: Card(
+                        elevation: 0,
+                        color: Colors.white.withOpacity(0.7),
+                        shape: RoundedRectangleBorder(
+                          side: const BorderSide(
+                            color: Colors.black,
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const Text(
+                                'Further Information',
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const Divider(),
+                              Text(
+                                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  color: Colors.grey[600],
+                                ),
+                              ),
+                              const Divider(),
+                              ResponsiveWidget.isMediumScreen(context)
+                                  ? const SizedBox()
+                                  : RichText(
+                                      text: TextSpan(
+                                      children: [
+                                        TextSpan(
+                                            text: "Interested in more from "),
+                                        TextSpan(
+                                            text: "Society name here? ",
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold)),
+                                        TextSpan(
+                                            text:
+                                                "Check out their society page! (maybe put a link here somehow, would involve passing parameters?)")
+                                      ],
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          color: Colors.grey[600],
+                                          fontFamily: "Arvo"),
+                                    ))
+                            ],
                           ),
                         ),
-                        const Divider(),
-                        Text(
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            color: Colors.grey[600],
-                          ),
-                        ),
-                        const Divider(),
-                        RichText(
-                            text: TextSpan(
-                          children: [
-                            TextSpan(text: "Interested in more from "),
-                            TextSpan(
-                                text: "Society name here? ",
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold)),
-                            TextSpan(
-                                text:
-                                    "Check out their society page! (maybe put a link here somehow, would involve passing parameters?)")
-                          ],
-                          style: TextStyle(
-                              fontSize: 16.0,
-                              color: Colors.grey[600],
-                              fontFamily: "Arvo"),
-                        ))
-                      ],
+                      ),
                     ),
-                  ),
-                ),
-              ),
             ],
           ),
         ),
