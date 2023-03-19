@@ -28,6 +28,7 @@ ThemeData lightTheme() {
       ),
     ),
     textTheme: const TextTheme(
+        bodySmall: TextStyle(color: Colors.white, fontFamily: 'Arvo'),
         bodyMedium: TextStyle(color: Colors.black, fontFamily: 'Arvo'),
         titleLarge: TextStyle(
             color: Colors.black,
