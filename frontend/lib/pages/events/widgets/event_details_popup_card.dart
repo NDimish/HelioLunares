@@ -33,12 +33,13 @@ class AddEventPopupCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          CustomText(
+                          Flexible(
+                              child: CustomText(
                             text: obj.name,
                             size: 30,
                             weight: FontWeight.bold,
                             colour: MyColours.active,
-                          ),
+                          )),
                           const SizedBox(
                             height: 20,
                           ),
@@ -97,11 +98,12 @@ class AddEventPopupCard extends StatelessWidget {
                               const SizedBox(
                                 width: 10,
                               ),
-                              CustomText(
+                              Flexible(
+                                  child: CustomText(
                                 text: obj.location,
                                 size: 18,
                                 weight: FontWeight.bold,
-                              )
+                              )),
                             ],
                           ),
                           const SizedBox(
