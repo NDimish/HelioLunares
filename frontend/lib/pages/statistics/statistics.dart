@@ -14,13 +14,14 @@ class StatisticsPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Obx(() => Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
                   margin: EdgeInsets.only(
                       top: ResponsiveWidget.isSmallScreen(context) ? 56 : 6),
                   child: CustomText(
                     text: menuController.activeItem.value,
-                    size: 28,
+                    size: ResponsiveWidget.isSmallScreen(context) ? 24 : 40,
                     weight: FontWeight.bold,
                   ),
                 )
