@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:university_ticketing_system/constants/controllers.dart';
+import 'package:university_ticketing_system/widgets/circle_icon.dart';
 import 'package:university_ticketing_system/widgets/custom_text.dart';
 import '../../../constants/style.dart';
 
@@ -80,112 +82,126 @@ class _SocietyHubFormState extends State<SocietyHubForm> {
   Widget build(BuildContext context) {
     return Form(
         key: _formKey,
-        child: Column(children: [
-          Expanded(
-              child: SingleChildScrollView(
-                  child: Column(children: [
-            TextFormField(
-              decoration: InputDecoration(
-                  errorText:
-                      _validateAboutUs ? 'About section Can\'t Be Empty' : null,
-                  labelText: "About Us",
-                  icon: const Icon(Icons.event)),
-              controller: aboutUsController,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
+        child: SingleChildScrollView(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  //IMAGE PICKER
-                  ElevatedButton(
-                      style: ButtonStyle(
+              Row(children: [
+                CircleIcon(
+                  icon: const Icon(Icons.event),
+                  radius: 30,
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                Flexible(
+                    child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.75,
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            errorText: _validateAboutUs
+                                ? 'About section Can\'t Be Empty'
+                                : null,
+                            labelText: "About Us",
+                          ),
+                          controller: aboutUsController,
+                          maxLines: null,
+                          keyboardType: TextInputType.multiline,
+                        )))
+              ]),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(children: [
+                CircleIcon(
+                  icon: const Icon(Icons.image),
+                  radius: 30,
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                //IMAGE PICKER
+                ElevatedButton(
+                    style: ButtonStyle(
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                              side: const BorderSide(
-                                  color: MyColours.elementButtonColour)),
+                            borderRadius: BorderRadius.circular(18.0),
+                          ),
                         ),
                         backgroundColor: MaterialStateProperty.all<Color>(
-                            MyColours.elementButtonHoverColour),
-                        foregroundColor: MaterialStateProperty.all<Color>(
-                            MyColours.panelBackgroundColour),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(Icons.image),
-                          SizedBox(
-                            width: 16,
-                          ),
-                          CustomText(
-                            weight: FontWeight.w300,
-                            text: "Select Image",
-                            size: 18,
-                          ),
-                        ],
-                      ),
-                      onPressed: () => pickImage()),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  CustomText(
-                    size: 14,
-                    text: "(200x200 is preferred)",
-                  ),
-                ]),
-            const SizedBox(
-              height: 20,
-            ),
-            (_file.path == "zz")
-                ? const FlutterLogo(
-                    size: 200,
-                  )
-                : (kIsWeb)
-                    ? Image.memory(webImage)
-                    : Image.file(_image!),
-            const SizedBox(
-              height: 20,
-            ),
-            TextButton(
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                      side: const BorderSide(color: MyColours.light)),
+                            MyColours.elementButtonColour.withOpacity(0.2))
+                        // foregroundColor: MaterialStateProperty.all<Color>(
+                        //     MyColours.panelBackgroundColour),
+                        ),
+                    child: CustomText(
+                      weight: FontWeight.w300,
+                      text: "Select Image",
+                      size: 18,
+                      colour: Colors.white,
+                    ),
+                    onPressed: () => pickImage()),
+                const SizedBox(
+                  width: 10,
                 ),
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(MyColours.light),
-                foregroundColor:
-                    MaterialStateProperty.all<Color>(MyColours.navbarColour),
+                CustomText(
+                  size: 14,
+                  text: "(200x200 is preferred)",
+                ),
+              ]),
+              const SizedBox(
+                height: 20,
               ),
-              onPressed: () {
-                setState(
-                  () {
-                    aboutUsController.text.isEmpty
-                        ? _validateAboutUs = true
-                        : _validateAboutUs = false;
-                  },
-                );
-                if (checkAllValidators()) {
-                  test = aboutUsController.text;
-
-                  print(test);
-                  //TODO Update backend
-
-                  navigationController.goBack();
-                }
-              },
-              child: const CustomText(
-                text: "Save",
-                size: 18,
-                weight: FontWeight.bold,
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                SizedBox(
+                  width: 300,
+                  height: 300,
+                  child: (_file.path == "zz")
+                      ? const FlutterLogo(
+                          size: 200,
+                        )
+                      : (kIsWeb)
+                          ? Image.memory(webImage)
+                          : Image.file(_image!),
+                ),
+              ]),
+              const SizedBox(
+                height: 20,
               ),
-            )
-          ])))
-        ]));
+              ElevatedButton(
+                style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0),
+                    )),
+                    padding: const MaterialStatePropertyAll(EdgeInsets.all(20)),
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        MyColours.navButtonColour.withOpacity(0.5))),
+                onPressed: () {
+                  setState(
+                    () {
+                      aboutUsController.text.isEmpty
+                          ? _validateAboutUs = true
+                          : _validateAboutUs = false;
+                    },
+                  );
+                  if (checkAllValidators()) {
+                    test = aboutUsController.text;
+
+                    print(test);
+                    //TODO Update backend
+
+                    navigationController.goBack();
+                  }
+                },
+                child: const CustomText(
+                  colour: Colors.white,
+                  text: "Save",
+                  size: 24,
+                  weight: FontWeight.bold,
+                ),
+              ),
+            ])));
   }
 }
