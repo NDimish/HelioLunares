@@ -4,6 +4,8 @@ import 'package:university_ticketing_system/constants/controllers.dart';
 import 'package:university_ticketing_system/pages/events/events.dart';
 import 'package:university_ticketing_system/widgets/layout.dart';
 
+import '../../../widgets/custom_text.dart';
+
 class DeleteEventConfirmation extends StatelessWidget {
   final SocietyEvent event;
 
@@ -11,7 +13,10 @@ class DeleteEventConfirmation extends StatelessWidget {
 
   showAlertDialog(BuildContext context) {
     Widget okButton = ElevatedButton(
-      child: Text("OK"),
+      child: CustomText(
+        text: "OK",
+        colour: Colors.white,
+      ),
       onPressed: () {
         //Delete the event
         //UNCOMMENT ONCE IMPLEMENTED :
@@ -30,13 +35,22 @@ class DeleteEventConfirmation extends StatelessWidget {
       },
     );
     Widget cancelButton = ElevatedButton(
-      child: Text("Cancel"),
+      child: const CustomText(
+        text: "Cancel",
+        colour: Colors.white,
+      ),
       onPressed: () {},
     );
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Text("Delete Event"),
-      content: Text("Are you sure you want to delete this event?"),
+      title: CustomText(
+        text: "Delete Event",
+        weight: FontWeight.bold,
+        colour: Colors.red,
+        size: 20,
+      ),
+      content:
+          const CustomText(text: "Are you sure you want to delete this event?"),
       actions: [
         cancelButton,
         okButton,
