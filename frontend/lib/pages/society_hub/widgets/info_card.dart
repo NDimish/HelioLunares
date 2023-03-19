@@ -60,19 +60,23 @@ class InfoCard extends StatelessWidget {
                         align: TextAlign.center,
                         text: title))
               ]),
-              const SizedBox(
-                height: 10,
+              const Padding(
+                padding: EdgeInsets.all(5.0),
+                child: Divider(),
               ),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Expanded(
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                      CustomText(
-                          size: 18,
-                          weight: FontWeight.normal,
-                          align: TextAlign.center,
-                          text: value)
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: CustomText(
+                            size: 18,
+                            weight: FontWeight.normal,
+                            align: TextAlign.center,
+                            text: value),
+                      )
                     ]))
               ]),
               const SizedBox(

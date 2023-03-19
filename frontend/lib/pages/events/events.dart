@@ -22,14 +22,15 @@ class SocietyEventsPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Obx(() => Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       margin: EdgeInsets.only(
                           top:
                               ResponsiveWidget.isSmallScreen(context) ? 56 : 6),
                       child: CustomText(
+                        size: ResponsiveWidget.isSmallScreen(context) ? 24 : 40,
                         text: menuController.activeItem.value,
-                        size: 28,
                         weight: FontWeight.bold,
                       ),
                     )
