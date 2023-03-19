@@ -63,7 +63,7 @@ class EventCard extends StatelessWidget {
                           Expanded(
                               child: CustomText(
                             text: date,
-                            size: 16,
+                            size: 14,
                             weight: FontWeight.w300,
                             colour: MyColours.textColourDark,
                           ))
