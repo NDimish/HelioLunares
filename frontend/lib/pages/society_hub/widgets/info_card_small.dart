@@ -18,41 +18,39 @@ class InfoCardSmall extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: InkWell(
-        onTap: onTap,
-        child: Container(
-            padding: const EdgeInsets.all(24),
-            decoration: BoxDecoration(
-              color: MyColours.panelBackgroundColour.withOpacity(0.5),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                      child: CustomText(
-                    text: title,
-                    size: 20,
-                    weight: FontWeight.bold,
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: MyColours.panelBackgroundColour.withOpacity(0.5),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                    child: CustomText(
+                  text: title,
+                  size: 20,
+                  weight: FontWeight.bold,
+                  colour: MyColours.textColourDark,
+                )),
+                Expanded(
+                    child: Column(children: [
+                  CustomText(
+                    text: value,
+                    size: 18,
+                    weight: FontWeight.normal,
                     colour: MyColours.textColourDark,
-                  )),
-                  Expanded(
-                      child: Column(children: [
-                    CustomText(
-                      text: value,
-                      size: 18,
-                      weight: FontWeight.normal,
-                      colour: MyColours.textColourDark,
-                    )
-                  ]))
-                ],
-              )
-            ])),
-      ),
+                  )
+                ]))
+              ],
+            )
+          ])),
     );
   }
 }

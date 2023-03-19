@@ -20,7 +20,7 @@ void main() {
 
       //Add event form should have 6 fields as well as save button
       final textFormFieldFinder = find.byType(TextFormField);
-      final saveButtonFinder = find.byType(TextButton);
+      final saveButtonFinder = find.byType(ElevatedButton);
 
       expect(textFormFieldFinder, findsNWidgets(6));
       expect(saveButtonFinder, findsOneWidget);
@@ -37,7 +37,7 @@ void main() {
         ),
       ));
 
-      final saveButtonFieldFinder = find.byType(TextButton);
+      final saveButtonFieldFinder = find.byType(ElevatedButton);
       final eventName = find.byKey(const Key("EventName"));
       final eventPrice = find.byKey(const Key("EventPrice"));
       final eventDate = find.byKey(const Key("EventDate"));
@@ -75,7 +75,7 @@ void main() {
         ),
       ));
 
-      final saveButtonFieldFinder = find.byType(TextButton);
+      final saveButtonFieldFinder = find.byType(ElevatedButton);
       final eventName = find.byKey(const Key("EventName"));
       final eventPrice = find.byKey(const Key("EventPrice"));
       final eventDate = find.byKey(const Key("EventDate"));
@@ -116,7 +116,7 @@ void main() {
       ),
     ));
 
-    final saveButtonFieldFinder = find.byType(TextButton);
+    final saveButtonFieldFinder = find.byType(ElevatedButton);
     final eventName = find.byKey(const Key("EventName"));
     final eventPrice = find.byKey(const Key("EventPrice"));
     final eventDate = find.byKey(const Key("EventDate"));
@@ -159,7 +159,7 @@ void main() {
       ),
     ));
 
-    final saveButtonFieldFinder = find.byType(TextButton);
+    final saveButtonFieldFinder = find.byType(ElevatedButton);
     final eventName = find.byKey(const Key("EventName"));
     final eventPrice = find.byKey(const Key("EventPrice"));
     final eventDate = find.byKey(const Key("EventDate"));
