@@ -11,6 +11,7 @@ class StatisticsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Obx(() => Row(
               children: [
@@ -24,7 +25,16 @@ class StatisticsPage extends StatelessWidget {
                   ),
                 )
               ],
-            ))
+            )),
+        Padding(
+          padding: EdgeInsets.all(20),
+          child: CustomText(
+            size: 20,
+            weight: FontWeight.bold,
+            text: "Coming Soon...",
+            colour: Colors.white,
+          ),
+        )
       ],
     );
   }
