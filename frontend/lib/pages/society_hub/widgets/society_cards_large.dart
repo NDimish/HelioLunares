@@ -9,7 +9,7 @@ class SocietyHubCardsLarge extends StatelessWidget {
   Widget build(BuildContext context) {
     double _width = MediaQuery.of(context).size.width;
     return Column(children: [
-      Row(children: [
+      Row(key: const Key("RowOne"), children: [
         Expanded(
             child: InfoCard(
                 title: "Event Count",
@@ -45,6 +45,7 @@ class SocietyHubCardsLarge extends StatelessWidget {
         height: _width / 64,
       ),
       Row(
+        key: const Key("RowTwo"),
         children: [
           Expanded(
               child: InfoCard(
