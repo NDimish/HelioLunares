@@ -43,67 +43,12 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
     );
   }
 
-  // Widget leftbuild(BuildContext context, int id){
-  //   return ChangeNotifierProvider(
-  //         create: (context) => data.dataCollector<data.Event>(
-  //           ID:id),
-  //       builder:(context,child){
-
-  //       }
-  //       );
-  // }
-
-  Widget _buildPanel(BuildContext context) {
-    final DataP = Provider.of<data.dataCollector<data.Event>>(context);
-    return Row(children: <Widget>[
-      Container(
-        color: const Color(0xFF8C7099),
-        child: const VerticalDivider(
-            thickness: 1, indent: 1, endIndent: 0, color: Color(0xFF8C7099)),
-      ),
-
-      // left side of the screen
-      Expanded(
-        flex: 2,
-        child: Container(
-          color: const Color(0xFF8C7099),
-          child: Column(
-            // crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const SizedBox(height: 10),
-
-              // // left up screen
-              // Expanded(
-              //   flex: 3,
-              //     child: Padding(
-              //       padding: const EdgeInsets.all(5.0),
-              //       child: Container(
-              //         decoration: BoxDecoration(
-              //           border: Border.all(
-              //             color: Colors.black,
-              //             width: 1
-              //           ),
-              //         ),
-              //         child: Text('Insert picture here'),
-              //       ),
-              //     )
-              // ),
-
-              Expanded(
-                  flex: 3,
-                  child: Container(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black, width: 1),
-                      ),
-                      child: const Text('Insert event poster here'),
-                    ),
-                  )),
-
-              // left bottom of screen
-              Expanded(
+  Widget leftbuild(BuildContext context, int id){
+    return ChangeNotifierProvider(
+          create: (context) => data.dataCollector<data.Event>(
+            ID:id),
+        builder:(context,child){
+          return Expanded(
                   flex: 7,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -132,7 +77,6 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                               Expanded(
                                 child: Text(
                                   '  Title: '
-                                  
                                   // textAlign: TextAlign.left,
                                   // style: TextStyle(fontSize: 20),
                                 ),
@@ -251,7 +195,66 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                       //       ],
                       //     )),
                     ],
-                  ))
+                  ));
+        }
+        );
+  }
+
+  Widget _buildPanel(BuildContext context) {
+    final DataP = Provider.of<data.dataCollector<data.Event>>(context);
+    return Row(children: <Widget>[
+      Container(
+        color: const Color(0xFF8C7099),
+        child: const VerticalDivider(
+            thickness: 1, indent: 1, endIndent: 0, color: Color(0xFF8C7099)),
+      ),
+
+      // left side of the screen
+      Expanded(
+        flex: 2,
+        child: Container(
+          color: const Color(0xFF8C7099),
+          child: Column(
+            // crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const SizedBox(height: 10),
+
+              // // left up screen
+              // Expanded(
+              //   flex: 3,
+              //     child: Padding(
+              //       padding: const EdgeInsets.all(5.0),
+              //       child: Container(
+              //         decoration: BoxDecoration(
+              //           border: Border.all(
+              //             color: Colors.black,
+              //             width: 1
+              //           ),
+              //         ),
+              //         child: Text('Insert picture here'),
+              //       ),
+              //     )
+              // ),
+
+              // Expanded(
+              //     flex: 3,
+              //     child: Container(
+              //       padding: const EdgeInsets.all(5.0),
+              //       child: Container(
+              //         decoration: BoxDecoration(
+
+
+
+                
+              //           border: Border.all(color: Colors.black, width: 1),
+              //         ),
+              //         child: const Text('Insert event poster here'),
+              //       ),
+              //     )),
+
+              // left bottom of screen
+              leftbuild(context, id)
             ],
           ),
         ),
