@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/screens/startup_screen/widgets/hero_card.dart';
 import 'package:university_ticketing_system/screens/startup_screen/widgets/widget_carousel.dart';
 
+import '../../../helpers/responsiveness.dart';
+
 //'Hero' subpage - First thing the user sees when they click on the app - Has
 //eye-catching features, such as headlines, app features and CTA buttons.
 class StartupHero extends StatefulWidget {
@@ -30,11 +32,14 @@ class _StartupHeroState extends State<StartupHero> {
                 )),
             child: Center(
                 child: Column(children: [
-              const Text(
+              Text(
                 "The #1 ticketing system.",
                 style: TextStyle(
                     fontWeight: FontWeight.w600,
-                    fontSize: 60,
+                    fontSize: ResponsiveWidget.isMediumScreen(context) ||
+                            ResponsiveWidget.isSmallScreen(context)
+                        ? 30
+                        : 60,
                     color: Colors.white),
               ),
               const Text(
@@ -75,10 +80,10 @@ class _StartupHeroState extends State<StartupHero> {
                       child: const Text("Learn more", textScaleFactor: 1.3)),
                 ),
               ),
-              SizedBox(
+              FittedBox(
                   child: (Card(
                       color: const Color(0xFFffd1da).withOpacity(0.55),
-                      child: WidgetCarousel(children: [
+                      child: WidgetCarousel(transitionTime: 10, children: [
                         HeroCard(
                           headerName: "Test feature 1",
                           feature: "Explain feature here...",
@@ -94,7 +99,7 @@ class _StartupHeroState extends State<StartupHero> {
                           widgets: [const Text("extra info...")],
                           key: const ValueKey(1),
                         ),
-                      ], transitionTime: 10)))),
+                      ])))),
             ])),
           )),
     ]));
