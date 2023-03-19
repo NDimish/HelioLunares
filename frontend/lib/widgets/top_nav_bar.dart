@@ -100,10 +100,10 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left: 16),
-                  child: Image.asset(
-                    "assets/icons/ticket.png",
-                    width: 28,
-                  ),
+                  // child: Image.asset(
+                  //   "assets/icons/ticket.png",
+                  //   width: 28,
+                  // ),
                 ),
               ],
             )
@@ -128,7 +128,7 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
             IconButton(
                 icon: const Icon(
                   Icons.settings,
-                  color: MyColours.elementButtonColour,
+                  color: MyColours.navbarColour,
                 ),
                 onPressed: () {
                   navigationController
@@ -144,7 +144,7 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
             ),
             const CustomText(
               text: "User",
-              colour: MyColours.textColourDark,
+              colour: MyColours.navbarColour,
             ),
             const SizedBox(
               width: 16,
