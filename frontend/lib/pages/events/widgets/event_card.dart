@@ -47,9 +47,7 @@ class EventCard extends StatelessWidget {
                             text: name,
                             size: 20,
                             weight: FontWeight.bold,
-                            //  colour: MyColours.textColourLight,
                           )),
-                      // Padding(padding: EdgeInsets.all(5)),
                       Flexible(
                           child: Row(
                         children: [
