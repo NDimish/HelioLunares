@@ -21,28 +21,24 @@ class InfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        child: InkWell(
+    return InkWell(
       onTap: onTap,
       child: Container(
-        //height: 400,
-        // alignment: Alignment.topLeft,
-        decoration: BoxDecoration(
-            color: MyColours.panelBackgroundColour.withOpacity(0.5),
-            boxShadow: [
-              BoxShadow(
-                  offset: const Offset(0, 6),
-                  color: MyColours.subpanelBackgroundColour.withOpacity(.1),
-                  blurRadius: 12)
-            ],
-            borderRadius: BorderRadius.circular(8)),
-        child: Row(children: [
-          Expanded(
-              child: Column(children: [
+          decoration: BoxDecoration(
+              color: MyColours.panelBackgroundColour.withOpacity(0.5),
+              boxShadow: [
+                BoxShadow(
+                    offset: const Offset(0, 6),
+                    color: MyColours.subpanelBackgroundColour.withOpacity(.1),
+                    blurRadius: 12)
+              ],
+              borderRadius: BorderRadius.circular(8)),
+          child: Column(children: [
             Row(
               children: [
                 Expanded(
                     child: Container(
+                  key: const Key("TopDecoration"),
                   color: topColor,
                   height: 5,
                 ))
@@ -83,9 +79,7 @@ class InfoCard extends StatelessWidget {
                 height: 10,
               ),
             ]),
-          ]))
-        ]),
-      ),
-    ));
+          ])),
+    );
   }
 }
