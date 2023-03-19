@@ -44,6 +44,9 @@ class SocietyHubCardsSmall extends StatelessWidget {
 
             onTap: () {},
           ),
+          SizedBox(
+            height: _width / 64,
+          ),
         ],
       ),
     );
