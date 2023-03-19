@@ -17,21 +17,7 @@ class CircularCard extends StatelessWidget {
             fit: BoxFit.cover,
             image: NetworkImage('assets/icons/kcl.png'),
           ),
-
-          //color: Colors.green.withOpacity(0.25), // border color
-          //shape: BoxShape.circle,
         ),
-        // child: Padding(
-        //   padding: EdgeInsets.all(2), // border width
-        //   child: Container(
-        //     // or ClipRRect if you need to clip the content
-        //     decoration: BoxDecoration(
-        //       shape: BoxShape.circle,
-        //       color: Colors.blue, // inner circle color
-        //     ),
-        //     child: Container(), // inner content
-        //   ),
-        // ),
       ),
       SizedBox(
         height: _width / 32,
