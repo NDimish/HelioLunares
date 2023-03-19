@@ -9,13 +9,13 @@ import 'package:university_ticketing_system/pages/events/widgets/event_card.dart
 class SocietyEventCards extends StatelessWidget {
   final List eventList = [];
   final f = 'yyyy-MM-dd hh:mm';
-  final DateFormat formatter = DateFormat('yyyy-MM-dd   hh:mm');
+  final DateFormat formatter = DateFormat('yyyy-MM-dd hh:mm');
 
   buildList() {
     SocietyEvent e = SocietyEvent(
         "Event One",
         "3",
-        formatter.format(DateTime.now()),
+        formatter.format(DateTime.now()).toString(),
         "Waterloo",
         "1",
         //500 character example
