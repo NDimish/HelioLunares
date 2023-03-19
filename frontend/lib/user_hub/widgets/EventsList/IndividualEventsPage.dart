@@ -20,6 +20,7 @@ class EventPage extends StatefulWidget {
     required this.eventDate,
     required this.eventDuration,
     required this.eventPrice,
+
   }) : super(key: key);
 
   @override
@@ -30,6 +31,11 @@ class _EventPageState extends State<EventPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          title: Text(
+        (widget.eventName),
+        style: TextStyle(fontFamily: "Arvo", fontWeight: FontWeight.bold),
+      )),
       body: CustomLinearGradient(
         child: Padding(
           padding: const EdgeInsets.only(top: 32.0, right: 32.0, left: 32.0),
@@ -105,7 +111,7 @@ class _EventPageState extends State<EventPage> {
                               )),
                           const SizedBox(height: 10.0),
                           Text(
-                            '123 Main Street, New York, NY',
+                            widget.eventLocation,
                             style: TextStyle(
                               fontSize: 14.0,
                               color: Colors.grey[600],
@@ -120,7 +126,7 @@ class _EventPageState extends State<EventPage> {
                               )),
                           const SizedBox(height: 10.0),
                           Text(
-                            '\$25.00',
+                            widget.eventPrice,
                             style: TextStyle(
                               fontSize: 14.0,
                               color: Colors.grey[600],
@@ -135,7 +141,7 @@ class _EventPageState extends State<EventPage> {
                               )),
                           const SizedBox(height: 10.0),
                           Text(
-                            '2 hours',
+                            widget.eventDuration,
                             style: TextStyle(
                               fontSize: 14.0,
                               color: Colors.grey[600],
@@ -181,14 +187,6 @@ class _EventPageState extends State<EventPage> {
                                   onPressed: () => print(
                                       "This would take you to the checkout and book the event. We would have to check if user has booked this event to disable this button."),
                                   child: const Text("Book now"),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: ElevatedButton(
-                                  onPressed: () => print(
-                                      "Navigator.push(Wesley's event list (not on this branch))"),
-                                  child: const Text("Return to events"),
                                 ),
                               ),
                               !ResponsiveWidget.isSmallScreen(context)
