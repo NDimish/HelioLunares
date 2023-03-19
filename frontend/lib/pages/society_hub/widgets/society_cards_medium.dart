@@ -14,6 +14,7 @@ class SocietyHubCardsMedium extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Row(
+          key: const Key("RowOne"),
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -43,6 +44,7 @@ class SocietyHubCardsMedium extends StatelessWidget {
           height: _width / 64,
         ),
         Row(
+          key: const Key("RowTwo"),
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -62,6 +64,7 @@ class SocietyHubCardsMedium extends StatelessWidget {
           height: _width / 64,
         ),
         Row(
+          key: const Key("RowThree"),
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
