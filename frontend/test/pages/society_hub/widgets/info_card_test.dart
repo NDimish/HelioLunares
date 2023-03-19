@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:university_ticketing_system/pages/society_hub/widgets/info_card.dart';
-import 'package:university_ticketing_system/pages/society_hub/widgets/info_card_small.dart';
 
 void main() {
   final TestWidgetsFlutterBinding binding =
