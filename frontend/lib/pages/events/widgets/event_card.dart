@@ -23,16 +23,16 @@ class EventCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-            color: MyColours.panelBackgroundColour.withOpacity(0.5),
-            borderRadius: BorderRadius.circular(8)),
-        height: 120,
-        child: InkWell(
-            onTap: onTap,
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                color: MyColours.panelBackgroundColour.withOpacity(0.5),
+                borderRadius: BorderRadius.circular(8)),
+            height: 120,
             child: Row(
-              mainAxisSize: MainAxisSize.max,
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -94,20 +94,11 @@ class EventCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Flexible(
-                        child: Container(
-                      height: 40,
-                    )),
-                    Expanded(
-                        flex: 4,
-                        child: CustomText(
-                          text: location,
-                          size: 16,
-                          weight: FontWeight.w300,
-                          colour: MyColours.textColourDark,
-                        )),
-                    const SizedBox(
-                      height: 10,
+                    CustomText(
+                      text: location,
+                      size: 16,
+                      weight: FontWeight.w300,
+                      colour: MyColours.textColourDark,
                     ),
                   ],
                 ))
