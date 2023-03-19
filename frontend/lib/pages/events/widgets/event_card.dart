@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:university_ticketing_system/widgets/custom_text.dart';
 import '../../../constants/style.dart';
 
@@ -23,72 +22,93 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: InkWell(
-        onTap: onTap,
-        child: Container(
-            height: 100,
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: MyColours.panelBackgroundColour.withOpacity(0.5),
-              borderRadius: BorderRadius.circular(8),
-              // border: Border.all(color: Colors.transparent, width: .5),
-            ),
+    return SingleChildScrollView(
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+            color: MyColours.panelBackgroundColour.withOpacity(0.5),
+            borderRadius: BorderRadius.circular(8)),
+        height: 120,
+        child: InkWell(
+            onTap: onTap,
             child: Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Column(children: [
-                  Flexible(
-                      child: CustomText(
-                    text: name,
-                    size: 20,
-                    weight: FontWeight.bold,
-                    colour: MyColours.textColourLight,
-                  )),
-                  Padding(padding: EdgeInsets.all(5)),
-                  Flexible(
-                      child: Row(
-                    children: [
-                      const Icon(Icons.date_range),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      CustomText(
-                        text: date,
-                        size: 16,
-                        weight: FontWeight.w300,
-                        colour: MyColours.textColourDark,
-                      )
-                    ],
-                  ))
-                ]),
-                Flexible(
+                Expanded(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                      Expanded(
+                          flex: 3,
+                          child: CustomText(
+                            text: name,
+                            size: 20,
+                            weight: FontWeight.bold,
+                            //  colour: MyColours.textColourLight,
+                          )),
+                      // Padding(padding: EdgeInsets.all(5)),
+                      Flexible(
+                          child: Row(
+                        children: [
+                          const Icon(
+                            Icons.date_range,
+                            color: MyColours.textColourDark,
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Expanded(
+                              child: CustomText(
+                            text: date,
+                            size: 16,
+                            weight: FontWeight.w300,
+                            colour: MyColours.textColourDark,
+                          ))
+                        ],
+                      ))
+                    ])),
+                Expanded(
                     child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(Icons.payments_outlined),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     Flexible(
                         child: CustomText(
                       text: "£$price",
-                      size: 16,
-                      weight: FontWeight.w300,
+                      size: 24,
+                      weight: FontWeight.bold,
                       colour: MyColours.textColourDark,
-                    ))
+                    )),
+                    const SizedBox(
+                      height: 10,
+                    ),
                   ],
                 )),
-                Flexible(
+                Expanded(
                     child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const Icon(Icons.location_on_outlined),
                     Flexible(
+                        child: Container(
+                      height: 40,
+                    )),
+                    Expanded(
+                        flex: 4,
                         child: CustomText(
-                      text: location,
-                      size: 16,
-                      weight: FontWeight.w300,
-                      colour: MyColours.textColourDark,
-                    ))
+                          text: location,
+                          size: 16,
+                          weight: FontWeight.w300,
+                          colour: MyColours.textColourDark,
+                        )),
+                    const SizedBox(
+                      height: 10,
+                    ),
                   ],
                 ))
               ],
