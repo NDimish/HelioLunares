@@ -28,7 +28,7 @@ class InfoCard extends StatelessWidget {
         //height: 400,
         // alignment: Alignment.topLeft,
         decoration: BoxDecoration(
-            color: MyColours.panelBackgroundColour,
+            color: MyColours.panelBackgroundColour.withOpacity(0.5),
             boxShadow: [
               BoxShadow(
                   offset: const Offset(0, 6),

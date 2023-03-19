@@ -24,10 +24,8 @@ class InfoCardSmall extends StatelessWidget {
         child: Container(
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
-              color: MyColours.panelBackgroundColour,
+              color: MyColours.panelBackgroundColour.withOpacity(0.5),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                  color: MyColours.subpanelBackgroundColour, width: .5),
             ),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
