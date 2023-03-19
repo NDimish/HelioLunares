@@ -51,7 +51,7 @@ class _SignUpCardState extends State<SignUpCard> {
             child: Center(
                 child: PageView(
                     controller: widget.pageController,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     pageSnapping: true,
                     children: <Widget>[
                   stageOneForm(context),
@@ -116,7 +116,7 @@ class _SignUpCardState extends State<SignUpCard> {
           Expanded(
               flex: 1,
               child: Container(
-                  padding: EdgeInsets.only(right: 16.0),
+                  padding: const EdgeInsets.only(right: 16.0),
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
@@ -179,6 +179,7 @@ class _SignUpCardState extends State<SignUpCard> {
                   widget.finishFormKey.currentState!.validate();
                   widget.finishFormKey.currentState!.save();
                   print("Form saved, redirect to next page");
+                  Navigator.pushNamed(context, '/userhub');
                 },
                 child: const Text("Next",
                     style: TextStyle(fontFamily: 'Arvo', color: Colors.white))))
@@ -196,7 +197,7 @@ class _SignUpCardState extends State<SignUpCard> {
               Expanded(
                   flex: 1,
                   child: Container(
-                      padding: EdgeInsets.only(left: 32.0),
+                      padding: const EdgeInsets.only(left: 32.0),
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
@@ -281,7 +282,8 @@ class _SignUpCardState extends State<SignUpCard> {
                                     widget.fKey.currentState!.save();
                                     print("Form saved");
                                     widget.pageController.nextPage(
-                                        duration: Duration(milliseconds: 500),
+                                        duration:
+                                            const Duration(milliseconds: 500),
                                         curve: Curves.easeInSine);
                                   }
                                 },

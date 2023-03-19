@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:university_ticketing_system/screens/startup_screen/widgets/howtouse_card.dart';
 
 //'How to use' subpage - Contains helpful information for users and societies on
@@ -19,19 +17,21 @@ class _HowToUseSectionState extends State<HowToUseSection> {
       backgroundColor: const Color(0xFFc8b8db),
       foregroundColor: Colors.white,
       disabledForegroundColor: Colors.white12,
-      fixedSize: Size(300, 50));
+      fixedSize: const Size(300, 50));
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
     return Center(
         child: SizedBox(
-            width: MediaQuery.of(context).size.width / 2,
+            width: width / 2,
             height: 700,
             child: Card(
                 elevation: 0,
                 color: const Color(0xFF70587c).withOpacity(0.6),
                 child: Center(
                     child: Padding(
-                        padding: EdgeInsets.only(top: 10, bottom: 15),
+                        padding: EdgeInsets.only(top: 10),
+
                         child: Column(
                           children: [
                             const Text(
@@ -47,30 +47,41 @@ class _HowToUseSectionState extends State<HowToUseSection> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  ElevatedButton(
-                                      style: buttonStyle,
-                                      onPressed: studentPage
-                                          ? () => setState(() {
-                                                studentPage = false;
-                                              })
-                                          : null,
-                                      child: const Text("For Students")),
-                                  OutlinedButton(
-                                      style: buttonStyle,
-                                      onPressed: !studentPage
-                                          ? () => setState(() {
-                                                studentPage = true;
-                                              })
-                                          : null,
-                                      child: const Text("For Societies")),
+                                  SizedBox(
+                                    width: width / 6,
+                                    height: width / 18,
+                                    child: ElevatedButton(
+                                        style: buttonStyle,
+                                        onPressed: studentPage
+                                            ? () => setState(() {
+                                                  studentPage = false;
+                                                })
+                                            : null,
+                                        child: Text(width > 920
+                                            ? "For Students"
+                                            : "...")),
+                                  ),
+                                  SizedBox(
+                                    width: width / 6,
+                                    height: width / 18,
+                                    child: ElevatedButton(
+                                        style: buttonStyle,
+                                        onPressed: !studentPage
+                                            ? () => setState(() {
+                                                  studentPage = true;
+                                                })
+                                            : null,
+                                        child: Text(width > 920
+                                            ? "For Societies"
+                                            : "...")),
+                                  ),
                                 ],
                               ),
                             ),
-                            const SizedBox(
-                              height: 100,
-                            ),
                             Padding(
-                              padding: EdgeInsets.all(5),
+
+                              padding: EdgeInsets.all(10),
+
                               child: Column(
                                 children: [
                                   //Two different set of cards for both the student and societies.

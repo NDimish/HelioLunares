@@ -38,10 +38,10 @@ class _WidgetCarouselState extends State<WidgetCarousel> {
 
   @override
   void dispose() {
-    super.dispose();
     if (timer != null) {
       timer!.cancel();
     }
+    super.dispose();
   }
 
   @override

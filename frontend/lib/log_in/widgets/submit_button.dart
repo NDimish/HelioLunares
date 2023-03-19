@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:university_ticketing_system/user_hub/widgets/UserHubPage.dart';
 
 class SubmitButton extends StatefulWidget {
   Function()? onPressed;
-  SubmitButton({super.key, required this.onPressed});
+  String buttonText;
+  SubmitButton({super.key, required this.onPressed, required this.buttonText});
 
   @override
   State<SubmitButton> createState() => _SubmitButtonState();
@@ -18,9 +18,8 @@ class _SubmitButtonState extends State<SubmitButton> {
         height: height * 0.065,
         width: width / 4,
         child: ElevatedButton(
-          onPressed: (){
-            Navigator.push(context, 
-            MaterialPageRoute(builder: (context) => UserHubPage()));
+          onPressed: () {
+            Navigator.pushNamed(context, '/userhub');
           },
           style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,
@@ -28,8 +27,8 @@ class _SubmitButtonState extends State<SubmitButton> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               )),
-          child: const Text("Log In",
-              style: TextStyle(fontFamily: 'Arvo', color: Colors.white)),
+          child: Text(widget.buttonText,
+              style: const TextStyle(fontFamily: 'Arvo', color: Colors.white)),
         ));
   }
 }

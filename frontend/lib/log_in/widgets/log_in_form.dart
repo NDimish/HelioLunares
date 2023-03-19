@@ -64,14 +64,21 @@ class _LogInFormState extends State<LogInForm> {
                     "Password", "Enter your password", Icons.lock_rounded)),
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.06),
-          SubmitButton(onPressed: () {
-            if (_formKey.currentState!.validate()) {
-              print("Valid form");
-              _formKey.currentState!.save();
-            } else {
-              print("Invalid form");
-            }
-          })
+          SubmitButton(
+              buttonText: "Log In",
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  print("Valid form");
+                  _formKey.currentState!.save();
+                  try {
+                    Navigator.pushNamed(context, '/userhub');
+                  } catch (error) {
+                    print(error.toString());
+                  }
+                } else {
+                  print("Invalid form");
+                }
+              })
         ],
       ),
     );
