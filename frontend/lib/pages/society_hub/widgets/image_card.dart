@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-class CircularCard extends StatelessWidget {
-  const CircularCard({Key? key}) : super(key: key);
+class ImageCard extends StatelessWidget {
+  final ImageProvider? image;
+  const ImageCard({Key? key, this.image}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +14,9 @@ class CircularCard extends StatelessWidget {
         height: 200,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          image: const DecorationImage(
+          image: DecorationImage(
             fit: BoxFit.cover,
-            image: NetworkImage('assets/icons/kcl.png'),
+            image: image ?? const NetworkImage('assets/icons/kcl.png'),
           ),
         ),
       ),
