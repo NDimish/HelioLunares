@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ImageCard extends StatelessWidget {
-  final ImageProvider? image;
+  final NetworkImage? image;
   const ImageCard({Key? key, this.image}) : super(key: key);
 
   @override
