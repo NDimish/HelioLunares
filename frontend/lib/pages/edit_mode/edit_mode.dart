@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:university_ticketing_system/constants/controllers.dart';
+import 'package:university_ticketing_system/constants/style.dart';
 import 'package:university_ticketing_system/pages/edit_mode/widgets/society_hub_form.dart';
 import 'package:university_ticketing_system/widgets/custom_text.dart';
 
@@ -26,7 +27,14 @@ class EditModePage extends StatelessWidget {
                 )
               ],
             )),
-        const Flexible(child: SocietyHubForm())
+        SizedBox(
+          height: 20,
+        ),
+        Flexible(
+            child: Card(
+                color: MyColours.navbarColour.withOpacity(0.5),
+                child: Padding(
+                    padding: EdgeInsets.all(20), child: SocietyHubForm())))
       ],
     );
   }
