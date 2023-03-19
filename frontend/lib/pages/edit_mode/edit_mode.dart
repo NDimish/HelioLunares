@@ -21,7 +21,7 @@ class EditModePage extends StatelessWidget {
                       top: ResponsiveWidget.isSmallScreen(context) ? 56 : 6),
                   child: CustomText(
                     text: menuController.activeItem.value,
-                    size: 24,
+                    size: 28,
                     weight: FontWeight.bold,
                   ),
                 )

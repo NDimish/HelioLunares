@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:university_ticketing_system/widgets/custom_text.dart';
@@ -20,7 +19,7 @@ class StatisticsPage extends StatelessWidget {
                       top: ResponsiveWidget.isSmallScreen(context) ? 56 : 6),
                   child: CustomText(
                     text: menuController.activeItem.value,
-                    size: 24,
+                    size: 28,
                     weight: FontWeight.bold,
                   ),
                 )
