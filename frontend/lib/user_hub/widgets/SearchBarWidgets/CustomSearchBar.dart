@@ -22,15 +22,16 @@ class CustomSearchBar extends Container{
             decoration: InputDecoration(
               contentPadding: EdgeInsets.all(15),
               border: InputBorder.none,
-              hintText:"Search...",
+              hintText:"Search by name or tags...",
 
 
               // Clears search bar
               suffixIcon: IconButton(
+                tooltip: "Clear search",
                 icon: Icon(Icons.close, color: Color(0xff70587C),),
                 onPressed: clearfunc,
-                splashColor: Colors.transparent,
-                hoverColor: Colors.transparent,
+                splashColor: Color.fromARGB(170, 100, 100, 100),
+                hoverColor: Color(0xFFD2C2E5),
               )
               ),
             ),

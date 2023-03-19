@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/SocietyHubLink.dart';
 import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/userSettingsPage/user_settings.dart';
 import 'package:university_ticketing_system/user_hub/widgets/SearchBarWidgets/CustomSearchBar.dart';
 import 'package:university_ticketing_system/user_hub/widgets/ThemeDataWidgets/UserHubThemes.dart';
@@ -21,7 +22,9 @@ class MainAppBar extends AppBar {
             iconTheme: MainAppBarTheme(),
             titleTextStyle: MainAppBarTextTheme(),
             actions: [
+              SocietyHubLink(),
               IconButton(
+                tooltip: "View Tickets",
                   onPressed: () {
                     Navigator.push(
                         context,
@@ -31,6 +34,7 @@ class MainAppBar extends AppBar {
                   },
                   icon: const Icon(Icons.receipt)),
               IconButton(
+                 tooltip: "Settings",
                   onPressed: () {
                     Navigator.push(
                         context,
