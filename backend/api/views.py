@@ -222,7 +222,7 @@ class PeopleView(APIView):
             serializer = PeopleSerializer(user)
             return Response(serializer.data)
         except:
-            return Response({'error':'User not found.'},status=status.HTTP_404_NOT_FOUND)
+            return Response({'error':'Person not found.'},status=status.HTTP_404_NOT_FOUND)
 
     def put(self, request, pk):
         people = People.objects.get(user_id=pk)
@@ -476,20 +476,23 @@ def society_update_user(request):
         except:
             return Response({'error':'User has not joined society'},status=status.HTTP_400_BAD_REQUEST)
 
-        if curr_role.role != 3:
-            return Response({'error':'User does not have adequte power.'},status=status.HTTP_400_BAD_REQUEST)
-
         #check if they are already part of the society
         try:
             update_role = PeopleRoleAtSociety.objects.get(society=soc,user_at_society=request.data['user'])
         except:
             return Response({'error':'User not joined society'},status=status.HTTP_400_BAD_REQUEST)
 
-        if request.data['role_level'] in {1,2}:
-            update_role.role = request.data['role_level']
-            update_role.save()
+        #check if they have power to update
+        if curr_role.role in {2,3}:
+            #check if it is a valid role and if they user has enough power to update
+            if request.data['role_level'] in {1,2} and curr_role.role>request.data['role_level']:
+                update_role.role = request.data['role_level']
+                update_role.save()
+            else:
+                return Response({'error':'Can not set level'},status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response({'error':'Can not set level'},status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error':'User does not have adequte power.'},status=status.HTTP_400_BAD_REQUEST)
+            
 
     return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -514,7 +517,6 @@ class EventApiView(generics.ListAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-
 
 #Event with id
 class EventApiInfoView(APIView):
