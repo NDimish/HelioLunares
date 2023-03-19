@@ -81,6 +81,7 @@ class _AddEventFormState extends State<AddEventForm> {
                     labelText: "Event Name",
                     icon: const Icon(Icons.event)),
                 controller: nameController,
+                inputFormatters: [LengthLimitingTextInputFormatter(30)],
                 onSaved: (String? name) {
                   model.name = name!;
                   print("event name saved");
@@ -98,6 +99,7 @@ class _AddEventFormState extends State<AddEventForm> {
                     decimalDigits: 2,
                     symbol: '£',
                   ),
+                  LengthLimitingTextInputFormatter(7)
                 ],
                 decoration: InputDecoration(
                     icon: const Icon(Icons.payments_outlined),
@@ -187,6 +189,7 @@ class _AddEventFormState extends State<AddEventForm> {
                     errorText:
                         _validateLocation ? 'Location Can\'t Be Empty' : null),
                 controller: locationController,
+                inputFormatters: [LengthLimitingTextInputFormatter(30)],
                 onSaved: (String? location) {
                   model.location = location!;
                   print("event location saved");
@@ -212,6 +215,7 @@ class _AddEventFormState extends State<AddEventForm> {
                     suffixText: "mins"),
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(3)
                 ],
                 controller: durationController,
                 onSaved: (String? duration) {
