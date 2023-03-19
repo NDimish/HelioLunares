@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:university_ticketing_system/widgets/custom_text.dart';
 import '../../../constants/style.dart';
 
@@ -29,21 +30,41 @@ class EventCard extends StatelessWidget {
             height: 100,
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: MyColours.panelBackgroundColour,
+              color: MyColours.panelBackgroundColour.withOpacity(0.5),
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: Colors.transparent, width: .5),
+              // border: Border.all(color: Colors.transparent, width: .5),
             ),
             child: Row(
+              mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
+                Column(children: [
+                  Flexible(
+                      child: CustomText(
+                    text: name,
+                    size: 20,
+                    weight: FontWeight.bold,
+                    colour: MyColours.textColourLight,
+                  )),
+                  Padding(padding: EdgeInsets.all(5)),
+                  Flexible(
+                      child: Row(
+                    children: [
+                      const Icon(Icons.date_range),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      CustomText(
+                        text: date,
+                        size: 16,
+                        weight: FontWeight.w300,
+                        colour: MyColours.textColourDark,
+                      )
+                    ],
+                  ))
+                ]),
                 Flexible(
-                    child: CustomText(
-                  text: name,
-                  size: 20,
-                  weight: FontWeight.w300,
-                  colour: MyColours.textColourLight,
-                )),
-                Column(
+                    child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Icon(Icons.payments_outlined),
@@ -55,21 +76,9 @@ class EventCard extends StatelessWidget {
                       colour: MyColours.textColourDark,
                     ))
                   ],
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.date_range),
-                    Flexible(
-                        child: CustomText(
-                      text: date,
-                      size: 16,
-                      weight: FontWeight.w300,
-                      colour: MyColours.textColourDark,
-                    ))
-                  ],
-                ),
-                Column(
+                )),
+                Flexible(
+                    child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Icon(Icons.location_on_outlined),
@@ -81,7 +90,7 @@ class EventCard extends StatelessWidget {
                       colour: MyColours.textColourDark,
                     ))
                   ],
-                )
+                ))
               ],
             )),
       ),

@@ -4,6 +4,7 @@ import 'package:university_ticketing_system/constants/controllers.dart';
 import 'package:university_ticketing_system/helpers/responsiveness.dart';
 import 'package:university_ticketing_system/pages/events/widgets/society_events.dart';
 import 'package:university_ticketing_system/routing/routes.dart';
+import 'package:university_ticketing_system/theme.dart';
 import 'package:university_ticketing_system/widgets/custom_text.dart';
 
 import '../../constants/style.dart';
@@ -40,23 +41,11 @@ class SocietyEventsPage extends StatelessWidget {
             ),
             Flexible(
               child: ElevatedButton(
-                  style: ButtonStyle(
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                          side: const BorderSide(
-                              color: MyColours.elementButtonColour)),
-                    ),
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        MyColours.elementButtonHoverColour),
-                    foregroundColor: MaterialStateProperty.all<Color>(
-                        MyColours.panelBackgroundColour),
-                  ),
-                  // ignore: prefer_const_constructors
                   child: CustomText(
-                    weight: FontWeight.w300,
                     text: "Add Event",
-                    size: 20,
+                    size: 26,
+                    colour: Colors.white,
+                    weight: FontWeight.bold,
                   ),
                   onPressed: () {
                     navigationController.navigateTo(addEventPageDisplayName);
