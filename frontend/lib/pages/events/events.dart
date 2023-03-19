@@ -18,8 +18,7 @@ class SocietyEventsPage extends StatelessWidget {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: Column(
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Obx(() => Row(
@@ -39,18 +38,25 @@ class SocietyEventsPage extends StatelessWidget {
             SizedBox(
               height: ResponsiveWidget.isSmallScreen(context) ? 5 : 30,
             ),
-            Flexible(
-              child: ElevatedButton(
-                  child: CustomText(
-                    text: "Add Event",
-                    size: 26,
-                    colour: Colors.white,
-                    weight: FontWeight.bold,
-                  ),
-                  onPressed: () {
-                    navigationController.navigateTo(addEventPageDisplayName);
-                  }),
-            ),
+            Card(
+                child: (Padding(
+                    padding: EdgeInsets.all(20),
+                    child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          ElevatedButton(
+                              child: CustomText(
+                                text: "Add Event",
+                                size: 20,
+                                colour: Colors.white,
+                                weight: FontWeight.bold,
+                              ),
+                              onPressed: () {
+                                navigationController
+                                    .navigateTo(addEventPageDisplayName);
+                              }),
+                        ])))),
             SizedBox(
               height: ResponsiveWidget.isSmallScreen(context) ? 5 : 10,
             ),
