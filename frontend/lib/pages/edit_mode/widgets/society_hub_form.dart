@@ -147,7 +147,7 @@ class _SocietyHubFormState extends State<SocietyHubForm> {
                 ),
                 CustomText(
                   size: 14,
-                  text: "(200x200 is preferred)",
+                  text: "(~200x200 is preferred)",
                 ),
               ]),
               const SizedBox(
@@ -158,9 +158,7 @@ class _SocietyHubFormState extends State<SocietyHubForm> {
                   width: 300,
                   height: 300,
                   child: (_file.path == "zz")
-                      ? const FlutterLogo(
-                          size: 200,
-                        )
+                      ? Image(image: AssetImage("images/logo.jpg"))
                       : (kIsWeb)
                           ? Image.memory(webImage)
                           : Image.file(_image!),
