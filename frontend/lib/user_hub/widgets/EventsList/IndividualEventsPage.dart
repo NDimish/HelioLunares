@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:university_ticketing_system/gradient_animation.dart';
+import 'package:university_ticketing_system/user_hub/widgets/EventsList/widgets/EventsPageHeader.dart';
+
+import '../../../helpers/responsiveness.dart';
 
 class EventPage extends StatefulWidget {
   final String eventName;
@@ -8,160 +12,252 @@ class EventPage extends StatefulWidget {
   final String eventDuration;
   final String eventPrice;
 
-  EventPage({
+  const EventPage({
+    Key? key,
     required this.eventName,
     required this.eventDescription,
     required this.eventLocation,
     required this.eventDate,
     required this.eventDuration,
     required this.eventPrice,
-  });
+  }) : super(key: key);
 
   @override
-  _EventPageState createState() => _EventPageState();
+  State<EventPage> createState() => _EventPageState();
 }
 
 class _EventPageState extends State<EventPage> {
   @override
- Widget build(BuildContext context) {
-  return Scaffold(
-    body: Padding(
-      padding: EdgeInsets.only(top: 32.0, right: 32.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Container(
-            padding: EdgeInsets.all(16.0),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.black),
-              borderRadius: BorderRadius.circular(10.0),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.2),
-                  blurRadius: 6.0,
-                  offset: Offset(0, 3),
-                ),
-              ],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Icon(
-                      Icons.location_on,
-                      color: Colors.grey,
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: CustomLinearGradient(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 32.0, right: 32.0, left: 32.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20.0),
+                child: Card(
+                  elevation: 0,
+                  color: Colors.white.withOpacity(0.7),
+                  shape: RoundedRectangleBorder(
+                    side: const BorderSide(
+                      color: Colors.black,
                     ),
-                    SizedBox(width: 5.0),
-                    Text(
-                      'Event Location',
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      children: [
+                        Text(
+                          "Event name here",
+                          style: TextStyle(
+                              fontFamily: "Arvo",
+                              fontSize: ResponsiveWidget.isSmallScreen(context)
+                                  ? 44
+                                  : 72),
+                        ),
+                        Text(
+                          "Society name here?",
+                          style: TextStyle(
+                              fontFamily: "Arvo",
+                              fontSize: ResponsiveWidget.isSmallScreen(context)
+                                  ? 24
+                                  : 40),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                SizedBox(height: 10.0),
-                Text(
-                  '123 Main Street, New York, NY',
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color: Colors.grey[600],
                   ),
                 ),
-                SizedBox(height: 20.0),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.attach_money,
-                      color: Colors.grey,
-                    ),
-                    SizedBox(width: 5.0),
-                    Text(
-                      'Event Price',
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10.0),
-                Text(
-                  '\$25.00',
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color: Colors.grey[600],
-                  ),
-                ),
-                SizedBox(height: 20.0),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.access_time,
-                      color: Colors.grey,
-                    ),
-                    SizedBox(width: 5.0),
-                    Text(
-                      'Event Duration',
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10.0),
-                Text(
-                  '2 hours',
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color: Colors.grey[600],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 20.0),
-          Card(
-            elevation: 0,
-            color: Colors.white,
-            shape: RoundedRectangleBorder(
-              side: BorderSide(
-                color: Colors.black,
               ),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Flex(
+                mainAxisAlignment: MainAxisAlignment.center,
+                direction: ResponsiveWidget.isSmallScreen(context)
+                    ? Axis.vertical
+                    : Axis.horizontal,
                 children: [
-                  Text(
-                    'About Us',
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      padding: const EdgeInsets.all(16.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black),
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: Colors.white.withOpacity(0.7),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            blurRadius: 6.0,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const EventsPageHeader(
+                              headerName: "Location",
+                              headerIcon: Icon(
+                                Icons.location_on,
+                                color: Colors.grey,
+                              )),
+                          const SizedBox(height: 10.0),
+                          Text(
+                            '123 Main Street, New York, NY',
+                            style: TextStyle(
+                              fontSize: 14.0,
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                          const SizedBox(height: 20.0),
+                          const EventsPageHeader(
+                              headerName: "Price",
+                              headerIcon: Icon(
+                                Icons.attach_money,
+                                color: Colors.grey,
+                              )),
+                          const SizedBox(height: 10.0),
+                          Text(
+                            '\$25.00',
+                            style: TextStyle(
+                              fontSize: 14.0,
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                          const SizedBox(height: 20.0),
+                          const EventsPageHeader(
+                              headerName: "Duration",
+                              headerIcon: Icon(
+                                Icons.access_time,
+                                color: Colors.grey,
+                              )),
+                          const SizedBox(height: 10.0),
+                          Text(
+                            '2 hours',
+                            style: TextStyle(
+                              fontSize: 14.0,
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  SizedBox(height: 10.0),
-                  Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.grey[600],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      padding: const EdgeInsets.all(16.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black),
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: Colors.white.withOpacity(0.7),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            blurRadius: 6.0,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Text(
+                            "Actions",
+                            style: TextStyle(
+                                fontSize: 32,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "Arvo"),
+                          ),
+                          const SizedBox(height: 10.0),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: ElevatedButton(
+                                  onPressed: () => print(
+                                      "This would take you to the checkout and book the event. We would have to check if user has booked this event to disable this button."),
+                                  child: const Text("Book now"),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: ElevatedButton(
+                                  onPressed: () => print(
+                                      "Navigator.push(Wesley's event list (not on this branch))"),
+                                  child: const Text("Return to events"),
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
-            ),
+              const SizedBox(height: 20.0),
+              Padding(
+                padding: const EdgeInsets.only(left: 40, right: 40),
+                child: Card(
+                  elevation: 0,
+                  color: Colors.white.withOpacity(0.7),
+                  shape: RoundedRectangleBorder(
+                    side: const BorderSide(
+                      color: Colors.black,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Further Information',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const Divider(),
+                        Text(
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                        const Divider(),
+                        RichText(
+                            text: TextSpan(
+                          children: [
+                            TextSpan(text: "Interested in more from "),
+                            TextSpan(
+                                text: "Society name here? ",
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold)),
+                            TextSpan(
+                                text:
+                                    "Check out their society page! (maybe put a link here somehow, would involve passing parameters?)")
+                          ],
+                          style: TextStyle(
+                              fontSize: 16.0,
+                              color: Colors.grey[600],
+                              fontFamily: "Arvo"),
+                        ))
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
-    ),
-  );
- }
+    );
+  }
 }
