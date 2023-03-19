@@ -40,6 +40,11 @@ class InfoCardSmall extends StatelessWidget {
                     weight: FontWeight.bold,
                     colour: MyColours.textColourDark,
                   )),
+                  const VerticalDivider(
+                    width: 10,
+                    thickness: 1,
+                    color: MyColours.textColourDark,
+                  ),
                   Expanded(
                       child: Column(children: [
                     CustomText(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/pages/society_hub/widgets/info_card.dart';
 
+import '../../../constants/style.dart';
+
 class SocietyHubCardsMedium extends StatelessWidget {
   const SocietyHubCardsMedium({Key? key}) : super(key: key);
 
@@ -18,7 +20,7 @@ class SocietyHubCardsMedium extends StatelessWidget {
             InfoCard(
                 title: "Event Count",
                 value: "7",
-                topColor: Colors.orange,
+                topColor: Colors.black,
                 //isActive: isActive,
                 onTap: () {}),
             SizedBox(
@@ -27,7 +29,7 @@ class SocietyHubCardsMedium extends StatelessWidget {
             InfoCard(
                 title: "Follower Count",
                 value: "7",
-                topColor: Colors.lightBlue,
+                topColor: Colors.black,
                 //isActive: isActive,
                 onTap: () {}),
             SizedBox(
@@ -45,7 +47,7 @@ class SocietyHubCardsMedium extends StatelessWidget {
             InfoCard(
                 title: "University",
                 value: "King's College London",
-                topColor: Colors.red,
+                topColor: MyColours.panelBackgroundColour,
                 //isActive: isActive,
                 onTap: () {}),
             SizedBox(
