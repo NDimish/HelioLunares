@@ -49,6 +49,9 @@ class InfoCard extends StatelessWidget {
               ],
             ),
             Column(children: [
+              const SizedBox(
+                height: 10,
+              ),
               Row(children: [
                 Expanded(
                     child: CustomText(
@@ -57,6 +60,9 @@ class InfoCard extends StatelessWidget {
                         align: TextAlign.center,
                         text: title))
               ]),
+              const SizedBox(
+                height: 10,
+              ),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Expanded(
                     child: Column(
@@ -68,7 +74,10 @@ class InfoCard extends StatelessWidget {
                           align: TextAlign.center,
                           text: value)
                     ]))
-              ])
+              ]),
+              const SizedBox(
+                height: 10,
+              ),
             ]),
           ]))
         ]),
