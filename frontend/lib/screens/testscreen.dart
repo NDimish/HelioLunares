@@ -75,11 +75,11 @@ class _testscreen extends State<testscreen> {
                 ),
                 onPressed: () {
                   authenticate("nath@gmail.com", "q");
-                  DataP.addToCollection(data.User(
-                      id: 3,
-                      email: "wqeqwe@gmail.com",
-                      date_joined: "2-3-3003t23:12",
-                      userType: data.UserType.STUDENT));
+                  // DataP.addToCollection(data.User(
+                  //     id: 3,
+                  //     email: "wqeqwe@gmail.com",
+                  //     date_joined: "2-3-3003t23:12",
+                  //     userType: data.UserType.STUDENT));
                 }),
           );
         });
