@@ -86,7 +86,8 @@ class LogInView(APIView):
             {
                 'token': token.key,
                 'email': user.email,
-                'is_authenticated' : user.is_authenticated
+                'is_authenticated' : user.is_authenticated,
+                'user_level': user.user_level
             },
             status = status.HTTP_200_OK
         )
@@ -546,7 +547,14 @@ class UniversityApiView(generics.ListAPIView):
     filter_backends = [DjangoFilterBackend,OrderingFilter]
     filterset_fields = '__all__'
     ordering_fields = '__all__'
+    permission_classes = [AllowAny]
 
+     # Add in list for all categories.
+    def get(self, request):
+        universities = University.objects.all()
+        serializer = UniversitySerializer(instance=universities, many=True)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+    
     def post(self, request):
         serializer = UniversitySerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -677,6 +685,13 @@ class SocietyCategoriesTypeApiView(APIView):
     filterset_fields = '__all__'
     ordering_fields = '__all__'
     permission_classes = [AllowAny]
+    
+    # Add in list for all categories.
+    def get(self, request):
+        societyCategoriesType = SocietyCategoriesType.objects.all()
+        serializer = SocietyCategoriesTypeModelSerializer(instance=societyCategoriesType, many=True)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
 
     def post(self, request):
         serializer = SocietyCategoriesTypeModelSerializer(data=request.data)
