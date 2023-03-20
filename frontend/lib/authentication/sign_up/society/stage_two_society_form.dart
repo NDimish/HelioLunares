@@ -271,7 +271,11 @@ class _StageTwoSocietySignUpState extends State<StageTwoSocietySignUp> {
                                 uniNames.length, (int index) {
                               return DropdownMenuItem(
                                   value: uniNames[index],
-                                  child: Text(uniNames[index].toString()));
+                                  child: Text(
+                                    uniNames[index].toString(),
+                                    style: const TextStyle(
+                                        fontFamily: 'Arvo', fontSize: 16),
+                                  ));
                             }).toList(),
                             onChanged: (val) {
                               setState(() {

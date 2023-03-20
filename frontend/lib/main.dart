@@ -39,7 +39,7 @@ class UniversityTicketingApp extends StatelessWidget {
         //primaryColor: Colors.blue
       ),
       home: const HomePage(),
-      initialRoute: '/',
+      //initialRoute: '/',
       // routes: {
       //   '/': (context) => const StartupScreen(),
       //   '/auth': (context) => const LandingScreen(),

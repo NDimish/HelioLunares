@@ -293,7 +293,7 @@ class _StageTwoStudentSignUpState extends State<StageTwoStudentSignUp> {
                                   child: Text(
                                     uniNames[index].toString(),
                                     style: const TextStyle(
-                                        fontFamily: 'Arvo', fontSize: 17),
+                                        fontFamily: 'Arvo', fontSize: 16),
                                   ));
                             }).toList(),
                             onChanged: (val) {
