@@ -58,12 +58,12 @@ class _testscreen extends State<testscreen> {
                           DataP.deleteFromCollection(DataP.collection[index]);
                         }),
                     title: Text(
-                      DataP.collection[index].username,
+                      DataP.collection[index].email,
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     subtitle: Text(
-                      DataP.collection[index].id.toString(),
+                      DataP.collection[index].userType.toString(),
                       style: TextStyle(fontSize: 15, color: Colors.black),
                     ));
               },
@@ -74,9 +74,13 @@ class _testscreen extends State<testscreen> {
                   size: 30,
                 ),
                 onPressed: () {
-                  //authenticate("nath@gmail.com", "q");
-                  DataP.addToCollection(
-                      data.User(id: 3, username: "wqeqwe@gmail.com"));
+                  authenticate("nath@gmail.com", "q");
+                  Navigator.pushNamed(context, '/');
+                  // DataP.addToCollection(data.User(
+                  //     id: 3,
+                  //     email: "wqeqwe@gmail.com",
+                  //     date_joined: "2-3-3003t23:12",
+                  //     userType: data.UserType.STUDENT));
                 }),
           );
         });
