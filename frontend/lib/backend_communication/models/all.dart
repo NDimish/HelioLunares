@@ -5,7 +5,7 @@ export '../models/society.dart';
 export 'User.dart';
 export 'societyRole.dart';
 
-final DATASOURCE = 'http://heliolunares.pythonanywhere.com/';
+final DATASOURCE = 'http://localhost:8000/';
 
 class Localdata {
   String Token = "";
