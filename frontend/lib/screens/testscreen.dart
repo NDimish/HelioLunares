@@ -5,6 +5,9 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:university_ticketing_system/globals.dart' as globals;
 
+import 'package:university_ticketing_system/backend_communication/models/Ticket.dart'; // for using tickets
+import 'package:university_ticketing_system/backend_communication/models/University.dart'; // for using university
+
 class testscreen extends StatefulWidget {
   const testscreen({Key? key});
 
@@ -85,34 +88,34 @@ class _TestScreenAdditionState extends State<TestScreenAddition> {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
+          // ChangeNotifierProvider(
+          //     create: (context) => data.dataCollector<data.Event>(
+          //         filter: widget.filter, order: widget.orderBy)),
           ChangeNotifierProvider(
-              create: (context) => data.dataCollector<data.Event>(
-                  filter: widget.filter, order: widget.orderBy)),
-          ChangeNotifierProvider(
-              create: (context) => data.dataCollector<data.User>(
+              create: (context) => data.dataCollector<University>(
                   filter: widget.filter, order: widget.orderBy)),
         ],
         builder: (context, child) {
-          final DataP2 = Provider.of<data.dataCollector<data.Event>>(context);
-          final DataP = Provider.of<data.dataCollector<data.User>>(context);
+          // final DataP2 = Provider.of<data.dataCollector<data.Event>>(context);
+          final DataP = Provider.of<data.dataCollector<University>>(context);
           return Scaffold(
             body: ListView.builder(
               shrinkWrap: true,
-              itemCount: DataP2.collection.length,
+              itemCount: DataP.collection.length,
               itemBuilder: (BuildContext context, int index) {
                 return ListTile(
                     trailing: IconButton(
                         icon: Icon(Icons.delete, color: Colors.red),
                         onPressed: () {
-                          DataP2.deleteFromCollection(DataP2.collection[index]);
+                          DataP.deleteFromCollection(DataP.collection[index]);
                         }),
                     title: Text(
-                      DataP2.collection[index].title,
+                      DataP.collection[index].name,
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     subtitle: Text(
-                      DataP2.collection[index].create_time.toString(),
+                      DataP.collection[index].postcode,
                       style: TextStyle(fontSize: 15, color: Colors.black),
                     ));
               },
