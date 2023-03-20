@@ -1,5 +1,5 @@
 import 'datasets.dart';
-import 'user.dart';
+import 'User.dart';
 import 'University.dart';
 
 //test on test screen
