@@ -25,6 +25,12 @@ void main() {
 class UniversityTicketingApp extends StatelessWidget {
   const UniversityTicketingApp({Key? key}) : super(key: key);
 
+  // return MaterialApp(
+  //     debugShowCheckedModeBanner: false,
+  //     theme: ThemeData(useMaterial3: true),
+  //     home: const HomePage(),
+  //   );
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
