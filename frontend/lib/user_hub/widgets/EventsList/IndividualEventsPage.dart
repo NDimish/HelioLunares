@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/gradient_animation.dart';
-import 'package:university_ticketing_system/user_hub/widgets/EventsList/widgets/EventsPageHeader.dart';
+import 'package:university_ticketing_system/user_hub/widgets/EventsList/widgets/IndividualPageHeader.dart';
 
 import '../../../helpers/responsiveness.dart';
 
@@ -20,7 +20,6 @@ class EventPage extends StatefulWidget {
     required this.eventDate,
     required this.eventDuration,
     required this.eventPrice,
-
   }) : super(key: key);
 
   @override
@@ -103,7 +102,7 @@ class _EventPageState extends State<EventPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const EventsPageHeader(
+                          const IndividualPageHeader(
                               headerName: "Location",
                               headerIcon: Icon(
                                 Icons.location_on,
@@ -118,7 +117,7 @@ class _EventPageState extends State<EventPage> {
                             ),
                           ),
                           const SizedBox(height: 20.0),
-                          const EventsPageHeader(
+                          const IndividualPageHeader(
                               headerName: "Price",
                               headerIcon: Icon(
                                 Icons.attach_money,
@@ -133,7 +132,7 @@ class _EventPageState extends State<EventPage> {
                             ),
                           ),
                           const SizedBox(height: 20.0),
-                          const EventsPageHeader(
+                          const IndividualPageHeader(
                               headerName: "Duration",
                               headerIcon: Icon(
                                 Icons.access_time,
@@ -198,7 +197,7 @@ class _EventPageState extends State<EventPage> {
                                             AlertDialog(
                                           title: const Text(
                                             'Further Information',
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                                 fontFamily: "Arvo",
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 24),

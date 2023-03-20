@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'package:university_ticketing_system/user_hub/widgets/SocietiesList/EventsListPage.dart';
+import 'package:university_ticketing_system/user_hub/widgets/SocietiesList/widgets/SocietyBanner.dart';
 import 'package:university_ticketing_system/user_hub/widgets/SocietiesList/widgets/SocietyButton.dart';
 
 import '../../../gradient_animation.dart';
 import '../../../helpers/responsiveness.dart';
-import '../EventsList/widgets/EventsPageHeader.dart';
+import '../EventsList/widgets/IndividualPageHeader.dart';
 
 class MainSocietyPage extends StatefulWidget {
   final String societyName;
@@ -19,11 +20,7 @@ class MainSocietyPage extends StatefulWidget {
     required this.societyDescription,
     required this.societyUni,
     required this.numberOfFollowers,
-
-
-    
   }) : super(key: key);
-
 
   @override
   State<MainSocietyPage> createState() => _MainSocietyPageState();
@@ -40,7 +37,7 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
       appBar: AppBar(
           title: Text(
         (widget.societyName),
-        style: TextStyle(fontFamily: "Arvo", fontWeight: FontWeight.bold),
+        style: const TextStyle(fontFamily: "Arvo", fontWeight: FontWeight.bold),
       )),
       body: CustomLinearGradient(
         child: Padding(
@@ -60,7 +57,7 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Padding(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     child: Column(
                       children: [
                         Text(
@@ -81,7 +78,7 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                 direction: ResponsiveWidget.isSmallScreen(context)
                     ? Axis.vertical
                     : Axis.horizontal,
-                children:[
+                children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
@@ -101,7 +98,7 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const EventsPageHeader(
+                          const IndividualPageHeader(
                               headerName: "University",
                               headerIcon: Icon(
                                 Icons.location_on,
@@ -116,7 +113,7 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                             ),
                           ),
                           const SizedBox(height: 20.0),
-                          const EventsPageHeader(
+                          const IndividualPageHeader(
                               headerName: 'Number of Followers',
                               headerIcon: Icon(
                                 Icons.attach_money,
@@ -130,7 +127,6 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                               color: Colors.grey[600],
                             ),
                           ),
-
                         ],
                       ),
                     ),
@@ -168,71 +164,44 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                               Padding(
                                 padding: const EdgeInsets.all(4.0),
                                 child: SocietyButton(
-                    buttonText: !hasJoined ? 'Join' : 'Leave',
-                    onPressed: () => {
-                          setState(() => {
-                                //Process conditional first before negating?
-                                hasJoined
-                                    ? {
-                                        print("left"),
-                                        showDialog<String>(
-                                          context: context,
-                                          builder: (BuildContext context) =>
-                                              AlertDialog(
-                                            content: const Text(
-                                                'You have left successfully!'),
-                                            actions: <Widget>[
-                                              TextButton(
-                                                onPressed: () => Navigator.pop(
-                                                    context, 'Cancel'),
-                                                child: const Text('Cancel'),
-                                              ),
-                                              TextButton(
-                                                onPressed: () => Navigator.pop(
-                                                    context, 'OK'),
-                                                child: const Text('OK'),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      }
-                                    : {
-                                        print("joined"),
-                                        showDialog<String>(
-                                          context: context,
-                                          builder: (BuildContext context) =>
-                                              AlertDialog(
-                                            content: const Text(
-                                                'You have joined successfully!'),
-                                            actions: <Widget>[
-                                              TextButton(
-                                                onPressed: () => Navigator.pop(
-                                                    context, 'Cancel'),
-                                                child: const Text('Cancel'),
-                                              ),
-                                              TextButton(
-                                                onPressed: () => Navigator.pop(
-                                                    context, 'OK'),
-                                                child: const Text('OK'),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      }, //leave and join code
-                                hasJoined = !hasJoined
-                              })
-                        }),
-                        
+                                    buttonText: !hasJoined ? 'Join' : 'Leave',
+                                    onPressed: () => {
+                                          setState(() => {
+                                                //Process conditional first before negating?
+                                                {
+                                                  showDialog<String>(
+                                                    context: context,
+                                                    builder: (BuildContext
+                                                            context) =>
+                                                        AlertDialog(
+                                                      content: Text(
+                                                          'You have ${hasJoined ? "joined" : "left"} successfully!'),
+                                                      actions: <Widget>[
+                                                        TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  context,
+                                                                  'Confirm'),
+                                                          child: const Text(
+                                                              'Confirm'),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  //leave and join code
+                                                  hasJoined = !hasJoined
+                                                }
+                                              })
+                                        }),
                               ),
                               SocietyButton(
-                      onPressed: () =>
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => SocietyEventsList(
-                                    societyName: (widget.societyName),
-                                  ))),
-                      buttonText: "List of Events",
-                    ),
-
+                                onPressed: () => Navigator.of(context)
+                                    .push(MaterialPageRoute(
+                                        builder: (context) => SocietyEventsList(
+                                              societyName: (widget.societyName),
+                                            ))),
+                                buttonText: "List of Events",
+                              ),
                               !ResponsiveWidget.isSmallScreen(context)
                                   ? const SizedBox()
                                   : ElevatedButton(
@@ -241,7 +210,7 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                                         builder: (BuildContext context) =>
                                             AlertDialog(
                                           title: const Text(
-                                            'Further Information',
+                                            'Society Info',
                                             style: const TextStyle(
                                                 fontFamily: "Arvo",
                                                 fontWeight: FontWeight.bold,
@@ -262,9 +231,11 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                                       ),
                                       child: const Text("Details"),
                                       style: const ButtonStyle(
-    backgroundColor: MaterialStatePropertyAll<Color>(Color(0xffC8A2C8)),
+                                        backgroundColor:
+                                            MaterialStatePropertyAll<Color>(
+                                                Color(0xffC8A2C8)),
+                                      ),
                                     ),
-                                  ),
                             ],
                           )
                         ],
@@ -296,28 +267,26 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const Text(
-                                'Further Information',
-                                style: TextStyle(
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.bold,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  'Further Information',
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              const Divider(),
-                              Text(
-                                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                  color: Colors.grey[600],
-                                ),
-                              ),
-                              const Divider(),
-                              ResponsiveWidget.isMediumScreen(context)
-                                  ? const SizedBox()
-                            ],
-                          ),
+                                const Divider(),
+                                ResponsiveWidget.isMediumScreen(context)
+                                    ? const SizedBox()
+                                    : Text(
+                                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          color: Colors.grey[600],
+                                        ),
+                                      ),
+                              ]),
                         ),
                       ),
                     ),

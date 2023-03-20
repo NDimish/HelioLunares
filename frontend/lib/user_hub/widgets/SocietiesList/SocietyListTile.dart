@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/user_hub/widgets/SocietiesList/EventsListPage.dart';
-import 'package:university_ticketing_system/user_hub/widgets/SocietiesList/IndividualSocietyPageLarge.dart';
+import 'package:university_ticketing_system/user_hub/widgets/SocietiesList/IndividualSocietyPage.dart';
 
 // Should have:
 // Image
@@ -42,14 +42,12 @@ class SocietyListTile extends GridTile {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => MainSocietyPage(
-                              societyName: 'Introduction to AI',
-                              societyDescription: 'AI is the driving force of our economy.',
-                              societyUni: 'Kings',
-                              numberOfFollowers: '10',
-
-
-                                  
+                            builder: (context) => const MainSocietyPage(
+                                  societyName: 'Introduction to AI',
+                                  societyDescription:
+                                      'AI is the driving force of our economy.',
+                                  societyUni: 'Kings',
+                                  numberOfFollowers: '10',
                                 )));
                   },
 

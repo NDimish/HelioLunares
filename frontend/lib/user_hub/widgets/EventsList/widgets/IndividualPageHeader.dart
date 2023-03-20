@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class EventsPageHeader extends StatelessWidget {
+class IndividualPageHeader extends StatelessWidget {
   final String headerName;
   final Icon headerIcon;
-  const EventsPageHeader(
+  const IndividualPageHeader(
       {required this.headerName, required this.headerIcon, super.key});
 
   @override
