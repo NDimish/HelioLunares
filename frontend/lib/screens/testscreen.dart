@@ -49,21 +49,21 @@ class _testscreen extends State<testscreen> {
             ),
             body: ListView.builder(
               shrinkWrap: true,
-              itemCount: DataP.collection.length,
+              itemCount: DataP2.collection.length,
               itemBuilder: (BuildContext context, int index) {
                 return ListTile(
                     trailing: IconButton(
                         icon: Icon(Icons.delete, color: Colors.red),
                         onPressed: () {
-                          DataP.deleteFromCollection(DataP.collection[index]);
+                          DataP2.deleteFromCollection(DataP2.collection[index]);
                         }),
                     title: Text(
-                      DataP.collection[index].email,
+                      DataP2.collection[index].title,
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     subtitle: Text(
-                      DataP.collection[index].id.toString(),
+                      DataP2.collection[index].id.toString(),
                       style: TextStyle(fontSize: 15, color: Colors.black),
                     ));
               },
@@ -75,6 +75,7 @@ class _testscreen extends State<testscreen> {
                 ),
                 onPressed: () {
                   authenticate("nath@gmail.com", "q");
+                  Navigator.pushNamed(context, '/');
                   // DataP.addToCollection(data.User(
                   //     id: 3,
                   //     email: "wqeqwe@gmail.com",

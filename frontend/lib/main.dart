@@ -10,12 +10,14 @@ import 'package:university_ticketing_system/user_hub/widgets/UserHubPage_events.
 import 'package:university_ticketing_system/widgets/layout.dart';
 import 'package:university_ticketing_system/controllers/menu_controller.dart'
     as menu;
+import 'package:university_ticketing_system/backend_communication/models/all.dart';
 
 void main() {
   //Register the menu controller
   Get.put(menu.MenuController());
   //Register the navigation controller
   Get.put(NavigationController());
+
   runApp(const UniversityTicketingApp());
 }
 

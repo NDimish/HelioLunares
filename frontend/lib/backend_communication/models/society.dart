@@ -10,13 +10,13 @@ class Society extends dataSets {
   final String name;
   final String description;
   final String created_at;
-  late int image;
+  late String image;
 
   final String join_date;
   // final String password;
 
   Society({
-    required int id,
+    int id = 0,
     required this.user,
     required this.university,
     required this.name,
@@ -28,14 +28,23 @@ class Society extends dataSets {
   factory Society.fromJson(Map<String, dynamic> json) {
     return Society(
         id: json['id'],
-        user: User.fromJson(json['user']),
-        university: University.fromJson(json['university_society_is_at']),
+        user: User.fromJsonNOID(json['user']),
+        university: University.fromJsonNOID(json['university_society_is_at']),
         name: json['name'],
         description: json['about_us'],
         join_date: json['join_date'],
         created_at: json['creation_date']);
   }
 
+  factory Society.fromJsonNOID(Map<String, dynamic> json) {
+    return Society(
+        user: User.fromJsonNOID(json['user']),
+        university: University.fromJsonNOID(json['university_society_is_at']),
+        name: json['name'],
+        description: json['about_us'],
+        join_date: json['join_date'],
+        created_at: json['creation_date']);
+  }
   @override
   Databases getDatabase() {
     return Databases.society;

@@ -6,13 +6,15 @@ export 'User.dart';
 
 final DATASOURCE = 'http://127.0.0.1:8000/';
 
-class Cookies {
-  static String Token = "";
+class Localdata {
+  String Token = "";
 
-  static String Email = '';
+  String Email = '';
 
-  static void eatCookies(String Token, String email) {
-    Token = Token;
+  Localdata() {}
+
+  void setData(String token, String email) {
+    Token = token;
     Email = email;
   }
 }

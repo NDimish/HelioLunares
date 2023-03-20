@@ -10,7 +10,7 @@ class User extends dataSets {
   // final String password;
 
   User(
-      {required int id,
+      {int id = 0,
       required this.email,
       required this.userType,
       required this.date_joined})
@@ -19,6 +19,13 @@ class User extends dataSets {
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
         id: json['id'],
+        email: json['email'],
+        userType: UserType.values[json['user_level'] - 1],
+        date_joined: json['date_joined']);
+  }
+
+  factory User.fromJsonNOID(Map<String, dynamic> json) {
+    return User(
         email: json['email'],
         userType: UserType.values[json['user_level'] - 1],
         date_joined: json['date_joined']);

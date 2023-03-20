@@ -1,7 +1,9 @@
+import 'package:get/get.dart';
 import 'models/all.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'dart:io';
+import 'package:university_ticketing_system/globals.dart' as globals;
 
 class authenticate {
   late final bool result;
@@ -21,26 +23,27 @@ class authenticate {
     //     .set(HttpHeaders.contentTypeHeader, "application/json; charset=UTF-8");
     // request.write('{"email": "${username}", "password": "${password}"}');
     // final response = await request.close();
-
+    print("beginning auth");
     final response = await http.post(
       Uri.parse('${DATASOURCE}log_in/'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body:
-          jsonEncode(<String, String>{'title': username, 'password': password}),
+          jsonEncode(<String, String>{'email': username, 'password': password}),
     );
 
     if (response.statusCode == 200) {
-      Map<String, dynamic> cookies = json.decode(response.body);
+      Map<String, dynamic> data = json.decode(response.body);
       //print(response.headers);
-
-      Cookies.eatCookies(cookies['token'], cookies['email']);
-      // print(Cookies.CSRFToken);
-      // print(Cookies.Email);
-      // print(Cookies.Cookie);
+      globals.localdataobj.setData(data['token'], data['email']);
+      // x.setData(data['token'], data['email']);
+      // print(x.Token);
+      // print(response.body);
     } else {
-      // print("fail");
+      print(response.body);
     }
+    print("end auth");
+    print(globals.localdataobj.getToken());
   }
 }

@@ -14,7 +14,7 @@ class People extends dataSets {
   // final String password;
 
   People(
-      {required int id,
+      {int id = 0,
       required this.user,
       required this.university,
       required this.first_name,
@@ -25,7 +25,16 @@ class People extends dataSets {
   factory People.fromJson(Map<String, dynamic> json) {
     return People(
         id: json['id'],
-        user: User.fromJson(json['user']),
+        user: User.fromJsonNOID(json['user']),
+        university: University.fromJson(json['university_studying_at']),
+        first_name: json['first_name'],
+        last_name: json['last_name'],
+        field_of_study: json['field_of_study']);
+  }
+
+  factory People.fromJsonNOID(Map<String, dynamic> json) {
+    return People(
+        user: User.fromJsonNOID(json['user']),
         university: University.fromJson(json['university_studying_at']),
         first_name: json['first_name'],
         last_name: json['last_name'],

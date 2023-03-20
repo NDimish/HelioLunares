@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/backend_communication/models/University.dart';
@@ -7,10 +8,15 @@ import 'package:university_ticketing_system/backend_communication/models/tickets
 import 'dart:convert';
 export 'models/all.dart';
 import 'models/all.dart';
+import 'package:university_ticketing_system/globals.dart' as globals;
 
 final Map<Type, Databases> sets = {
   User: Databases.users,
-  Event: Databases.event
+  Event: Databases.event,
+  People: Databases.people,
+  Society: Databases.society,
+  Tickets: Databases.tickets,
+  University: Databases.university
 };
 
 enum PostType { READ, ADD, DELETE, UPDATE }
@@ -55,15 +61,20 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
   }
 
   fetchData(String url, Databases Database) async {
+    print("This is loading data.");
+    print(globals.localdataobj.getToken());
     final response = await http.get(Uri.parse(url), headers: {
-      HttpHeaders.authorizationHeader: "token ${Cookies.Token}"
-      //HttpHeaders.authorizationHeader: Cookies.CSRFToken
+      HttpHeaders.authorizationHeader:
+          "token ${globals.localdataobj.getToken()}"
     });
     if (response.statusCode == 200) {
+      // print(response.body);
       var data = json.decode(response.body) as List;
       output = data.map<T>((json) => (getClass(json, Database))).toList();
       notifyListeners();
     }
+    // print(response.body);
+    print(globals.localdataobj.getToken());
   }
 
   getClass(Map<String, dynamic> json, Databases database) {
@@ -89,7 +100,8 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       Uri.parse(createUrl(sets[T]!, postType: PostType.ADD)),
       headers: {
         "Content-Type": "application/json",
-        HttpHeaders.authorizationHeader: "token ${Cookies.Token}"
+        HttpHeaders.authorizationHeader:
+            "token ${globals.localdataobj.getToken()}"
         //HttpHeaders.authorizationHeader: Cookies.CSRFToken
       },
       body: json.encode(task),
@@ -106,7 +118,8 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       Uri.parse(createUrl(sets[T]!, postType: PostType.DELETE, ID: task.id)),
       headers: {
         "Content-Type": "application/json",
-        HttpHeaders.authorizationHeader: "token ${Cookies.Token}"
+        HttpHeaders.authorizationHeader:
+            "token ${globals.localdataobj.getToken()}"
         // HttpHeaders.authorizationHeader: Cookies.CSRFToken
       },
     );
@@ -123,7 +136,8 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       Uri.parse(createUrl(sets[T]!, postType: PostType.UPDATE)),
       headers: {
         "Content-Type": "application/json",
-        HttpHeaders.authorizationHeader: "token ${Cookies.Token}"
+        HttpHeaders.authorizationHeader:
+            "token ${globals.localdataobj.getToken()}"
         //HttpHeaders.authorizationHeader: Cookies.CSRFToken
       },
       body: json.encode(task),

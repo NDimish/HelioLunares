@@ -13,7 +13,7 @@ class Tickets extends dataSets {
   // final String password;
 
   Tickets(
-      {required int id,
+      {int id = 0,
       required this.user,
       required this.event,
       required this.date,
@@ -23,8 +23,16 @@ class Tickets extends dataSets {
   factory Tickets.fromJson(Map<String, dynamic> json) {
     return Tickets(
         id: json['id'],
-        user: User.fromJson(json['user']),
-        event: Event.fromJson(json['event']),
+        user: User.fromJsonNOID(json['user']),
+        event: Event.fromJsonNOID(json['event']),
+        date: json['date'],
+        price: json['price']);
+  }
+
+  factory Tickets.fromJsonNOID(Map<String, dynamic> json) {
+    return Tickets(
+        user: User.fromJsonNOID(json['user']),
+        event: Event.fromJsonNOID(json['event']),
         date: json['date'],
         price: json['price']);
   }
