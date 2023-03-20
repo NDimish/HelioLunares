@@ -609,6 +609,7 @@ class EventCategoriesTypeApiView(APIView):
     filter_backends = [DjangoFilterBackend,OrderingFilter]
     filterset_fields = '__all__'
     ordering_fields = '__all__'
+    permission_classes = [AllowAny]
 
     def post(self, request):
         serializer = EventCategoriesTypeModelSerializer(data=request.data)
