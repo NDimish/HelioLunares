@@ -1,3 +1,4 @@
+
 //Society Event Model
 class SocietyEvent {
   late String name;
