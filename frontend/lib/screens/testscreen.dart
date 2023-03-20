@@ -94,8 +94,7 @@ class _TestScreenAdditionState extends State<TestScreenAddition> {
         ],
         builder: (context, child) {
           final DataP2 = Provider.of<data.dataCollector<data.Event>>(context);
-          final DataP =
-              Provider.of<data.dataCollector<data.University>>(context);
+          final DataP = Provider.of<data.dataCollector<data.User>>(context);
           return Scaffold(
             body: ListView.builder(
               shrinkWrap: true,
