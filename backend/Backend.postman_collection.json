@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "3281c555-f227-493b-9c33-0d1cba69e5b2",
+		"_postman_id": "bbc1c72d-8c1b-446c-af92-e359163dd86a",
 		"name": "Backend",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "17544873"
@@ -29,11 +29,58 @@
 								"method": "GET",
 								"header": [
 									{
-										"key": "X-CSRFToken",
-										"value": "HOrZ8iegemUIBMIBblkplITVxLr0FzUE",
+										"key": "Authorization",
+										"value": "token fea15ebbf83bd47fc89fbcc3db4ebe5976d432d7",
 										"type": "text"
 									}
 								],
+								"url": {
+									"raw": "http://localhost:8000/users/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreateUser",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"user\": {\r\n        \"email\":\"test@gmail.com\",\r\n        \"password\": \"This.is.pass\"\r\n    },\r\n    \"university_studying_at\": 1,\r\n    \"first_name\": \"test\",\r\n    \"last_name\": \"doe\",\r\n    \"field_of_study\": \"chemistry\"\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
 									"raw": "http://localhost:8000/users/",
 									"protocol": "http",
@@ -56,10 +103,52 @@
 							},
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "token 136bd7ccf17642067ac704905d2c7aa552fcd33a",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "raw",
 									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/users/1/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"users",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update User",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "token 136bd7ccf17642067ac704905d2c7aa552fcd33a",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"admin@example.com\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -127,7 +216,13 @@
 							},
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "token eb55be710633b1d2c17924fd3899653320e107f3",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "raw",
 									"raw": "",
@@ -138,7 +233,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8000/users/?email=admin@example.com",
+									"raw": "http://localhost:8000/users/?email=test@gmail.com",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -151,7 +246,7 @@
 									"query": [
 										{
 											"key": "email",
-											"value": "admin@example.com"
+											"value": "test@gmail.com"
 										}
 									]
 								}
@@ -206,35 +301,117 @@
 					"name": "society",
 					"item": [
 						{
-							"name": "Society",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
+							"name": "Roles",
+							"item": [
+								{
+									"name": "Join Society",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "token eb55be710633b1d2c17924fd3899653320e107f3",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"society\": 6\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8000/societyrole/join/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"societyrole",
+												"join",
+												""
+											]
 										}
-									}
+									},
+									"response": []
 								},
-								"url": {
-									"raw": "http://localhost:8000/society",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8000",
-									"path": [
-										"society"
-									]
+								{
+									"name": "Leave society",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "token eb55be710633b1d2c17924fd3899653320e107f3",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"society\": 6\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8000/societyrole/remove/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"societyrole",
+												"remove",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update a user",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "token eb55be710633b1d2c17924fd3899653320e107f3",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"user\": 2,\r\n    \"society\": 6,\r\n    \"role_level\": 1\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8000/societyrole/update/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"societyrole",
+												"update",
+												""
+											]
+										}
+									},
+									"response": []
 								}
-							},
-							"response": []
+							]
 						},
 						{
 							"name": "Society with ID",
@@ -243,7 +420,13 @@
 							},
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "token 136bd7ccf17642067ac704905d2c7aa552fcd33a",
+										"type": "text"
+									}
+								],
 								"body": {
 									"mode": "raw",
 									"raw": "",
@@ -254,7 +437,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8000/society/1",
+									"raw": "http://localhost:8000/society/1/",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -262,7 +445,46 @@
 									"port": "8000",
 									"path": [
 										"society",
-										"1"
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Society",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "token fea15ebbf83bd47fc89fbcc3db4ebe5976d432d7",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/society/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"society",
+										""
 									]
 								}
 							},
@@ -395,7 +617,13 @@
 							"name": "Events",
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "token fea15ebbf83bd47fc89fbcc3db4ebe5976d432d7",
+										"type": "text"
+									}
+								],
 								"url": {
 									"raw": "http://localhost:8000/event/",
 									"protocol": "http",
@@ -578,7 +806,13 @@
 							"name": "University",
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "token fea15ebbf83bd47fc89fbcc3db4ebe5976d432d7",
+										"type": "text"
+									}
+								],
 								"url": {
 									"raw": "http://localhost:8000/university/",
 									"protocol": "http",
@@ -698,6 +932,183 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "People",
+					"item": [
+						{
+							"name": "People",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "token fea15ebbf83bd47fc89fbcc3db4ebe5976d432d7",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/people/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"people",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update People",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "token 136bd7ccf17642067ac704905d2c7aa552fcd33a",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"first_name\": \"new\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/people/1/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"people",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "PeopleRoleAtSociety",
+					"item": [
+						{
+							"name": "PeopleRolesAtSociety",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "token fea15ebbf83bd47fc89fbcc3db4ebe5976d432d7",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/societyrole/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"societyrole",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "HomePageData",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/homepage/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"homepage",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "society_categories_type",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "token fea15ebbf83bd47fc89fbcc3db4ebe5976d432d7",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/society_categories_type/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"society_categories_type",
+								""
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -731,7 +1142,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"admin@example.com\",\n    \"password\": \"Password123\"\n}",
+							"raw": "{\n    \"email\": \"test@gmail.com\",\n    \"password\": \"This.is.pass\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -747,6 +1158,85 @@
 							"port": "8000",
 							"path": [
 								"log_in",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Society",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\": {\r\n        \"email\": \"tessst@example.com\",\r\n        \"password\": \"This.is.pass\"\r\n    },\r\n    \"name\": \"testsocc\",\r\n    \"creation_date\": \"12/12/2002\",\r\n    \"university_society_is_at\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/society/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"society",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SignUp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user",
+									"value": "{\"email\":\"imgmsggg@example.com\",\"password\":\"password123\"}",
+									"type": "text"
+								},
+								{
+									"key": "university_society_is_at",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "imgtest",
+									"type": "text"
+								},
+								{
+									"key": "creation_date",
+									"value": "10/12/2002",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/E:/Downloads2/image (5).png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/society/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"society",
 								""
 							]
 						}
