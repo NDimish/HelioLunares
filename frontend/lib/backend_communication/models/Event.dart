@@ -17,7 +17,7 @@ class Event extends dataSets {
   // final String password;
 
   Event(
-      {required int id,
+      {int id = 0,
       required this.society,
       required this.ticket_amount,
       required this.duration,
@@ -34,7 +34,22 @@ class Event extends dataSets {
   factory Event.fromJson(Map<String, dynamic> json) {
     return Event(
         id: json['id'],
-        society: Society.fromJson(json['society_id']),
+        society: Society.fromJsonNOID(json['society_id']),
+        ticket_amount: json['attendance'],
+        duration: json['duration'],
+        price: json['price'],
+        update_time: json['update_time'],
+        create_time: json['create_time'],
+        title: json['event_name'],
+        date: (json['event_date'].split('T')[0]),
+        time: (json['event_date'].split('T')[1]),
+        venue: json['location'],
+        description: json['description']);
+  }
+
+  factory Event.fromJsonNOID(Map<String, dynamic> json) {
+    return Event(
+        society: Society.fromJsonNOID(json['society_id']),
         ticket_amount: json['attendance'],
         duration: json['duration'],
         price: json['price'],

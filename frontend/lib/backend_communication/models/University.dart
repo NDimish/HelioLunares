@@ -28,6 +28,16 @@ class University extends dataSets {
     );
   }
 
+  factory University.fromJsonNOID(Map<String, dynamic> json) {
+    return University(
+      name: json['name'],
+      latitude: json['latitude'],
+      longitude: json['longitude'],
+      street_name: json['street_name'],
+      postcode: json['postcode'],
+    );
+  }
+
   @override
   Databases getDatabase() {
     return Databases.university;

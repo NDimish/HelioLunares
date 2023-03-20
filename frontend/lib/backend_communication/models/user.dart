@@ -24,6 +24,13 @@ class User extends dataSets {
         date_joined: json['date_joined']);
   }
 
+  factory User.fromJsonNOID(Map<String, dynamic> json) {
+    return User(
+        email: json['email'],
+        userType: UserType.values[json['user_level'] - 1],
+        date_joined: json['date_joined']);
+  }
+
   @override
   Databases getDatabase() {
     return Databases.users;
