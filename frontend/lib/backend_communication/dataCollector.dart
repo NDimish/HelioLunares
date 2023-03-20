@@ -56,7 +56,7 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
 
   fetchData(String url, Databases Database) async {
     final response = await http.get(Uri.parse(url), headers: {
-      "X-CSRFToken": Cookies.CSRFToken
+      HttpHeaders.authorizationHeader: "token ${Cookies.Token}"
       //HttpHeaders.authorizationHeader: Cookies.CSRFToken
     });
     if (response.statusCode == 200) {
@@ -89,7 +89,7 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       Uri.parse(createUrl(sets[T]!, postType: PostType.ADD)),
       headers: {
         "Content-Type": "application/json",
-        "X-CSRFToken": Cookies.CSRFToken
+        HttpHeaders.authorizationHeader: "token ${Cookies.Token}"
         //HttpHeaders.authorizationHeader: Cookies.CSRFToken
       },
       body: json.encode(task),
@@ -106,7 +106,7 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       Uri.parse(createUrl(sets[T]!, postType: PostType.DELETE, ID: task.id)),
       headers: {
         "Content-Type": "application/json",
-        "X-CSRFToken": Cookies.CSRFToken
+        HttpHeaders.authorizationHeader: "token ${Cookies.Token}"
         // HttpHeaders.authorizationHeader: Cookies.CSRFToken
       },
     );
@@ -123,7 +123,7 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       Uri.parse(createUrl(sets[T]!, postType: PostType.UPDATE)),
       headers: {
         "Content-Type": "application/json",
-        "X-CSRFToken": Cookies.CSRFToken
+        HttpHeaders.authorizationHeader: "token ${Cookies.Token}"
         //HttpHeaders.authorizationHeader: Cookies.CSRFToken
       },
       body: json.encode(task),
