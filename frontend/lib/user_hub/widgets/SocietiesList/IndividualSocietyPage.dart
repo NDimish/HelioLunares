@@ -41,10 +41,15 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
       )),
       body: CustomLinearGradient(
         child: Padding(
-          padding: const EdgeInsets.only(top: 32.0, right: 32.0, left: 32.0),
+          padding: const EdgeInsets.only(top: 24.0, right: 32.0, left: 32.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: SocietyBanner(
+                    imageLink: "image url from database goes here"),
+              ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 20.0),
                 child: Card(

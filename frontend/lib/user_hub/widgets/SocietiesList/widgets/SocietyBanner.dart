@@ -10,14 +10,19 @@ class SocietyBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10),
+      child: Image.network(
+        //placeholder for now, eventually use the parameter.
+        "https://avatars.githubusercontent.com/u/32419965?v=4",
         width: ResponsiveWidget.isSmallScreen(context)
             ? 250
             : MediaQuery.of(context).size.width / 3.5,
         height: ResponsiveWidget.isSmallScreen(context)
             ? 250
             : MediaQuery.of(context).size.height / 4,
-        child: Image.network(
-            "https://www.slntechnologies.com/wp-content/uploads/2017/08/ef3-placeholder-image.jpg"));
+        fit: BoxFit.cover,
+      ),
+    );
   }
 }
