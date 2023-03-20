@@ -16,4 +16,8 @@ class Localdata {
   String getToken() {
     return Token;
   }
+
+  void setToken(String token) {
+    Token = token;
+  }
 }
