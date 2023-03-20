@@ -5,7 +5,7 @@ import 'package:university_ticketing_system/user_hub/widgets/SideAppBarWidgets/S
 import 'package:university_ticketing_system/user_hub/widgets/EventsList/EventListView.dart';
 import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/userSettingsPage/user_settings.dart';
 import 'package:university_ticketing_system/user_hub/widgets/SearchBarWidgets/CustomSearchBar.dart';
-import 'package:university_ticketing_system/user_hub/widgets/ThemeDataWidgets/UserHubThemes.dart';
+import 'package:university_ticketing_system/user_hub/widgets/ThemeDataWidgets/UserHubTheme.dart';
 
 import 'AppBarWidgets/bought_tickets/user_bought_ticket_screen.dart';
 
