@@ -102,14 +102,49 @@ class _StatisticsState extends State<Statistics> {
           padding: const EdgeInsets.all(30.0),
           child: _allEvents(eventModelData),
         ),
-        LineChart(LineChartData(lineBarsData: [
-          LineChartBarData(spots: const [
-            FlSpot(1, 2),
-            FlSpot(2, 2),
-            FlSpot(3, 2),
-            FlSpot(4, 2),
-          ])
-        ]))
+        AspectRatio(
+          aspectRatio: 1.50,
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: LineChart(LineChartData(
+              gridData: FlGridData(
+                show: true,
+                drawVerticalLine: true,
+                horizontalInterval: 1,
+                verticalInterval: 1,
+                getDrawingHorizontalLine: (value) {
+                  return FlLine(
+                    color: Color(0xFFFFFFFF),
+                    strokeWidth: 1,
+                  );
+                },
+                getDrawingVerticalLine: (value) {
+                  return FlLine(
+                    color: Color(0xFFFFFFFF),
+                    strokeWidth: 1,
+                  );
+                },
+              ),
+              borderData: FlBorderData(
+                show: true,
+                border: Border.all(color: const Color(0xff37434d)),
+              ),
+              minX: 0,
+              maxX: 5,
+              minY: 0,
+              maxY: 5,
+              lineBarsData: LineChartBarData(spots: const [
+                FlSpot(0, 3),
+                FlSpot(2.6, 2),
+                FlSpot(4.9, 5),
+                FlSpot(6.8, 3.1),
+                FlSpot(8, 4),
+                FlSpot(9.5, 3),
+                FlSpot(11, 4),
+              ]),
+            )),
+          ),
+        )
       ],
     );
   }
