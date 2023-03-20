@@ -54,12 +54,14 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
               width: 24,
             ),
             ElevatedButton(
-                // style: ButtonStyle(backgroundColor: MaterialStateProperty<Color?Colors.transparent ),
+                style: ButtonStyle(
+                    backgroundColor:
+                        const MaterialStatePropertyAll(Colors.transparent)),
                 onPressed: () {
                   //Go to user hub
                 },
                 child: const CustomText(
-                  text: "User Hub",
+                  text: "Go to User Hub",
                   colour: MyColours.navbarColour,
                 )),
             const SizedBox(
