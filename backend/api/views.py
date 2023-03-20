@@ -15,7 +15,7 @@ from .serializers import *
 from .models import *
 
 from datetime import date, datetime
-
+import json
 
 #Permission classes
 class AllowPost(BasePermission):
@@ -243,7 +243,7 @@ class SocietyListView(generics.ListAPIView):
     
     def post(self,request):
         
-        auth_content = request.data.get('user')
+        auth_content = json.loads(request.data.get('user'))
         uni_content = request.data.get('university_society_is_at')
         # Will change this to obtain the uni via id not name as discussed.
         try:
@@ -262,7 +262,9 @@ class SocietyListView(generics.ListAPIView):
             )
         except ValidationError as e:
             return Response(e,status=status.HTTP_409_CONFLICT)
-        except:
+        except Exception as l:
+            print(l)
+            
             # If there is already an account with that email, we throw an error.
             return Response({'error':'Email is taken.'},status=status.HTTP_409_CONFLICT)
         
