@@ -1,9 +1,9 @@
 export '../models/datasets.dart';
 export 'Event.dart';
 export 'People.dart';
-export '../models/society.dart';
+export 'Society.dart';
 export 'User.dart';
-export 'societyRole.dart';
+export 'SocietyRole.dart';
 
 final DATASOURCE = 'http://localhost:8000/';
 

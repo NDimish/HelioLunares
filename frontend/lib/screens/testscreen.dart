@@ -94,25 +94,26 @@ class _TestScreenAdditionState extends State<TestScreenAddition> {
         ],
         builder: (context, child) {
           final DataP2 = Provider.of<data.dataCollector<data.Event>>(context);
-          final DataP = Provider.of<data.dataCollector<data.User>>(context);
+          final DataP =
+              Provider.of<data.dataCollector<data.University>>(context);
           return Scaffold(
             body: ListView.builder(
               shrinkWrap: true,
-              itemCount: DataP.collection.length,
+              itemCount: DataP2.collection.length,
               itemBuilder: (BuildContext context, int index) {
                 return ListTile(
                     trailing: IconButton(
                         icon: Icon(Icons.delete, color: Colors.red),
                         onPressed: () {
-                          DataP.deleteFromCollection(DataP.collection[index]);
+                          DataP2.deleteFromCollection(DataP2.collection[index]);
                         }),
                     title: Text(
-                      DataP.collection[index].email,
+                      DataP2.collection[index].title,
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     subtitle: Text(
-                      DataP.collection[index].userType.toString(),
+                      DataP2.collection[index].create_time.toString(),
                       style: TextStyle(fontSize: 15, color: Colors.black),
                     ));
               },

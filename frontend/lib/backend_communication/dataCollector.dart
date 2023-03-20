@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/backend_communication/models/University.dart';
-import 'package:university_ticketing_system/backend_communication/models/tickets.dart';
+import 'package:university_ticketing_system/backend_communication/models/Ticket.dart';
 import 'dart:convert';
 export 'models/all.dart';
 import 'models/all.dart';
