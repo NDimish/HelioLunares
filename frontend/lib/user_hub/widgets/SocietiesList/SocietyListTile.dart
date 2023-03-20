@@ -48,6 +48,7 @@ class SocietyListTile extends GridTile {
                                       'AI is the driving force of our economy.',
                                   societyUni: 'Kings',
                                   numberOfFollowers: '10',
+                                  socId:0,
                                 )));
                   },
 

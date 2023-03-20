@@ -9,7 +9,7 @@ class University extends dataSets {
   // final String password;
 
   University({
-    required int id,
+    int id = 0,
     required this.name,
     required this.latitude,
     required this.longitude,
@@ -19,7 +19,7 @@ class University extends dataSets {
 
   factory University.fromJson(Map<String, dynamic> json) {
     return University(
-      id: json['id'],
+      //id: json['id'],
       name: json['name'],
       latitude: json['latitude'],
       longitude: json['longitude'],

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../../../backend_communication/dataCollector.dart';
 
 import '../../../../helpers/responsiveness.dart';
 
@@ -38,176 +40,180 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: const Icon(
-          Icons.settings,
-          size: 30,
-        ),
-      ),
-      backgroundColor: const Color(0xFFf5f5f5),
-      body: SafeArea(
-          child: Form(
-        key: _formKey,
-        child: Center(
-            child: Column(children: [
-          SizedBox(height: ResponsiveWidget.isSmallScreen(context) ? 0 : 35),
-          const Text(
-            'Account',
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 48),
-          ),
-          SizedBox(height: ResponsiveWidget.isSmallScreen(context) ? 3 : 17),
-          const Text(
-            'Profile',
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 28),
-          ),
-          SizedBox(height: ResponsiveWidget.isSmallScreen(context) ? 3 : 17),
-          Center(
-            child: Container(
-              child: const Text(
-                'Student',
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
-              ),
-              margin: const EdgeInsets.all(10.0),
-              color: Colors.green[600],
-              height: 24.0,
+    return ChangeNotifierProvider(
+      create: (context) => dataCollector<People>(ID: 7),
+      builder: (context,child) {
+        final DataP = Provider.of<dataCollector<People>>(context);
+        return Scaffold(
+          appBar: AppBar(
+            // Here we take the value from the MyHomePage object that was created by
+            // the App.build method, and use it to set our appbar title.
+            title: const Icon(
+              Icons.settings,
+              size: 30,
             ),
           ),
-          const SizedBox(height: 35),
-          Flex(
-            direction: ResponsiveWidget.isSmallScreen(context) ||
-                    ResponsiveWidget.isMediumScreen(context)
-                ? Axis.vertical
-                : Axis.horizontal,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: customTextFormField(
-                    'First Name', 'Enter your first name', Icons.person, null,
-                    (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter your password.";
-                  }
-                  return null;
-                }),
+          backgroundColor: const Color(0xFFf5f5f5),
+          body: SafeArea(
+              child: Form(
+            key: _formKey,
+            child: Center(
+                child: Column(children: [
+              SizedBox(height: ResponsiveWidget.isSmallScreen(context) ? 0 : 35),
+              const Text(
+                'Account',
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 48),
               ),
-              const SizedBox(
-                width: 50,
+              SizedBox(height: ResponsiveWidget.isSmallScreen(context) ? 3 : 17),
+              const Text(
+                'Profile',
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 28),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: customTextFormField(
-                    'Last Name', 'Enter your last name', Icons.person, null,
-                    (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter your password.";
-                  }
-                  return null;
-                }),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: customTextFormField(
-                    'Password', 'Enter your password', Icons.password, null,
-                    (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter your password.";
-                  }
-                  return null;
-                }),
-              )
-            ],
-          ),
-          const SizedBox(height: 35),
-          const SizedBox(height: 15),
-          const Text(
-            'Personal Information',
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 28),
-          ),
-          const SizedBox(height: 17),
-          const SizedBox(height: 35),
-          Flex(
-            direction: ResponsiveWidget.isSmallScreen(context) ||
-                    ResponsiveWidget.isMediumScreen(context)
-                ? Axis.vertical
-                : Axis.horizontal,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: customTextFormField('Email Address', 'Enter your email',
-                    Icons.email, emailController, (value) {
-                  if (value == null ||
-                      value.isEmpty ||
-                      !emailRegex.hasMatch(value)) {
-                    return "Please enter a valid email.";
-                  }
-                  return null;
-                }),
-              ),
-
-              const SizedBox(
-                width: 50,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: customTextFormField(
-                    'Phone Number',
-                    'Enter your phone number',
-                    Icons.phone,
-                    phoneController, (value) {
-                  if (value == null ||
-                      value.isEmpty ||
-                      !phoneRegex.hasMatch(value)) {
-                    return "Please enter a valid phone number.";
-                  }
-                  return null;
-                }),
-              ),
-
-              const SizedBox(
-                width: 50,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: customTextFormField('University',
-                    'Enter your university', Icons.book, null, null),
-              ), //query a database
-            ],
-          ),
-          const SizedBox(height: 17),
-          Flex(
-            direction: ResponsiveWidget.isSmallScreen(context) ||
-                    ResponsiveWidget.isMediumScreen(context)
-                ? Axis.vertical
-                : Axis.horizontal,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextButton(
-                style: ButtonStyle(
-                  foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.blue),
+              SizedBox(height: ResponsiveWidget.isSmallScreen(context) ? 3 : 17),
+              Center(
+                child: Container(
+                  child: const Text(
+                    'Student',
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+                  ),
+                  margin: const EdgeInsets.all(10.0),
+                  color: Colors.green[600],
+                  height: 24.0,
                 ),
-                onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
-                    print("Valid form");
-                  }
-                  ;
-
-                  _formKey.currentState!.save();
-                },
-                child: const Text('Save'),
               ),
-            ],
-          )
-        ])),
-      )),
+              const SizedBox(height: 35),
+              Flex(
+                direction: ResponsiveWidget.isSmallScreen(context) ||
+                        ResponsiveWidget.isMediumScreen(context)
+                    ? Axis.vertical
+                    : Axis.horizontal,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: customTextFormField(
+                        'First Name', 'Enter your first name', Icons.person, null,
+                        (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Please enter your password.";
+                      }
+                      return null;
+                    }),
+                  ),
+                  const SizedBox(
+                    width: 50,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: customTextFormField(
+                        'Last Name', 'Enter your last name', Icons.person, null,
+                        (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Please enter your password.";
+                      }
+                      return null;
+                    }),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: customTextFormField(
+                        'Password', 'Enter your password', Icons.password, null,
+                        (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Please enter your password.";
+                      }
+                      return null;
+                    }),
+                  )
+                ],
+              ),
+              const SizedBox(height: 35),
+              const SizedBox(height: 15),
+              const Text(
+                'Personal Information',
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 28),
+              ),
+              const SizedBox(height: 17),
+              const SizedBox(height: 35),
+              Flex(
+                direction: ResponsiveWidget.isSmallScreen(context) ||
+                        ResponsiveWidget.isMediumScreen(context)
+                    ? Axis.vertical
+                    : Axis.horizontal,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: customTextFormField('Email Address', 'Enter your email',
+                        Icons.email, emailController, (value) {
+                      if (value == null ||
+                          value.isEmpty ||
+                          !emailRegex.hasMatch(value)) {
+                        return "Please enter a valid email.";
+                      }
+                      return null;
+                    }),
+                  ),
+
+                  const SizedBox(
+                    width: 50,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: customTextFormField(
+                        'Phone Number',
+                        'Enter your phone number',
+                        Icons.phone,
+                        phoneController, (value) {
+                      if (value == null ||
+                          value.isEmpty ||
+                          !phoneRegex.hasMatch(value)) {
+                        return "Please enter a valid phone number.";
+                      }
+                      return null;
+                    }),
+                  ),
+
+                  const SizedBox(
+                    width: 50,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: customTextFormField('University',
+                        'Enter your university', Icons.book, null, null),
+                  ), //query a database
+                ],
+              ),
+              const SizedBox(height: 17),
+              Flex(
+                direction: ResponsiveWidget.isSmallScreen(context) ||
+                        ResponsiveWidget.isMediumScreen(context)
+                    ? Axis.vertical
+                    : Axis.horizontal,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                    style: ButtonStyle(
+                      foregroundColor:
+                          MaterialStateProperty.all<Color>(Colors.blue),
+                    ),
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        print("Valid form");
+                      };
+                      _formKey.currentState!.save();
+                    },
+                    child: const Text('Save'),
+                  ),
+                ],
+              )
+            ])),
+          )),
+        );
+      }
     );
   }
 

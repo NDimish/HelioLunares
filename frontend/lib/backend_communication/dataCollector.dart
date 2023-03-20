@@ -10,7 +10,12 @@ import 'models/all.dart';
 
 final Map<Type, Databases> sets = {
   User: Databases.users,
-  Event: Databases.event
+  Event: Databases.event,
+  People:Databases.people,
+  Society:Databases.society,
+  University:Databases.university,
+  Tickets:Databases.tickets
+
 };
 
 enum PostType { READ, ADD, DELETE, UPDATE }
@@ -30,6 +35,7 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       int ID = -1}) {
     fetchData(
         createUrl(sets[T]!, filter: filter, order: order, ID: ID), sets[T]!);
+
   }
 
   String createUrl(Databases Database,
@@ -74,8 +80,8 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
         return Event.fromJson(json);
       case Databases.university:
         return University.fromJson(json);
-      case Databases.society:
-        return Society.fromJson(json);
+    //  case Databases.society:
+      //  return Society.fromJson(json);
       case Databases.tickets:
         return Tickets.fromJson(json);
 

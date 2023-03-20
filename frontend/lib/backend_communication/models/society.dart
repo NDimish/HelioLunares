@@ -16,7 +16,7 @@ class Society extends dataSets {
   // final String password;
 
   Society({
-    required int id,
+    int id =0,
     required this.user,
     required this.university,
     required this.name,
@@ -27,7 +27,7 @@ class Society extends dataSets {
 
   factory Society.fromJson(Map<String, dynamic> json) {
     return Society(
-        id: json['id'],
+        //id: json['id'],
         user: User.fromJson(json['user']),
         university: University.fromJson(json['university_society_is_at']),
         name: json['name'],
