@@ -48,10 +48,10 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
             Container(
               width: 1,
               height: 22,
-              color: MyColours.elementButtonColour,
+              color: Colors.white,
             ),
             const SizedBox(
-              width: 24,
+              width: 12,
             ),
             ElevatedButton(
                 style: ButtonStyle(
