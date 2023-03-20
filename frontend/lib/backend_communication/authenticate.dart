@@ -39,7 +39,6 @@ Future<http.Response> createSociety(String username, String password, int uniId,
       'name': socName,
       'creation_date': creationDate,
       'about_us': aboutUs,
-      'image': ''
     }),
   );
 

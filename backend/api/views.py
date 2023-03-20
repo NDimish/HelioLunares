@@ -286,7 +286,6 @@ class SocietyListView(generics.ListAPIView):
                 name = data['name'],
                 creation_date = data['creation_date'],
                 university_society_is_at = u,
-                image = request.data.get('image'),
                 about_us = request.data.get('about_us')
             )
                       
