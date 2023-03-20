@@ -35,9 +35,6 @@ class User(AbstractUser):
 
     objects = UserManager()
 
-    def __str__(self):
-        return self.email
-
 
 class People(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
@@ -106,11 +103,6 @@ class PeopleRoleAtSociety(models.Model):
     )
 
     role = models.PositiveSmallIntegerField(choices=SOCIETY_ROLE, default=1)
-
-    # def __str__(self):
-    #     str1 = self.society.name + " --- " + self.user_at_society.first_name + self.user_at_society.last_name + " --- "
-    #     str2 = str(self.user_at_society.user.user_level)
-    #     return str1 + str2
 
 
 class Event(models.Model):

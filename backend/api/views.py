@@ -6,7 +6,6 @@ from rest_framework.permissions import AllowAny, IsAuthenticated, BasePermission
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.filters import OrderingFilter
 from rest_framework.views import APIView
-from django.db import IntegrityError
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
@@ -24,6 +23,13 @@ class AllowPost(BasePermission):
         return request.method == "POST"
 
 #URl Endpoints
+
+@api_view(['GET'])
+@permission_classes({AllowAny})
+def homePage(request):
+    socs = Society.objects.all()
+    serializer = SocietyHomePageSerializer(socs, many=True)
+    return Response(serializer.data)
 
 @api_view(['GET'])
 def log_out(request):
@@ -157,7 +163,7 @@ class UsersListView(generics.ListAPIView):
                 created_user.delete()
                 new_person.delete()
                 return Response(e, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    
+
 
 class UserView(APIView):
     """View to retrieve data about a user"""
@@ -169,6 +175,35 @@ class UserView(APIView):
             return Response(serializer.data)
         except:
             return Response({'error':'User not found.'},status=status.HTTP_404_NOT_FOUND)
+
+    def put(self, request, pk):
+        if(pk != request.user.id):
+            return Response({'error':'Can only change our own user data.'},status=status.HTTP_400_BAD_REQUEST)
+        
+        user = User.objects.get(id=pk)
+        serializer = UserSerializer(instance=user, data=request.data,partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        
+        try:
+            new_pass = request.data['password']
+        except:
+            new_pass = False
+        
+        if new_pass == False:
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            try:
+                validate_password(new_pass)
+                user.set_password(new_pass)
+                user.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            except ValidationError as e:
+                return Response(e, status=status.HTTP_400_BAD_REQUEST)
+            except:
+                return Response({'error':'Details saved except password'}, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 class PeopleListView(generics.ListAPIView):
     """ View list of all people accounds"""
@@ -187,8 +222,14 @@ class PeopleView(APIView):
             serializer = PeopleSerializer(user)
             return Response(serializer.data)
         except:
-            return Response({'error':'User not found.'},status=status.HTTP_404_NOT_FOUND)
+            return Response({'error':'Person not found.'},status=status.HTTP_404_NOT_FOUND)
 
+    def put(self, request, pk):
+        people = People.objects.get(user_id=pk)
+        serializer = PeopleSerializer(instance=people, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 class SocietyListView(generics.ListAPIView):
     """View to retrieve list of societies"""
@@ -271,6 +312,35 @@ class SocietyView(APIView):
             return Response(serializer.data)
         except:
             return Response({'error':'Society not found.'},status=status.HTTP_404_NOT_FOUND)
+    
+    def put(self, request, pk):
+        soc = Society.objects.get(user_id=pk)
+        serializer = SocietySerializer(instance=soc, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        try:
+            new_pass = request.data['password']
+        except:
+            new_pass = False
+
+        if new_pass == False:
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            
+            if (pk != request.user.id):
+                return Response({'error':'Can only change our own society password.'},status=status.HTTP_400_BAD_REQUEST)
+            user = User.objects.get(id=pk)
+            try:
+                validate_password(new_pass)
+                user.set_password(new_pass)
+                user.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            except ValidationError as e:
+                return Response(e, status=status.HTTP_400_BAD_REQUEST)
+            except:
+                return Response({'error':'Details saved except password'}, status=status.HTTP_400_BAD_REQUEST)
+    
     def delete(self, request, pk):
         Society.objects.filter(user_id=pk).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
@@ -354,8 +424,8 @@ def society_remove_user(request):
             #search for the society that they want
             try:
                 soc = Society.objects.get(user_id=request.data['society'])
-            except Exception as e:
-                return Response(e, status=status.HTTP_404_NOT_FOUND)
+            except:
+                return Response({'error':'Society not found.'}, status=status.HTTP_404_NOT_FOUND)
             
             #check if they are already part of the society
             people = People.objects.get(user=request.user)
@@ -370,19 +440,22 @@ def society_remove_user(request):
 
 @api_view(['POST'])
 def society_update_user(request):
-    print(request.user.user_level)
     if request.user.user_level == 3:
-        #Look for society
+        #society user can only edit roles for their own society
         try:
-            soc = Society.objects.get(user_id=request.data['society'])
+            soc = request.data['society']
+            return Response({'error':'You can only edit roles in your own society'},status=status.HTTP_400_BAD_REQUEST)
         except:
-            return Response({'error':'Society not found'}, status=status.HTTP_404_NOT_FOUND)
+            pass
+
+        #Get their society
+        soc = Society.objects.get(user=request.user)
 
         #check if they are already part of the society
         try:
             update_role = PeopleRoleAtSociety.objects.get(society=soc,user_at_society=request.data['user'])
         except:
-            return Response({'error':'User not joined society'},status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error':'User has not joined society'},status=status.HTTP_400_BAD_REQUEST)
 
         if request.data['role_level'] in {1,2,3}:
             update_role.role = request.data['role_level']
@@ -399,12 +472,9 @@ def society_update_user(request):
         
         #check if current user is part of the society
         try:
-            curr_role = PeopleRoleAtSociety.objects.get(society=soc,user_at_society=request.user)
+            curr_role = PeopleRoleAtSociety.objects.get(society=soc,user_at_society=request.user.id)
         except:
             return Response({'error':'User has not joined society'},status=status.HTTP_400_BAD_REQUEST)
-
-        if curr_role != 3:
-            return Response({'error':'User does not have adequte power.'},status=status.HTTP_400_BAD_REQUEST)
 
         #check if they are already part of the society
         try:
@@ -412,11 +482,17 @@ def society_update_user(request):
         except:
             return Response({'error':'User not joined society'},status=status.HTTP_400_BAD_REQUEST)
 
-        if request.data['role_level'] in {1,2}:
-            update_role.role = request.data['role_level']
-            update_role.save()
+        #check if they have power to update
+        if curr_role.role in {2,3}:
+            #check if it is a valid role and if they user has enough power to update
+            if request.data['role_level'] in {1,2} and curr_role.role>request.data['role_level']:
+                update_role.role = request.data['role_level']
+                update_role.save()
+            else:
+                return Response({'error':'Can not set level'},status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response({'error':'Can not set level'},status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error':'User does not have adequte power.'},status=status.HTTP_400_BAD_REQUEST)
+            
 
     return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -442,7 +518,6 @@ class EventApiView(generics.ListAPIView):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-
 #Event with id
 class EventApiInfoView(APIView):
     def get(self, request, pk):
@@ -452,7 +527,7 @@ class EventApiInfoView(APIView):
 
     def put(self, request, pk):
         event = Event.objects.filter(id=pk).first()
-        serializer = EventModelSerializer(instance=event, data=request.data)
+        serializer = EventModelSerializer(instance=event, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -486,7 +561,7 @@ class UniversityInfoApiView(APIView):
     def put(self, request, pk):
         university = University.objects.filter(id=pk).first()
         request.data["name"] = pk
-        serializer = UniversitySerializer(instance=university, data=request.data)
+        serializer = UniversitySerializer(instance=university, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
@@ -518,7 +593,7 @@ class TicketInfoApiView(APIView):
 
     def put(self, request, pk):
         ticket = Ticket.objects.filter(id=pk).first()
-        serializer = TicketModelSerializer(instance=ticket, data=request.data)
+        serializer = TicketModelSerializer(instance=ticket, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
@@ -534,6 +609,7 @@ class EventCategoriesTypeApiView(APIView):
     filter_backends = [DjangoFilterBackend,OrderingFilter]
     filterset_fields = '__all__'
     ordering_fields = '__all__'
+    permission_classes = [AllowAny]
 
     def post(self, request):
         serializer = EventCategoriesTypeModelSerializer(data=request.data)
@@ -550,7 +626,7 @@ class EventCategoriesTypeInfoApiView(APIView):
 
     def put(self, request, pk):
         eventCategoriesType = EventCategoriesTypeModelSerializer.objects.filter(id=pk).first()
-        serializer = EventCategoriesTypeModelSerializer(instance=eventCategoriesType, data=request.data)
+        serializer = EventCategoriesTypeModelSerializer(instance=eventCategoriesType, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
@@ -582,7 +658,7 @@ class EventCategoriesInfoApiView(APIView):
 
     def put(self, request, pk):
         eventCategories = EventCategories.objects.filter(id=pk).first()
-        serializer = EventCategoriesModelSerializer(instance=eventCategories, data=request.data)
+        serializer = EventCategoriesModelSerializer(instance=eventCategories, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
@@ -598,6 +674,7 @@ class SocietyCategoriesTypeApiView(APIView):
     filter_backends = [DjangoFilterBackend,OrderingFilter]
     filterset_fields = '__all__'
     ordering_fields = '__all__'
+    permission_classes = [AllowAny]
 
     def post(self, request):
         serializer = SocietyCategoriesTypeModelSerializer(data=request.data)
@@ -615,7 +692,7 @@ class SocietyCategoriesTypeInfoApiView(APIView):
 
     def put(self, request, pk):
         societyCategoriesType = SocietyCategoriesType.objects.filter(id=pk).first()
-        serializer = TicketModelSerializer(instance=societyCategoriesType, data=request.data)
+        serializer = TicketModelSerializer(instance=societyCategoriesType, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
@@ -648,7 +725,7 @@ class SocietyCategoriesInfoApiView(APIView):
 
     def put(self, request, pk):
         societyCategories = SocietyCategories.objects.filter(id=pk).first()
-        serializer = SocietyCategoriesModelSerializer(instance=societyCategories, data=request.data)
+        serializer = SocietyCategoriesModelSerializer(instance=societyCategories, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)

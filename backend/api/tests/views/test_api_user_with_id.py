@@ -53,3 +53,39 @@ class UserWithIDTestCase(APITestCase):
         header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
         response = self.client.get('/users/99/', format='json', **header)
         self.assertEqual(response.status_code,status.HTTP_404_NOT_FOUND)
+    
+    def test_url_with_valid_put(self):
+        response = self.client.post('/log_in/',self.login_data,format='json')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
+        before_user = User.objects.get(id=1)
+        response = self.client.put(self.url, {'email':'test@example.com'},format='json', **header)
+        self.assertEqual(response.status_code,status.HTTP_201_CREATED)
+        after_user = User.objects.get(id=1)
+        self.assertNotEqual(before_user.email,after_user.email)
+        self.assertEqual(after_user.email, 'test@example.com')
+    
+    def test_url_with_valid_password_change(self):
+        response = self.client.post('/log_in/',self.login_data,format='json')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
+        before_user = User.objects.get(id=1)
+        response = self.client.put(self.url, {'password':'This.is.a.cool.password'},format='json', **header)
+        self.assertEqual(response.status_code,status.HTTP_201_CREATED)
+        after_user = User.objects.get(id=1)
+        self.assertNotEqual(after_user.password,before_user.password)
+    
+    def test_url_with_invalid_password_change(self):
+        response = self.client.post('/log_in/',self.login_data,format='json')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
+        response = self.client.put(self.url, {'password':'password123'},format='json', **header)
+        self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
+    
+    def test_url_with_put_on_differnet_user(self):
+        response = self.client.post('/log_in/',self.login_data,format='json')
+        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
+        before_user = User.objects.get(id=1)
+        response = self.client.put('/users/2/', {'email':'test@example.com'},format='json', **header)
+        self.assertEqual(response.status_code,status.HTTP_400_BAD_REQUEST)
