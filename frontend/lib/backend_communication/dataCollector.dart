@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/backend_communication/models/University.dart';
@@ -17,7 +16,7 @@ final Map<Type, Databases> sets = {
   Society: Databases.society,
   Tickets: Databases.tickets,
   University: Databases.university,
-  SocietyRole: Databases.society_role
+  SocietyRole: Databases.societyrole
 };
 
 enum PostType { READ, ADD, DELETE, UPDATE }

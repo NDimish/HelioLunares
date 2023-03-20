@@ -103,7 +103,7 @@ class UsersListView(generics.ListAPIView):
     permission_classes = [IsAuthenticated|AllowPost]
     
     def post(self,request):
-        auth_content = request.data.get('user')
+        auth_content = json.loads(request.data.get('user'))
         uni_content = request.data.get('university_studying_at')
 
         # Will change this to obtain the uni via id not name as discussed.
@@ -286,7 +286,6 @@ class SocietyListView(generics.ListAPIView):
                 name = data['name'],
                 creation_date = data['creation_date'],
                 university_society_is_at = u,
-                image = request.data.get('image'),
                 about_us = request.data.get('about_us')
             )
                       
