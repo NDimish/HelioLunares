@@ -74,8 +74,18 @@ class _testscreen extends State<testscreen> {
                   Icons.add,
                   size: 30,
                 ),
-                onPressed: () {
-                  Future<http.Response> response = auth("nath@gmail.com", "q");
+                onPressed: () async {
+                  http.Response response = await createSociety(
+                      "nathgsg@gmail.com",
+                      "This.is.pass1091",
+                      1,
+                      "socname",
+                      '12/12/2002',
+                      "about us text",
+                      [1, 2, 3]);
+                  print(response.statusCode);
+                  http.Response new_response =
+                      await auth("nathgsg@gmail.com", "This.is.pass1091");
                   Navigator.pushNamed(context, '/');
                   // DataP.addToCollection(data.User(
                   //     id: 3,
