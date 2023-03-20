@@ -63,7 +63,7 @@ class _testscreen extends State<testscreen> {
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     subtitle: Text(
-                      DataP2.collection[index].id.toString(),
+                      DataP.collection[index].userType.toString(),
                       style: TextStyle(fontSize: 15, color: Colors.black),
                     ));
               },

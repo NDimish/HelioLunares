@@ -16,7 +16,8 @@ final Map<Type, Databases> sets = {
   People: Databases.people,
   Society: Databases.society,
   Tickets: Databases.tickets,
-  University: Databases.university
+  University: Databases.university,
+  SocietyRole: Databases.society_role
 };
 
 enum PostType { READ, ADD, DELETE, UPDATE }
