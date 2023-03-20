@@ -19,8 +19,9 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
     return SizedBox(
         width: 300,
         child: TextFormField(
-            controller: formController == null ? null : formController,
-            validator: validation == null ? null : validation,
+            obscureText: headerName.contains("Password") ? true : false,
+            controller: formController,
+            validator: validation,
             decoration: customDecoration(headerName, name, nameIcon)));
   }
 
@@ -39,20 +40,22 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFf5f5f5).withOpacity(0.3),
+      backgroundColor: const Color(0xFFffffff).withOpacity(0.3),
       body: SafeArea(
           child: Form(
         key: _formKey,
         child: Center(
             child: Column(children: [
           const SizedBox(height: 35),
-          const Text(
+          Text(
             'Society Settings',
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 48),
+            style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: ResponsiveWidget.isSmallScreen(context) ? 30 : 48),
           ),
           const SizedBox(height: 17),
           const Text(
-            'Profile',
+            'Account',
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 28),
           ),
           const SizedBox(height: 17),
@@ -66,8 +69,11 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: customTextFormField('Society Name',
-                    'Enter your society name', Icons.house, null, (value) {
+                child: customTextFormField(
+                    'Society Name',
+                    'Enter your society name',
+                    Icons.person_rounded,
+                    null, (value) {
                   if (value == null || value.isEmpty) {
                     return "Please enter your society name.";
                   }
@@ -93,7 +99,13 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
               )
             ],
           ),
-          const SizedBox(height: 35),
+          const SizedBox(
+            width: 50,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: const Text('University'),
+          ),
           const SizedBox(height: 35),
           const Text(
             'Personal Information',
@@ -140,36 +152,73 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                 }),
               ),
 
-              const SizedBox(
-                width: 50,
-              ),
-              const Text('University'), //query a database
+              //query a database
             ],
           ),
-          const SizedBox(height: 17),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextButton(
-                style: ButtonStyle(
-                  foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.blue),
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  style: ButtonStyle(
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(Colors.blue),
+                  ),
+                  onPressed: () async {
+                    await Future.delayed(const Duration(seconds: 1));
+                    if (_formKey.currentState!.validate()) {
+                      print("Valid form");
+                      _formKey.currentState!.save();
+
+                      try {
+                        //Here is where you will send a response to the database to update user values
+
+                        //Upon saving you will have to check the fields which are empty.
+                        //If they are all empty or nothing has changed don't update the DB at all.
+                        //Otherwise check whatever is changed, and update DB accordingly.
+
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: const Text('Details saved!'),
+                            content: const Text(
+                                'Society settings have been modified.'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () => {
+                                  Navigator.pop(context, 'OK'),
+                                },
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          ),
+                        );
+                      } catch (error) {
+                        //This can be turned into a reusable widget?
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: const Text('Whoops!'),
+                            content: const Text(
+                                'Something went wrong when changing society settings. Please try again.'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () => {
+                                  Navigator.pop(context, 'OK'),
+                                },
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+                    }
+                  },
+                  child: const Text('Update Details'),
                 ),
-                onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
-                    print("Valid form");
-                  }
-                  ;
-
-                  _formKey.currentState!.save();
-
-                  //Upon saving you will have to check the fields which are empty.
-                  //If they are all empty or nothing has changed don't update the DB at all.
-                  //Otherwise check whatever is changed, and update DB accordingly.
-                },
-                child: const Text('Update Details'),
-              ),
-            ],
+              ],
+            ),
           )
         ])),
       )),
