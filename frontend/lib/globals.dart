@@ -3,6 +3,7 @@ Localdata localdataobj = Localdata();
 
 class Localdata {
   static String Token = "";
+  static int USERLEVEL = 1;
 
   String Email = '';
 
@@ -19,5 +20,13 @@ class Localdata {
 
   void setToken(String token) {
     Token = token;
+  }
+
+  int getUserLevel() {
+    return USERLEVEL;
+  }
+
+  void setUserLevel(int userlevel) {
+    USERLEVEL = userlevel;
   }
 }
