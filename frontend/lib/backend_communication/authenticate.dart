@@ -17,6 +17,7 @@ Future<http.Response> auth(String username, String password) async {
     Map<String, dynamic> data = json.decode(response.body);
     globals.localdataobj.setData(
         data['token'], data['email'], data['user_level'], data['user_id']);
+    print("Auth passed");
   } else {
     print("Auth failed");
   }
