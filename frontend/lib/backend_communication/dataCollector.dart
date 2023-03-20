@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:university_ticketing_system/backend_communication/models/University.dart';
+import 'package:university_ticketing_system/backend_communication/models/tickets.dart';
 import 'dart:convert';
 export 'models/all.dart';
 import 'models/all.dart';
@@ -54,9 +56,7 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
 
   fetchData(String url, Databases Database) async {
     final response = await http.get(Uri.parse(url), headers: {
-      //"csrftoken": Cookies.CSRFToken,
-      //"sessionid": Cookies.Cookie,
-      //"X-CSRFToken": Cookies.CSRFToken
+      HttpHeaders.authorizationHeader: "token ${Cookies.Token}"
       //HttpHeaders.authorizationHeader: Cookies.CSRFToken
     });
     if (response.statusCode == 200) {
@@ -68,10 +68,16 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
 
   getClass(Map<String, dynamic> json, Databases database) {
     switch (database) {
-      case Databases.usersadd:
-        return User.fromJson(json);
+      case Databases.people:
+        return People.fromJson(json);
       case Databases.event:
         return Event.fromJson(json);
+      case Databases.university:
+        return University.fromJson(json);
+      case Databases.society:
+        return Society.fromJson(json);
+      case Databases.tickets:
+        return Tickets.fromJson(json);
 
       default:
         return User.fromJson(json);
@@ -83,8 +89,7 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       Uri.parse(createUrl(sets[T]!, postType: PostType.ADD)),
       headers: {
         "Content-Type": "application/json",
-        //"Cookie": Cookies.Cookie,
-        //"X-CSRFToken": Cookies.CSRFToken
+        HttpHeaders.authorizationHeader: "token ${Cookies.Token}"
         //HttpHeaders.authorizationHeader: Cookies.CSRFToken
       },
       body: json.encode(task),
@@ -101,8 +106,7 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       Uri.parse(createUrl(sets[T]!, postType: PostType.DELETE, ID: task.id)),
       headers: {
         "Content-Type": "application/json",
-        //"Cookie": Cookies.Cookie,
-        //"X-CSRFToken": Cookies.CSRFToken
+        HttpHeaders.authorizationHeader: "token ${Cookies.Token}"
         // HttpHeaders.authorizationHeader: Cookies.CSRFToken
       },
     );
@@ -119,8 +123,7 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       Uri.parse(createUrl(sets[T]!, postType: PostType.UPDATE)),
       headers: {
         "Content-Type": "application/json",
-        // "Cookie": Cookies.Cookie,
-        // "X-CSRFToken": Cookies.CSRFToken
+        HttpHeaders.authorizationHeader: "token ${Cookies.Token}"
         //HttpHeaders.authorizationHeader: Cookies.CSRFToken
       },
       body: json.encode(task),

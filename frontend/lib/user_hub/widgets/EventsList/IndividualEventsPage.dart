@@ -57,20 +57,12 @@ class _EventPageState extends State<EventPage> {
                     child: Column(
                       children: [
                         Text(
-                          "Event name here",
+                          widget.eventName,
                           style: TextStyle(
                               fontFamily: "Arvo",
                               fontSize: ResponsiveWidget.isSmallScreen(context)
                                   ? 44
                                   : 72),
-                        ),
-                        Text(
-                          "Society name here?",
-                          style: TextStyle(
-                              fontFamily: "Arvo",
-                              fontSize: ResponsiveWidget.isSmallScreen(context)
-                                  ? 24
-                                  : 40),
                         ),
                       ],
                     ),

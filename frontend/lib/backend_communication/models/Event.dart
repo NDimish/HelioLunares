@@ -1,13 +1,15 @@
 import 'datasets.dart';
+import 'society.dart';
 
 class Event extends dataSets {
   final String title;
   final String date;
   final String time;
+  final int ticket_amount;
   final String venue;
   final String description;
 
-  final String society_email;
+  final Society society;
   final double duration;
   final double price;
   final String update_time;
@@ -16,7 +18,8 @@ class Event extends dataSets {
 
   Event(
       {required int id,
-      required this.society_email,
+      required this.society,
+      required this.ticket_amount,
       required this.duration,
       required this.price,
       required this.update_time,
@@ -31,7 +34,8 @@ class Event extends dataSets {
   factory Event.fromJson(Map<String, dynamic> json) {
     return Event(
         id: json['id'],
-        society_email: json['society_email'],
+        society: Society.fromJson(json['society_id']),
+        ticket_amount: json['attendance'],
         duration: json['duration'],
         price: json['price'],
         update_time: json['update_time'],
@@ -49,14 +53,15 @@ class Event extends dataSets {
   }
 
   dynamic toJson() => {
-        'society_email': society_email,
-        // 'duration': duration,
+        'society_id': society.toJson(),
+        'duration': duration,
         'price': price,
         'update_time': update_time,
         'create_time': create_time,
         'event_name': title,
         'event_date': ('${date}T$time'),
         'location': venue,
-        'description': description
+        'description': description,
+        'attendance': ticket_amount
       };
 }
