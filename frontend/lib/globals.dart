@@ -4,6 +4,7 @@ Localdata localdataobj = Localdata();
 class Localdata {
   static String Token = "";
   static int USERLEVEL = 1;
+  static int USERID = 0;
 
   String Email = '';
 
@@ -28,5 +29,13 @@ class Localdata {
 
   void setUserLevel(int userlevel) {
     USERLEVEL = userlevel;
+  }
+
+  int getUserID() {
+    return USERID;
+  }
+
+  void setUserID(int userid) {
+    USERID = userid;
   }
 }
