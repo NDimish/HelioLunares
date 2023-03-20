@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:university_ticketing_system/backend_communication/authenticate.dart';
+import 'package:university_ticketing_system/backend_communication/dataCollector.dart' as data;
 import 'EventListTile.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
@@ -7,23 +10,49 @@ import 'package:flutter/src/widgets/framework.dart';
 // dynamic page loading
 
 class EventListView extends StatelessWidget {
-  EventListView({super.key});
-
-  var count = 10;
+  EventListView({super.key,this.Orderby = data.OrderType.CHRONOLOGICAL,
+      this.filter = const {},
+      this.id = -1});
+  
+  data.OrderType Orderby;
+  Map<String, String> filter;
+  int id;
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: const EdgeInsets.all(20),
-      itemCount: count,
-      itemBuilder: (context, index){
-        return EventListTile(
-          eventName: "eventName $index",
-          price: 0,
-          dateTime: DateTime.now(),
-          location: "location $index", 
-          org: "org $index");
+    return MultiProvider(
+      providers: [
+          ChangeNotifierProvider(
+              create: (context) => data.dataCollector<data.Event>(
+                  filter: filter, order: Orderby))],
+      builder: (context, child){
+        final eventData = Provider.of<data.dataCollector<data.Event>>(context);
+        print(eventData.collection);
+
+        var size = eventData.collection.length;
+        print(size);
+
+        return ListView.builder(
+          padding: const EdgeInsets.all(20),
+          itemCount: size,
+          itemBuilder: (context, index){
+            
+            var name = eventData.collection[index].title;
+            var price = eventData.collection[index].price;
+            var date = eventData.collection[index].date;
+            var loc = eventData.collection[index].venue;
+            var org = eventData.collection[index].society.name;
+
+            return EventListTile(
+              eventName: name,
+              price: price,
+              dateTime: date,
+              location: loc, 
+              org: org);
+        },
+      ); 
       },
     );
+
   }
 }

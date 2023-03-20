@@ -58,7 +58,7 @@ class _testscreen extends State<testscreen> {
                           DataP.deleteFromCollection(DataP.collection[index]);
                         }),
                     title: Text(
-                      DataP.collection[index].username,
+                      DataP.collection[index].email,
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
@@ -74,7 +74,7 @@ class _testscreen extends State<testscreen> {
                   size: 30,
                 ),
                 onPressed: () {
-                  authenticate("nath@gmail.com", "q");
+                  authenticate("admin@admin.com", "123");
                   Navigator.pushNamed(context, '/');
                   // DataP.addToCollection(data.User(
                   //     id: 3,

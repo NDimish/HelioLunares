@@ -64,8 +64,8 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
     print("This is loading data.");
     print(globals.localdataobj.getToken());
     final response = await http.get(Uri.parse(url), headers: {
-      HttpHeaders.authorizationHeader:
-          "token ${globals.localdataobj.getToken()}"
+      //HttpHeaders.authorizationHeader:
+          //"token ${globals.localdataobj.getToken()}"
     });
     if (response.statusCode == 200) {
       // print(response.body);

@@ -2,7 +2,7 @@ export '../models/datasets.dart';
 export 'Event.dart';
 export 'People.dart';
 export '../models/society.dart';
-export 'User.dart';
+export 'user.dart';
 
 final DATASOURCE = 'http://127.0.0.1:8000/';
 
