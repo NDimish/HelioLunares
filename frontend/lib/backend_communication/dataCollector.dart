@@ -89,6 +89,8 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
         return Society.fromJson(json);
       case Databases.tickets:
         return Tickets.fromJson(json);
+      case Databases.societyrole:
+        return SocietyRole.fromJson(json);
 
       default:
         return User.fromJson(json);
