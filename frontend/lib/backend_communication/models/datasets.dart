@@ -3,7 +3,11 @@
 enum Databases {
   users,
   event,
-  usersadd,
+  university,
+  people,
+  society,
+  tickets,
+  societyrole
 }
 
 // userrsadd is temp unrtil auth working

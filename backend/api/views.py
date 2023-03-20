@@ -86,7 +86,9 @@ class LogInView(APIView):
             {
                 'token': token.key,
                 'email': user.email,
-                'is_authenticated' : user.is_authenticated
+                'is_authenticated' : user.is_authenticated,
+                'user_level': user.user_level,
+                'user_id': user.id
             },
             status = status.HTTP_200_OK
         )
@@ -243,7 +245,7 @@ class SocietyListView(generics.ListAPIView):
     
     def post(self,request):
         
-        auth_content = json.loads(request.data.get('user'))
+        auth_content = request.data.get('user')
         uni_content = request.data.get('university_society_is_at')
         # Will change this to obtain the uni via id not name as discussed.
         try:
@@ -264,7 +266,6 @@ class SocietyListView(generics.ListAPIView):
             return Response(e,status=status.HTTP_409_CONFLICT)
         except Exception as l:
             print(l)
-            
             # If there is already an account with that email, we throw an error.
             return Response({'error':'Email is taken.'},status=status.HTTP_409_CONFLICT)
         
@@ -284,7 +285,6 @@ class SocietyListView(generics.ListAPIView):
                 name = data['name'],
                 creation_date = data['creation_date'],
                 university_society_is_at = u,
-                image = request.data.get('image'),
                 about_us = request.data.get('about_us')
             )
                       
@@ -295,6 +295,16 @@ class SocietyListView(generics.ListAPIView):
                 return Response(e, status=status.HTTP_400_BAD_REQUEST)
             
             new_society.save()
+
+            #Create categories for society
+            try:
+                categories = request.data['categories']
+                for i in categories:
+                    SocietyCategories.objects.create(societyId=new_society, categoryId=SocietyCategoriesType.objects.get(id=i)).save();
+            except Exception as l:
+                print(l)
+                created_user.delete()
+                return Response({'error':'Error in creating categories'}, status=status.HTTP_400_BAD_REQUEST)
 
             try:
                 # Serialize the new model and send back to the frontend.

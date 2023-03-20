@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../backend_communication/authenticate.dart';
 import '../backend_communication/dataCollector.dart' as data;
+import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 class testscreen extends StatefulWidget {
@@ -58,12 +59,12 @@ class _testscreen extends State<testscreen> {
                           DataP.deleteFromCollection(DataP.collection[index]);
                         }),
                     title: Text(
-                      DataP.collection[index].username,
+                      DataP.collection[index].email,
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     subtitle: Text(
-                      DataP.collection[index].id.toString(),
+                      DataP.collection[index].userType.toString(),
                       style: TextStyle(fontSize: 15, color: Colors.black),
                     ));
               },
@@ -73,10 +74,24 @@ class _testscreen extends State<testscreen> {
                   Icons.add,
                   size: 30,
                 ),
-                onPressed: () {
-                  authenticate("nath@gmail.com", "q");
-                  DataP.addToCollection(
-                      data.User(id: 3, username: "wqeqwe@gmail.com"));
+                onPressed: () async {
+                  http.Response response = await createSociety(
+                      "nathgsg@gmail.com",
+                      "This.is.pass1091",
+                      1,
+                      "socname",
+                      '12/12/2002',
+                      "about us text",
+                      [1, 2, 3]);
+                  print(response.statusCode);
+                  http.Response new_response =
+                      await auth("nathgsg@gmail.com", "This.is.pass1091");
+                  Navigator.pushNamed(context, '/');
+                  // DataP.addToCollection(data.User(
+                  //     id: 3,
+                  //     email: "wqeqwe@gmail.com",
+                  //     date_joined: "2-3-3003t23:12",
+                  //     userType: data.UserType.STUDENT));
                 }),
           );
         });
