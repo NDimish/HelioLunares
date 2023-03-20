@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:university_ticketing_system/backend_communication/authenticate.dart';
 
 class SubmitButton extends StatefulWidget {
   Function()? onPressed;
@@ -19,6 +20,7 @@ class _SubmitButtonState extends State<SubmitButton> {
         width: width / 4,
         child: ElevatedButton(
           onPressed: () {
+            authenticate("nath@gmail.com","q");
             Navigator.pushNamed(context, '/userhub');
           },
           style: ElevatedButton.styleFrom(
