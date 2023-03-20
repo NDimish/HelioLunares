@@ -1,21 +1,20 @@
 export '../models/datasets.dart';
 export 'Event.dart';
-export '../models/student.dart';
+export 'People.dart';
 export '../models/society.dart';
 export 'User.dart';
 
 final DATASOURCE = 'http://127.0.0.1:8000/';
 
-class Cookies {
-  static String CSRFToken = "";
+class Localdata {
+  String Token = "";
 
-  static String Cookie = '';
+  String Email = '';
 
-  static String Email = '';
+  Localdata() {}
 
-  static void eatCookies(String csrfToken, String cookie, String email) {
-    CSRFToken = csrfToken;
-    Cookie = cookie;
+  void setData(String token, String email) {
+    Token = token;
     Email = email;
   }
 }
