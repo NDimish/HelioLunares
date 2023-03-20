@@ -30,11 +30,44 @@ An indentation means that the url procedes it's parent url. e.g:
 
 --- Documentation Begins ---
 
+[homepage/]
+    - Description:
+        - access to data society info wihtout auth
+    
+    - Requires:
+        - nothing
+
+    - Methods:
+        - GET
+            - Returns a alist of all societies with society name, image and about_us
+
+[log_out]
+    - Description:
+        - api endpoint to logout
+    - Requires:
+        - nothing
+
+[log_in/]
+    - Description:
+        - api login endpoint
+    - Methods:
+        - GET
+            - returns request.user and request.auth
+        - POST
+            - Enter credentials to login
+            - Requires:
+                - 'email'
+                - 'password'
+            - Returns:
+                - token
+                - email
+                - is_authenticated
+
 [users/]
     - Description:
         - access to a list of all the users
     - Requires:
-        - CSRF and SessionID as cookie
+        - Authroizatin header: "token <token>" except for POST
     - Optional:
         - Accepts query paramaters:
             - ordering
@@ -44,26 +77,66 @@ An indentation means that the url procedes it's parent url. e.g:
         - GET
             - a list of all the users
         - POST
-            - will create a user // yet to be implemented
+            - will create a user 
+            - Requires:
+                - user
+                    - email
+                    - password
+                - university_studying_at
+                - first_name
+                - last_name
+                - field_of_study
 
-    [/<usersid:int>/]
+    [<usersid:int>/]
         - Description:
             - access to user with id <usersid>
         - Requires:
-            - CSRF and SessionID as cookie
-        - Optional:
+            - Authroizatin header: "token <token>" except for POST
         -Methods:
             - GET
-                - dict of user data about user with id <userid>
+                - user data about user with id <userid>
                 - Fields:
                     - id - Int
                     - email - String
+                    - user_level
+            - PUT
+                - any field data for user you want to change including password
+
+[people/]
+    - Description:
+        - access to a list of all the people 
+    - Requires:
+        - Authroizatin header: "token <token>" except for POST
+    - Optional:
+        - Accepts query paramaters:
+            - ordering
+            - Any model field such as email,user_level
+
+    - Methods:
+        - GET
+            - a list of all the people
+
+    [<usersid:int>/]
+        - Description:
+            - access to people with id <usersid>
+        - Requires:
+            - Authroizatin header: "token <token>" except for POST
+        -Methods:
+            - GET
+                - user data about user with id <userid>
+                - Fields:
+                    - id - Int
+                    - email - String
+                    - user_level
+            - PUT
+                - has to be the same user
+                - any field data for user you want to change including password
 
 [society/]
     - Description:
         - access to a list of all the society
     - Requires:
-        - CSRF and SessionID as cookie
+        - Authroizatin header: "token <token>" except for POST
     - Optional:
         - Accepts query paramaters:
             - ordering
@@ -72,14 +145,23 @@ An indentation means that the url procedes it's parent url. e.g:
         - GET
             - a list of all the societies
         - POST
-            - will create a society // yet to be implemented
+            - will create a society
+            - Requires:
+                - user
+                    - email
+                    - password
+                - university_society_is_at
+                - name
+                - creation_date
+                - image // note that this is a file
+                - about_us
+            - Returns the created society
     
-    [/<societyid:int>/]
+    [<societyid:int>/]
         - Description:
             - access to society with id <societyid>
         - Requires:
-            - CSRF and SessionID as cookie
-        - Optional:
+            - Authroizatin header: "token <token>" except for POST
         -Methods:
             - GET
                 - dict of society data about society with id <societyid>
@@ -90,12 +172,67 @@ An indentation means that the url procedes it's parent url. e.g:
                     - creation_date - Date
                     - university_society_is_at - University (String)
                     - join_date - Date
+                    - about_us
+            - PUT
+                - any field in society model
+                - To change password, user has to be the same account
+
+[societyrole/]
+    - Description
+        - returns a list of all roles between people and societies
+    - Requires:
+        - Authroizatin header: "token <token>" except for POST
+    - Methods:
+        - GET
+            - a list of all the people and societies that have the roles
+    
+    [update/]
+        - Description:
+            - used to update the role of members in a society
+        - Methods:
+            - post
+        - Requires:
+            - Authroizatin header: "token <token>" except for POST
+            - body:
+                - if society account(user.user_level==3):
+                    - user
+                    - role_level
+                - otherwise if the user has enough power:
+                    - society
+                    - user
+                    - role_level
+    
+    [remove/]
+        - Description:
+            - remove user from society
+        -Methods:
+            - POST
+        - Requires:
+            - Authroizatin header: "token <token>" except for POST
+            - body:
+                - if removing own user from society:
+                    - society
+                    - Note: Cannot remove society account from society
+                - else:
+                    - user
+                    - society
+                    - Note: User must have enough power to remove another user
+    [join/]
+        - Description:
+            - api to join a society
+        -Methods:
+            - POST
+        - Requires:
+            - Authroizatin header: "token <token>" except for POST
+            - Note: Can not be a society account
+            - body:
+                - society
 
 [event/]
     - Description:
         - access to a list of all the events
     - Requires:
-        - CSRF and SessionID as cookie
+        - Authroization header: "token <token>" except for POST
     - Optional:
         - Accepts query paramaters:
             - ordering
@@ -106,12 +243,11 @@ An indentation means that the url procedes it's parent url. e.g:
         - POST
             - will create an event
     
-    [/<eventpk:int>/]
+    [<eventpk:int>/]
         - Description:
             - access to event with id <eventpk>
         - Requires:
-            - CSRF and SessionID as cookie
-        - Optional:
+            - Authroization header: "token <token>" except for POST
         -Methods:
             - GET
                 - dict of event data about event with id <eventpk>
@@ -157,3 +293,17 @@ An indentation means that the url procedes it's parent url. e.g:
                     - longitude - Float
                     - street_name - String
                     - postcode - String
+
+[people/]
+
+[societyrole/]
+
+[ticket/]
+
+[event_categories/]
+
+[society_categories/]
+
+[event_categories_type/]
+
+[society_categories_type/]
