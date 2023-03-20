@@ -49,16 +49,16 @@ class _testscreen extends State<testscreen> {
             ),
             body: ListView.builder(
               shrinkWrap: true,
-              itemCount: DataP2.collection.length,
+              itemCount: DataP.collection.length,
               itemBuilder: (BuildContext context, int index) {
                 return ListTile(
                     trailing: IconButton(
                         icon: Icon(Icons.delete, color: Colors.red),
                         onPressed: () {
-                          DataP2.deleteFromCollection(DataP2.collection[index]);
+                          DataP.deleteFromCollection(DataP.collection[index]);
                         }),
                     title: Text(
-                      DataP2.collection[index].title,
+                      DataP.collection[index].email,
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),

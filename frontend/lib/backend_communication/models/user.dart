@@ -1,12 +1,12 @@
 import 'datasets.dart';
 
-enum UserType { NONESTUDENT, STUDENT, SOCIETY }
+enum UserType { Blank, NONESTUDENT, STUDENT, SOCIETY }
 
 class User extends dataSets {
   final String email;
   late final String password;
   final String date_joined;
-  final UserType userType;
+  final int userType;
   // final String password;
 
   User(
@@ -20,14 +20,14 @@ class User extends dataSets {
     return User(
         id: json['id'],
         email: json['email'],
-        userType: UserType.values[json['user_level'] - 1],
+        userType: json['user_level'],
         date_joined: json['date_joined']);
   }
 
   factory User.fromJsonNOID(Map<String, dynamic> json) {
     return User(
         email: json['email'],
-        userType: UserType.values[json['user_level'] - 1],
+        userType: json['user_level'],
         date_joined: json['date_joined']);
   }
 
@@ -38,7 +38,7 @@ class User extends dataSets {
 
   dynamic toJson() => {
         'email': email,
-        'user_level': (userType.index + 1),
+        'user_level': (userType),
         'date_joined': date_joined,
         'password': password
       };
