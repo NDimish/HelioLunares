@@ -133,15 +133,16 @@ class _StatisticsState extends State<Statistics> {
               maxX: 5,
               minY: 0,
               maxY: 5,
-              lineBarsData: LineChartBarData(spots: const [
-                FlSpot(0, 3),
-                FlSpot(2.6, 2),
-                FlSpot(4.9, 5),
-                FlSpot(6.8, 3.1),
-                FlSpot(8, 4),
-                FlSpot(9.5, 3),
-                FlSpot(11, 4),
-              ]),
+              lineBarsData: [
+                LineChartBarData(spots: const [
+                  FlSpot(0, 0),
+                  FlSpot(1, 2),
+                  FlSpot(2, 5),
+                  FlSpot(3, 3),
+                  FlSpot(4, 4),
+                  FlSpot(5, 3),
+                ])
+              ],
             )),
           ),
         )
