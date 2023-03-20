@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../helpers/responsiveness.dart';
+
 class StartupNavbar extends StatefulWidget implements PreferredSizeWidget {
   final Function(int i) callback;
   final int selectedIndex;
@@ -24,6 +26,7 @@ class _StartupNavbarState extends State<StartupNavbar> {
           (i) => Padding(
             padding: const EdgeInsets.only(left: 20),
             child: TextButton(
+              key: Key(i),
               style: ButtonStyle(
                   backgroundColor:
                       sections.indexOf(i) + 1 == widget.selectedIndex
@@ -50,6 +53,7 @@ class _StartupNavbarState extends State<StartupNavbar> {
   Widget navbarTitle(Function(int) callback) {
     var width = MediaQuery.of(context).size.width;
     return InkWell(
+      key: const Key("navbarTitle"),
       child: Row(
         children: [
           const Padding(
@@ -60,7 +64,10 @@ class _StartupNavbarState extends State<StartupNavbar> {
             ),
           ),
           Text(
-            width > 920 ? "University Ticketing System" : "",
+            ResponsiveWidget.isMediumScreen(context) ||
+                    ResponsiveWidget.isSmallScreen(context)
+                ? ""
+                : "University Ticketing System",
             style: GoogleFonts.poppins(
                 color: Colors.white, fontWeight: FontWeight.w600),
           ),
@@ -91,6 +98,7 @@ class _StartupNavbarState extends State<StartupNavbar> {
           Padding(
             padding: const EdgeInsets.all(15),
             child: TextButton(
+              key: const Key("loginButton"),
               onPressed: () {
                 Navigator.pushNamed(context, '/auth');
               },

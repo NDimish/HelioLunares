@@ -4,10 +4,9 @@
         "pk": 1,
         "fields": {
             "email": "johndoe@example.org",
-            "first_name": "john",
-            "last_name": "Doe",
             "password": "pbkdf2_sha256$390000$7s2xjVM6kiYxPnG6fuKWQu$KZFwlNfCn6UDlVExvPP06ZxFvRpOK5kkKus6TiOWL0o=",
-            "date_joined": "2023-02-05"
+            "date_joined": "2023-02-05",
+            "user_level": 1
         }
     },
     {
@@ -15,10 +14,9 @@
         "pk": 2,
         "fields": {
             "email": "janedoe@example.org",
-            "first_name": "jane",
-            "last_name": "Doe",
             "password": "pbkdf2_sha256$390000$7s2xjVM6kiYxPnG6fuKWQu$KZFwlNfCn6UDlVExvPP06ZxFvRpOK5kkKus6TiOWL0o=",
-            "date_joined": "2023-02-05"
+            "date_joined": "2023-02-05",
+            "user_level": 2
         }
     },
     {
@@ -26,10 +24,29 @@
         "pk": 3,
         "fields": {
             "email": "jamesdoe@example.org",
-            "first_name": "james",
-            "last_name": "Doe",
             "password": "pbkdf2_sha256$390000$7s2xjVM6kiYxPnG6fuKWQu$KZFwlNfCn6UDlVExvPP06ZxFvRpOK5kkKus6TiOWL0o=",
-            "date_joined": "2023-02-05"
+            "date_joined": "2023-02-05",
+            "user_level": 3
+        }
+    },
+    {
+        "model":"api.user",
+        "pk": 4,
+        "fields": {
+            "email": "jamesondoe@example.org",
+            "password": "pbkdf2_sha256$390000$7s2xjVM6kiYxPnG6fuKWQu$KZFwlNfCn6UDlVExvPP06ZxFvRpOK5kkKus6TiOWL0o=",
+            "date_joined": "2023-02-05",
+            "user_level": 3
+        }
+    },
+    {
+        "model":"api.user",
+        "pk": 5,
+        "fields": {
+            "email": "jamedoe@example.org",
+            "password": "pbkdf2_sha256$390000$7s2xjVM6kiYxPnG6fuKWQu$KZFwlNfCn6UDlVExvPP06ZxFvRpOK5kkKus6TiOWL0o=",
+            "date_joined": "2023-02-05",
+            "user_level": 3
         }
     }
 ]

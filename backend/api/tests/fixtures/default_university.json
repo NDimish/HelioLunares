@@ -15,10 +15,10 @@
         "pk": 2,
         "fields": {
             "name": "Two College London",
-            "latitude": "42.123456",
-            "longitude": "42.123456",
+            "latitude": "42.456",
+            "longitude": "42.3456",
             "street_name": "test street",
-            "postcode": "TES 1ST"
+            "postcode": "EQE 1ST"
         }
     }
 ]

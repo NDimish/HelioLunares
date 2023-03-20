@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:university_ticketing_system/helpers/responsiveness.dart';
 import 'package:university_ticketing_system/screens/startup_screen/widgets/howtouse_card.dart';
 
 //'How to use' subpage - Contains helpful information for users and societies on
@@ -31,7 +32,6 @@ class _HowToUseSectionState extends State<HowToUseSection> {
                 child: Center(
                     child: Padding(
                         padding: EdgeInsets.only(top: 10),
-
                         child: Column(
                           children: [
                             const Text(
@@ -57,9 +57,12 @@ class _HowToUseSectionState extends State<HowToUseSection> {
                                                   studentPage = false;
                                                 })
                                             : null,
-                                        child: Text(width > 920
-                                            ? "For Students"
-                                            : "...")),
+                                        child: Text(ResponsiveWidget
+                                                    .isMediumScreen(context) ||
+                                                ResponsiveWidget.isSmallScreen(
+                                                    context)
+                                            ? "..."
+                                            : "For Students")),
                                   ),
                                   SizedBox(
                                     width: width / 6,
@@ -71,17 +74,18 @@ class _HowToUseSectionState extends State<HowToUseSection> {
                                                   studentPage = true;
                                                 })
                                             : null,
-                                        child: Text(width > 920
-                                            ? "For Societies"
-                                            : "...")),
+                                        child: Text(ResponsiveWidget
+                                                    .isMediumScreen(context) ||
+                                                ResponsiveWidget.isSmallScreen(
+                                                    context)
+                                            ? "..."
+                                            : "For Societies")),
                                   ),
                                 ],
                               ),
                             ),
                             Padding(
-
                               padding: EdgeInsets.all(10),
-
                               child: Column(
                                 children: [
                                   //Two different set of cards for both the student and societies.

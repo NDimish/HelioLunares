@@ -27,43 +27,44 @@ class Footer extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 15.0),
                   child: RichText(
+                      key: const Key("footerText"),
                       text: TextSpan(children: [
-                    footerText("© 2023 Helio Lunares | Coded with "),
-                    const WidgetSpan(
-                      alignment: PlaceholderAlignment.middle,
-                      child: Icon(
-                        CupertinoIcons.heart_solid,
-                        size: 18,
-                        color: Colors.white,
-                      ),
-                    ),
-                    footerText(" for "),
-                    const WidgetSpan(
-                      alignment: PlaceholderAlignment.middle,
-                      child: Icon(
-                        Icons.apple,
-                        size: 20,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const WidgetSpan(
-                      alignment: PlaceholderAlignment.middle,
-                      child: Icon(
-                        Icons.android,
-                        size: 20,
-                        color: Colors.white,
-                      ),
-                    ),
-                    footerText(" & "),
-                    const WidgetSpan(
-                      alignment: PlaceholderAlignment.middle,
-                      child: Icon(
-                        Icons.public,
-                        size: 20,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ])),
+                        footerText("© 2023 Helio Lunares | Coded with "),
+                        const WidgetSpan(
+                          alignment: PlaceholderAlignment.middle,
+                          child: Icon(
+                            CupertinoIcons.heart_solid,
+                            size: 18,
+                            color: Colors.white,
+                          ),
+                        ),
+                        footerText(" for "),
+                        const WidgetSpan(
+                          alignment: PlaceholderAlignment.middle,
+                          child: Icon(
+                            Icons.apple,
+                            size: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const WidgetSpan(
+                          alignment: PlaceholderAlignment.middle,
+                          child: Icon(
+                            Icons.android,
+                            size: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                        footerText(" & "),
+                        const WidgetSpan(
+                          alignment: PlaceholderAlignment.middle,
+                          child: Icon(
+                            Icons.public,
+                            size: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ])),
                 ),
                 Padding(
                     padding: const EdgeInsets.only(right: 20),
@@ -72,6 +73,7 @@ class Footer extends StatelessWidget {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         IconButton(
+                            key: const Key("footerLicense"),
                             onPressed: () => {
                                   showAboutDialog(
                                       context: context,
