@@ -3,6 +3,7 @@ import '../backend_communication/authenticate.dart';
 import '../backend_communication/dataCollector.dart' as data;
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:university_ticketing_system/globals.dart' as globals;
 
 class testscreen extends StatefulWidget {
   const testscreen({Key? key});
@@ -27,7 +28,9 @@ class _testscreen extends State<testscreen> {
       appBar: AppBar(
         title: Text('Todo App'),
       ),
-      body: TestScreenAddition(),
+      body: globals.localdataobj.getToken() != ""
+          ? TestScreenAddition()
+          : Text("Not authenticated yet"),
       floatingActionButton: FloatingActionButton(
           child: Icon(
             Icons.add,
