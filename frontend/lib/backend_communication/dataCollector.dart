@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/backend_communication/models/University.dart';

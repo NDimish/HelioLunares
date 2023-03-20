@@ -24,3 +24,56 @@ Future<http.Response> auth(String username, String password) async {
   print("ending auth");
   return response;
 }
+
+Future<http.Response> createSociety(String username, String password, int uniId,
+    String socName, String creationDate, String aboutUs) async {
+  print("beginning create society");
+  final response = await http.post(
+    Uri.parse('${DATASOURCE}society/'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode({
+      'user': {'email': username, 'password': password},
+      'university_society_is_at': uniId,
+      'name': socName,
+      'creation_date': creationDate,
+      'about_us': aboutUs,
+      'image': ''
+    }),
+  );
+
+  if (response.statusCode == 201) {
+    print("Society created.");
+  } else {
+    print("Society not created.");
+  }
+  print("ending create society");
+  return response;
+}
+
+Future<http.Response> createPerson(String email, String password, int uniId,
+    String firstName, String lastName, String fieldStudy) async {
+  print("beginning create person");
+  final response = await http.post(
+    Uri.parse('${DATASOURCE}users/'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode({
+      'user': {'email': email, 'password': password},
+      'university_studying_at': uniId,
+      'first_name': firstName,
+      'last_name': lastName,
+      'field_of_study': fieldStudy
+    }),
+  );
+
+  if (response.statusCode == 201) {
+    print("Person has been created.");
+  } else {
+    print("Person failed to be created.");
+  }
+  print("ending create person");
+  return response;
+}
