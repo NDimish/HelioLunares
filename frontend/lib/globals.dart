@@ -1,4 +1,4 @@
-const DATASOURCE = 'http://localhost:8000.com/';
+const DATASOURCE = 'http://localhost:8000/';
 Localdata localdataobj = Localdata();
 
 class Localdata {
