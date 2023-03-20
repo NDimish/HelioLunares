@@ -583,7 +583,7 @@ class UniversityInfoApiView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 #get a list of all the tickets
-class TicketApiView(APIView):
+class TicketApiView(generics.ListAPIView):
     queryset = Ticket.objects.all()
     serializer_class = TicketModelSerializer
     filter_backends = [DjangoFilterBackend,OrderingFilter]

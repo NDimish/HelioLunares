@@ -6,7 +6,7 @@ enum Databases {
   university,
   people,
   society,
-  tickets,
+  ticket,
   societyrole
 }
 

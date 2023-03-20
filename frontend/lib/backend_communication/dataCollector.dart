@@ -14,7 +14,7 @@ final Map<Type, Databases> sets = {
   Event: Databases.event,
   People: Databases.people,
   Society: Databases.society,
-  Tickets: Databases.tickets,
+  Tickets: Databases.ticket,
   University: Databases.university,
   SocietyRole: Databases.societyrole
 };
@@ -87,7 +87,7 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
         return University.fromJson(json);
       case Databases.society:
         return Society.fromJson(json);
-      case Databases.tickets:
+      case Databases.ticket:
         return Tickets.fromJson(json);
       case Databases.societyrole:
         return SocietyRole.fromJson(json);

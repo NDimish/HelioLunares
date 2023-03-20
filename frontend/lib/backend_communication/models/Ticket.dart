@@ -39,7 +39,7 @@ class Tickets extends dataSets {
 
   @override
   Databases getDatabase() {
-    return Databases.people;
+    return Databases.ticket;
   }
 
   dynamic toJson() => {
