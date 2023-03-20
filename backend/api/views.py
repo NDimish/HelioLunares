@@ -222,7 +222,7 @@ class PeopleView(APIView):
             serializer = PeopleSerializer(user)
             return Response(serializer.data)
         except:
-            return Response({'error':'User not found.'},status=status.HTTP_404_NOT_FOUND)
+            return Response({'error':'Person not found.'},status=status.HTTP_404_NOT_FOUND)
 
     def put(self, request, pk):
         people = People.objects.get(user_id=pk)
@@ -318,7 +318,28 @@ class SocietyView(APIView):
         serializer = SocietySerializer(instance=soc, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        try:
+            new_pass = request.data['password']
+        except:
+            new_pass = False
+
+        if new_pass == False:
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            
+            if (pk != request.user.id):
+                return Response({'error':'Can only change our own society password.'},status=status.HTTP_400_BAD_REQUEST)
+            user = User.objects.get(id=pk)
+            try:
+                validate_password(new_pass)
+                user.set_password(new_pass)
+                user.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            except ValidationError as e:
+                return Response(e, status=status.HTTP_400_BAD_REQUEST)
+            except:
+                return Response({'error':'Details saved except password'}, status=status.HTTP_400_BAD_REQUEST)
     
     def delete(self, request, pk):
         Society.objects.filter(user_id=pk).delete()
@@ -455,20 +476,23 @@ def society_update_user(request):
         except:
             return Response({'error':'User has not joined society'},status=status.HTTP_400_BAD_REQUEST)
 
-        if curr_role.role != 3:
-            return Response({'error':'User does not have adequte power.'},status=status.HTTP_400_BAD_REQUEST)
-
         #check if they are already part of the society
         try:
             update_role = PeopleRoleAtSociety.objects.get(society=soc,user_at_society=request.data['user'])
         except:
             return Response({'error':'User not joined society'},status=status.HTTP_400_BAD_REQUEST)
 
-        if request.data['role_level'] in {1,2}:
-            update_role.role = request.data['role_level']
-            update_role.save()
+        #check if they have power to update
+        if curr_role.role in {2,3}:
+            #check if it is a valid role and if they user has enough power to update
+            if request.data['role_level'] in {1,2} and curr_role.role>request.data['role_level']:
+                update_role.role = request.data['role_level']
+                update_role.save()
+            else:
+                return Response({'error':'Can not set level'},status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response({'error':'Can not set level'},status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error':'User does not have adequte power.'},status=status.HTTP_400_BAD_REQUEST)
+            
 
     return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -493,7 +517,6 @@ class EventApiView(generics.ListAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-
 
 #Event with id
 class EventApiInfoView(APIView):
@@ -586,6 +609,7 @@ class EventCategoriesTypeApiView(APIView):
     filter_backends = [DjangoFilterBackend,OrderingFilter]
     filterset_fields = '__all__'
     ordering_fields = '__all__'
+    permission_classes = [AllowAny]
 
     def post(self, request):
         serializer = EventCategoriesTypeModelSerializer(data=request.data)
@@ -650,6 +674,7 @@ class SocietyCategoriesTypeApiView(APIView):
     filter_backends = [DjangoFilterBackend,OrderingFilter]
     filterset_fields = '__all__'
     ordering_fields = '__all__'
+    permission_classes = [AllowAny]
 
     def post(self, request):
         serializer = SocietyCategoriesTypeModelSerializer(data=request.data)
