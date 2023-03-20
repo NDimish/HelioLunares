@@ -37,13 +37,15 @@ class authenticate {
       Map<String, dynamic> data = json.decode(response.body);
       //print(response.headers);
       globals.localdataobj.setData(data['token'], data['email']);
+      result = true;
       // x.setData(data['token'], data['email']);
       // print(x.Token);
       // print(response.body);
     } else {
-      print(response.body);
+      result = false;
+      //print(response.body);
     }
-    print("end auth");
-    print(globals.localdataobj.getToken());
+    //print("end auth");
+    //print(globals.localdataobj.getToken());
   }
 }

@@ -1,6 +1,6 @@
 import 'datasets.dart';
 
-enum UserType { Blank, NONESTUDENT, STUDENT, SOCIETY }
+enum UserType { Blank, NONESTUDENT, STUDENT, SOCIETY, ADMIN }
 
 class User extends dataSets {
   final String email;
