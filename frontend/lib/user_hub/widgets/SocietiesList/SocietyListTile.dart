@@ -45,6 +45,9 @@ class SocietyListTile extends GridTile {
                             builder: (context) => MainSocietyPage(
                               societyName: 'Introduction to AI',
                               societyDescription: 'AI is the driving force of our economy.',
+                              societyUni: 'Kings',
+                              numberOfFollowers: '10',
+
 
                                   
                                 )));

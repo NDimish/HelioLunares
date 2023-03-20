@@ -7,9 +7,9 @@ class SocietyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(onPressed: onPressed, child: Text(buttonText),  style: const ButtonStyle(
-    backgroundColor: MaterialStatePropertyAll<Color>(Colors.purple), foregroundColor: MaterialStatePropertyAll<Color>(Colors.white),
+    return TextButton(onPressed: onPressed,  style:  const ButtonStyle(
+    backgroundColor: MaterialStatePropertyAll<Color>(Color(0xffC8A2C8)), foregroundColor: MaterialStatePropertyAll<Color>(Colors.white),
     
-    ));
+    ), child: Text(buttonText));
   }
 }

@@ -10,11 +10,18 @@ import '../EventsList/widgets/EventsPageHeader.dart';
 class MainSocietyPage extends StatefulWidget {
   final String societyName;
   final String societyDescription;
+  final String societyUni;
+  final String numberOfFollowers;
 
-  MainSocietyPage({
+  const MainSocietyPage({
     Key? key,
     required this.societyName,
     required this.societyDescription,
+    required this.societyUni,
+    required this.numberOfFollowers,
+
+
+    
   }) : super(key: key);
 
 
@@ -57,15 +64,7 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                     child: Column(
                       children: [
                         Text(
-                          "Event name here",
-                          style: TextStyle(
-                              fontFamily: "Arvo",
-                              fontSize: ResponsiveWidget.isSmallScreen(context)
-                                  ? 44
-                                  : 72),
-                        ),
-                        Text(
-                          "Society name here?",
+                          widget.societyName,
                           style: TextStyle(
                               fontFamily: "Arvo",
                               fontSize: ResponsiveWidget.isSmallScreen(context)
@@ -82,7 +81,7 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                 direction: ResponsiveWidget.isSmallScreen(context)
                     ? Axis.vertical
                     : Axis.horizontal,
-                children: [
+                children:[
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
@@ -103,14 +102,14 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           const EventsPageHeader(
-                              headerName: "Location",
+                              headerName: "University",
                               headerIcon: Icon(
                                 Icons.location_on,
                                 color: Colors.grey,
                               )),
                           const SizedBox(height: 10.0),
                           Text(
-                            'aa',
+                            widget.societyUni,
                             style: TextStyle(
                               fontSize: 14.0,
                               color: Colors.grey[600],
@@ -118,34 +117,20 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                           ),
                           const SizedBox(height: 20.0),
                           const EventsPageHeader(
-                              headerName: "Price",
+                              headerName: 'Number of Followers',
                               headerIcon: Icon(
                                 Icons.attach_money,
                                 color: Colors.grey,
                               )),
                           const SizedBox(height: 10.0),
                           Text(
-                            'aa',
+                            widget.numberOfFollowers,
                             style: TextStyle(
                               fontSize: 14.0,
                               color: Colors.grey[600],
                             ),
                           ),
-                          const SizedBox(height: 20.0),
-                          const EventsPageHeader(
-                              headerName: "Duration",
-                              headerIcon: Icon(
-                                Icons.access_time,
-                                color: Colors.grey,
-                              )),
-                          const SizedBox(height: 10.0),
-                          Text(
-                            'aa',
-                            style: TextStyle(
-                              fontSize: 14.0,
-                              color: Colors.grey[600],
-                            ),
-                          ),
+
                         ],
                       ),
                     ),
@@ -276,7 +261,10 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                                         ),
                                       ),
                                       child: const Text("Details"),
+                                      style: const ButtonStyle(
+    backgroundColor: MaterialStatePropertyAll<Color>(Color(0xffC8A2C8)),
                                     ),
+                                  ),
                             ],
                           )
                         ],
@@ -328,24 +316,6 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                               const Divider(),
                               ResponsiveWidget.isMediumScreen(context)
                                   ? const SizedBox()
-                                  : RichText(
-                                      text: TextSpan(
-                                      children: [
-                                        TextSpan(
-                                            text: "Interested in more from "),
-                                        TextSpan(
-                                            text: "Society name here? ",
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.bold)),
-                                        TextSpan(
-                                            text:
-                                                "Check out their society page! (maybe put a link here somehow, would involve passing parameters?)")
-                                      ],
-                                      style: TextStyle(
-                                          fontSize: 16.0,
-                                          color: Colors.grey[600],
-                                          fontFamily: "Arvo"),
-                                    ))
                             ],
                           ),
                         ),
