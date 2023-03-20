@@ -13,6 +13,7 @@ class DeleteEventConfirmation extends StatelessWidget {
 
   showAlertDialog(BuildContext context) {
     Widget okButton = ElevatedButton(
+      key: const Key("OKButton"),
       child: CustomText(
         text: "OK",
         colour: Colors.white,
@@ -35,11 +36,15 @@ class DeleteEventConfirmation extends StatelessWidget {
       },
     );
     Widget cancelButton = ElevatedButton(
+      key: const Key("CancelButton"),
       child: const CustomText(
         text: "Cancel",
         colour: Colors.white,
       ),
-      onPressed: () {},
+      onPressed: () {
+        //Close the dialog box
+        Navigator.of(context, rootNavigator: true).pop();
+      },
     );
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
