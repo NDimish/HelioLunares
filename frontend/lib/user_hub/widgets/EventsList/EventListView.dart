@@ -2,17 +2,28 @@ import 'package:flutter/material.dart';
 import 'EventListTile.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class EventsListView extends ListView {
-  EventsListView(BuildContext context, {super.key})
-      : super(
-            padding: const EdgeInsets.all(20),
-            children: [
-              EventListTile(eventName: "ABC Event",price: 0, dateTime:DateTime.now(), location:"the fog is coming. the fog is coming. the fog is coming. the fog is coming.",  org:"EVIL"),
-              EventListTile(eventName: "DEF Event",price: 0, dateTime:DateTime.now(), location:"Example",  org:"FBI"),
-              EventListTile(eventName: "Black Market Auction UK",price: 0, dateTime:DateTime.now(), location:"Example",  org:"Marshall, Carter and Dark"),
-              EventListTile(eventName: "Black Market Auction INTERNATIONAL",price: 0, dateTime:DateTime.now(), location:"Example",  org:"Marshall, Carter and Dark"),
-              EventListTile(eventName: "\$7 MILLION, OPEN CONTRACT, JOHN WICK",price: 0, dateTime:DateTime.now(), location:"New York",  org:"The High Table"),
-            ]
-            );
-  
+// This class will need to take in data from the database
+// TODO: allow data to be passed to EventListTile for
+// dynamic page loading
+
+class EventListView extends StatelessWidget {
+  EventListView({super.key});
+
+  var count = 10;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      padding: const EdgeInsets.all(20),
+      itemCount: count,
+      itemBuilder: (context, index){
+        return EventListTile(
+          eventName: "eventName $index",
+          price: 0,
+          dateTime: DateTime.now(),
+          location: "location $index", 
+          org: "org $index");
+      },
+    );
+  }
 }

@@ -45,7 +45,7 @@ class _UserHubPage_eventsState extends State<UserHubPage_events> {
       body: Center(
         child: Container(
           color: const Color(0xFFF4E7FA),
-          child: EventsListView(context),
+          child: EventListView(),
         ),
       ),
       drawer: SideAppBar(context),

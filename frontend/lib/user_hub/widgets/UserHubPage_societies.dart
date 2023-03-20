@@ -45,7 +45,7 @@ class _UserHubPage_societiesState extends State<UserHubPage_societies> {
       body: Center(
         child: Container(
           color: const Color(0xFFF4E7FA),
-          child: SocietyListView(context),
+          child: SocietyListView(),
         ),
       ),
       drawer: SideAppBar(context),
