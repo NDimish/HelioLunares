@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 class Statistics extends StatefulWidget {
   const Statistics({super.key});
@@ -101,6 +102,14 @@ class _StatisticsState extends State<Statistics> {
           padding: const EdgeInsets.all(30.0),
           child: _allEvents(eventModelData),
         ),
+        LineChart(LineChartData(lineBarsData: [
+          LineChartBarData(spots: const [
+            FlSpot(1, 2),
+            FlSpot(2, 2),
+            FlSpot(3, 2),
+            FlSpot(4, 2),
+          ])
+        ]))
       ],
     );
   }
