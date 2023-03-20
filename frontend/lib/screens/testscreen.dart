@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../backend_communication/authenticate.dart';
 import '../backend_communication/dataCollector.dart' as data;
+import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 class testscreen extends StatefulWidget {
@@ -74,7 +75,7 @@ class _testscreen extends State<testscreen> {
                   size: 30,
                 ),
                 onPressed: () {
-                  authenticate("nath@gmail.com", "q");
+                  Future<http.Response> response = auth("nath@gmail.com", "q");
                   Navigator.pushNamed(context, '/');
                   // DataP.addToCollection(data.User(
                   //     id: 3,

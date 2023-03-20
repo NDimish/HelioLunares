@@ -86,7 +86,9 @@ class LogInView(APIView):
             {
                 'token': token.key,
                 'email': user.email,
-                'is_authenticated' : user.is_authenticated
+                'is_authenticated' : user.is_authenticated,
+                'user_level': user.user_level,
+                'user_id': user.id
             },
             status = status.HTTP_200_OK
         )
