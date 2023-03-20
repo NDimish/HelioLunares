@@ -15,15 +15,20 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
       String name,
       IconData nameIcon,
       TextEditingController? formController,
+      bool shouldBeEnabled,
       String? Function(String?)? validation) {
     return SizedBox(
         width: 300,
         child: TextFormField(
+            enabled: shouldBeEnabled,
             obscureText: headerName.contains("Password") ? true : false,
             controller: formController,
             validator: validation,
             decoration: customDecoration(headerName, name, nameIcon)));
   }
+
+//this is where you could query the database to get the permission. level 1 2 3
+  final permissionLevel = 1;
 
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
@@ -73,12 +78,9 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                     'Society Name',
                     'Enter your society name',
                     Icons.person_rounded,
-                    null, (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter your society name.";
-                  }
-                  return null;
-                }),
+                    null,
+                    permissionLevel == 3,
+                    null),
               ),
               const SizedBox(
                 width: 50,
@@ -89,13 +91,12 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: customTextFormField(
-                    'Password', 'Enter your password', Icons.password, null,
-                    (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter your password.";
-                  }
-                  return null;
-                }),
+                    'Password',
+                    'Enter your password',
+                    Icons.password,
+                    null,
+                    true,
+                    null), //IMPORTANT: Password allows for length 0 but should be matched with regex >0
               )
             ],
           ),
@@ -122,16 +123,22 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: customTextFormField('Email Address', 'Enter your email',
-                    Icons.email, emailController, (value) {
-                  if (value == null ||
-                      value.isEmpty ||
-                      !emailRegex.hasMatch(value)) {
-                    return "Please enter a valid email.";
-                  }
-                  return null;
-                }),
+                child: customTextFormField(
+                    'Email Address',
+                    'Enter your email',
+                    Icons.email,
+                    emailController,
+                    true,
+                    null), //IMPORTANT: Email allows for length 0 (doesn't update) but should be matched with regex >0
               ),
+              //(value) {
+              //if (value == null ||
+              //     value.isEmpty ||
+              //    !emailRegex.hasMatch(value)) {
+              //   return "Please enter a valid email.";
+              // }
+              //   return null;
+              //  }
 
               const SizedBox(
                 width: 50,
@@ -142,15 +149,18 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                     'Phone Number',
                     'Enter your phone number',
                     Icons.phone,
-                    phoneController, (value) {
-                  if (value == null ||
-                      value.isEmpty ||
-                      !phoneRegex.hasMatch(value)) {
-                    return "Please enter a valid phone number.";
-                  }
-                  return null;
-                }),
+                    phoneController,
+                    true,
+                    null),
               ),
+              // (value) {
+              // if (value == null ||
+              ////      value.isEmpty ||
+              //    !phoneRegex.hasMatch(value)) {
+              //   return "Please enter a valid phone number.";
+              //  }
+              //   return null;
+              //  }
 
               //query a database
             ],
