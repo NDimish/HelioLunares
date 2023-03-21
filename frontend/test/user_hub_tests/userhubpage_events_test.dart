@@ -8,8 +8,6 @@ void main(){
   final TestWidgetsFlutterBinding binding =
       TestWidgetsFlutterBinding.ensureInitialized();
 
-  setUpAll(() => {HttpOverrides.global = null,});
-  binding.window.physicalSizeTestValue = const Size(1920, 1080);
   testWidgets("UserHubPage_events type test", 
   (tester)async{
     await tester.pumpWidget(
