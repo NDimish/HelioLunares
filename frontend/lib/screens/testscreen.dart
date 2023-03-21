@@ -43,50 +43,50 @@ class _testscreen extends State<testscreen> {
           onPressed: () async {
             //THIS IS CODE TO CREATE SOCIETY
 
-            http.Response response = await createSociety(
-                "nathgsg@gmail.com",
-                "This.is.pass1091",
-                1,
-                "socname",
-                '12/12/2002',
-                "about us text",
-                [1, 2, 3]);
-            print(response.statusCode);
+            // http.Response response = await createSociety(
+            //     "nathgsg@gmail.com",
+            //     "This.is.pass1091",
+            //     1,
+            //     "socname",
+            //     '12/12/2002',
+            //     "about us text",
+            //     [1, 2, 3]);
+            // print(response.statusCode);
 
             //THIS IS CODE TO CREATE A PERSON
 
-            http.Response response_two = await createPerson(
-                "thisisanewemail@gmail.com",
-                "This.is.pass1091",
-                1,
-                "Water",
-                "Rock",
-                "Tester");
-            print(response.statusCode);
+            // http.Response response_two = await createPerson(
+            //     "thisisanewemail@gmail.com",
+            //     "This.is.pass1091",
+            //     1,
+            //     "Water",
+            //     "Rock",
+            //     "Tester");
+            // print(response.statusCode);
 
             //THIS IS CODE TO AUTHENTICATE
             //LOgs in as society account
-            http.Response new_response =
-                await auth("thisisanewemail@gmail.com", "This.is.pass1091");
+            // http.Response new_response =
+            //     await auth("thisisanewemail@gmail.com", "This.is.pass1091");
 
             //make person join society
-            print(json.decode(response.body)['user']['id']);
-            http.Response join_response =
-                await joinSociety(json.decode(response.body)['user']['id']);
+            // print(json.decode(response.body)['user']['id']);
+            // http.Response join_response =
+            //     await joinSociety(json.decode(response.body)['user']['id']);
 
-            //login as society account
-            http.Response person_response =
-                await auth("nathgsg@gmail.com", "This.is.pass1091");
+            // //login as society account
+            // http.Response person_response =
+            //     await auth("nathgsg@gmail.com", "This.is.pass1091");
 
-            //promote person user in society
-            http.Response promote_role = await updateSociety(
-                json.decode(response_two.body)['user']['id'], 2);
+            // //promote person user in society
+            // http.Response promote_role = await updateSociety(
+            //     json.decode(response_two.body)['user']['id'], 2);
 
             //login as person
             http.Response log_in_as_perosn =
                 await auth("thisisanewemail@gmail.com", "This.is.pass1091");
 
-            Navigator.pushNamed(context, '/');
+            Navigator.pushNamed(context, '/societyhub');
           }),
     );
   }

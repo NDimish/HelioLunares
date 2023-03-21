@@ -15,7 +15,7 @@ class SelectSocietyPage extends StatelessWidget {
 
   Future<Widget> loadData() async {
     http.Response response = await createSociety(
-        "nathgsg1@gmail.com",
+        "nathg@gmail.com",
         "This.is.pass1091",
         1,
         "NEWSOCIETY",
@@ -26,7 +26,7 @@ class SelectSocietyPage extends StatelessWidget {
 
     //THIS IS CODE TO AUTHENTICATE
     http.Response newResponse =
-        await auth("nathgsg1@gmail.com", "This.is.pass1091");
+        await auth("nathg@gmail.com", "This.is.pass1091");
 
     if (newResponse.statusCode == HttpStatus.ok) {
       "Print start dataloader";
