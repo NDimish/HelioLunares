@@ -86,11 +86,11 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
             : {});
     responserFromUrL = response;
     if (response.statusCode == 200) {
-      //print(response.body);
+      // print(response.body);
       List data;
-      if(!singlerecord){
+      try {
         data = json.decode(response.body) as List;
-      } else{
+      } catch (e) {
         data = json.decode("[" + response.body + "]") as List;
       }
        print(data);
