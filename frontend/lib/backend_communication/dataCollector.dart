@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/backend_communication/models/University.dart';
@@ -34,10 +35,14 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
     return [...output];
   }
 
-  dataCollector(
-      {Map<String, String> filter = const {},
-      OrderType order = OrderType.CHRONOLOGICAL,
-      int ID = -1}) {
+  http.Response responserFromUrL =
+      http.Response("This is a unused response", 404);
+
+  dataCollector({
+    Map<String, String> filter = const {},
+    OrderType order = OrderType.CHRONOLOGICAL,
+    int ID = -1,
+  }) {
     fetchData(
         createUrl(sets[T]!, filter: filter, order: order, ID: ID), sets[T]!);
   }
@@ -75,6 +80,7 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
                     "token ${globals.localdataobj.getToken()}"
               }
             : {});
+    responserFromUrL = response;
     if (response.statusCode == 200) {
       // print(response.body);
       var data = json.decode(response.body) as List;
@@ -82,6 +88,7 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       notifyListeners();
     }
     // print(response.body);
+    responserFromUrL = response;
     print(globals.localdataobj.getToken());
   }
 
@@ -124,6 +131,7 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       },
       body: json.encode(task),
     );
+    responserFromUrL = response;
     if (response.statusCode == 201) {
       collection.add(task);
       return true;
@@ -141,6 +149,7 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
         // HttpHeaders.authorizationHeader: Cookies.CSRFToken
       },
     );
+    responserFromUrL = response;
     if (response.statusCode == 204) {
       collection.remove(task);
       notifyListeners();
@@ -160,6 +169,7 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       },
       body: json.encode(task),
     );
+    responserFromUrL = response;
     if (response.statusCode == 201) {
       notifyListeners();
       return true;
