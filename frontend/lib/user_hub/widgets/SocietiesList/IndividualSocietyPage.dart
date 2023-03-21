@@ -130,7 +130,7 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                               const IndividualPageHeader(
                                   headerName: 'Number of Followers',
                                   headerIcon: Icon(
-                                    Icons.attach_money,
+                                    Icons.people,
                                     color: Colors.grey,
                                   )),
                               const SizedBox(height: 10.0),
