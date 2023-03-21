@@ -10,9 +10,11 @@ class Localdata {
 
   Localdata() {}
 
-  void setData(String token, String email) {
+  void setData(String token, String email, int userlevel, int userid) {
     Token = token;
     Email = email;
+    USERLEVEL = userlevel;
+    USERID = userid;
   }
 
   String getToken() {
