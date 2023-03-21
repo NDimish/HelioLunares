@@ -1,4 +1,4 @@
-const DATASOURCE = 'http://heliolunares.pythonanywhere.com//';
+const DATASOURCE = 'http://localhost:8000/';
 Localdata localdataobj = Localdata();
 
 class Localdata {
