@@ -105,3 +105,9 @@ class SocietyHomePageSerializer(serializers.ModelSerializer):
             return society.image.url
         else:
             return "media/default-image.png"
+
+class CreateTicketSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ticket
+        fields = '__all__'
+    

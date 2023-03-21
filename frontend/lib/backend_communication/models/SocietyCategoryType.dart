@@ -11,8 +11,7 @@ class SocietyCategoryType extends dataSets {
   }
 
   factory SocietyCategoryType.fromJsonNOID(Map<String, dynamic> json) {
-    return SocietyCategoryType(
-        id: json['id'], categoryName: json['category_name']);
+    return SocietyCategoryType(categoryName: json['category_name']);
   }
 
   @override
