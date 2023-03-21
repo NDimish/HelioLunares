@@ -91,7 +91,7 @@ Future<http.Response> leaveFromSociety(int societyId) async {
   return response;
 }
 
-Future<http.Response> buyTicket(int eventId, Float price) async {
+Future<http.Response> buyTicket(int eventId, double price) async {
   print("beginning to buy ticket ");
   final response = await http.post(
     Uri.parse('${DATASOURCE}ticket/'),
