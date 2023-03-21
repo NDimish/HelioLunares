@@ -27,25 +27,28 @@ class SocietyCategoriesInfoTestCase(APITestCase):
 
     def test_society_categories_get_with_id(self):
         response = self.client.post('/log_in/', self.user_data, format='json')
-        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
 
-        response = self.client.get(self.url, format="json")
+        response = self.client.get(self.url, format="json", **header)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data.get("society"), 1)
         self.assertEqual(response.data.get("category"), 1)
 
     def test_society_categories_update_with_id(self):
         response = self.client.post('/log_in/', self.user_data, format='json')
-        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
 
-        response = self.client.put(self.url, data=self.data, format="json")
+        response = self.client.put(self.url, data=self.data, format="json", **header)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(response.data.get("category"), 1)
 
     def test_society_categories_delete_with_id(self):
         response = self.client.post('/log_in/', self.user_data, format='json')
-        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
 
-        response = self.client.delete(self.url, format="json")
+        response = self.client.delete(self.url, format="json", **header)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(len(SocietyCategories.objects.filter(id=1)), 0)

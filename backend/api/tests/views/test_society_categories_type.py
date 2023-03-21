@@ -24,9 +24,10 @@ class SocietyCategoriesTypeTestCase(APITestCase):
     def test_society_categories_type_create(self):
         """create society categories type """
         response = self.client.post('/log_in/', self.user_data, format='json')
-        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
 
-        response = self.client.post(self.url, data=self.data, format="json")
+        response = self.client.post(self.url, data=self.data, format="json", **header)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data.get("category_name"), "music concert01")
         self.assertEqual(SocietyCategoriesType.objects.count(), 2)
@@ -35,11 +36,9 @@ class SocietyCategoriesTypeTestCase(APITestCase):
         """get all society categories type"""
 
         response = self.client.post('/log_in/', self.user_data, format='json')
-        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-
-        # create obj first
-        self.test_society_categories_type_create()
-
-        response = self.client.get(self.url, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 2)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
+
+        response = self.client.get(self.url, format="json", **header)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 1)

@@ -30,9 +30,10 @@ class UniversityInfoTestCase(APITestCase):
         Ensure we can get university by id
         """
         response = self.client.post('/log_in/', self.user_data, format='json')
-        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
 
-        response = self.client.get(self.url, format="json")
+        response = self.client.get(self.url, format="json", **header)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["street_name"], "test street")
 
@@ -41,9 +42,10 @@ class UniversityInfoTestCase(APITestCase):
         Ensure we update university by id
         """
         response = self.client.post('/log_in/', self.user_data, format='json')
-        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
 
-        response = self.client.put(self.url, self.data, format="json")
+        response = self.client.put(self.url, self.data, format="json", **header)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(response.data.get("street_name"), "London Universities street")
 
@@ -52,8 +54,9 @@ class UniversityInfoTestCase(APITestCase):
         Ensure we delete university by id
         """
         response = self.client.post('/log_in/', self.user_data, format='json')
-        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
 
-        response = self.client.delete(self.url, format="json")
+        response = self.client.delete(self.url, format="json", **header)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(len(University.objects.filter(id=1)), 1)

@@ -35,9 +35,10 @@ class EventInfoTestCase(APITestCase):
           Ensure we can get the event by id.
         """
         response = self.client.post('/log_in/', self.user_data, format='json')
-        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
 
-        response = self.client.get(self.url, format='json')
+        response = self.client.get(self.url, format='json', **header)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data.get("event_name"), "football-match")
 
@@ -46,9 +47,10 @@ class EventInfoTestCase(APITestCase):
            Ensure we can update the event by id.
         """
         response = self.client.post('/log_in/', self.user_data, format='json')
-        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
 
-        response = self.client.put(self.url, self.data, format='json')
+        response = self.client.put(self.url, self.data, format='json', **header)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data["event_name"], "football-match0001")
 
@@ -57,10 +59,10 @@ class EventInfoTestCase(APITestCase):
            Ensure we can delete the event by id.
         """
         response = self.client.post('/log_in/', self.user_data, format='json')
-        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
 
-
-        response = self.client.delete(self.url, format='json')
+        response = self.client.delete(self.url, format='json', **header)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         obj = Event.objects.filter(id=1)
         self.assertEqual(len(obj), 0)

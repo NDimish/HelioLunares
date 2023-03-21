@@ -25,9 +25,10 @@ class EventCategoriesTypeTestCase(APITestCase):
     def test_event_categories_type_create(self):
         """create eventCategoriesType """
         response = self.client.post('/log_in/', self.user_data, format='json')
-        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
 
-        response = self.client.post(self.url, data=self.data, format="json")
+        response = self.client.post(self.url, data=self.data, format="json", **header)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data.get("category_name"), "sport_my")
         self.assertEqual(EventCategoriesType.objects.count(), 2)
@@ -35,9 +36,11 @@ class EventCategoriesTypeTestCase(APITestCase):
     def test_event_categories_type_list(self):
         """get all event categories type"""
         response = self.client.post('/log_in/', self.user_data, format='json')
-        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
 
         # create obj first
-        response = self.client.get(self.url, format="json")
+        response = self.client.get(self.url, format="json", **header)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assert_(len(response.data) == 1)

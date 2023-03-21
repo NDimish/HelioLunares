@@ -32,9 +32,10 @@ class TicketTestCase(APITestCase):
     def test_ticket_create(self):
         """create ticket """
         response = self.client.post('/log_in/', self.user_data, format='json')
-        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
 
-        response = self.client.post(self.url, data=self.data, format="json")
+        response = self.client.post(self.url, data=self.data, format="json", **header)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data.get("price"), 93.0)
         self.assertEqual(Ticket.objects.count(), 2)
@@ -43,8 +44,9 @@ class TicketTestCase(APITestCase):
         """get all ticket"""
 
         response = self.client.post('/log_in/', self.user_data, format='json')
-        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
 
-        response = self.client.get(self.url, format="json")
+        response = self.client.get(self.url, format="json", **header)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 1)

@@ -30,9 +30,10 @@ class UniversityTestCase(APITestCase):
           Ensure we can get all the event university.
         """
         response = self.client.post('/log_in/', self.user_data, format='json')
-        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
 
-        response = self.client.get(self.url, format='json')
+        response = self.client.get(self.url, format='json', **header)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 2)
 
@@ -41,9 +42,10 @@ class UniversityTestCase(APITestCase):
           Ensure we can get all the university objects.
         """
         response = self.client.post('/log_in/', self.user_data, format='json')
-        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
 
-        response = self.client.post(self.url, self.data, format='json')
+        response = self.client.post(self.url, self.data, format='json', **header)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data.get("street_name"), "London Universities street")
         self.assertEqual(University.objects.count(), 3)

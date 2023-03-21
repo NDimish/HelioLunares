@@ -36,9 +36,10 @@ class EventTestCase(APITestCase):
           Ensure we can get all the event objects.
         """
         response = self.client.post('/log_in/', self.user_data, format='json')
-        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
 
-        response = self.client.post(self.url, self.data, format='json')
+        response = self.client.post(self.url, self.data, format='json', **header)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Event.objects.count(), 2)
         self.assertEqual(response.data.get("event_name"), "football-match")
@@ -50,9 +51,9 @@ class EventTestCase(APITestCase):
           we have two steps:1.create data 2.query data list
         """
         response = self.client.post('/log_in/', self.user_data, format='json')
-        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
         # query data list
-        response = self.client.get(self.url, format='json')
+        response = self.client.get(self.url, format='json', **header)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assert_(len(response.data) == 1)
