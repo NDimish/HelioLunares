@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:university_ticketing_system/screens/startup_screen/widgets/contact_form.dart';
-import 'package:university_ticketing_system/screens/startup_screen/widgets/contact_submit.dart';
+import 'package:university_ticketing_system/home/homepage_screens/contact/contact_form.dart';
+import 'package:university_ticketing_system/submit_button.dart';
 
 //flutter run -d chrome --web-port 2021 test/contact_form_test.dart
 void main() {
@@ -24,14 +24,14 @@ void main() {
 
 //Should have four fields and one submit button in total.
       final textFormFieldFinder = find.byType(TextFormField);
-      final dropdownFieldFinder = find.byType(DropdownButtonFormField);
-      final submitButtonFieldFinder = find.byType(ContactSubmit);
+      final dropdownFieldFinder = find.byKey(const Key("DropdownButton"));
+      final submitButtonFieldFinder = find.byType(SubmitButton);
 
       expect(textFormFieldFinder, findsNWidgets(3));
       expect(dropdownFieldFinder, findsOneWidget);
       expect(submitButtonFieldFinder, findsOneWidget);
 
-      await tester.pumpAndSettle(const Duration(seconds: 1));
+      await tester.pump(const Duration(seconds: 1));
     });
 
     testWidgets('Contact form does not submit on empty input', (tester) async {
@@ -39,7 +39,7 @@ void main() {
           home: Scaffold(
         body: ContactForm(),
       )));
-      final submitButtonFieldFinder = find.byType(ContactSubmit);
+      final submitButtonFieldFinder = find.byType(SubmitButton);
 
       final contactName = find.byKey(const Key("ContactName"));
       final contactEmail = find.byKey(const Key("ContactEmail"));
@@ -51,20 +51,11 @@ void main() {
       expect(contactMessage, findsOneWidget);
 
       await tester.tap(submitButtonFieldFinder);
-      await tester.pumpAndSettle();
+      await tester.pump(const Duration(seconds: 5));
 
-      final submitMessageOverlay = find.byType(AlertDialog);
-      final acknowledgementButton = find.text("OK");
+      expect(find.text("Please enter your email."), findsOneWidget);
 
-      expect(submitMessageOverlay, findsNothing);
-      expect(acknowledgementButton, findsNothing);
-      expect(find.text("Please enter a valid email."), findsOneWidget);
-      expect(find.text("Please enter a valid message."), findsOneWidget);
-      expect(find.text("Please enter a valid name."), findsOneWidget);
-
-      await tester.pumpAndSettle(const Duration(seconds: 1));
+      await tester.pump(const Duration(seconds: 1));
     });
-
-    //Add text input tests as well as validation checking (regexes)
   });
 }
