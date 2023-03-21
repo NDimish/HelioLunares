@@ -12,7 +12,7 @@ import 'dart:js_util';
 
 import '../../../backend_communication/authenticate.dart';
 import '../../../backend_communication/dataCollector.dart' as data;
-import '../../../backend_communication/models/society_event.dart' as Model;
+import "../../../backend_communication/models/society_event.dart' as Model;
 import 'package:provider/provider.dart';
 
 class AddEventForm extends StatefulWidget {
