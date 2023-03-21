@@ -12,7 +12,8 @@ import 'package:university_ticketing_system/widgets/custom_text.dart';
 import '../../backend_communication/models/Society.dart';
 
 class SocietyHubPage extends StatelessWidget {
-  const SocietyHubPage({super.key});
+  final Society? society;
+  const SocietyHubPage({super.key, this.society});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +39,9 @@ class SocietyHubPage extends StatelessWidget {
               child: ListView(
             children: [
               ImageCard(
-                image: NetworkImage('assets/icons/kcl.png'),
+                image: (society != null)
+                    ? NetworkImage('assets/icons/kcl.png') //Load
+                    : NetworkImage('assets/images/logo.jpg'),
               ),
               if (ResponsiveWidget.isLargeScreen(context) ||
                   ResponsiveWidget.isMediumScreen(context))

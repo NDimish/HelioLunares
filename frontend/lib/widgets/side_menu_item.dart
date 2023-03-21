@@ -8,7 +8,12 @@ import 'package:university_ticketing_system/widgets/vertical_menu_item.dart';
 class SideMenuItem extends StatelessWidget {
   final String itemName;
   final VoidCallback onTap;
-  const SideMenuItem({Key? key, required this.itemName, required this.onTap})
+  final bool isHidden;
+  const SideMenuItem(
+      {Key? key,
+      required this.itemName,
+      required this.onTap,
+      required this.isHidden})
       : super(key: key);
 
   @override

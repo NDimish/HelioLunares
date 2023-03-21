@@ -56,20 +56,23 @@ class SideMenu extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: sideMenuItemRoutes
                 .map((item) => SideMenuItem(
-                    itemName:
-                        item.name == editModePageRoute ? "Log Out" : item.name,
-                    onTap: () {
-                      if (item.name == editModePageRoute) {
-                        //todo
-                      }
-                      if (!menuController.isActive(item.name)) {
-                        menuController.changeActiveItemTo(item.name);
-                        if (ResponsiveWidget.isSmallScreen(context)) {
-                          Get.back();
+                      itemName: item.name == editModePageRoute
+                          ? "Log Out"
+                          : item.name,
+                      onTap: () {
+                        if (item.name == editModePageRoute) {
+                          //todo
                         }
-                        navigationController.navigateTo(item.name);
-                      }
-                    }))
+                        if (!menuController.isActive(item.name)) {
+                          menuController.changeActiveItemTo(item.name);
+                          if (ResponsiveWidget.isSmallScreen(context)) {
+                            Get.back();
+                          }
+                          navigationController.navigateTo(item.name);
+                        }
+                      },
+                      isHidden: false,
+                    ))
                 .toList(),
           )
         ],

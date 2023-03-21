@@ -4,7 +4,7 @@ import 'package:university_ticketing_system/pages/edit_mode/edit_mode.dart';
 import 'package:university_ticketing_system/pages/events/add_events.dart';
 import 'package:university_ticketing_system/pages/events/edit_events.dart';
 import 'package:university_ticketing_system/pages/events/widgets/event_details_popup_card.dart';
-import 'package:university_ticketing_system/pages/select_society/society_list_maker.dart';
+import 'package:university_ticketing_system/pages/select_society/select_society_page.dart';
 import 'package:university_ticketing_system/pages/statistics/statistics.dart';
 import 'package:university_ticketing_system/pages/events/events.dart';
 import 'package:university_ticketing_system/pages/society_hub/society_hub.dart';
@@ -18,7 +18,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
   Get.routing.args = settings.arguments;
   switch (settings.name) {
     case societyHubPageDisplayName:
-      return _getPageRoute(SocietyHubPage());
+      final args = settings.arguments as Society;
+      return _getPageRoute(SocietyHubPage(society: args));
     case societyEventsPageDisplayName:
       return _getPageRoute(const SocietyEventsPage());
     case statisticsPageDisplayName:
@@ -37,10 +38,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case societySettingsPageDisplayName:
       return _getPageRoute(const SocietySettingsPage());
     case selectSocietyPageDisplayName:
-      return _getPageRoute(SocietyListMaker());
+      return _getPageRoute(SelectSocietyPage());
 
     default:
-      return _getPageRoute(SocietyListMaker());
+      return _getPageRoute(SelectSocietyPage());
   }
 }
 

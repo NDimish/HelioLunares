@@ -54,20 +54,20 @@ class _testscreen extends State<testscreen> {
 
             //THIS IS CODE TO CREATE A PERSON
 
-            // http.Response response = await createPerson(
-            //     "thisisanewemail@gmail.com",
-            //     "This.is.pass1091",
-            //     1,
-            //     "Water",
-            //     "Rock",
-            //     "Tester");
-            // print(response.statusCode);
+            http.Response response_two = await createPerson(
+                "thisisanewemail@gmail.com",
+                "This.is.pass1091",
+                1,
+                "Water",
+                "Rock",
+                "Tester");
+            print(response.statusCode);
 
             //THIS IS CODE TO AUTHENTICATE
             http.Response new_response =
                 await auth("thisisanewemail@gmail.com", "This.is.pass1091");
 
-            await auth("nathgsg1@gmail.com", "This.is.pass1091");
+            //  await auth("nathgsg1@gmail.com", "This.is.pass1091");
             Navigator.pushNamed(context, '/');
             // DataP.addToCollection(data.User(
             //     id: 3,

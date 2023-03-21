@@ -8,6 +8,11 @@ class NavigationController extends GetxController {
   final GlobalKey<NavigatorState> navigationKey = GlobalKey();
 
   //change screens
+  Future<dynamic> navigateToWArgs(String routeName, dynamic arguments) {
+    return navigationKey.currentState!
+        .pushNamed(routeName, arguments: arguments);
+  }
+
   Future<dynamic> navigateTo(String routeName) {
     return navigationKey.currentState!.pushNamed(routeName);
   }

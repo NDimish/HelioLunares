@@ -83,15 +83,51 @@ class EventDetailsRoute<T> extends PageRoute<T> {
 class MenuItem {
   final String name;
   final String route;
+  bool? isHidden;
 
-  MenuItem(this.name, this.route);
+  MenuItem(this.name, this.route, this.isHidden);
+
+  void setIsHidden(bool x) {
+    isHidden = x;
+  }
 }
 
+class MenuItemRoutes {
+  List<MenuItem> itemList;
+
+  MenuItemRoutes(this.itemList);
+
+  setHiddenItem(String itemName, bool isHidden) {
+    Map<String, MenuItem> map =
+        Map.fromIterable(itemList, key: (e) => e.name, value: (e) => e);
+    if (map.containsKey(itemName)) {
+      itemList.elementAt(2).setIsHidden(isHidden);
+    }
+  }
+}
+
+// MenuItemRoutes sideMenuItemRoutes = MenuItemRoutes([MenuItem(
+//     selectSocietyPageDisplayName,
+//     selectSocietyPageRoute,
+//   ),])
+// MenuItemRoutes sideMenuItemRoutes = [
+// MenuItem(
+//   selectSocietyPageDisplayName,
+//   selectSocietyPageRoute, isHidden ?? true
+// ),
+//   MenuItem(societyHubPageDisplayName, societyHubPageRoute),
+//   MenuItem(societyEventsPageDisplayName, societyEventsPageRoute),
+//   MenuItem(statisticsPageDisplayName, statisticsPageRoute),
+//   MenuItem(editModePageDisplayName, editModePageRoute),
+//   MenuItem(editSocietyMembersPageDisplayName, editSocietyMembersPageRoute)
+// ];
+
 List<MenuItem> sideMenuItemRoutes = [
-  MenuItem(selectSocietyPageDisplayName, selectSocietyPageRoute),
-  MenuItem(societyHubPageDisplayName, societyHubPageRoute),
-  MenuItem(societyEventsPageDisplayName, societyEventsPageRoute),
-  MenuItem(statisticsPageDisplayName, statisticsPageRoute),
-  MenuItem(editModePageDisplayName, editModePageRoute),
-  MenuItem(editSocietyMembersPageDisplayName, editSocietyMembersPageRoute)
+  MenuItem(selectSocietyPageDisplayName, selectSocietyPageRoute, false),
+  MenuItem(societyHubPageDisplayName, societyHubPageRoute, false),
+  MenuItem(societyEventsPageDisplayName, societyEventsPageRoute, false),
+  MenuItem(statisticsPageDisplayName, statisticsPageRoute, false),
+  MenuItem(editModePageDisplayName, editModePageRoute, false),
+  MenuItem(
+      editSocietyMembersPageDisplayName, editSocietyMembersPageRoute, false)
 ];

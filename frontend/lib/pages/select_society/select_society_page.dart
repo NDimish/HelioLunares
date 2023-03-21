@@ -10,8 +10,8 @@ import '../../constants/controllers.dart';
 import '../../helpers/responsiveness.dart';
 import '../../widgets/custom_text.dart';
 
-class SocietyListMaker extends StatelessWidget {
-  const SocietyListMaker({super.key});
+class SelectSocietyPage extends StatelessWidget {
+  const SelectSocietyPage({super.key});
 
   Future<Widget> loadData() async {
     http.Response response = await createSociety(

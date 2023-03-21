@@ -30,19 +30,23 @@ class DataLoader extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
+    var powInSocietyFilter = {
+      'role__gt': '1',
+      'user_at_society': globals.localdataobj.getUserID().toString()
+    };
     return MultiProvider(
         providers: [
-          // ChangeNotifierProvider(
-          //     create: (context) => data.dataCollector<data.Event>(
-          //         filter: widget.filter, order: widget.orderBy)),
+          ChangeNotifierProvider(
+              create: (context) =>
+                  data.dataCollector<data.Society>(filter: powInSocietyFilter)),
           ChangeNotifierProvider(
               create: (context) => data.dataCollector<data.SocietyCategories>(
-                  filter: filter, order: orderBy)),
+                  filter: {}, order: orderBy))
         ],
         builder: (context, child) {
-          // final DataP2 = Provider.of<data.dataCollector<data.Event>>(context);
           final DataP =
               Provider.of<data.dataCollector<data.SocietyCategories>>(context);
+
           return Container(
               height: MediaQuery.of(context).size.height * 0.95,
               child: Scaffold(
@@ -67,8 +71,9 @@ class DataLoader extends StatelessWidget {
 
                               menuController.activeItem.value =
                                   societyHubPageDisplayName;
-                              navigationController
-                                  .navigateTo(societyHubPageDisplayName);
+                              navigationController.navigateToWArgs(
+                                  societyHubPageDisplayName,
+                                  DataP.collection[index].society);
                             }));
                   },
                   separatorBuilder: (BuildContext context, int index) {
