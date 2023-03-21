@@ -14,7 +14,7 @@ class MainAppBar extends AppBar {
                 mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text("TickeX"), SizedBox(width: 30),
-                CustomSearchBar(searchfunc, clearfunc, search_controller),
+                Expanded(child: CustomSearchBar(searchfunc, clearfunc, search_controller)),
               ]),
             ),
 
@@ -32,7 +32,8 @@ class MainAppBar extends AppBar {
                             builder: (context) =>
                                 const UserBoughtTicketScreen()));
                   },
-                  icon: const Icon(Icons.receipt)),
+                  icon: const Icon(Icons.receipt),
+                  key: Key("ViewTicketsButton"),),
               IconButton(
                  tooltip: "Settings",
                   onPressed: () {
@@ -41,7 +42,8 @@ class MainAppBar extends AppBar {
                         MaterialPageRoute(
                             builder: (context) => const UserSettingsPage()));
                   },
-                  icon: const Icon(Icons.settings))
+                  icon: const Icon(Icons.settings),
+                  key: Key("SettingsButton"))
             ]
             //
             );
