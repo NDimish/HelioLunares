@@ -1,10 +1,9 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/backend_communication/models/University.dart';
-import 'package:university_ticketing_system/backend_communication/models/tickets.dart';
+import 'package:university_ticketing_system/backend_communication/models/Ticket.dart';
 import 'dart:convert';
 export 'models/all.dart';
 import 'models/all.dart';
@@ -15,9 +14,13 @@ final Map<Type, Databases> sets = {
   Event: Databases.event,
   People: Databases.people,
   Society: Databases.society,
-  Tickets: Databases.tickets,
+  Tickets: Databases.ticket,
   University: Databases.university,
-  SocietyRole: Databases.society_role
+  SocietyRole: Databases.societyrole,
+  EventCategoryType: Databases.event_categories_type,
+  SocietyCategoryType: Databases.society_categories_type,
+  EventCategories: Databases.event_categories,
+  SocietyCategories: Databases.society_categories
 };
 
 enum PostType { READ, ADD, DELETE, UPDATE }
@@ -88,8 +91,18 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
         return University.fromJson(json);
       case Databases.society:
         return Society.fromJson(json);
-      case Databases.tickets:
+      case Databases.ticket:
         return Tickets.fromJson(json);
+      case Databases.societyrole:
+        return SocietyRole.fromJson(json);
+      case Databases.event_categories_type:
+        return EventCategoryType.fromJson(json);
+      case Databases.society_categories_type:
+        return SocietyCategoryType.fromJson(json);
+      case Databases.event_categories:
+        return EventCategories.fromJson(json);
+      case Databases.society_categories:
+        return SocietyCategories.fromJson(json);
 
       default:
         return User.fromJson(json);
