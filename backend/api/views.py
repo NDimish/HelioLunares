@@ -241,7 +241,7 @@ class SocietyListView(generics.ListAPIView):
     filter_backends = [DjangoFilterBackend,OrderingFilter]
     filterset_fields = ['user','name','creation_date','university_society_is_at','join_date']
     ordering_fields = '__all__'
-    #permission_classes = [IsAuthenticated|AllowPost]
+    permission_classes = [IsAuthenticated|AllowPost]
     
     def post(self,request):
         
@@ -527,7 +527,6 @@ class EventApiView(generics.ListAPIView):
     filter_backends = [DjangoFilterBackend,OrderingFilter]
     filterset_fields = '__all__'
     ordering_fields = '__all__'
-    permission_classes = [AllowAny]
     
     def post(self, request):
         serializer = EventModelSerializer(data=request.data)
