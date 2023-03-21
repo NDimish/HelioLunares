@@ -50,27 +50,31 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
     String url = '$DATASOURCE${Database.name}/';
 
     if (ID >= 0) {
-      url = '$url${ID}/';
+      url = '$url${ID}/?format=json';
     } else {
+      url += "?ordering=id";
       if (postType == PostType.READ) {
-        url = '$url?ordering=id';
         filter.forEach((key, value) {
-          url = '$url&$key=$value';
+          url += '&$key=$value';
         });
       }
+      url += "&format=json";
     }
 
     // print(url);
-    return '$url?format=json';
+    return url;
   }
 
   fetchData(String url, Databases Database) async {
     print("This is loading data.");
     print(globals.localdataobj.getToken());
-    final response = await http.get(Uri.parse(url), headers: {
-      HttpHeaders.authorizationHeader:
-          "token ${globals.localdataobj.getToken()}"
-    });
+    final response = await http.get(Uri.parse(url),
+        headers: (globals.localdataobj.getToken() != "")
+            ? {
+                HttpHeaders.authorizationHeader:
+                    "token ${globals.localdataobj.getToken()}"
+              }
+            : {});
     if (response.statusCode == 200) {
       // print(response.body);
       var data = json.decode(response.body) as List;

@@ -513,7 +513,11 @@ class PeopleRoleAtSocietyView(generics.ListAPIView):
     queryset = PeopleRoleAtSociety.objects.all()
     serializer_class = PeopleRoleAtSocietySerializer
     filter_backends = [DjangoFilterBackend,OrderingFilter]
-    filterset_fields = '__all__'
+    filterset_fields = {
+        'society': ['exact'],
+        'user_at_society': ['exact'],
+        'role': ['exact','lt','gt','gte','lte']
+    }
     ordering_fields = '__all__'
 
 # Get list of all events
