@@ -91,7 +91,17 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                         'Enter your first name',
                         Icons.person_rounded,
                         null,
-                        null,
+                        (value) {
+                    if (value == null || value.isEmpty) {
+                      return null;
+                    }
+
+                    if (value.contains(RegExp(r'(\d+)'))) {
+                      return "Name cannot have numbers";
+                    }
+
+                    return null;
+                  },
                         
                         ),
                   ),
@@ -108,7 +118,15 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                         'Enter your last name',
                         Icons.person_rounded,
                         null,
-                        null), 
+                       (value) {
+                    if (value == null || value.isEmpty) {
+                      return null;
+                    }
+
+                    if (value.contains(RegExp(r'(\d+)'))) {
+                      return "Name cannot have numbers";
+                    }}),
+
                   ),
                   const SizedBox(
                     width: 50,
@@ -130,7 +148,8 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
               const SizedBox(
                 width: 50,
               ),
-              Padding(
+              //Israfeel, can you implement university dropdown here from padding to padding?
+              Padding( 
                 padding: const EdgeInsets.all(15.0),
                 child: const Text('University'),
               ),
