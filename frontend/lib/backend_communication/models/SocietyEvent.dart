@@ -6,7 +6,7 @@ class SocietyEvent {
   late String location;
   late String duration;
   late String description;
-
+//DO NOT USE THIS MODEL IT IS DEPRECATED
   SocietyEvent(String name, String price, String date, String location,
       String _duration, String _description) {
     this.name = name;
