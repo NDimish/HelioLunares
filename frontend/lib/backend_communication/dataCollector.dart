@@ -70,7 +70,7 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       url += "&format=json";
     }
 
-    // print(url);
+   // print(url);
     return url;
   }
 
@@ -86,15 +86,17 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
             : {});
     responserFromUrL = response;
     if (response.statusCode == 200) {
-      // print(response.body);
+      //print(response.body);
       List data;
-      if (singlerecord) {
-        data = json.decode("[" + response.body + "]") as List;
-      } else {
+      if(!singlerecord){
         data = json.decode(response.body) as List;
+      } else{
+        data = json.decode("[" + response.body + "]") as List;
       }
+       print(data);
+      // print('as');
       output = data.map<T>((json) => (getClass(json, Database))).toList();
-      //print(data);
+      
       notifyListeners();
     }
     // print(response.body);

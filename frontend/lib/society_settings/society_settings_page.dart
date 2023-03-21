@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:university_ticketing_system/backend_communication/dataCollector.dart';
+import '../../../backend_communication/dataCollector.dart';
 
 import '../helpers/responsiveness.dart';
 
 class SocietySettingsPage extends StatefulWidget {
-  const SocietySettingsPage({super.key});
+  final int userId;
+
+  const SocietySettingsPage({Key? key, required this.userId}): super(key:key);
+
+
 
   @override
   State<SocietySettingsPage> createState() => _SocietySettingsPageState();
@@ -44,194 +51,203 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFffffff).withOpacity(0.3),
-      body: SafeArea(
-          child: Form(
-        key: _formKey,
-        child: Center(
-            child: Column(children: [
-          const SizedBox(height: 35),
-          Text(
-            'Society Settings',
-            style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: ResponsiveWidget.isSmallScreen(context) ? 30 : 48),
-          ),
-          const SizedBox(height: 17),
-          const Text(
-            'Account',
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 28),
-          ),
-          const SizedBox(height: 17),
-          const SizedBox(height: 35),
-          Flex(
-            mainAxisAlignment: MainAxisAlignment.center,
-            direction: ResponsiveWidget.isSmallScreen(context) ||
-                    ResponsiveWidget.isMediumScreen(context)
-                ? Axis.vertical
-                : Axis.horizontal,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: customTextFormField(
-                    'Society Name',
-                    'Enter your society name',
-                    Icons.person_rounded,
-                    null,
-                    permissionLevel == 3,
-                    null),
+    return ChangeNotifierProvider(
+      create: (context) => dataCollector<User>(ID:widget.userId),
+      builder: (context,child) {
+        final User1 = Provider.of<dataCollector<User>>(context);
+        return Scaffold(
+          
+          backgroundColor: const Color(0xFFffffff).withOpacity(0.3),
+          body: SafeArea(
+              child: Form(
+            key: _formKey,
+            child: Center(
+                child: Column(children: [
+              const SizedBox(height: 35),
+              Text(
+                'Society Settings',
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: ResponsiveWidget.isSmallScreen(context) ? 30 : 48),
               ),
-              const SizedBox(
-                width: 50,
+              const SizedBox(height: 17),
+              const Text(
+                'Account',
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 28),
               ),
-              const SizedBox(
-                width: 50,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: customTextFormField(
-                    'Password',
-                    'Enter your password',
-                    Icons.password,
-                    null,
-                    true,
-                    null), //IMPORTANT: Password allows for length 0 but should be matched with regex >0
-              )
-            ],
-          ),
-          const SizedBox(
-            width: 50,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: const Text('University'),
-          ),
-          const SizedBox(height: 35),
-          const Text(
-            'Personal Information',
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 28),
-          ),
-          const SizedBox(height: 17),
-          const SizedBox(height: 35),
-          Flex(
-            direction: ResponsiveWidget.isSmallScreen(context) ||
-                    ResponsiveWidget.isMediumScreen(context)
-                ? Axis.vertical
-                : Axis.horizontal,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: customTextFormField(
-                    'Email Address',
-                    'Enter your email',
-                    Icons.email,
-                    emailController,
-                    true,
-                    null), //IMPORTANT: Email allows for length 0 (doesn't update) but should be matched with regex >0
-              ),
-              //(value) {
-              //if (value == null ||
-              //     value.isEmpty ||
-              //    !emailRegex.hasMatch(value)) {
-              //   return "Please enter a valid email.";
-              // }
-              //   return null;
-              //  }
-
-              const SizedBox(
-                width: 50,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: customTextFormField(
-                    'Phone Number',
-                    'Enter your phone number',
-                    Icons.phone,
-                    phoneController,
-                    true,
-                    null),
-              ),
-              // (value) {
-              // if (value == null ||
-              ////      value.isEmpty ||
-              //    !phoneRegex.hasMatch(value)) {
-              //   return "Please enter a valid phone number.";
-              //  }
-              //   return null;
-              //  }
-
-              //query a database
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextButton(
-                  style: ButtonStyle(
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.blue),
+              const SizedBox(height: 17),
+              const SizedBox(height: 35),
+              Flex(
+                mainAxisAlignment: MainAxisAlignment.center,
+                direction: ResponsiveWidget.isSmallScreen(context) ||
+                        ResponsiveWidget.isMediumScreen(context)
+                    ? Axis.vertical
+                    : Axis.horizontal,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: customTextFormField(
+                        'Society Name',
+                        'Enter your society name',
+                        Icons.person_rounded,
+                        null,
+                        (User1.collection[0].userType == 3) ? true : false,
+                        null,
+                        
+                        ),
                   ),
-                  onPressed: () async {
-                    await Future.delayed(const Duration(seconds: 1));
-                    if (_formKey.currentState!.validate()) {
-                      print("Valid form");
-                      _formKey.currentState!.save();
+                  const SizedBox(
+                    width: 50,
+                  ),
+                  const SizedBox(
+                    width: 50,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: customTextFormField(
+                        'Password',
+                        'Enter your password',
+                        Icons.password,
+                        null,
+                        true,
+                        null), //IMPORTANT: Password allows for length 0 but should be matched with regex >0
+                  )
+                ],
+              ),
+              const SizedBox(
+                width: 50,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: const Text('University'),
+              ),
+              const SizedBox(height: 35),
+              const Text(
+                'Personal Information',
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 28),
+              ),
+              const SizedBox(height: 17),
+              const SizedBox(height: 35),
+              Flex(
+                direction: ResponsiveWidget.isSmallScreen(context) ||
+                        ResponsiveWidget.isMediumScreen(context)
+                    ? Axis.vertical
+                    : Axis.horizontal,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: customTextFormField(
+                        'Email Address',
+                        'Enter your email',
+                        Icons.email,
+                        emailController,
+                        true,
+                        null), //IMPORTANT: Email allows for length 0 (doesn't update) but should be matched with regex >0
+                  ),
+                  //(value) {
+                  //if (value == null ||
+                  //     value.isEmpty ||
+                  //    !emailRegex.hasMatch(value)) {
+                  //   return "Please enter a valid email.";
+                  // }
+                  //   return null;
+                  //  }
 
-                      try {
-                        //Here is where you will send a response to the database to update user values
+                  const SizedBox(
+                    width: 50,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: customTextFormField(
+                        'Phone Number',
+                        'Enter your phone number',
+                        Icons.phone,
+                        phoneController,
+                        true,
+                        null),
+                  ),
+                  // (value) {
+                  // if (value == null ||
+                  ////      value.isEmpty ||
+                  //    !phoneRegex.hasMatch(value)) {
+                  //   return "Please enter a valid phone number.";
+                  //  }
+                  //   return null;
+                  //  }
 
-                        //Upon saving you will have to check the fields which are empty.
-                        //If they are all empty or nothing has changed don't update the DB at all.
-                        //Otherwise check whatever is changed, and update DB accordingly.
+                  //query a database
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextButton(
+                      style: ButtonStyle(
+                        foregroundColor:
+                            MaterialStateProperty.all<Color>(Colors.blue),
+                      ),
+                      onPressed: () async {
+                        await Future.delayed(const Duration(seconds: 1));
+                        if (_formKey.currentState!.validate()) {
+                          print("Valid form");
+                          _formKey.currentState!.save();
 
-                        showDialog<String>(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            title: const Text('Details saved!'),
-                            content: const Text(
-                                'Society settings have been modified.'),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () => {
-                                  Navigator.pop(context, 'OK'),
-                                },
-                                child: const Text('OK'),
+                          try {
+                            //Here is where you will send a response to the database to update user values
+
+                            //Upon saving you will have to check the fields which are empty.
+                            //If they are all empty or nothing has changed don't update the DB at all.
+                            //Otherwise check whatever is changed, and update DB accordingly.
+
+                            showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: const Text('Details saved!'),
+                                content: const Text(
+                                    'Society settings have been modified.'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () => {
+                                      Navigator.pop(context, 'OK'),
+                                    },
+                                    child: const Text('OK'),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        );
-                      } catch (error) {
-                        //This can be turned into a reusable widget?
-                        showDialog<String>(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            title: const Text('Whoops!'),
-                            content: const Text(
-                                'Something went wrong when changing society settings. Please try again.'),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () => {
-                                  Navigator.pop(context, 'OK'),
-                                },
-                                child: const Text('OK'),
+                            );
+                          } catch (error) {
+                            //This can be turned into a reusable widget?
+                            showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: const Text('Whoops!'),
+                                content: const Text(
+                                    'Something went wrong when changing society settings. Please try again.'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () => {
+                                      Navigator.pop(context, 'OK'),
+                                    },
+                                    child: const Text('OK'),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        );
-                      }
-                    }
-                  },
-                  child: const Text('Update Details'),
+                            );
+                          }
+                        }
+                      },
+                      child: const Text('Update Details'),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          )
-        ])),
-      )),
+              )
+            ])),
+          )),
+        );
+      }
     );
   }
 

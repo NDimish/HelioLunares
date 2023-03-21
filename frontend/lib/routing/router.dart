@@ -36,7 +36,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case editSocietyMembersPageDisplayName:
       return _getPageRoute(const SocietyMembersPage());
     case societySettingsPageDisplayName:
-      return _getPageRoute(const SocietySettingsPage());
+      return _getPageRoute(const SocietySettingsPage(userId:2));
+      //make user id global
 
     default:
       return _getPageRoute(const SocietyHubPage());

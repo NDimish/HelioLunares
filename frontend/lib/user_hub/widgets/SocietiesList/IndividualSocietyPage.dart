@@ -235,7 +235,7 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                                               builder: (context) =>
                                                   SocietyEventsList(
                                                     societyName: DataP
-                                                        .collection[0].name,
+                                                        .collection[0],
                                                   ))),
                                       buttonText: "List of Events",
                                     ),

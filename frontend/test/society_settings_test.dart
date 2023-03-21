@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
-import 'package:university_ticketing_system/pages/societySettingsPage/societySettingPage.dart';
+import 'package:university_ticketing_system/society_settings/society_settings_page.dart';
+
 
 void main() {
   final TestWidgetsFlutterBinding binding =
@@ -11,7 +12,9 @@ void main() {
 
     testWidgets("Test widgets render correctly", (tester) async {
       await tester.pumpWidget(
-          const MaterialApp(home: Scaffold(body: SocietySettingsPage())));
+          const MaterialApp(home: Scaffold(body: SocietySettingsPage(
+            userId: 7,
+          ))));
 
       expect(find.text('Account'), findsOneWidget);
       expect(find.text('Profile'), findsOneWidget);
