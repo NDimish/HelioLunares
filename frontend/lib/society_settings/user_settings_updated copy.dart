@@ -24,12 +24,10 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
       String name,
       IconData nameIcon,
       TextEditingController? formController,
-      bool shouldBeEnabled,
       String? Function(String?)? validation) {
     return SizedBox(
         width: 300,
         child: TextFormField(
-            enabled: shouldBeEnabled,
             obscureText: headerName.contains("Password") ? true : false,
             controller: formController,
             validator: validation,
@@ -49,6 +47,7 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
       "[_a-zA-Z]+[_a-zA-Z0-9]?[\._]?[_a-zA-Z0-9]*@([a-zA-Z]+\.)?([a-zA-Z]+\.)?[a-zA-Z]+\.(com|net|de|uk|ro|jp)");
   final phoneRegex = RegExp(
       "[_a-zA-Z]+[_a-zA-Z0-9]?[\._]?[_a-zA-Z0-9]*@([a-zA-Z]+\.)?([a-zA-Z]+\.)?[a-zA-Z]+\.(com|net|de|uk|ro|jp)");
+  
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +65,7 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                 child: Column(children: [
               const SizedBox(height: 35),
               Text(
-                'Society Settings',
+                'User Settings',
                 style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: ResponsiveWidget.isSmallScreen(context) ? 30 : 48),
@@ -88,14 +87,28 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: customTextFormField(
-                        'Society Name',
-                        'Enter your society name',
+                        'First Name',
+                        'Enter your first name',
                         Icons.person_rounded,
                         null,
-                        (User1.collection[0].userType == 3) ? true : false,
                         null,
                         
                         ),
+                  ),
+                  const SizedBox(
+                    width: 50,
+                  ),
+                  const SizedBox(
+                    width: 50,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: customTextFormField(
+                        'Last Name',
+                        'Enter your last name',
+                        Icons.person_rounded,
+                        null,
+                        null), 
                   ),
                   const SizedBox(
                     width: 50,
@@ -110,9 +123,8 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                         'Enter your password',
                         Icons.password,
                         null,
-                        true,
                         null), //IMPORTANT: Password allows for length 0 but should be matched with regex >0
-                  )
+                  ),
                 ],
               ),
               const SizedBox(
@@ -143,17 +155,9 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                         'Enter your email',
                         Icons.email,
                         emailController,
-                        true,
                         null), //IMPORTANT: Email allows for length 0 (doesn't update) but should be matched with regex >0
                   ),
-                  //(value) {
-                  //if (value == null ||
-                  //     value.isEmpty ||
-                  //    !emailRegex.hasMatch(value)) {
-                  //   return "Please enter a valid email.";
-                  // }
-                  //   return null;
-                  //  }
+
 
                   const SizedBox(
                     width: 50,
@@ -165,17 +169,9 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                         'Enter your phone number',
                         Icons.phone,
                         phoneController,
-                        true,
                         null),
                   ),
-                  // (value) {
-                  // if (value == null ||
-                  ////      value.isEmpty ||
-                  //    !phoneRegex.hasMatch(value)) {
-                  //   return "Please enter a valid phone number.";
-                  //  }
-                  //   return null;
-                  //  }
+                  
 
                   //query a database
                 ],
@@ -282,5 +278,4 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
 //if statements lvl1 and lvl2 fields acccesible same as user hub
 //loading the data in Nmani
 //testing
-//make page responsive
 //try catch block submit database

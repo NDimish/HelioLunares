@@ -22,8 +22,9 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
     return SizedBox(
         width: 300,
         child: TextFormField(
-            controller: formController == null ? null : formController,
-            validator: validation == null ? null : validation,
+            obscureText: headerName.contains("Password") ? true : false,
+            controller: formController,
+            validator: validation,
             decoration: customDecoration(headerName, name, nameIcon)));
   }
 
