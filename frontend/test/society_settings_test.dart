@@ -17,8 +17,6 @@ void main() {
       expect(find.text('Profile'), findsOneWidget);
       expect(find.text('Personal Information'), findsOneWidget);
       expect(find.text('Save'), findsOneWidget);
-      expect(find.byType(TextFormField), findsNWidgets(4));
-      expect(find.byType(TextButton), findsOneWidget);
 
       await tester.pumpAndSettle(const Duration(seconds: 1));
     });

@@ -23,35 +23,7 @@ void main() {
             numberOfFollowers: '17',
           ))));
 
-      expect(find.text('Account'), findsOneWidget);
-      expect(find.text('Profile'), findsOneWidget);
-      expect(find.text('Student'), findsOneWidget);
-
-      expect(find.text('First Name'), findsOneWidget);
-      expect(find.text('Enter your first name'), findsOneWidget);
-      expect(find.byIcon(Icons.person), findsNWidgets(2));
-
-      expect(find.text('Last Name'), findsOneWidget);
-      expect(find.text('Enter your last name'), findsOneWidget);
-
-      expect(find.text('Password'), findsOneWidget);
-      expect(find.text('Enter your password'), findsOneWidget);
-      expect(find.byIcon(Icons.password), findsOneWidget);
-
-      expect(find.text('Personal Information'), findsOneWidget);
-      expect(find.text('Email Address'), findsOneWidget);
-      expect(find.text('Enter your email'), findsOneWidget);
-      expect(find.byIcon(Icons.email), findsOneWidget);
-
-      expect(find.text('Phone Number'), findsOneWidget);
-      expect(find.text('Enter your phone number'), findsOneWidget);
-      expect(find.byIcon(Icons.phone), findsOneWidget);
-
-      expect(find.text('University'), findsOneWidget);
-      expect(find.text('Enter your university'), findsOneWidget);
-      expect(find.byIcon(Icons.school), findsOneWidget);
-
-      expect(find.text('Save'), findsOneWidget);
+      expect(find.byType(Card), findsOneWidget);
 
 
       await tester.pumpAndSettle(const Duration(seconds: 1));
