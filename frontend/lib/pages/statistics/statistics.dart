@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:university_ticketing_system/pages/statistics/StatisticsPage.dart';
 import 'package:university_ticketing_system/widgets/custom_text.dart';
 
 import '../../constants/controllers.dart';
@@ -25,7 +25,8 @@ class StatisticsPage extends StatelessWidget {
                   ),
                 )
               ],
-            ))
+            )),
+        const Expanded(child: Statistics())
       ],
     );
   }
