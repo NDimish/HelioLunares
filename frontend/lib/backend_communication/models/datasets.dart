@@ -7,7 +7,7 @@ enum Databases {
   people,
   society,
   tickets,
-  society_role
+  societyrole
 }
 
 // userrsadd is temp unrtil auth working

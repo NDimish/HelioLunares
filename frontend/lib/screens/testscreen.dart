@@ -36,13 +36,13 @@ class _testscreen extends State<testscreen> {
           ChangeNotifierProvider(
               create: (context) => data.dataCollector<data.Event>(
                   filter: widget.filter, order: widget.Orderby)),
-          ChangeNotifierProvider(
-              create: (context) => data.dataCollector<data.User>(
-                  filter: widget.filter, order: widget.Orderby)),
+          // ChangeNotifierProvider(
+          //     create: (context) => data.dataCollector<data.User>(
+          //         filter: widget.filter, order: widget.Orderby)),
         ],
         builder: (context, child) {
           final DataP2 = Provider.of<data.dataCollector<data.Event>>(context);
-          final DataP = Provider.of<data.dataCollector<data.User>>(context);
+          // final DataP = Provider.of<data.dataCollector<data.User>>(context);
           return Scaffold(
             appBar: AppBar(
               title: Text('Todo App'),
@@ -55,15 +55,15 @@ class _testscreen extends State<testscreen> {
                     trailing: IconButton(
                         icon: Icon(Icons.delete, color: Colors.red),
                         onPressed: () {
-                          DataP.deleteFromCollection(DataP.collection[index]);
+                          // DataP.deleteFromCollection(DataP.collection[index]);
                         }),
                     title: Text(
-                      DataP.collection[index].email,
+                      DataP2.collection[index].title,
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     subtitle: Text(
-                      DataP.collection[index].id.toString(),
+                      DataP2.collection[index].description,
                       style: TextStyle(fontSize: 15, color: Colors.black),
                     ));
               },

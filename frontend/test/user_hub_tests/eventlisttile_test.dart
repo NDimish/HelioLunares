@@ -3,8 +3,8 @@ import 'package:university_ticketing_system/user_hub/widgets/EventsList/EventLis
 import 'package:flutter/material.dart';
 void main(){
   var testname = "EventName";
-  var testprice = 0;
-  var testdate = DateTime.now();
+  var testprice = 0.0;
+  var testdate = "12-12-2023";
   var testlocation = "New York";
   var testorg = "Nameless";
   testWidgets(

@@ -27,7 +27,6 @@ class EventListView extends StatelessWidget {
                   filter: filter, order: Orderby))],
       builder: (context, child){
         final eventData = Provider.of<data.dataCollector<data.Event>>(context);
-        print(eventData.collection);
 
         var size = eventData.collection.length;
         print(size);

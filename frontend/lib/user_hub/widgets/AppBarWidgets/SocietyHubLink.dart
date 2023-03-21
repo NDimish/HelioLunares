@@ -28,8 +28,15 @@ class SocietyHubLink extends StatelessWidget {
     return MultiProvider(
       providers: [ChangeNotifierProvider(
               create: (context) => data.dataCollector<data.User>(
-                  filter: filter, order: Orderby))],
+                  filter: filter, order: Orderby)),
+                  ChangeNotifierProvider(
+              create: (context) => data.dataCollector<data.SocietyRole>(
+                  filter: filter, order: Orderby))
+      ],
       builder: (context, child){
+        final roleData = Provider.of<data.dataCollector<data.SocietyRole>>(context);
+        print("Fetching role data");
+        print(roleData.collection);
         var isVisible = true;
         return Visibility(child:IconButton(
             icon: Icon(Icons.swap_horiz_outlined),
