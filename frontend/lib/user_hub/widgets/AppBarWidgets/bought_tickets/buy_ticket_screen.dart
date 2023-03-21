@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/bought_tickets/user_bought_ticket_screen.dart';
 import '../../../../backend_communication/authenticate.dart';
 import '../../../../backend_communication/dataCollector.dart' as data;
-import '../../../../backend_communication/models/tickets.dart' as data;
+import 'package:university_ticketing_system/backend_communication/models/Ticket.dart' as tic;
 import 'package:university_ticketing_system/backend_communication/models/all.dart';
 
 class BuyTicketScreen extends StatelessWidget {
@@ -27,12 +27,12 @@ class BuyTicketScreen extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => data.dataCollector<data.Tickets>(
+          create: (context) => data.dataCollector<tic.Tickets>(
             // filter: widget.id, order: widget.Orderby
             )),
       ],
       builder: (context, child) {
-        final DataP = Provider.of<data.dataCollector<data.Tickets>>(context);
+        final DataP = Provider.of<data.dataCollector<tic.Tickets>>(context);
         return Scaffold(
           backgroundColor: const Color(0xFFE0BBE4),
           body: Column(

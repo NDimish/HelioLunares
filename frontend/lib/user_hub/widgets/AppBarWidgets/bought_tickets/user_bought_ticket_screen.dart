@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/bought_tickets/buy_ticket_screen.dart';
 import '../../../../backend_communication/authenticate.dart';
 import '../../../../backend_communication/dataCollector.dart' as data;
-import '../../../../backend_communication/models/tickets.dart' as data;
+import 'package:university_ticketing_system/backend_communication/models/Ticket.dart' as tic;
 import 'package:university_ticketing_system/backend_communication/models/all.dart';
 
 class UserBoughtTicketScreen extends StatefulWidget {
@@ -35,7 +35,7 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => data.dataCollector<data.Tickets>(
+          create: (context) => data.dataCollector<tic.Tickets>(
             filter: widget.filter, order: widget.Orderby)),
       ],
       builder: (context, child) {
@@ -203,7 +203,7 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
   // }
 
   Widget _buildPanel(BuildContext context) {
-    final DataP = Provider.of<data.dataCollector<data.Tickets>>(context);
+    final DataP = Provider.of<data.dataCollector<tic.Tickets>>(context);
     return Row(children: <Widget>[
       Container(
         color: const Color(0xFF8C7099),
@@ -368,7 +368,8 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
   }
 
   Widget _buildCollapsible(BuildContext context) {
-    final DataP = Provider.of<data.dataCollector<data.Tickets>>(context); 
+    final DataP = Provider.of<data.dataCollector<tic.Tickets>>(context); 
+    print(DataP.collection[0].event.date);
     return ExpansionPanelList(
       elevation: 0,
       expansionCallback: (int index, bool isExpanded) {

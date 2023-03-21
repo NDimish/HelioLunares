@@ -6,6 +6,7 @@ import 'package:university_ticketing_system/screens/landing_screen.dart';
 import 'package:get/get.dart';
 import 'package:university_ticketing_system/controllers/navigation_controller.dart';
 import 'package:university_ticketing_system/screens/testscreen.dart';
+import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/bought_tickets/user_bought_ticket_screen.dart';
 import 'package:university_ticketing_system/user_hub/widgets/UserHubPage_events.dart';
 import 'package:university_ticketing_system/user_hub/widgets/UserHubPage_societies.dart';
 import 'package:university_ticketing_system/widgets/layout.dart';
@@ -48,10 +49,11 @@ class UniversityTicketingApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       initialRoute: '/',
       routes: {
-        '/': (context) => const StartupScreen(),
+        '/': (context) => const testscreen(),
         '/auth': (context) => const LandingScreen(),
         '/userhub': (context) => UserHubPage_events(),
         '/societyhub': (context) => SiteLayout(), // SocietyHub transition page
+        '/yummy':(context) => UserBoughtTicketScreen()
       },
     );
   }
