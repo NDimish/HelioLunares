@@ -49,6 +49,7 @@ class EventGridTile extends GridTile {
                               eventDuration: '1 hour',
                               eventLocation: 'Bush House',
                               eventPrice: '£10',
+                              eventId:7,
                                   
                                 )));
                   },
