@@ -6,6 +6,6 @@ class SideAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(child: SideAppBarList(context));
+    return Drawer(child: SideAppBarList());
   }
 }
