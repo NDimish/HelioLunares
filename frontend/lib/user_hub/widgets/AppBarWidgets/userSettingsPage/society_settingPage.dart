@@ -48,10 +48,7 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             customTextFormField(
-                'First Name', 'Enter your first name', Icons.person),
-                const SizedBox(width: 50,),
-            customTextFormField(
-                'Last Name', 'Enter your last name', Icons.person),
+                'Society Name', 'Enter your society name', Icons.person),
                 const SizedBox(width: 50,),
             customTextFormField(
                 'Password', 'Enter your password', Icons.password)
