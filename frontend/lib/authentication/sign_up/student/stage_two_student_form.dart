@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:university_ticketing_system/backend_communication/authenticate.dart';
+import 'package:university_ticketing_system/authentication/sign_up/student/student_sign_up.dart';
 import 'package:university_ticketing_system/submit_button.dart';
 import 'package:university_ticketing_system/authentication/log_in/log_in_screen.dart';
 import 'package:university_ticketing_system/authentication/models/student.dart';
@@ -322,17 +326,45 @@ class _StageTwoStudentSignUpState extends State<StageTwoStudentSignUp> {
                   if (_formKey.currentState!.validate()) {
                     setStudentInformation();
 
-                    var response = await createStudent();
-                    print("\n SOCIET SENT DATA \n");
+                    print("\nEmail: ${student.user.email}");
+                    print("Passw: ${student.user.password}");
+                    print("UniID: ${student.universityAtId}");
+                    print("FName: ${student.firstName}");
+                    print("LName: ${student.lastName}");
+                    print("FieOS: ${student.fieldOfStudy}");
+
+                    http.Response response = await createPerson(
+                        student.user.email,
+                        student.user.password,
+                        student.universityAtId,
+                        student.firstName,
+                        student.lastName,
+                        student.fieldOfStudy);
+
+                    print("Status Code: ${response.statusCode}");
 
                     if (response.statusCode == 201) {
-                      print("Society Account Created");
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          informationSnackbar(
+                              "Society Account Created! Redirecting to login"));
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LogInScreen()),
+                      );
                     } else {
-                      // Navigator.pushReplacement(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //       builder: (context) => const SocietySignUp()),
-                      // );
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          informationSnackbar(
+                              "Your credentials were not accepted. Try again."));
+
+                      Timer(const Duration(seconds: 2), () {
+                        //print("Yeah, this line is printed after 3 seconds");
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const StudentSignUp()),
+                        );
+                      });
                     }
 
                     print(response.body);
@@ -347,6 +379,7 @@ class _StageTwoStudentSignUpState extends State<StageTwoStudentSignUp> {
                   print("first name: ${student.firstName}");
                   print("last name: ${student.lastName}");
                   print("university at: ${student.university}");
+                  print("university at: ${student.universityAtId}");
                   print("field_of_study: ${student.fieldOfStudy}");
                   print("\n\n");
                 },
@@ -380,20 +413,14 @@ class _StageTwoStudentSignUpState extends State<StageTwoStudentSignUp> {
     student.setUniversityId(uniMap[uniValue]!);
   }
 
-  Future<http.Response> createStudent() {
-    return http.post(
-      Uri.parse('http://localhost:8000/users/'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, dynamic>{
-        'user': {'email': widget.user.email, 'password': widget.user.password},
-        'university_studying_at': student.universityAtId,
-        'first_name': student.firstName,
-        'last_name': student.lastName,
-        'field_of_study': student.fieldOfStudy
-        //'categories': selectedIds
-      }),
+  SnackBar informationSnackbar(String text) {
+    return SnackBar(
+      content: Text(
+        text,
+        style: const TextStyle(fontFamily: "Arvo", color: Colors.white),
+      ),
+      duration: const Duration(milliseconds: 2),
+      backgroundColor: Colors.black,
     );
   }
 }

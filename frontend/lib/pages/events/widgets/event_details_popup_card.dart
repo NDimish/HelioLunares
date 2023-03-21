@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:university_ticketing_system/constants/controllers.dart';
 import 'package:university_ticketing_system/constants/style.dart';
-import 'package:university_ticketing_system/backend_communication/models/society_event.dart';
+import 'package:university_ticketing_system/backend_communication/models/SocietyEvent.dart';
 import 'package:university_ticketing_system/routing/routes.dart';
 import '../../../widgets/custom_text.dart';
 

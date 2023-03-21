@@ -25,8 +25,14 @@ Future<http.Response> auth(String username, String password) async {
   return response;
 }
 
-Future<http.Response> createSociety(String username, String password, int uniId,
-    String socName, String creationDate, String aboutUs) async {
+Future<http.Response> createSociety(
+    String email,
+    String password,
+    int uniId,
+    String socName,
+    String creationDate,
+    String aboutUs,
+    List<int> categories) async {
   print("beginning create society");
   final response = await http.post(
     Uri.parse('${DATASOURCE}society/'),
@@ -34,11 +40,12 @@ Future<http.Response> createSociety(String username, String password, int uniId,
       'Content-Type': 'application/json; charset=UTF-8',
     },
     body: jsonEncode({
-      'user': {'email': username, 'password': password},
+      'user': {'email': email, 'password': password},
       'university_society_is_at': uniId,
       'name': socName,
       'creation_date': creationDate,
       'about_us': aboutUs,
+      'categories': categories
     }),
   );
 
