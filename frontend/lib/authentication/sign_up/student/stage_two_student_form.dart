@@ -14,6 +14,7 @@ import 'package:university_ticketing_system/home/topbar.dart';
 import 'package:university_ticketing_system/responsive.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:university_ticketing_system/globals.dart' as globals;
 
 /// DESIGNED BY ISRAFEEL ASHRAF - K21008936
 ///
@@ -45,7 +46,7 @@ class _StageTwoStudentSignUpState extends State<StageTwoStudentSignUp> {
   late Future<List<dynamic>> returnedUniversitiesFromEndPoint;
   Future<List<dynamic>> getUniversities() async {
     final response =
-        await http.get(Uri.parse("http://localhost:8000/university/"));
+        await http.get(Uri.parse("${globals.DATASOURCE}university/"));
     final List<dynamic> data = json.decode(response.body);
     return data;
   }
@@ -347,11 +348,14 @@ class _StageTwoStudentSignUpState extends State<StageTwoStudentSignUp> {
                       ScaffoldMessenger.of(context).showSnackBar(
                           informationSnackbar(
                               "Society Account Created! Redirecting to login"));
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LogInScreen()),
-                      );
+                      Timer(const Duration(seconds: 2), () {
+                        //print("Yeah, this line is printed after 3 seconds");
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LogInScreen()),
+                        );
+                      });
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                           informationSnackbar(
@@ -419,7 +423,7 @@ class _StageTwoStudentSignUpState extends State<StageTwoStudentSignUp> {
         text,
         style: const TextStyle(fontFamily: "Arvo", color: Colors.white),
       ),
-      duration: const Duration(milliseconds: 2),
+      duration: const Duration(seconds: 2),
       backgroundColor: Colors.black,
     );
   }
