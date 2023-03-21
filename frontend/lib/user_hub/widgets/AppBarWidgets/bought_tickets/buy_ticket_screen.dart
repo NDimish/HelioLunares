@@ -49,126 +49,133 @@ class BuyTicketScreen extends StatelessWidget {
                           border: Border.all(width: 4, color: Colors.black),
                           borderRadius: BorderRadius.circular(5),
                         ),
-                        child: Column(
-                          children: [
-                            Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    width: 10,
-                                    color: const Color(0xFFFEC8D8),
-                                  ),
-                                ),
-                                child: Row(
-                                  children:  [
-                                    Expanded(
-                                      child: Text('Title: ' + DataP.collection[index].event.title,
-                                      textAlign: TextAlign.left),
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: DataP.collection.length,
+                          itemBuilder: (BuildContext context, int index){
+                            return Column(
+                              children: [
+                                Container(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        width: 10,
+                                        color: const Color(0xFFFEC8D8),
+                                      ),
                                     ),
-                                  ],
-                                )),
-                            Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    width: 10,
-                                    color: const Color(0xFFFEC8D8),
-                                  ),
-                                ),
-                                child: Row(
-                                  children:  [
-                                    Expanded(
-                                      child:
-                                          Text('Date: ' + DataP.collection[index].date, 
+                                    child: Row(
+                                      children:  [
+                                        Expanded(
+                                          child: Text('Title: ' + DataP.collection[index].event.title,
                                           textAlign: TextAlign.left),
+                                        ),
+                                      ],
+                                    )),
+                                Container(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        width: 10,
+                                        color: const Color(0xFFFEC8D8),
+                                      ),
                                     ),
-                                  ],
-                                )),
-                            Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    width: 10,
-                                    color: const Color(0xFFFEC8D8),
-                                  ),
-                                ),
-                                child: Row(
-                                  children:  [
-                                    Expanded(
-                                      child: Text('Venue: ' + DataP.collection[index].event.venue,
-                                          textAlign: TextAlign.left),
+                                    child: Row(
+                                      children:  [
+                                        Expanded(
+                                          child:
+                                              Text('Date: ' + DataP.collection[index].date, 
+                                              textAlign: TextAlign.left),
+                                        ),
+                                      ],
+                                    )),
+                                Container(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        width: 10,
+                                        color: const Color(0xFFFEC8D8),
+                                      ),
                                     ),
-                                  ],
-                                )),
-                            // Container(
-                            //     decoration: BoxDecoration(
-                            //       border: Border.all(
-                            //         width: 10,
-                            //         color: const Color(0xFFFEC8D8),
-                            //       ),
-                            //     ),
-                            //     child: Row(
-                            //       children:  [
-                            //         Expanded(
-                            //           child:
-                            //               Text('Seat: ' + DataP.collection[index].seat, 
-                            //               textAlign: TextAlign.left),
-                            //         ),
-                            //       ],
-                            //     )),
-                            // Container(
-                            //     decoration: BoxDecoration(
-                            //       border: Border.all(
-                            //         width: 10,
-                            //         color: const Color(0xFFFEC8D8),
-                            //       ),
-                            //     ),
-                            //     child: Row(
-                            //       children: const [
-                            //         Expanded(
-                            //           child:
-                            //               Text('Gate: ', textAlign: TextAlign.left),
-                            //         ),
-                            //       ],
-                            //     )),
-                            Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    width: 10,
-                                    color: const Color(0xFFFEC8D8),
-                                  ),
-                                ),
-                                child: Row(
-                                  children:  [
-                                    Expanded(
-                                      child: Text('Description: ' + DataP.collection[index].event.description,
-                                          textAlign: TextAlign.left),
+                                    child: Row(
+                                      children:  [
+                                        Expanded(
+                                          child: Text('Venue: ' + DataP.collection[index].event.venue,
+                                              textAlign: TextAlign.left),
+                                        ),
+                                      ],
+                                    )),
+                                // Container(
+                                //     decoration: BoxDecoration(
+                                //       border: Border.all(
+                                //         width: 10,
+                                //         color: const Color(0xFFFEC8D8),
+                                //       ),
+                                //     ),
+                                //     child: Row(
+                                //       children:  [
+                                //         Expanded(
+                                //           child:
+                                //               Text('Seat: ' + DataP.collection[index].seat, 
+                                //               textAlign: TextAlign.left),
+                                //         ),
+                                //       ],
+                                //     )),
+                                // Container(
+                                //     decoration: BoxDecoration(
+                                //       border: Border.all(
+                                //         width: 10,
+                                //         color: const Color(0xFFFEC8D8),
+                                //       ),
+                                //     ),
+                                //     child: Row(
+                                //       children: const [
+                                //         Expanded(
+                                //           child:
+                                //               Text('Gate: ', textAlign: TextAlign.left),
+                                //         ),
+                                //       ],
+                                //     )),
+                                
+                                Container(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        width: 10,
+                                        color: const Color(0xFFFEC8D8),
+                                      ),
                                     ),
-                                  ],
-                                )),
-                            Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    width: 10,
-                                    color: const Color(0xFFFEC8D8),
-                                  ),
-                                ),
-                                child: Row(
-                                  children:  [
-                                    Expanded(
-                                      child: Text('Price: ' + DataP.collection[index].price,
-                                          textAlign: TextAlign.left),
+                                    child: Row(
+                                      children:  [
+                                        Expanded(
+                                          child: Text('Description: ' + DataP.collection[index].event.description,
+                                              textAlign: TextAlign.left),
+                                        ),
+                                      ],
+                                    )),
+                                Container(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        width: 10,
+                                        color: const Color(0xFFFEC8D8),
+                                      ),
                                     ),
-                                  ],
-                                )), 
+                                    child: Row(
+                                      children:  [
+                                        Expanded(
+                                          child: Text('Price: ' + DataP.collection[index].price.toString(),
+                                              textAlign: TextAlign.left),
+                                        ),
+                                      ],
+                                    )), 
   
-                            ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pop(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              UserBoughtTicketScreen()));
-                                },
-                                child: const Text('back'))
-                          ],
+                                ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.pop(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const UserBoughtTicketScreen()));
+                                    },
+                                    child: const Text('back'))
+                              ],
+                            );
+                          }
                         ),
                       ))),
 

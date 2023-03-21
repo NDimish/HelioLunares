@@ -12,7 +12,7 @@ class UserBoughtTicketScreen extends StatefulWidget {
   // final int id;
   
 
-  UserBoughtTicketScreen(
+  const UserBoughtTicketScreen(
       {Key? key,
       this.Orderby = data.OrderType.CHRONOLOGICAL,
       this.filter = const{},
@@ -394,9 +394,9 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
               shrinkWrap: true,
               itemCount: DataP.collection.length,
               itemBuilder: (BuildContext context, int index) {
-              children: [
+              // children: [
 
-               _OnHover(
+              return _OnHover(
                 child: OutlinedButton(
                   style: OutlinedButton.styleFrom(
                       backgroundColor: const Color(0xFFE8DAFA),
@@ -437,10 +437,10 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                     ),
                   ),
                 ),
-              ),
+              );
               
               
-            ];
+            // ];
               },
           ),
           isExpanded: item.isExpanded,
