@@ -6,19 +6,19 @@ import 'package:university_ticketing_system/globals.dart' as global;
 
 import '../helpers/responsiveness.dart';
 
-class SocietySettingsPage extends StatefulWidget {
+class UserSettingsPageTwo extends StatefulWidget {
   //final int userId;
 
-  const SocietySettingsPage({Key? key, }): super(key:key);
+  const UserSettingsPageTwo({Key? key, }): super(key:key);
   //required this.userId
 
 
 
   @override
-  State<SocietySettingsPage> createState() => _SocietySettingsPageState();
+  State<UserSettingsPageTwo> createState() => _UserSettingsPageTwoState();
 }
 
-class _SocietySettingsPageState extends State<SocietySettingsPage> {
+class _UserSettingsPageTwoState extends State<UserSettingsPageTwo> {
   Widget customTextFormField(
       String headerName,
       String name,
