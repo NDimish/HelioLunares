@@ -1,69 +1,65 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:university_ticketing_system/screens/landing_screen.dart';
-import 'package:university_ticketing_system/screens/startup_screen/widgets/startup_navbar.dart';
+import 'package:university_ticketing_system/home/topbar.dart';
 
 void main() {
   final TestWidgetsFlutterBinding binding =
       TestWidgetsFlutterBinding.ensureInitialized();
-  group("Josh Startup Navbar tests", () {
-    int testIndex = 0;
-
-    mockSubpageCallback(i) {
-      testIndex = i;
-    }
-
-    testWidgets("Navbar renders correct named buttons", (tester) async {
-      await tester.pumpWidget(MaterialApp(
+  group("Josh & Israfeel Responsive Navbar tests", () {
+    testWidgets("Navbar renders correct content on large screens",
+        (tester) async {
+      binding.window.physicalSizeTestValue = const Size(1920, 1080);
+      binding.window.devicePixelRatioTestValue = 1.0;
+      addTearDown(binding.window.clearPhysicalSizeTestValue);
+      await tester.pumpWidget(const MaterialApp(
           home: Scaffold(
-              body: StartupNavbar(
-                  callback: (i) => mockSubpageCallback(i),
-                  selectedIndex: testIndex))));
+              body: PreferredSize(
+        preferredSize: Size(1920, 1000),
+        child: TopBarContents(),
+      ))));
 
-      expect(find.byType(StartupNavbar), findsOneWidget);
-      expect(find.text("About"), findsOneWidget);
-      expect(find.text("How to use"), findsOneWidget);
-      expect(find.text("Contact"), findsOneWidget);
-      expect(find.text("Log in"), findsOneWidget);
+      final discoverFinder = find.byType(DiscoverPopupMenu);
+
+      expect(find.text("University Ticketing System").hitTestable(),
+          findsOneWidget);
+      //Discover button has additional navigators, which are invisible until clicked on.
+      expect(discoverFinder, findsOneWidget);
+      expect(find.text("About us").hitTestable(), findsNothing);
+      expect(find.text("About the app").hitTestable(), findsNothing);
+      expect(find.text("Contact Us").hitTestable(), findsOneWidget);
+      expect(find.text("Sign Up").hitTestable(), findsOneWidget);
+      expect(find.text("Log In").hitTestable(), findsOneWidget);
 
       await tester.pumpAndSettle(const Duration(seconds: 1));
     });
 
-    testWidgets("Navbar buttons correctly change index", (tester) async {
-      await tester.pumpWidget(MaterialApp(
+    testWidgets("Navbar renders additional navigators on discover click",
+        (tester) async {
+      binding.window.physicalSizeTestValue = const Size(1920, 1080);
+      binding.window.devicePixelRatioTestValue = 1.0;
+      addTearDown(binding.window.clearPhysicalSizeTestValue);
+      await tester.pumpWidget(const MaterialApp(
           home: Scaffold(
-              body: StartupNavbar(
-                  callback: (i) => mockSubpageCallback(i),
-                  selectedIndex: testIndex))));
+              body: PreferredSize(
+        preferredSize: Size(1920, 1000),
+        child: TopBarContents(),
+      ))));
 
-      expect(find.byType(StartupNavbar), findsOneWidget);
-      await tester.tap(find.byKey(const Key("About")));
+      final discoverFinder = find.byType(DiscoverPopupMenu);
+
+      expect(find.text("University Ticketing System").hitTestable(),
+          findsOneWidget);
+      //Discover button has additional navigators, which are invisible until clicked on.
+      expect(discoverFinder, findsOneWidget);
+      expect(find.text("About us"), findsNothing);
+      expect(find.text("About the app"), findsNothing);
+
+      await tester.tap(discoverFinder);
       await tester.pumpAndSettle();
-      expect(testIndex, equals(1));
-
-      await tester.tap(find.byKey(const Key("How to use")));
-      await tester.pumpAndSettle();
-      expect(testIndex, equals(2));
-
-      await tester.tap(find.byKey(const Key("Contact")));
-      await tester.pumpAndSettle();
-      expect(testIndex, equals(3));
-
-      await tester.tap(find.byKey(const Key("navbarTitle")));
-      await tester.pumpAndSettle();
-      expect(testIndex, equals(0));
-
-      await tester.pumpAndSettle(const Duration(seconds: 1));
-    });
-
-    testWidgets("Navbar title does not appear on small screen", (tester) async {
-      await tester.pumpWidget(MaterialApp(
-          home: Scaffold(
-              body: StartupNavbar(
-                  callback: (i) => mockSubpageCallback(i),
-                  selectedIndex: testIndex))));
-
-      expect(find.text("University Ticketing System"), findsNothing);
+      expect(discoverFinder, findsOneWidget);
+      expect(find.text("About us").hitTestable(), findsOneWidget);
+      expect(find.text("About the app").hitTestable(), findsOneWidget);
 
       await tester.pumpAndSettle(const Duration(seconds: 1));
     });
