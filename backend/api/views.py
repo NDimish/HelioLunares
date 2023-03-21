@@ -538,7 +538,7 @@ class EventApiView(generics.ListAPIView):
 class EventApiInfoView(APIView):
     def get(self, request, pk):
         event = Event.objects.filter(id=pk)
-        serializer = EventModelSerializer(instance=event, many=True)
+        serializer = EventModelSerializer(instance=event)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def put(self, request, pk):
@@ -571,7 +571,7 @@ class UniversityApiView(generics.ListAPIView):
 class UniversityInfoApiView(APIView):
     def get(self, request, pk):
         university = University.objects.filter(id=pk)
-        serializer = UniversitySerializer(instance=university, many=True)
+        serializer = UniversitySerializer(instance=university)
         return Response(serializer.data)
 
     def put(self, request, pk):
