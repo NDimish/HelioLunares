@@ -1,21 +1,12 @@
 export '../models/datasets.dart';
 export 'Event.dart';
 export 'People.dart';
-export '../models/society.dart';
-export 'user.dart';
+export 'Society.dart';
+export 'User.dart';
 export 'societyRole.dart';
+export 'EventCategoryType.dart';
+export 'SocietyCategoryType.dart';
+export 'SocietyCategories.dart';
+export 'EventCategories.dart';
 
 final DATASOURCE = 'http://localhost:8000/';
-
-class Localdata {
-  String Token = "";
-
-  String Email = '';
-
-  Localdata() {}
-
-  void setData(String token, String email) {
-    Token = token;
-    Email = email;
-  }
-}

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:university_ticketing_system/pages/events/widgets/event_form.dart';
 
-import '../../backend_communication/models/society_event.dart';
+import '../../backend_communication/models/SocietyEvent.dart';
 
 class EditSocietyEventsPage extends StatelessWidget {
   SocietyEvent obj = Get.find<SocietyEvent>();
