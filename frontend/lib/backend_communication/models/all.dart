@@ -9,4 +9,5 @@ export 'SocietyCategoryType.dart';
 export 'SocietyCategories.dart';
 export 'EventCategories.dart';
 
-final DATASOURCE = 'http://heliolunares.pythonanywhere.com//';
+// DATASOURCE = 'http://heliolunares.pythonanywhere.com//';
+const DATASOURCE = 'http://127.0.0.1:8000/';
