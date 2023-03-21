@@ -57,40 +57,40 @@ class _testscreen extends State<testscreen> {
 
                 // //THIS IS CODE TO CREATE A PERSON
 
-            http.Response response_two = await createPerson(
-                "thisisanewemail@gmail.com",
-                "This.is.pass1091",
-                1,
-                "Water",
-                "Rock",
-                "Tester");
-            print(response.statusCode);
+                // http.Response response_two = await createPerson(
+                //     "thisisanewemail@gmail.com",
+                //     "This.is.pass1091",
+                //     1,
+                //     "Water",
+                //     "Rock",
+                //     "Tester");
+                // print(response.statusCode);
 
-            //THIS IS CODE TO AUTHENTICATE
-            //LOgs in as society account
-            http.Response new_response =
-                await auth("thisisanewemail@gmail.com", "This.is.pass1091");
+                //THIS IS CODE TO AUTHENTICATE
+                //LOgs in as society account
+                // http.Response new_response =
+                //     await auth("thisisanewemail@gmail.com", "This.is.pass1091");
 
-            //make person join society
-            print(json.decode(response.body)['user']['id']);
-            http.Response join_response =
-                await joinSociety(json.decode(response.body)['user']['id']);
+                //make person join society
+                // print(json.decode(response.body)['user']['id']);
+                // http.Response join_response =
+                //     await joinSociety(json.decode(response.body)['user']['id']);
 
-            //login as society account
-            http.Response person_response =
-                await auth("nathgsg@gmail.com", "This.is.pass1091");
+                //login as society account
+                // http.Response person_response =
+                //     await auth("nathgsg@gmail.com", "This.is.pass1091");
 
-            //promote person user in society
-            http.Response promote_role = await updateSociety(
-                json.decode(response_two.body)['user']['id'], 2);
+                //promote person user in society
+                // http.Response promote_role = await updateSociety(
+                //     json.decode(response_two.body)['user']['id'], 2);
 
-            //login as person
-            http.Response log_in_as_perosn =
-                await auth("thisisanewemail@gmail.com", "This.is.pass1091");
+                //login as person
+                http.Response log_in_as_perosn =
+                    await auth("thisisanewemail@gmail.com", "This.is.pass1091");
 
-            Navigator.pushNamed(context, '/');
-          }),
-    );
+                Navigator.pushNamed(context, '/societyhub');
+              }),
+        ]));
   }
 }
 
@@ -148,7 +148,7 @@ class _TestScreenAdditionState extends State<TestScreenAddition> {
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       subtitle: Text(
-                        DataP.collection[index].role.toString(),
+                        DataP.collection[index].description,
                         style: TextStyle(fontSize: 15, color: Colors.black),
                       ));
                 },
