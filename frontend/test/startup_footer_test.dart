@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:university_ticketing_system/screens/startup_screen/widgets/startup_footer.dart';
 
+//These tests were designed for the footer in the old startup screen, which we decided
+//to discard in the responsive version.
 void main() {
   final TestWidgetsFlutterBinding binding =
       TestWidgetsFlutterBinding.ensureInitialized();
