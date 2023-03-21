@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../backend_communication/dataCollector.dart';
+
+
 
 class SocietySettingsPage extends StatefulWidget {
-  const SocietySettingsPage({super.key});
+  final int socId;
+
+  const SocietySettingsPage(
+    {Key? key,
+    required this.socId}
+  ): super(key: key);
+
+  
 
   @override
   State<SocietySettingsPage> createState() => _SocietySettingsPageState();

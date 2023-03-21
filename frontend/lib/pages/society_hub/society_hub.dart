@@ -11,6 +11,7 @@ import 'package:university_ticketing_system/widgets/custom_text.dart';
 
 class SocietyHubPage extends StatelessWidget {
   const SocietyHubPage({super.key});
+  
 
   @override
   Widget build(BuildContext context) {
