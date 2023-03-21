@@ -65,6 +65,7 @@ class _HowToUseCardState extends State<HowToUseCard> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 IconButton(
+                    key: const Key("htuLeft"),
                     onPressed: _stepIndex == 0
                         ? null
                         : () => setState(() {
@@ -74,6 +75,7 @@ class _HowToUseCardState extends State<HowToUseCard> {
                       FontAwesomeIcons.arrowLeft,
                     )),
                 IconButton(
+                    key: const Key("htuRight"),
                     onPressed: _stepIndex == widget.steps.length - 1
                         ? null
                         : () => setState(() {
