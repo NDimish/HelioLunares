@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:university_ticketing_system/user_hub/widgets/SearchBarWidgets/CustomSearchBar.dart';
 import 'package:university_ticketing_system/user_hub/widgets/UserHubPage_societies.dart';
 import 'dart:io';
 void main(){
@@ -18,6 +19,21 @@ void main(){
     await tester.pumpAndSettle();
 
     final finder = find.byType(UserHubPage_societies);
+    expect(finder, findsOneWidget);
+  });
+
+  testWidgets("UserHubPage_societies searchbar test", 
+  (tester)async{
+    await tester.pumpWidget(
+      MaterialApp(
+        home: UserHubPage_societies()
+      )
+    );
+    
+
+    final finder = find.byType(CustomSearchBar);
+    await tester.enterText(finder, "test");
+    await tester.pumpAndSettle();
     expect(finder, findsOneWidget);
   });
 }
