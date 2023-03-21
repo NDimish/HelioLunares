@@ -5,6 +5,7 @@ import 'package:university_ticketing_system/widgets/custom_text.dart';
 
 import '../../constants/controllers.dart';
 import '../../helpers/responsiveness.dart';
+import 'package:university_ticketing_system/globals.dart' as globals;
 
 class StatisticsPage extends StatelessWidget {
   const StatisticsPage({Key? key}) : super(key: key);
@@ -26,7 +27,10 @@ class StatisticsPage extends StatelessWidget {
                 )
               ],
             )),
-        const Expanded(child: Statistics())
+        Expanded(
+            child: (globals.localdataobj.getToken() != "")
+                ? const Statistics()
+                : const Text("Not Authenticated")),
       ],
     );
   }

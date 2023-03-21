@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:university_ticketing_system/backend_communication/dataCollector.dart'
+    as dataCol;
 
 class MembersTable extends StatefulWidget {
   final int role;
@@ -68,7 +71,7 @@ class _MembersTableState extends State<MembersTable> {
     return const [];
   }
 
-  List<TableRow> _setData() {
+  List<TableRow> _setData(List<dataCol.SocietyRole> roleCol) {
     List<TableRow> dataArr = [
       TableRow(
           decoration: const BoxDecoration(
@@ -110,15 +113,6 @@ class _MembersTableState extends State<MembersTable> {
               ),
               height: 25,
               alignment: Alignment.center,
-              child: const Text("Join Date"),
-            ),
-            Container(
-              decoration: const BoxDecoration(
-                border: Border(
-                    right: BorderSide(width: 1, color: Color(0xFF703c6c))),
-              ),
-              height: 25,
-              alignment: Alignment.center,
               child: const Text("Student"),
             ),
             Container(
@@ -130,27 +124,14 @@ class _MembersTableState extends State<MembersTable> {
     ];
 
     //Simple way to add data to the tables
-    dataArr.add(_createDataRow({
-      "first_name": 'John',
-      "last_name": 'Doe',
-      "email": 'johndoe@example.org',
-      "join_date": '12-01-2022',
-      "student": 'true',
-    }));
-    dataArr.add(_createDataRow({
-      "first_name": 'John',
-      "last_name": 'Doe',
-      "email": 'johndoe@example.org',
-      "join_date": '12-01-2022',
-      "student": 'true',
-    }));
-    dataArr.add(_createDataRow({
-      "first_name": 'John',
-      "last_name": 'Doe',
-      "email": 'johndoe@example.org',
-      "join_date": '12-01-2022',
-      "student": 'true',
-    }));
+    for (var i = 0; i < roleCol.length; i++) {
+      dataArr.add(_createDataRow({
+        "first_name": roleCol[i].people.first_name,
+        "last_name": roleCol[i].people.last_name,
+        "email": roleCol[i].people.user.email,
+        "student": (roleCol[i].people.user.userType == 2) ? 'True' : 'False',
+      }));
+    }
 
     return dataArr;
   }
@@ -175,11 +156,6 @@ class _MembersTableState extends State<MembersTable> {
       Container(
         height: 25,
         alignment: Alignment.center,
-        child: Text(dataset["join_date"]),
-      ),
-      Container(
-        height: 25,
-        alignment: Alignment.center,
         child: Text(dataset["student"]),
       ),
       Container(
@@ -195,14 +171,26 @@ class _MembersTableState extends State<MembersTable> {
 
   @override
   Widget build(BuildContext context) {
-    return Table(
-      border: const TableBorder(
-          top: BorderSide(width: 2, color: Color(0xFF703c6c)),
-          bottom: BorderSide(width: 2, color: Color(0xFF703c6c)),
-          right: BorderSide(width: 2, color: Color(0xFF703c6c)),
-          left: BorderSide(width: 2, color: Color(0xFF703c6c)),
-          horizontalInside: BorderSide(width: .5, color: Color(0xFF703c6c))),
-      children: _setData(),
-    );
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+              create: (context) => dataCol.dataCollector<dataCol.SocietyRole>(
+                  filter: {}, order: dataCol.OrderType.CHRONOLOGICAL))
+        ],
+        builder: (context, child) {
+          final rolesData =
+              Provider.of<dataCol.dataCollector<dataCol.SocietyRole>>(context);
+          print(rolesData.collection);
+          return Table(
+            border: const TableBorder(
+                top: BorderSide(width: 2, color: Color(0xFF703c6c)),
+                bottom: BorderSide(width: 2, color: Color(0xFF703c6c)),
+                right: BorderSide(width: 2, color: Color(0xFF703c6c)),
+                left: BorderSide(width: 2, color: Color(0xFF703c6c)),
+                horizontalInside:
+                    BorderSide(width: .5, color: Color(0xFF703c6c))),
+            children: _setData(rolesData.collection),
+          );
+        });
   }
 }
