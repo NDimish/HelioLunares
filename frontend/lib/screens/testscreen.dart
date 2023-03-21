@@ -177,7 +177,7 @@ class _TestScreenAdditionState extends State<TestScreenAddition> {
           //         filter: widget.filter, order: widget.orderBy)),
           ChangeNotifierProvider(
               create: (context) => data.dataCollector<data.SocietyRole>(
-                  filter: powerInSocFilter, order: widget.orderBy)),
+                  filter: widget.filter, order: widget.orderBy)),
         ],
         builder: (context, child) {
           // final DataP2 = Provider.of<data.dataCollector<data.Event>>(context);
@@ -201,7 +201,7 @@ class _TestScreenAdditionState extends State<TestScreenAddition> {
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       subtitle: Text(
-                        DataP.collection[index].role.toString(),
+                        DataP.collection[index].society.name,
                         style: TextStyle(fontSize: 15, color: Colors.black),
                       ));
                 },
