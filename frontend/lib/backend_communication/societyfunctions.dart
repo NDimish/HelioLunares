@@ -47,3 +47,45 @@ Future<http.Response> updateSociety(int userId, int roleLevel) async {
   print("ending update society role");
   return response;
 }
+
+Future<http.Response> removeFromSociety(int userId, int societyId) async {
+  print("beginning to remove from societyrole ");
+  final response = await http.post(
+    Uri.parse('${DATASOURCE}societyrole/remove/'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      HttpHeaders.authorizationHeader:
+          "token ${globals.localdataobj.getToken()}"
+    },
+    body: jsonEncode({'user': userId, 'society': societyId}),
+  );
+
+  if (response.statusCode == 204) {
+    print("society role remove.");
+  } else {
+    print("society role not removed.");
+  }
+  print("endinding remove society role");
+  return response;
+}
+
+Future<http.Response> leaveFromSociety(int societyId) async {
+  print("beginning to remove from societyrole ");
+  final response = await http.post(
+    Uri.parse('${DATASOURCE}societyrole/remove/'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      HttpHeaders.authorizationHeader:
+          "token ${globals.localdataobj.getToken()}"
+    },
+    body: jsonEncode({'society': societyId}),
+  );
+
+  if (response.statusCode == 204) {
+    print("society role remove.");
+  } else {
+    print("society role not removed.");
+  }
+  print("endinding remove society role");
+  return response;
+}
