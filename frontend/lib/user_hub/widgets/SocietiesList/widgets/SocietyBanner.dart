@@ -14,7 +14,7 @@ class SocietyBanner extends StatelessWidget {
       borderRadius: BorderRadius.circular(10),
       child: Image.network(
         //placeholder for now, eventually use the parameter.
-        "https://avatars.githubusercontent.com/u/32419965?v=4",
+        imageLink,
         width: ResponsiveWidget.isSmallScreen(context)
             ? 250
             : MediaQuery.of(context).size.width / 3.5,

@@ -53,10 +53,11 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    const Padding(
+                      padding: EdgeInsets.all(10.0),
                     child: SocietyBanner(
-                        imageLink: "image url from database goes here"),
+                          imageLink:
+                              "https://avatars.githubusercontent.com/u/32419965?v=4"),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 20.0),
