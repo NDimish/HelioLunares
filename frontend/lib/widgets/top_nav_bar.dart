@@ -61,7 +61,7 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                   //Go to user hub
                 },
                 child: const CustomText(
-                  text: "Go to User Hub",
+                  text: "Back to User Hub",
                   colour: MyColours.navbarColour,
                 )),
             const SizedBox(
