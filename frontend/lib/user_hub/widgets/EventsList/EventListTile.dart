@@ -23,8 +23,8 @@ class EventListTile extends StatefulWidget{
   required this.org,});
 
   String eventName;
-  int price;
-  DateTime dateTime; 
+  double price;
+  String dateTime; 
   String location; 
   String org;
 
@@ -63,8 +63,8 @@ class _EventListTileState extends State<EventListTile>{
           subtitle: Row(crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start, 
             mainAxisSize: MainAxisSize.max,
-            children: [Flexible(child:Row(children: [Icon(Icons.monetization_on_outlined),SizedBox(width: 5),Text("£" + price.toString())])),
-              Flexible(child:Row(children: [Icon(Icons.calendar_month_outlined),SizedBox(width: 5),Text(DateFormat("dd/MM/yyyy HH:mm").format(date))])),
+            children: [Flexible(child:Row(children: [Icon(Icons.monetization_on_outlined),SizedBox(width: 5),Flexible(child:Text("£" + price.toString(), overflow: TextOverflow.ellipsis,maxLines: 1,))])),
+              Flexible(child:Row(children: [Icon(Icons.calendar_month_outlined),SizedBox(width: 5),Flexible(child:Text(date, overflow: TextOverflow.ellipsis,maxLines: 1))])),
               Flexible(child:Row(children: [Icon(Icons.pin_drop_outlined),SizedBox(width: 5),Flexible(child:Text(loc, overflow: TextOverflow.ellipsis,maxLines: 2,))])),
               Flexible(child:Row(children: [Icon(Icons.group_outlined),SizedBox(width: 5),Flexible(child:Text(organ, overflow: TextOverflow.ellipsis,maxLines: 1,))])),
             ],

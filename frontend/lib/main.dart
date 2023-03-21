@@ -11,12 +11,14 @@ import 'package:university_ticketing_system/user_hub/widgets/UserHubPage_societi
 import 'package:university_ticketing_system/widgets/layout.dart';
 import 'package:university_ticketing_system/controllers/menu_controller.dart'
     as menu;
+import 'package:university_ticketing_system/backend_communication/models/all.dart';
 
 void main() {
   //Register the menu controller
   Get.put(menu.MenuController());
   //Register the navigation controller
   Get.put(NavigationController());
+
   runApp(const UniversityTicketingApp());
 }
 
@@ -46,10 +48,11 @@ class UniversityTicketingApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       initialRoute: '/',
       routes: {
-        '/': (context) => const StartupScreen(),
+        '/': (context) => UserHubPage_events(),//const StartupScreen(),
         '/auth': (context) => const LandingScreen(),
         '/userhub': (context) => UserHubPage_events(),
-        '/societyhub': (context) => SiteLayout(), // SocietyHub transition page
+        '/societyhub': (context) => SiteLayout(), 
+        //'/whatever':(context) => UserHubPage_events(),// SocietyHub transition page
       },
     );
   }

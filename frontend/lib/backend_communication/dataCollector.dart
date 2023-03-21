@@ -1,14 +1,27 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:university_ticketing_system/backend_communication/models/University.dart';
+import 'package:university_ticketing_system/backend_communication/models/Ticket.dart';
 import 'dart:convert';
 export 'models/all.dart';
 import 'models/all.dart';
+import 'package:university_ticketing_system/globals.dart' as globals;
 
 final Map<Type, Databases> sets = {
   User: Databases.users,
-  Event: Databases.event
+  Event: Databases.event,
+  People: Databases.people,
+  Society: Databases.society,
+  Tickets: Databases.ticket,
+  University: Databases.university,
+  SocietyRole: Databases.societyrole,
+  EventCategoryType: Databases.event_categories_type,
+  SocietyCategoryType: Databases.society_categories_type,
+  EventCategories: Databases.event_categories,
+  SocietyCategories: Databases.society_categories
 };
 
 enum PostType { READ, ADD, DELETE, UPDATE }
@@ -22,10 +35,14 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
     return [...output];
   }
 
-  dataCollector(
-      {Map<String, String> filter = const {},
-      OrderType order = OrderType.CHRONOLOGICAL,
-      int ID = -1}) {
+  http.Response responserFromUrL =
+      http.Response("This is a unused response", 404);
+
+  dataCollector({
+    Map<String, String> filter = const {},
+    OrderType order = OrderType.CHRONOLOGICAL,
+    int ID = -1,
+  }) {
     fetchData(
         createUrl(sets[T]!, filter: filter, order: order, ID: ID), sets[T]!);
   }
@@ -38,39 +55,65 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
     String url = '$DATASOURCE${Database.name}/';
 
     if (ID >= 0) {
-      url = '$url${ID}/';
+      url = '$url${ID}/?format=json';
     } else {
+      url += "?ordering=id";
       if (postType == PostType.READ) {
-        url = '$url?ordering=id';
         filter.forEach((key, value) {
-          url = '$url&$key=$value';
+          url += '&$key=$value';
         });
       }
+      url += "&format=json";
     }
 
     // print(url);
-    return '$url?format=json';
+    return url;
   }
 
   fetchData(String url, Databases Database) async {
-    final response = await http.get(Uri.parse(url), headers: {
-      "Cookie": Cookies.Cookie,
-      "X-CSRFToken": Cookies.CSRFToken
-      //HttpHeaders.authorizationHeader: Cookies.CSRFToken
-    });
+    print("This is loading data.");
+    print(globals.localdataobj.getToken());
+    final response = await http.get(Uri.parse(url),
+        headers: (globals.localdataobj.getToken() != "")
+            ? {
+                HttpHeaders.authorizationHeader:
+                    "token ${globals.localdataobj.getToken()}"
+              }
+            : {});
+    responserFromUrL = response;
     if (response.statusCode == 200) {
+      // print(response.body);
       var data = json.decode(response.body) as List;
       output = data.map<T>((json) => (getClass(json, Database))).toList();
       notifyListeners();
     }
+    // print(response.body);
+    responserFromUrL = response;
+    print(globals.localdataobj.getToken());
   }
 
   getClass(Map<String, dynamic> json, Databases database) {
     switch (database) {
-      case Databases.usersadd:
-        return User.fromJson(json);
+      case Databases.people:
+        return People.fromJson(json);
       case Databases.event:
         return Event.fromJson(json);
+      case Databases.university:
+        return University.fromJson(json);
+      case Databases.society:
+        return Society.fromJson(json);
+      case Databases.ticket:
+        return Tickets.fromJson(json);
+      case Databases.societyrole:
+        return SocietyRole.fromJson(json);
+      case Databases.event_categories_type:
+        return EventCategoryType.fromJson(json);
+      case Databases.society_categories_type:
+        return SocietyCategoryType.fromJson(json);
+      case Databases.event_categories:
+        return EventCategories.fromJson(json);
+      case Databases.society_categories:
+        return SocietyCategories.fromJson(json);
 
       default:
         return User.fromJson(json);
@@ -82,12 +125,13 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       Uri.parse(createUrl(sets[T]!, postType: PostType.ADD)),
       headers: {
         "Content-Type": "application/json",
-        "Cookie": Cookies.Cookie,
-        "X-CSRFToken": Cookies.CSRFToken
+        HttpHeaders.authorizationHeader:
+            "token ${globals.localdataobj.getToken()}"
         //HttpHeaders.authorizationHeader: Cookies.CSRFToken
       },
       body: json.encode(task),
     );
+    responserFromUrL = response;
     if (response.statusCode == 201) {
       collection.add(task);
       return true;
@@ -100,11 +144,12 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       Uri.parse(createUrl(sets[T]!, postType: PostType.DELETE, ID: task.id)),
       headers: {
         "Content-Type": "application/json",
-        "Cookie": Cookies.Cookie,
-        "X-CSRFToken": Cookies.CSRFToken
+        HttpHeaders.authorizationHeader:
+            "token ${globals.localdataobj.getToken()}"
         // HttpHeaders.authorizationHeader: Cookies.CSRFToken
       },
     );
+    responserFromUrL = response;
     if (response.statusCode == 204) {
       collection.remove(task);
       notifyListeners();
@@ -118,12 +163,13 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       Uri.parse(createUrl(sets[T]!, postType: PostType.UPDATE)),
       headers: {
         "Content-Type": "application/json",
-        "Cookie": Cookies.Cookie,
-        "X-CSRFToken": Cookies.CSRFToken
+        HttpHeaders.authorizationHeader:
+            "token ${globals.localdataobj.getToken()}"
         //HttpHeaders.authorizationHeader: Cookies.CSRFToken
       },
       body: json.encode(task),
     );
+    responserFromUrL = response;
     if (response.statusCode == 201) {
       notifyListeners();
       return true;
