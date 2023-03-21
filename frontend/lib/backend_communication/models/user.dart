@@ -18,7 +18,7 @@ class User extends dataSets {
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-        //id: json['id'],
+        id: json['id'],
         email: json['email'],
         userType: json['user_level'],
         date_joined: json['date_joined']);

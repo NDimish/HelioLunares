@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:university_ticketing_system/backend_communication/dataCollector.dart';
 import '../../../backend_communication/dataCollector.dart';
+import 'package:university_ticketing_system/globals.dart' as global;
 
 import '../helpers/responsiveness.dart';
 
 class SocietySettingsPage extends StatefulWidget {
-  final int userId;
+  //final int userId;
 
-  const SocietySettingsPage({Key? key, required this.userId}): super(key:key);
+  const SocietySettingsPage({Key? key, }): super(key:key);
+  //required this.userId
 
 
 
@@ -52,7 +54,7 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => dataCollector<User>(ID:widget.userId),
+      create: (context) => dataCollector<User>(ID:global.localdataobj.getUserID()),
       builder: (context,child) {
         final User1 = Provider.of<dataCollector<User>>(context);
         return Scaffold(

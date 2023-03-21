@@ -70,7 +70,7 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       url += "&format=json";
     }
 
-   // print(url);
+    print(url);
     return url;
   }
 

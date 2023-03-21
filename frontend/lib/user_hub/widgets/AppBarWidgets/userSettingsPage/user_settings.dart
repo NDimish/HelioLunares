@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:university_ticketing_system/globals.dart';
 import '../../../../backend_communication/dataCollector.dart';
 
 import '../../../../helpers/responsiveness.dart';
@@ -41,7 +42,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => dataCollector<People>(ID: 7),
+      create: (context) => dataCollector<People>(ID:localdataobj.getUserID()),
       builder: (context,child) {
         final DataP = Provider.of<dataCollector<People>>(context);
         return Scaffold(

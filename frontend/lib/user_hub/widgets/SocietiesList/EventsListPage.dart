@@ -116,7 +116,7 @@ class _SocietyEventsPageState extends State<SocietyEventsList> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => dataCollector<Event>(),//filter: {'society_id':widget.societyName.id.toString()}
+      create: (context) => dataCollector<Event>(filter: {'society_id':widget.societyName.user.id.toString()}),//filter: {'society_id':widget.societyName.id.toString()}
       builder: (context,child) {
         final events = Provider.of<dataCollector<Event>>(context);
         return Scaffold(
