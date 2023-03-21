@@ -52,9 +52,22 @@ class _testscreen extends State<testscreen> {
                 [1, 2, 3]);
             print(response.statusCode);
 
+            //THIS IS CODE TO CREATE A PERSON
+
+            // http.Response response = await createPerson(
+            //     "thisisanewemail@gmail.com",
+            //     "This.is.pass1091",
+            //     1,
+            //     "Water",
+            //     "Rock",
+            //     "Tester");
+            // print(response.statusCode);
+
             //THIS IS CODE TO AUTHENTICATE
             http.Response new_response =
-                await auth("nathgsg1@gmail.com", "This.is.pass1091");
+                await auth("thisisanewemail@gmail.com", "This.is.pass1091");
+
+            await auth("nathgsg1@gmail.com", "This.is.pass1091");
             Navigator.pushNamed(context, '/');
             // DataP.addToCollection(data.User(
             //     id: 3,
@@ -75,7 +88,7 @@ class TestScreenAddition extends StatefulWidget {
   const TestScreenAddition(
       {Key? key,
       this.orderBy = data.OrderType.CHRONOLOGICAL,
-      this.filter = const {'role__gt': '1'},
+      this.filter = const {},
       this.id = -1})
       : super(key: key);
 
@@ -86,6 +99,10 @@ class TestScreenAddition extends StatefulWidget {
 class _TestScreenAdditionState extends State<TestScreenAddition> {
   @override
   Widget build(BuildContext context) {
+    var powerInSocFilter = {
+      'role__gt': '1',
+      'user_at_society': globals.localdataobj.getUserID().toString()
+    };
     return MultiProvider(
         providers: [
           // ChangeNotifierProvider(
@@ -93,35 +110,39 @@ class _TestScreenAdditionState extends State<TestScreenAddition> {
           //         filter: widget.filter, order: widget.orderBy)),
           ChangeNotifierProvider(
               create: (context) => data.dataCollector<data.SocietyRole>(
-                  filter: widget.filter, order: widget.orderBy)),
+                  filter: powerInSocFilter, order: widget.orderBy)),
         ],
         builder: (context, child) {
           // final DataP2 = Provider.of<data.dataCollector<data.Event>>(context);
           final DataP =
               Provider.of<data.dataCollector<data.SocietyRole>>(context);
-          return Scaffold(
-            body: ListView.builder(
-              shrinkWrap: true,
-              itemCount: DataP.collection.length,
-              itemBuilder: (BuildContext context, int index) {
-                return ListTile(
-                    trailing: IconButton(
-                        icon: Icon(Icons.delete, color: Colors.red),
-                        onPressed: () {
-                          DataP.deleteFromCollection(DataP.collection[index]);
-                        }),
-                    title: Text(
-                      DataP.collection[index].society.name,
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Text(
-                      DataP.collection[index].role.toString(),
-                      style: TextStyle(fontSize: 15, color: Colors.black),
-                    ));
-              },
-            ),
-          );
+          if (DataP.responserFromUrL.statusCode == 200) {
+            return Scaffold(
+              body: ListView.builder(
+                shrinkWrap: true,
+                itemCount: DataP.collection.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                      trailing: IconButton(
+                          icon: Icon(Icons.delete, color: Colors.red),
+                          onPressed: () {
+                            DataP.deleteFromCollection(DataP.collection[index]);
+                          }),
+                      title: Text(
+                        DataP.collection[index].society.name,
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Text(
+                        DataP.collection[index].role.toString(),
+                        style: TextStyle(fontSize: 15, color: Colors.black),
+                      ));
+                },
+              ),
+            );
+          } else {
+            return Text(DataP.responserFromUrL.statusCode.toString());
+          }
         });
   }
 }
