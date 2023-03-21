@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:university_ticketing_system/backend_communication/models/society_event.dart';
+import 'package:university_ticketing_system/backend_communication/models/SocietyEvent.dart';
 import 'package:university_ticketing_system/constants/controllers.dart';
 import 'package:university_ticketing_system/pages/events/events.dart';
 import 'package:university_ticketing_system/widgets/layout.dart';

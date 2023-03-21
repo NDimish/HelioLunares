@@ -4,17 +4,17 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:university_ticketing_system/constants/controllers.dart';
-import 'package:university_ticketing_system/backend_communication/models/society_event.dart';
-import 'package:university_ticketing_system/widgets/custom_text.dart';
 import '../../../backend_communication/dataCollector.dart';
+import '../../../backend_communication/models/SocietyEvent.dart';
 import '../../../constants/style.dart';
 
 import '../../../backend_communication/authenticate.dart';
 import '../../../backend_communication/dataCollector.dart' as data;
-import '../../../backend_communication/models/society_event.dart' as Model;
+import '../../../backend_communication/models/SocietyEvent.dart' as Model;
 import 'package:provider/provider.dart';
 
 import '../../../widgets/circle_icon.dart';
+import '../../../widgets/custom_text.dart';
 
 class AddEventForm extends StatefulWidget {
   const AddEventForm({super.key});
