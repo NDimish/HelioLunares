@@ -102,48 +102,50 @@ class _StatisticsState extends State<Statistics> {
           padding: const EdgeInsets.all(30.0),
           child: _allEvents(eventModelData),
         ),
-        AspectRatio(
-          aspectRatio: 1.50,
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: LineChart(LineChartData(
-              gridData: FlGridData(
-                show: true,
-                drawVerticalLine: true,
-                horizontalInterval: 1,
-                verticalInterval: 1,
-                getDrawingHorizontalLine: (value) {
-                  return FlLine(
-                    color: Color(0xFFFFFFFF),
-                    strokeWidth: 1,
-                  );
-                },
-                getDrawingVerticalLine: (value) {
-                  return FlLine(
-                    color: Color(0xFFFFFFFF),
-                    strokeWidth: 1,
-                  );
-                },
-              ),
-              borderData: FlBorderData(
-                show: true,
-                border: Border.all(color: const Color(0xff37434d)),
-              ),
-              minX: 0,
-              maxX: 5,
-              minY: 0,
-              maxY: 5,
-              lineBarsData: [
-                LineChartBarData(spots: const [
-                  FlSpot(0, 0),
-                  FlSpot(1, 2),
-                  FlSpot(2, 5),
-                  FlSpot(3, 3),
-                  FlSpot(4, 4),
-                  FlSpot(5, 3),
-                ])
-              ],
-            )),
+        Expanded(
+          child: AspectRatio(
+            aspectRatio: 1.50,
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: LineChart(LineChartData(
+                gridData: FlGridData(
+                  show: true,
+                  drawVerticalLine: true,
+                  horizontalInterval: 1,
+                  verticalInterval: 1,
+                  getDrawingHorizontalLine: (value) {
+                    return FlLine(
+                      color: Color(0xFFFFFFFF),
+                      strokeWidth: 1,
+                    );
+                  },
+                  getDrawingVerticalLine: (value) {
+                    return FlLine(
+                      color: Color(0xFFFFFFFF),
+                      strokeWidth: 1,
+                    );
+                  },
+                ),
+                borderData: FlBorderData(
+                  show: true,
+                  border: Border.all(color: const Color(0xff37434d)),
+                ),
+                minX: 0,
+                maxX: 5,
+                minY: 0,
+                maxY: 5,
+                lineBarsData: [
+                  LineChartBarData(spots: const [
+                    FlSpot(0, 0),
+                    FlSpot(1, 2),
+                    FlSpot(2, 5),
+                    FlSpot(3, 3),
+                    FlSpot(4, 4),
+                    FlSpot(5, 3),
+                  ])
+                ],
+              )),
+            ),
           ),
         )
       ],

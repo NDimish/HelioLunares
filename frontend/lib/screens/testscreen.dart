@@ -86,7 +86,7 @@ class _testscreen extends State<testscreen> {
             // http.Response log_in_as_perosn =
             //     await auth("thisisanewemail@gmail.com", "This.is.pass1091");
 
-            Navigator.pushNamed(context, '/');
+            Navigator.pushNamed(context, '/societyhub');
           }),
     );
   }
@@ -127,8 +127,7 @@ class _TestScreenAdditionState extends State<TestScreenAddition> {
         ],
         builder: (context, child) {
           // final DataP2 = Provider.of<data.dataCollector<data.Event>>(context);
-          final DataP =
-              Provider.of<data.dataCollector<data.Society>>(context);
+          final DataP = Provider.of<data.dataCollector<data.Society>>(context);
           if (DataP.responserFromUrL.statusCode == 200) {
             return Scaffold(
               body: ListView.builder(
