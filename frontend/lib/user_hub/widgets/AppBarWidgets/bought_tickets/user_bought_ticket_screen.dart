@@ -46,161 +46,6 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
     );
   }
 
-  // Widget leftbuild(BuildContext context,Event eventdata){
-  //   return ChangeNotifierProvider(
-  //         create: (context) => data.dataCollector<data.Event>(),
-  //       builder:(context,child){
-  //         return Expanded(3
-  //                 flex: 7,
-  //                 child: Column(
-  //                   crossAxisAlignment: CrossAxisAlignment.stretch,
-  //                   mainAxisAlignment: MainAxisAlignment.start,
-  //                   children: [
-  //                     const SizedBox(height: 10),
-
-  //                     const Text(
-  //                       "Ticket Overview",
-  //                       textAlign: TextAlign.left,
-  //                       style: TextStyle(
-  //                           fontSize: 25,
-  //                           decoration: TextDecoration.underline,
-  //                           fontWeight: FontWeight.bold),
-  //                     ),
-
-  //                     Container(
-  //                         height: 60,
-  //                         decoration: BoxDecoration(
-  //                             color: const Color(0xFFB08BBB),
-  //                             border: Border.all(
-  //                                 width: 10, color: const Color(0xFF8C7099)),
-  //                             borderRadius: BorderRadius.circular(20)),
-  //                         child: Row(
-  //                           children: [
-  //                             Expanded(
-  //                               child: Text(
-  //                                 '  Title: '
-  //                                 // textAlign: TextAlign.left,
-  //                                 // style: TextStyle(fontSize: 20),
-  //                               ),
-  //                             ),
-  //                           ],
-  //                         )),
-
-  //                     const SizedBox(
-  //                       height: 10,
-  //                     ),
-
-  //                     // Container(
-  //                     //     height: 60,
-  //                     //     decoration: BoxDecoration(
-  //                     //         color: const Color(0xFFB08BBB),
-  //                     //         border: Border.all(
-  //                     //             width: 10, color: const Color(0xFF8C7099)),
-  //                     //         borderRadius: BorderRadius.circular(20)),
-  //                     //     child: Row(
-  //                     //       children: const [
-  //                     //         Expanded(
-  //                     //           child: Text(
-  //                     //             '  Date: '
-  //                     //              + DataP.collection[index].date,
-  //                     //             textAlign: TextAlign.left,
-  //                     //             style: TextStyle(fontSize: 20),
-  //                     //           ),
-  //                     //         ),
-  //                     //       ],
-  //                     //     )),
-
-  //                     // Container(
-  //                     //     height: 60,
-  //                     //     decoration: BoxDecoration(
-  //                     //         color: const Color(0xFFB08BBB),
-  //                     //         border: Border.all(
-  //                     //             width: 10, color: const Color(0xFF8C7099)),
-  //                     //         borderRadius: BorderRadius.circular(20)),
-  //                     //     child: Row(
-  //                     //       children: const [
-  //                     //         Expanded(
-  //                     //           child: Text(
-  //                     //             '  Venue: '
-  //                     //              + DataP.collection[index].venue,
-  //                     //             textAlign: TextAlign.left,
-  //                     //             style: TextStyle(fontSize: 20),
-  //                     //           ),
-  //                     //         ),
-  //                     //       ],
-  //                     //     )),
-
-  //                     // Container(
-  //                     //     height: 60,
-  //                     //     decoration: BoxDecoration(
-  //                     //         color: const Color(0xFFB08BBB),
-  //                     //         border: Border.all(
-  //                     //             width: 10, color: const Color(0xFF8C7099)),
-  //                     //         borderRadius: BorderRadius.circular(20)),
-  //                     //     child: Row(
-  //                     //       children: const [
-  //                     //         Expanded(
-  //                     //           child: Text(
-  //                     //             '  Seat: ',
-  //                     //              + DataP.collection[index].seat,
-  //                     //             textAlign: TextAlign.left,
-  //                     //             style: TextStyle(fontSize: 20),
-  //                     //           ),
-  //                     //         ),
-  //                     //       ],
-  //                     //     )),
-
-  //                     // Container(
-  //                     //   height: 60,
-  //                     //   decoration: BoxDecoration(
-  //                     //     color: Color(0xFFB08BBB),
-  //                     //     border: Border.all(
-  //                     //       width: 10,
-  //                     //       color: Color(0xFF8C7099)
-  //                     //     ),
-  //                     //     borderRadius: BorderRadius.circular(20)
-  //                     //   ),
-  //                     //   child: Row(
-  //                     //     children: const [
-  //                     //       Expanded(
-  //                     //           child: Text (
-  //                     //             '  Gate: ',
-  //                     //             //  + DataP.collection[index].gate,
-  //                     //             textAlign: TextAlign.left,
-  //                     //             style: TextStyle(
-  //                     //               fontSize: 20
-  //                     //             ),
-  //                     //           ),
-  //                     //       ),
-  //                     //     ],
-  //                     //   )
-
-  //                     // ),
-
-  //                     // Container(
-  //                     //     height: 60,
-  //                     //     decoration: BoxDecoration(
-  //                     //         color: const Color(0xFFB08BBB),
-  //                     //         border: Border.all(
-  //                     //             width: 10, color: const Color(0xFF8C7099)),
-  //                     //         borderRadius: BorderRadius.circular(20)),
-  //                     //     child: Row(
-  //                     //       children: const [
-  //                     //         Expanded(
-  //                     //           child: Text(
-  //                     //             '  Description: '
-  //                     //              + DataP.collection[index].description,
-  //                     //             textAlign: TextAlign.left,
-  //                     //             style: TextStyle(fontSize: 20),
-  //                     //           ),
-  //                     //         ),
-  //                     //       ],
-  //                     //     )),
-  //                   ],
-  //                 ));
-  //       }
-  //       );
-  // }
 
   Widget _buildPanel(BuildContext context) {
     final DataP = Provider.of<data.dataCollector<tic.Tickets>>(context);
@@ -210,75 +55,6 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
         child: const VerticalDivider(
             thickness: 1, indent: 1, endIndent: 0, color: Color(0xFF8C7099)),
       ),
-
-      // left side of the screen
-      // Expanded(
-      //   flex: 2,
-      //   child: Container(
-      //     color: const Color(0xFF8C7099),
-      //     child: Column(
-      //       // crossAxisAlignment: CrossAxisAlignment.stretch,
-      //       mainAxisAlignment: MainAxisAlignment.start,
-      //       children: [
-      //         const SizedBox(height: 10),
-
-      //         // // left up screen
-      //         // Expanded(
-      //         //   flex: 3,
-      //         //     child: Padding(
-      //         //       padding: const EdgeInsets.all(5.0),
-      //         //       child: Container(
-      //         //         decoration: BoxDecoration(
-      //         //           border: Border.all(
-      //         //             color: Colors.black,
-      //         //             width: 1
-      //         //           ),
-      //         //         ),
-      //         //         child: Text('Insert picture here'),
-      //         //       ),
-      //         //     )
-      //         // ),
-
-      //         // Expanded(
-      //         //     flex: 3,
-      //         //     child: Container(
-      //         //       padding: const EdgeInsets.all(5.0),
-      //         //       child: Container(
-      //         //         decoration: BoxDecoration(
-
-
-
-                
-      //         //           border: Border.all(color: Colors.black, width: 1),
-      //         //         ),
-      //         //         child: const Text('Insert event poster here'),
-      //         //       ),
-      //         //     )),
-
-      //         // left bottom of screen
-      //         leftbuild(context, ticket)
-      //       ],
-      //     ),
-      //   ),
-      // ),
-
-      // Container(
-      //   decoration: const BoxDecoration(
-      //     gradient: LinearGradient(
-      //       colors: [
-      //         Color(0xFF70587C),
-      //         Color(0xFFC8B8D8)
-      //       ]
-      //     ),
-      //   ),
-      //     child: const VerticalDivider(
-      //       thickness: 1,
-      //       indent: 5,
-      //       endIndent: 5,
-      //       color: Colors.black
-      //     ),
-
-      // ),
 
       // right of screen
       Expanded(
@@ -331,20 +107,7 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                     ),
                     child: Row(
                       children:  [
-                        // Expanded(
-                        //   child: Text(
-                        //     'Venue',
-                        //     textAlign: TextAlign.right,
-                        //     selectionColor: Colors.black,
-                        //   ),
-                        // ),
-                        // Expanded(
-                        //   child: Text(
-                        //     'Date',
-                        //     textAlign: TextAlign.center,
-                        //     selectionColor: Colors.black,
-                        //   ),
-                        // ),
+                      
                         Expanded(
                           child: Text(
                             "${DataP.collection[index].event.title}",
@@ -428,8 +191,7 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                         // ),
                         Expanded(
                           child: Text(
-                            "${index}",
-                            //"${DataP.collection[index].title}",
+                            "${DataP.collection[index].event.title}",
                             textAlign: TextAlign.left,
                             selectionColor: Colors.black,
                           ),
