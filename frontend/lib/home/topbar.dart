@@ -104,6 +104,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                 ),
               ),
               InkWell(
+                key: const Key("SignUp"),
                 onHover: (value) {
                   setState(() {
                     value ? _isHovering[2] = true : _isHovering[2] = false;
@@ -133,6 +134,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                 width: screenSize.width / 50,
               ),
               InkWell(
+                key: const Key("LogIn"),
                 onHover: (value) {
                   setState(() {
                     value ? _isHovering[3] = true : _isHovering[3] = false;
@@ -208,6 +210,7 @@ class _DiscoverPopupMenuState extends State<DiscoverPopupMenu> {
         },
         itemBuilder: (BuildContext context) => <PopupMenuEntry<PopupChoices>>[
               const PopupMenuItem<PopupChoices>(
+                key: Key("AboutUs"),
                 value: PopupChoices.About_Us,
                 child: Text(
                   'About us',
@@ -222,6 +225,7 @@ class _DiscoverPopupMenuState extends State<DiscoverPopupMenu> {
               ),
               const PopupMenuItem<PopupChoices>(
                 value: PopupChoices.About_The_App,
+                key: Key("AboutApp"),
                 child: Text(
                   'About the app',
                   textAlign: TextAlign.center,
