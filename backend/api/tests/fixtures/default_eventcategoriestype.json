@@ -1,0 +1,9 @@
+[
+  {
+    "model": "api.eventcategoriestype",
+    "pk": 1,
+    "fields": {
+      "category_name": "sport"
+    }
+  }
+]
