@@ -6,19 +6,19 @@ import 'package:university_ticketing_system/globals.dart' as global;
 
 import '../helpers/responsiveness.dart';
 
-class UserSettingsPageTwo extends StatefulWidget {
+class SocietySettingsPage extends StatefulWidget {
   //final int userId;
 
-  const UserSettingsPageTwo({Key? key, }): super(key:key);
+  const SocietySettingsPage({Key? key, }): super(key:key);
   //required this.userId
 
 
 
   @override
-  State<UserSettingsPageTwo> createState() => _UserSettingsPageTwoState();
+  State<SocietySettingsPage> createState() => _SocietySettingsPageState();
 }
 
-class _UserSettingsPageTwoState extends State<UserSettingsPageTwo> {
+class _SocietySettingsPageState extends State<SocietySettingsPage> {
   Widget customTextFormField(
       String headerName,
       String name,
@@ -91,7 +91,17 @@ class _UserSettingsPageTwoState extends State<UserSettingsPageTwo> {
                         'Enter your first name',
                         Icons.person_rounded,
                         null,
-                        null,
+                        (value) {
+                    if (value == null || value.isEmpty) {
+                      return null;
+                    }
+
+                    if (value.contains(RegExp(r'(\d+)'))) {
+                      return "Name cannot have numbers";
+                    }
+
+                    return null;
+                  },
                         
                         ),
                   ),
@@ -108,7 +118,15 @@ class _UserSettingsPageTwoState extends State<UserSettingsPageTwo> {
                         'Enter your last name',
                         Icons.person_rounded,
                         null,
-                        null), 
+                       (value) {
+                    if (value == null || value.isEmpty) {
+                      return null;
+                    }
+
+                    if (value.contains(RegExp(r'(\d+)'))) {
+                      return "Name cannot have numbers";
+                    }}),
+
                   ),
                   const SizedBox(
                     width: 50,
@@ -130,7 +148,8 @@ class _UserSettingsPageTwoState extends State<UserSettingsPageTwo> {
               const SizedBox(
                 width: 50,
               ),
-              Padding(
+              //Israfeel, can you implement university dropdown here from padding to padding?
+              Padding( 
                 padding: const EdgeInsets.all(15.0),
                 child: const Text('University'),
               ),
@@ -161,15 +180,6 @@ class _UserSettingsPageTwoState extends State<UserSettingsPageTwo> {
 
                   const SizedBox(
                     width: 50,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: customTextFormField(
-                        'Phone Number',
-                        'Enter your phone number',
-                        Icons.phone,
-                        phoneController,
-                        null),
                   ),
                   
 
