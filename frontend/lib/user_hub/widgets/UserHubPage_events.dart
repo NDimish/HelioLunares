@@ -48,7 +48,7 @@ class _UserHubPage_eventsState extends State<UserHubPage_events> {
           child: EventListView(),
         ),
       ),
-      drawer: SideAppBar(context),
+      drawer: SideAppBar(),
     );
   }
 }

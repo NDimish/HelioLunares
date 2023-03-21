@@ -48,7 +48,7 @@ class _UserHubPage_societiesState extends State<UserHubPage_societies> {
           child: SocietyListView(),
         ),
       ),
-      drawer: SideAppBar(context),
+      drawer: SideAppBar(),
     );
   }
 }
