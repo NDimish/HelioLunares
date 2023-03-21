@@ -1,5 +1,5 @@
 import 'datasets.dart';
-import 'society.dart';
+import 'Society.dart';
 
 class Event extends dataSets {
   final String title;

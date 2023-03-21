@@ -35,7 +35,6 @@ class User(AbstractUser):
 
     objects = UserManager()
 
-
 class People(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     university_studying_at = models.ForeignKey(University, on_delete=models.CASCADE)
@@ -44,7 +43,6 @@ class People(models.Model):
     last_name = models.CharField(blank=False, unique=False, max_length=40)
 
     field_of_study = models.CharField(blank=False, unique=False, max_length=30)
-
 
 class Society(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, blank=False)
@@ -104,7 +102,6 @@ class PeopleRoleAtSociety(models.Model):
 
     role = models.PositiveSmallIntegerField(choices=SOCIETY_ROLE, default=1)
 
-
 class Event(models.Model):
     society_id = models.ForeignKey(Society, on_delete=models.CASCADE, blank=False)
     duration = models.IntegerField(blank=False, unique=False)
@@ -121,26 +118,21 @@ class Event(models.Model):
         verbose_name = "event"
         verbose_name_plural = verbose_name
 
-
 class Ticket(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE, null=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
     date = models.DateTimeField(auto_now_add=datetime.datetime.now(), blank=False)
     price = models.FloatField(blank=False, default=0.0)
 
-
 class EventCategoriesType(models.Model):
     category_name = models.CharField(max_length=200, null=False)
-
 
 class EventCategories(models.Model):
     eventId = models.ForeignKey(Event, on_delete=models.CASCADE, null=False)
     categoryId = models.ForeignKey(EventCategoriesType, on_delete=models.CASCADE, null=False)
 
-
 class SocietyCategoriesType(models.Model):
     category_name = models.CharField(max_length=200, null=False)
-
 
 class SocietyCategories(models.Model):
     societyId = models.ForeignKey(Society, on_delete=models.CASCADE, null=False)
