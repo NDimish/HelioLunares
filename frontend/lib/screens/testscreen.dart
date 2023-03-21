@@ -75,7 +75,7 @@ class TestScreenAddition extends StatefulWidget {
   const TestScreenAddition(
       {Key? key,
       this.orderBy = data.OrderType.CHRONOLOGICAL,
-      this.filter = const {},
+      this.filter = const {'role__gt': '1'},
       this.id = -1})
       : super(key: key);
 
@@ -92,13 +92,13 @@ class _TestScreenAdditionState extends State<TestScreenAddition> {
           //     create: (context) => data.dataCollector<data.Event>(
           //         filter: widget.filter, order: widget.orderBy)),
           ChangeNotifierProvider(
-              create: (context) => data.dataCollector<data.SocietyCategories>(
+              create: (context) => data.dataCollector<data.SocietyRole>(
                   filter: widget.filter, order: widget.orderBy)),
         ],
         builder: (context, child) {
           // final DataP2 = Provider.of<data.dataCollector<data.Event>>(context);
           final DataP =
-              Provider.of<data.dataCollector<data.SocietyCategories>>(context);
+              Provider.of<data.dataCollector<data.SocietyRole>>(context);
           return Scaffold(
             body: ListView.builder(
               shrinkWrap: true,
@@ -116,7 +116,7 @@ class _TestScreenAdditionState extends State<TestScreenAddition> {
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     subtitle: Text(
-                      DataP.collection[index].societyCategory.categoryName,
+                      DataP.collection[index].role.toString(),
                       style: TextStyle(fontSize: 15, color: Colors.black),
                     ));
               },
