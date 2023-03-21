@@ -13,7 +13,6 @@ void main() {
     testWidgets("Test widgets render correctly", (tester) async {
       await tester.pumpWidget(
           const MaterialApp(home: Scaffold(body: SocietySettingsPage(
-            userId: 7,
           ))));
 
       expect(find.text('Account'), findsOneWidget);

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:university_ticketing_system/user_hub/widgets/SocietiesList/IndividualSocietyPage.dart';
 import 'package:university_ticketing_system/user_hub/widgets/SocietiesList/widgets/SocietyButton.dart';
 
 void main() {
