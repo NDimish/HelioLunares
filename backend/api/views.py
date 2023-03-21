@@ -110,7 +110,8 @@ class UsersListView(generics.ListAPIView):
         u = ""
         try:
             u = University.objects.get(id=uni_content)
-        except:
+        except Exception as l:
+            print(l)
             return Response({'error':'University not found'},status=status.HTTP_400_BAD_REQUEST)
 
         try:
