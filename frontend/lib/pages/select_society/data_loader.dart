@@ -37,7 +37,7 @@ class DataLoader extends StatelessWidget {
           final DataP =
               Provider.of<data.dataCollector<data.SocietyCategories>>(context);
           return Container(
-              height: MediaQuery.of(context).size.height * 0.9,
+              height: MediaQuery.of(context).size.height * 0.95,
               child: Scaffold(
                 backgroundColor: Colors.transparent,
                 body: ListView.separated(

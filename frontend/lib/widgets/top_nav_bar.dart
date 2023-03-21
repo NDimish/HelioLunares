@@ -5,7 +5,9 @@ import 'package:university_ticketing_system/helpers/responsiveness.dart';
 import 'package:university_ticketing_system/routing/routes.dart';
 import 'package:university_ticketing_system/widgets/custom_text.dart';
 
-AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
+AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key,
+        bool? societySelected) =>
+    AppBar(
       leading: !ResponsiveWidget.isSmallScreen(context)
           ? Row(
               children: [
@@ -36,15 +38,17 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key) => AppBar(
                   weight: FontWeight.bold,
                 )),
             Expanded(child: Container()),
-            IconButton(
-                icon: const Icon(
-                  Icons.settings,
-                  color: MyColours.navbarColour,
-                ),
-                onPressed: () {
-                  navigationController
-                      .navigateTo(societySettingsPageDisplayName);
-                }),
+            societySelected!
+                ? IconButton(
+                    icon: const Icon(
+                      Icons.settings,
+                      color: MyColours.navbarColour,
+                    ),
+                    onPressed: () {
+                      navigationController
+                          .navigateTo(societySettingsPageDisplayName);
+                    })
+                : Container(),
             Container(
               width: 1,
               height: 22,

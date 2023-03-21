@@ -15,7 +15,7 @@ class SelectSocietyPage extends StatelessWidget {
     return Scaffold(
         key: scaffoldKey,
         extendBodyBehindAppBar: true,
-        appBar: topNavBar(context, scaffoldKey),
+        appBar: topNavBar(context, scaffoldKey, false),
         body: CustomLinearGradient(child: SocietyListMaker()));
   }
 }
