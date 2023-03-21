@@ -16,7 +16,11 @@ final Map<Type, Databases> sets = {
   Society: Databases.society,
   Tickets: Databases.ticket,
   University: Databases.university,
-  SocietyRole: Databases.societyrole
+  SocietyRole: Databases.societyrole,
+  EventCategoryType: Databases.event_categories_type,
+  SocietyCategoryType: Databases.society_categories_type,
+  EventCategories: Databases.event_categories,
+  SocietyCategories: Databases.society_categories
 };
 
 enum PostType { READ, ADD, DELETE, UPDATE }
@@ -91,6 +95,14 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
         return Tickets.fromJson(json);
       case Databases.societyrole:
         return SocietyRole.fromJson(json);
+      case Databases.event_categories_type:
+        return EventCategoryType.fromJson(json);
+      case Databases.society_categories_type:
+        return SocietyCategoryType.fromJson(json);
+      case Databases.event_categories:
+        return EventCategories.fromJson(json);
+      case Databases.society_categories:
+        return SocietyCategories.fromJson(json);
 
       default:
         return User.fromJson(json);

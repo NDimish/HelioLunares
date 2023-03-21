@@ -92,12 +92,13 @@ class _TestScreenAdditionState extends State<TestScreenAddition> {
           //     create: (context) => data.dataCollector<data.Event>(
           //         filter: widget.filter, order: widget.orderBy)),
           ChangeNotifierProvider(
-              create: (context) => data.dataCollector<University>(
+              create: (context) => data.dataCollector<data.SocietyCategories>(
                   filter: widget.filter, order: widget.orderBy)),
         ],
         builder: (context, child) {
           // final DataP2 = Provider.of<data.dataCollector<data.Event>>(context);
-          final DataP = Provider.of<data.dataCollector<University>>(context);
+          final DataP =
+              Provider.of<data.dataCollector<data.SocietyCategories>>(context);
           return Scaffold(
             body: ListView.builder(
               shrinkWrap: true,
@@ -110,12 +111,12 @@ class _TestScreenAdditionState extends State<TestScreenAddition> {
                           DataP.deleteFromCollection(DataP.collection[index]);
                         }),
                     title: Text(
-                      DataP.collection[index].name,
+                      DataP.collection[index].society.name,
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     subtitle: Text(
-                      DataP.collection[index].postcode,
+                      DataP.collection[index].societyCategory.categoryName,
                       style: TextStyle(fontSize: 15, color: Colors.black),
                     ));
               },

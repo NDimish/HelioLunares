@@ -615,7 +615,7 @@ class TicketInfoApiView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 #get list of all event category types
-class EventCategoriesTypeApiView(APIView):
+class EventCategoriesTypeApiView(generics.ListAPIView):
     queryset = EventCategoriesType.objects.all()
     serializer_class = EventCategoriesTypeModelSerializer
     filter_backends = [DjangoFilterBackend,OrderingFilter]
@@ -648,7 +648,7 @@ class EventCategoriesTypeInfoApiView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 # Get all event catergories
-class EventCategoriesApiView(APIView):
+class EventCategoriesApiView(generics.ListAPIView):
     queryset = EventCategories.objects.all()
     serializer_class = EventCategoriesModelSerializer
     filter_backends = [DjangoFilterBackend,OrderingFilter]
@@ -680,7 +680,7 @@ class EventCategoriesInfoApiView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 # get all society category types
-class SocietyCategoriesTypeApiView(APIView):
+class SocietyCategoriesTypeApiView(generics.ListAPIView):
     queryset = SocietyCategoriesType.objects.all()
     serializer_class = SocietyCategoriesTypeModelSerializer
     filter_backends = [DjangoFilterBackend,OrderingFilter]
