@@ -13,10 +13,12 @@ void main() {
       await tester.pumpWidget(
           const MaterialApp(home: Scaffold(body: SocietySettingsPage())));
 
-      expect(find.byType(TextFormField), findsNWidgets(6));
-      expect(find.text("Profile"), findsOneWidget);
-      expect(find.text("Account"), findsOneWidget);
-      expect(find.text("Personal Information"), findsOneWidget);
+      expect(find.text('Account'), findsOneWidget);
+      expect(find.text('Profile'), findsOneWidget);
+      expect(find.text('Personal Information'), findsOneWidget);
+      expect(find.text('Save'), findsOneWidget);
+      expect(find.byType(TextFormField), findsNWidgets(4));
+      expect(find.byType(TextButton), findsOneWidget);
 
       await tester.pumpAndSettle(const Duration(seconds: 1));
     });
