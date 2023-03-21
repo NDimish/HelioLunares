@@ -1,5 +1,5 @@
 import 'datasets.dart';
-import 'user.dart';
+import 'User.dart';
 import 'Event.dart';
 
 //test on test screen
@@ -39,7 +39,7 @@ class Tickets extends dataSets {
 
   @override
   Databases getDatabase() {
-    return Databases.people;
+    return Databases.ticket;
   }
 
   dynamic toJson() => {

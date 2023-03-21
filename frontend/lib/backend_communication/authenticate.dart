@@ -1,49 +1,85 @@
-import 'package:get/get.dart';
 import 'models/all.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'dart:io';
 import 'package:university_ticketing_system/globals.dart' as globals;
 
-class authenticate {
-  late final bool result;
+Future<http.Response> auth(String username, String password) async {
+  print("beginning auth");
+  final response = await http.post(
+    Uri.parse('${DATASOURCE}log_in/'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{'email': username, 'password': password}),
+  );
 
-  bool get check {
-    return check;
+  if (response.statusCode == 200) {
+    Map<String, dynamic> data = json.decode(response.body);
+    globals.localdataobj.setData(
+        data['token'], data['email'], data['user_level'], data['user_id']);
+    print("Auth passed");
+  } else {
+    print("Auth failed");
   }
+  print("ending auth");
+  return response;
+}
 
-  authenticate(String username, String password) {
-    fetchData(username, password);
+Future<http.Response> createSociety(
+    String email,
+    String password,
+    int uniId,
+    String socName,
+    String creationDate,
+    String aboutUs,
+    List<int> categories) async {
+  print("beginning create society");
+  final response = await http.post(
+    Uri.parse('${DATASOURCE}society/'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode({
+      'user': {'email': email, 'password': password},
+      'university_society_is_at': uniId,
+      'name': socName,
+      'creation_date': creationDate,
+      'about_us': aboutUs,
+      'categories': categories
+    }),
+  );
+
+  if (response.statusCode == 201) {
+    print("Society created.");
+  } else {
+    print("Society not created.");
   }
+  print("ending create society");
+  return response;
+}
 
-  fetchData(String username, String password) async {
-    // final client = HttpClient();
-    // final request = await client.postUrl(Uri.parse('${DATASOURCE}log_in/'));
-    // request.headers
-    //     .set(HttpHeaders.contentTypeHeader, "application/json; charset=UTF-8");
-    // request.write('{"email": "${username}", "password": "${password}"}');
-    // final response = await request.close();
-    print("beginning auth");
-    final response = await http.post(
-      Uri.parse('${DATASOURCE}log_in/'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body:
-          jsonEncode(<String, String>{'email': username, 'password': password}),
-    );
+Future<http.Response> createPerson(String email, String password, int uniId,
+    String firstName, String lastName, String fieldStudy) async {
+  print("beginning create person");
+  final response = await http.post(
+    Uri.parse('${DATASOURCE}users/'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode({
+      'user': {'email': email, 'password': password},
+      'university_studying_at': uniId,
+      'first_name': firstName,
+      'last_name': lastName,
+      'field_of_study': fieldStudy
+    }),
+  );
 
-    if (response.statusCode == 200) {
-      Map<String, dynamic> data = json.decode(response.body);
-      //print(response.headers);
-      globals.localdataobj.setData(data['token'], data['email']);
-      // x.setData(data['token'], data['email']);
-      // print(x.Token);
-      // print(response.body);
-    } else {
-      print(response.body);
-    }
-    print("end auth");
-    print(globals.localdataobj.getToken());
+  if (response.statusCode == 201) {
+    print("Person has been created.");
+  } else {
+    print("Person failed to be created.");
   }
+  print("ending create person");
+  return response;
 }
