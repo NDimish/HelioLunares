@@ -43,8 +43,12 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
     OrderType order = OrderType.CHRONOLOGICAL,
     int ID = -1,
   }) {
-    fetchData(
-        createUrl(sets[T]!, filter: filter, order: order, ID: ID), sets[T]!);
+    bool singlerecord = false;
+    if (ID >= 0) {
+      singlerecord = true;
+    }
+    fetchData(createUrl(sets[T]!, filter: filter, order: order, ID: ID),
+        singlerecord, sets[T]!);
   }
 
   String createUrl(Databases Database,
@@ -70,7 +74,7 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
     return url;
   }
 
-  fetchData(String url, Databases Database) async {
+  fetchData(String url, bool singlerecord, Databases Database) async {
     print("This is loading data.");
     print(globals.localdataobj.getToken());
     final response = await http.get(Uri.parse(url),
@@ -83,7 +87,12 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
     responserFromUrL = response;
     if (response.statusCode == 200) {
       // print(response.body);
-      var data = json.decode(response.body) as List;
+      var data;
+      if (singlerecord) {
+        data = json.decode("[" + response.body + "]") as List;
+      } else {
+        data = json.decode(response.body) as List;
+      }
       output = data.map<T>((json) => (getClass(json, Database))).toList();
       notifyListeners();
     }
