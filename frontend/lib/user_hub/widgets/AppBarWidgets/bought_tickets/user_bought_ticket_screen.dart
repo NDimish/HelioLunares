@@ -3,13 +3,16 @@ import 'package:provider/provider.dart';
 import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/bought_tickets/buy_ticket_screen.dart';
 import '../../../../backend_communication/authenticate.dart';
 import '../../../../backend_communication/dataCollector.dart' as data;
+import '../../../../backend_communication/models/tickets.dart' as data;
+import 'package:university_ticketing_system/backend_communication/models/all.dart';
 
 class UserBoughtTicketScreen extends StatefulWidget {
   final data.OrderType Orderby;
   final Map<String,String> filter;
   // final int id;
+  
 
-  const UserBoughtTicketScreen(
+  UserBoughtTicketScreen(
       {Key? key,
       this.Orderby = data.OrderType.CHRONOLOGICAL,
       this.filter = const{},
@@ -32,7 +35,7 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => data.dataCollector<data.Event>(
+          create: (context) => data.dataCollector<data.Tickets>(
             filter: widget.filter, order: widget.Orderby)),
       ],
       builder: (context, child) {
@@ -43,165 +46,164 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
     );
   }
 
-  Widget leftbuild(BuildContext context, int id){
-    return ChangeNotifierProvider(
-          create: (context) => data.dataCollector<data.Event>(
-            ID:id),
-        builder:(context,child){
-          return Expanded(
-                  flex: 7,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 10),
+  // Widget leftbuild(BuildContext context,Event eventdata){
+  //   return ChangeNotifierProvider(
+  //         create: (context) => data.dataCollector<data.Event>(),
+  //       builder:(context,child){
+  //         return Expanded(3
+  //                 flex: 7,
+  //                 child: Column(
+  //                   crossAxisAlignment: CrossAxisAlignment.stretch,
+  //                   mainAxisAlignment: MainAxisAlignment.start,
+  //                   children: [
+  //                     const SizedBox(height: 10),
 
-                      const Text(
-                        "Ticket Overview",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                            fontSize: 25,
-                            decoration: TextDecoration.underline,
-                            fontWeight: FontWeight.bold),
-                      ),
+  //                     const Text(
+  //                       "Ticket Overview",
+  //                       textAlign: TextAlign.left,
+  //                       style: TextStyle(
+  //                           fontSize: 25,
+  //                           decoration: TextDecoration.underline,
+  //                           fontWeight: FontWeight.bold),
+  //                     ),
 
-                      Container(
-                          height: 60,
-                          decoration: BoxDecoration(
-                              color: const Color(0xFFB08BBB),
-                              border: Border.all(
-                                  width: 10, color: const Color(0xFF8C7099)),
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  '  Title: '
-                                  // textAlign: TextAlign.left,
-                                  // style: TextStyle(fontSize: 20),
-                                ),
-                              ),
-                            ],
-                          )),
+  //                     Container(
+  //                         height: 60,
+  //                         decoration: BoxDecoration(
+  //                             color: const Color(0xFFB08BBB),
+  //                             border: Border.all(
+  //                                 width: 10, color: const Color(0xFF8C7099)),
+  //                             borderRadius: BorderRadius.circular(20)),
+  //                         child: Row(
+  //                           children: [
+  //                             Expanded(
+  //                               child: Text(
+  //                                 '  Title: '
+  //                                 // textAlign: TextAlign.left,
+  //                                 // style: TextStyle(fontSize: 20),
+  //                               ),
+  //                             ),
+  //                           ],
+  //                         )),
 
-                      const SizedBox(
-                        height: 10,
-                      ),
+  //                     const SizedBox(
+  //                       height: 10,
+  //                     ),
 
-                      // Container(
-                      //     height: 60,
-                      //     decoration: BoxDecoration(
-                      //         color: const Color(0xFFB08BBB),
-                      //         border: Border.all(
-                      //             width: 10, color: const Color(0xFF8C7099)),
-                      //         borderRadius: BorderRadius.circular(20)),
-                      //     child: Row(
-                      //       children: const [
-                      //         Expanded(
-                      //           child: Text(
-                      //             '  Date: '
-                      //              + DataP.collection[index].date,
-                      //             textAlign: TextAlign.left,
-                      //             style: TextStyle(fontSize: 20),
-                      //           ),
-                      //         ),
-                      //       ],
-                      //     )),
+  //                     // Container(
+  //                     //     height: 60,
+  //                     //     decoration: BoxDecoration(
+  //                     //         color: const Color(0xFFB08BBB),
+  //                     //         border: Border.all(
+  //                     //             width: 10, color: const Color(0xFF8C7099)),
+  //                     //         borderRadius: BorderRadius.circular(20)),
+  //                     //     child: Row(
+  //                     //       children: const [
+  //                     //         Expanded(
+  //                     //           child: Text(
+  //                     //             '  Date: '
+  //                     //              + DataP.collection[index].date,
+  //                     //             textAlign: TextAlign.left,
+  //                     //             style: TextStyle(fontSize: 20),
+  //                     //           ),
+  //                     //         ),
+  //                     //       ],
+  //                     //     )),
 
-                      // Container(
-                      //     height: 60,
-                      //     decoration: BoxDecoration(
-                      //         color: const Color(0xFFB08BBB),
-                      //         border: Border.all(
-                      //             width: 10, color: const Color(0xFF8C7099)),
-                      //         borderRadius: BorderRadius.circular(20)),
-                      //     child: Row(
-                      //       children: const [
-                      //         Expanded(
-                      //           child: Text(
-                      //             '  Venue: '
-                      //              + DataP.collection[index].venue,
-                      //             textAlign: TextAlign.left,
-                      //             style: TextStyle(fontSize: 20),
-                      //           ),
-                      //         ),
-                      //       ],
-                      //     )),
+  //                     // Container(
+  //                     //     height: 60,
+  //                     //     decoration: BoxDecoration(
+  //                     //         color: const Color(0xFFB08BBB),
+  //                     //         border: Border.all(
+  //                     //             width: 10, color: const Color(0xFF8C7099)),
+  //                     //         borderRadius: BorderRadius.circular(20)),
+  //                     //     child: Row(
+  //                     //       children: const [
+  //                     //         Expanded(
+  //                     //           child: Text(
+  //                     //             '  Venue: '
+  //                     //              + DataP.collection[index].venue,
+  //                     //             textAlign: TextAlign.left,
+  //                     //             style: TextStyle(fontSize: 20),
+  //                     //           ),
+  //                     //         ),
+  //                     //       ],
+  //                     //     )),
 
-                      // Container(
-                      //     height: 60,
-                      //     decoration: BoxDecoration(
-                      //         color: const Color(0xFFB08BBB),
-                      //         border: Border.all(
-                      //             width: 10, color: const Color(0xFF8C7099)),
-                      //         borderRadius: BorderRadius.circular(20)),
-                      //     child: Row(
-                      //       children: const [
-                      //         Expanded(
-                      //           child: Text(
-                      //             '  Seat: ',
-                      //              + DataP.collection[index].seat,
-                      //             textAlign: TextAlign.left,
-                      //             style: TextStyle(fontSize: 20),
-                      //           ),
-                      //         ),
-                      //       ],
-                      //     )),
+  //                     // Container(
+  //                     //     height: 60,
+  //                     //     decoration: BoxDecoration(
+  //                     //         color: const Color(0xFFB08BBB),
+  //                     //         border: Border.all(
+  //                     //             width: 10, color: const Color(0xFF8C7099)),
+  //                     //         borderRadius: BorderRadius.circular(20)),
+  //                     //     child: Row(
+  //                     //       children: const [
+  //                     //         Expanded(
+  //                     //           child: Text(
+  //                     //             '  Seat: ',
+  //                     //              + DataP.collection[index].seat,
+  //                     //             textAlign: TextAlign.left,
+  //                     //             style: TextStyle(fontSize: 20),
+  //                     //           ),
+  //                     //         ),
+  //                     //       ],
+  //                     //     )),
 
-                      // Container(
-                      //   height: 60,
-                      //   decoration: BoxDecoration(
-                      //     color: Color(0xFFB08BBB),
-                      //     border: Border.all(
-                      //       width: 10,
-                      //       color: Color(0xFF8C7099)
-                      //     ),
-                      //     borderRadius: BorderRadius.circular(20)
-                      //   ),
-                      //   child: Row(
-                      //     children: const [
-                      //       Expanded(
-                      //           child: Text (
-                      //             '  Gate: ',
-                      //             //  + DataP.collection[index].gate,
-                      //             textAlign: TextAlign.left,
-                      //             style: TextStyle(
-                      //               fontSize: 20
-                      //             ),
-                      //           ),
-                      //       ),
-                      //     ],
-                      //   )
+  //                     // Container(
+  //                     //   height: 60,
+  //                     //   decoration: BoxDecoration(
+  //                     //     color: Color(0xFFB08BBB),
+  //                     //     border: Border.all(
+  //                     //       width: 10,
+  //                     //       color: Color(0xFF8C7099)
+  //                     //     ),
+  //                     //     borderRadius: BorderRadius.circular(20)
+  //                     //   ),
+  //                     //   child: Row(
+  //                     //     children: const [
+  //                     //       Expanded(
+  //                     //           child: Text (
+  //                     //             '  Gate: ',
+  //                     //             //  + DataP.collection[index].gate,
+  //                     //             textAlign: TextAlign.left,
+  //                     //             style: TextStyle(
+  //                     //               fontSize: 20
+  //                     //             ),
+  //                     //           ),
+  //                     //       ),
+  //                     //     ],
+  //                     //   )
 
-                      // ),
+  //                     // ),
 
-                      // Container(
-                      //     height: 60,
-                      //     decoration: BoxDecoration(
-                      //         color: const Color(0xFFB08BBB),
-                      //         border: Border.all(
-                      //             width: 10, color: const Color(0xFF8C7099)),
-                      //         borderRadius: BorderRadius.circular(20)),
-                      //     child: Row(
-                      //       children: const [
-                      //         Expanded(
-                      //           child: Text(
-                      //             '  Description: '
-                      //              + DataP.collection[index].description,
-                      //             textAlign: TextAlign.left,
-                      //             style: TextStyle(fontSize: 20),
-                      //           ),
-                      //         ),
-                      //       ],
-                      //     )),
-                    ],
-                  ));
-        }
-        );
-  }
+  //                     // Container(
+  //                     //     height: 60,
+  //                     //     decoration: BoxDecoration(
+  //                     //         color: const Color(0xFFB08BBB),
+  //                     //         border: Border.all(
+  //                     //             width: 10, color: const Color(0xFF8C7099)),
+  //                     //         borderRadius: BorderRadius.circular(20)),
+  //                     //     child: Row(
+  //                     //       children: const [
+  //                     //         Expanded(
+  //                     //           child: Text(
+  //                     //             '  Description: '
+  //                     //              + DataP.collection[index].description,
+  //                     //             textAlign: TextAlign.left,
+  //                     //             style: TextStyle(fontSize: 20),
+  //                     //           ),
+  //                     //         ),
+  //                     //       ],
+  //                     //     )),
+  //                   ],
+  //                 ));
+  //       }
+  //       );
+  // }
 
   Widget _buildPanel(BuildContext context) {
-    final DataP = Provider.of<data.dataCollector<data.Event>>(context);
+    final DataP = Provider.of<data.dataCollector<data.Tickets>>(context);
     return Row(children: <Widget>[
       Container(
         color: const Color(0xFF8C7099),
@@ -210,55 +212,55 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
       ),
 
       // left side of the screen
-      Expanded(
-        flex: 2,
-        child: Container(
-          color: const Color(0xFF8C7099),
-          child: Column(
-            // crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const SizedBox(height: 10),
+      // Expanded(
+      //   flex: 2,
+      //   child: Container(
+      //     color: const Color(0xFF8C7099),
+      //     child: Column(
+      //       // crossAxisAlignment: CrossAxisAlignment.stretch,
+      //       mainAxisAlignment: MainAxisAlignment.start,
+      //       children: [
+      //         const SizedBox(height: 10),
 
-              // // left up screen
-              // Expanded(
-              //   flex: 3,
-              //     child: Padding(
-              //       padding: const EdgeInsets.all(5.0),
-              //       child: Container(
-              //         decoration: BoxDecoration(
-              //           border: Border.all(
-              //             color: Colors.black,
-              //             width: 1
-              //           ),
-              //         ),
-              //         child: Text('Insert picture here'),
-              //       ),
-              //     )
-              // ),
+      //         // // left up screen
+      //         // Expanded(
+      //         //   flex: 3,
+      //         //     child: Padding(
+      //         //       padding: const EdgeInsets.all(5.0),
+      //         //       child: Container(
+      //         //         decoration: BoxDecoration(
+      //         //           border: Border.all(
+      //         //             color: Colors.black,
+      //         //             width: 1
+      //         //           ),
+      //         //         ),
+      //         //         child: Text('Insert picture here'),
+      //         //       ),
+      //         //     )
+      //         // ),
 
-              // Expanded(
-              //     flex: 3,
-              //     child: Container(
-              //       padding: const EdgeInsets.all(5.0),
-              //       child: Container(
-              //         decoration: BoxDecoration(
+      //         // Expanded(
+      //         //     flex: 3,
+      //         //     child: Container(
+      //         //       padding: const EdgeInsets.all(5.0),
+      //         //       child: Container(
+      //         //         decoration: BoxDecoration(
 
 
 
                 
-              //           border: Border.all(color: Colors.black, width: 1),
-              //         ),
-              //         child: const Text('Insert event poster here'),
-              //       ),
-              //     )),
+      //         //           border: Border.all(color: Colors.black, width: 1),
+      //         //         ),
+      //         //         child: const Text('Insert event poster here'),
+      //         //       ),
+      //         //     )),
 
-              // left bottom of screen
-              leftbuild(context, id)
-            ],
-          ),
-        ),
-      ),
+      //         // left bottom of screen
+      //         leftbuild(context, ticket)
+      //       ],
+      //     ),
+      //   ),
+      // ),
 
       // Container(
       //   decoration: const BoxDecoration(
@@ -345,7 +347,7 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                         // ),
                         Expanded(
                           child: Text(
-                            "${DataP.collection[index].title}",
+                            "${DataP.collection[index].event.title}",
                             textAlign: TextAlign.left,
                             selectionColor: Colors.black,
                           ),
@@ -366,7 +368,7 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
   }
 
   Widget _buildCollapsible(BuildContext context) {
-    final DataP = Provider.of<data.dataCollector<data.Event>>(context);
+    final DataP = Provider.of<data.dataCollector<data.Tickets>>(context); 
     return ExpansionPanelList(
       elevation: 0,
       expansionCallback: (int index, bool isExpanded) {
@@ -390,10 +392,11 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
           },
           body:ListView.builder(
               shrinkWrap: true,
-              itemCount: 3, //DataP.collection.length,
+              itemCount: DataP.collection.length,
               itemBuilder: (BuildContext context, int index) {
-            children: [
-              _OnHover(
+              children: [
+
+               _OnHover(
                 child: OutlinedButton(
                   style: OutlinedButton.styleFrom(
                       backgroundColor: const Color(0xFFE8DAFA),
@@ -435,6 +438,8 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                   ),
                 ),
               ),
+              
+              
             ];
               },
           ),
