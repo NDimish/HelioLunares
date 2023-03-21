@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:university_ticketing_system/backend_communication/authenticate.dart';
 import 'package:university_ticketing_system/backend_communication/dataCollector.dart'
     as data;
@@ -8,7 +9,8 @@ import 'package:university_ticketing_system/globals.dart' as globals;
 
 import 'package:university_ticketing_system/backend_communication/models/Ticket.dart'; // for using tickets
 import 'package:university_ticketing_system/backend_communication/models/University.dart';
-import 'package:university_ticketing_system/pages/select_society/widgets/society_card.dart'; // for using university
+import 'package:university_ticketing_system/pages/select_society/widgets/society_card.dart';
+import 'package:university_ticketing_system/widgets/layout.dart'; // for using university
 
 class DataLoader extends StatelessWidget {
   final data.OrderType orderBy;
@@ -55,6 +57,16 @@ class DataLoader extends StatelessWidget {
                             onTap: () {
                               print(
                                   "ID is ${DataP.collection[index].societyCategory.id}");
+                              //Get the selected society
+                              //DataP.collection[index];
+
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SiteLayout(
+                                            society:
+                                                DataP.collection[index].society,
+                                          )));
                             }));
                   },
                   separatorBuilder: (BuildContext context, int index) {

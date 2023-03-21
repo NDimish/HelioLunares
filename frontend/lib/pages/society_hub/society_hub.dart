@@ -9,6 +9,8 @@ import 'package:university_ticketing_system/pages/society_hub/widgets/society_ca
 
 import 'package:university_ticketing_system/widgets/custom_text.dart';
 
+import '../../backend_communication/models/Society.dart';
+
 class SocietyHubPage extends StatelessWidget {
   const SocietyHubPage({super.key});
 

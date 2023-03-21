@@ -10,13 +10,14 @@ import 'package:university_ticketing_system/pages/society_hub/society_hub.dart';
 import 'package:university_ticketing_system/routing/routes.dart';
 import 'package:university_ticketing_system/society_settings/society_settings_page.dart';
 
+import '../backend_communication/models/Society.dart';
 import '../pages/society_members/society_members.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   Get.routing.args = settings.arguments;
   switch (settings.name) {
     case societyHubPageDisplayName:
-      return _getPageRoute(const SocietyHubPage());
+      return _getPageRoute(SocietyHubPage());
     case societyEventsPageDisplayName:
       return _getPageRoute(const SocietyEventsPage());
     case statisticsPageDisplayName:
@@ -36,7 +37,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(const SocietySettingsPage());
 
     default:
-      return _getPageRoute(const SocietyHubPage());
+      return _getPageRoute(SocietyHubPage());
   }
 }
 

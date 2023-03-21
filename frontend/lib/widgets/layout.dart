@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:university_ticketing_system/backend_communication/models/Society.dart';
 import 'package:university_ticketing_system/gradient_animation.dart';
 import 'package:university_ticketing_system/helpers/responsiveness.dart';
+import 'package:university_ticketing_system/pages/events/widgets/event_form.dart';
 import 'package:university_ticketing_system/widgets/large_screen.dart';
 import 'package:university_ticketing_system/widgets/side_menu.dart';
 import 'package:university_ticketing_system/widgets/top_nav_bar.dart';
 
 import '../helpers/local_navigator.dart';
+import '../pages/society_hub/society_hub.dart';
 
 class SiteLayout extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+  final Society? society;
 
-  SiteLayout({super.key});
+  SiteLayout({super.key, this.society});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
