@@ -595,7 +595,7 @@ class TicketApiView(generics.ListAPIView):
     ordering_fields = '__all__'
 
     def post(self, request):
-        serializer = TicketModelSerializer(data=request.data)
+        serializer = CreateTicketSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(data=serializer.data, status=status.HTTP_201_CREATED)

@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 
 import 'models/all.dart';
@@ -87,5 +88,30 @@ Future<http.Response> leaveFromSociety(int societyId) async {
     print("society role not removed.");
   }
   print("endinding remove society role");
+  return response;
+}
+
+Future<http.Response> buyTicket(int eventId, Float price) async {
+  print("beginning to buy ticket ");
+  final response = await http.post(
+    Uri.parse('${DATASOURCE}ticket/'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      HttpHeaders.authorizationHeader:
+          "token ${globals.localdataobj.getToken()}"
+    },
+    body: jsonEncode({
+      'event': eventId,
+      'user': globals.localdataobj.getUserID(),
+      'price': price
+    }),
+  );
+
+  if (response.statusCode == 201) {
+    print("Ticket created.");
+  } else {
+    print("Ticket not created.");
+  }
+  print("endinding remove but ticket");
   return response;
 }
