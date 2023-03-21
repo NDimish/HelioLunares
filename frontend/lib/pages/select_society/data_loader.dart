@@ -7,7 +7,8 @@ import 'package:provider/provider.dart';
 import 'package:university_ticketing_system/globals.dart' as globals;
 
 import 'package:university_ticketing_system/backend_communication/models/Ticket.dart'; // for using tickets
-import 'package:university_ticketing_system/backend_communication/models/University.dart'; // for using university
+import 'package:university_ticketing_system/backend_communication/models/University.dart';
+import 'package:university_ticketing_system/pages/select_society/widgets/society_card.dart'; // for using university
 
 class DataLoader extends StatelessWidget {
   final data.OrderType orderBy;
@@ -35,29 +36,34 @@ class DataLoader extends StatelessWidget {
           // final DataP2 = Provider.of<data.dataCollector<data.Event>>(context);
           final DataP =
               Provider.of<data.dataCollector<data.SocietyCategories>>(context);
-          return Scaffold(
-            body: ListView.builder(
-              shrinkWrap: true,
-              itemCount: DataP.collection.length,
-              itemBuilder: (BuildContext context, int index) {
-                return ListTile(
-                    trailing: IconButton(
-                        icon: Icon(Icons.delete, color: Colors.red),
-                        onPressed: () {
-                          DataP.deleteFromCollection(DataP.collection[index]);
-                        }),
-                    title: Text(
-                      DataP.collection[index].society.name,
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Text(
-                      DataP.collection[index].societyCategory.categoryName,
-                      style: TextStyle(fontSize: 15, color: Colors.black),
-                    ));
-              },
-            ),
-          );
+          return Container(
+              height: MediaQuery.of(context).size.height * 0.9,
+              child: Scaffold(
+                backgroundColor: Colors.transparent,
+                body: ListView.separated(
+                  primary: false,
+                  shrinkWrap: true,
+                  itemCount: DataP.collection.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return MediaQuery.removePadding(
+                        context: context,
+                        removeTop: true,
+                        child: SocietyCard(
+                            societyName: DataP.collection[index].society.name,
+                            categoryName: DataP
+                                .collection[index].societyCategory.categoryName,
+                            onTap: () {
+                              print(
+                                  "ID is ${DataP.collection[index].societyCategory.id}");
+                            }));
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return const SizedBox(
+                      height: 8,
+                    );
+                  },
+                ),
+              ));
         });
   }
 }
