@@ -66,8 +66,7 @@ class _testscreen extends State<testscreen> {
 
             //THIS IS CODE TO AUTHENTICATE
             //LOgs in as society account
-            http.Response new_response =
-                await auth("thisisanewemail@gmail.com", "This.is.pass1091");
+            http.Response new_response = await auth("nath@gmail.com", "q");
 
             //make person join society
             print(json.decode(response.body)['user']['id']);
