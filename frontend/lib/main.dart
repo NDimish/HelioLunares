@@ -48,10 +48,11 @@ class UniversityTicketingApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       initialRoute: '/',
       routes: {
-        '/': (context) => UserHubPage_events(), //const StartupScreen(),
+        '/': (context) => const StartupScreen(),
         '/auth': (context) => const LandingScreen(),
         '/userhub': (context) => UserHubPage_events(),
-        '/societyhub': (context) => SiteLayout(), // SocietyHub transition page
+        '/societyhub': (context) => SiteLayout(), 
+        //'/whatever':(context) => UserHubPage_events(),// SocietyHub transition page
       },
     );
   }

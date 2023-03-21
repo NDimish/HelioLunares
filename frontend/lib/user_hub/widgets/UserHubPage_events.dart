@@ -7,6 +7,7 @@ import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/userS
 import 'package:university_ticketing_system/user_hub/widgets/SearchBarWidgets/CustomSearchBar.dart';
 import 'package:university_ticketing_system/user_hub/widgets/ThemeDataWidgets/UserHubTheme.dart';
 
+import '../../backend_communication/authenticate.dart';
 import 'AppBarWidgets/bought_tickets/user_bought_ticket_screen.dart';
 
 class UserHubPage_events extends StatefulWidget {
@@ -21,6 +22,7 @@ var search_controller = TextEditingController();
 class _UserHubPage_eventsState extends State<UserHubPage_events> {
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: MainAppBar(context, 
       // Function that updates list of events
