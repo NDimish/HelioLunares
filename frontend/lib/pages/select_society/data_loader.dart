@@ -5,12 +5,17 @@ import 'package:university_ticketing_system/backend_communication/dataCollector.
     as data;
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:university_ticketing_system/constants/controllers.dart';
 import 'package:university_ticketing_system/globals.dart' as globals;
 
 import 'package:university_ticketing_system/backend_communication/models/Ticket.dart'; // for using tickets
 import 'package:university_ticketing_system/backend_communication/models/University.dart';
+import 'package:university_ticketing_system/helpers/local_navigator.dart';
 import 'package:university_ticketing_system/pages/select_society/widgets/society_card.dart';
-import 'package:university_ticketing_system/widgets/layout.dart'; // for using university
+import 'package:university_ticketing_system/pages/society_hub/society_hub.dart';
+import 'package:university_ticketing_system/widgets/layout.dart';
+
+import '../../routing/routes.dart'; // for using university
 
 class DataLoader extends StatelessWidget {
   final data.OrderType orderBy;
@@ -60,13 +65,10 @@ class DataLoader extends StatelessWidget {
                               //Get the selected society
                               //DataP.collection[index];
 
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SiteLayout(
-                                            society:
-                                                DataP.collection[index].society,
-                                          )));
+                              menuController.activeItem.value =
+                                  societyHubPageDisplayName;
+                              navigationController
+                                  .navigateTo(societyHubPageDisplayName);
                             }));
                   },
                   separatorBuilder: (BuildContext context, int index) {

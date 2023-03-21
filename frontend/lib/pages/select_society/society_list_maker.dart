@@ -1,9 +1,14 @@
 //GENERATE LIST OF SOCIETIES
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:university_ticketing_system/backend_communication/authenticate.dart';
 import 'package:http/http.dart' as http;
 import 'package:university_ticketing_system/pages/select_society/data_loader.dart';
+
+import '../../constants/controllers.dart';
+import '../../helpers/responsiveness.dart';
+import '../../widgets/custom_text.dart';
 
 class SocietyListMaker extends StatelessWidget {
   const SocietyListMaker({super.key});
@@ -38,14 +43,38 @@ class SocietyListMaker extends StatelessWidget {
         future: loadData(),
         builder: (context, AsyncSnapshot<Widget> snapshot) {
           if (snapshot.hasData) {
-            return Padding(
-                padding: EdgeInsets.fromLTRB(16, 60, 16, 10),
-                child: Container(
-                    //height: MediaQuery.of(context).size.height * 0.95,
-                    child: MediaQuery.removePadding(
-                        context: context,
-                        removeTop: true,
-                        child: snapshot.data!)));
+            return Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Obx(() => Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(
+                                    top: ResponsiveWidget.isSmallScreen(context)
+                                        ? 56
+                                        : 6),
+                                child: CustomText(
+                                  text: menuController.activeItem.value,
+                                  size: ResponsiveWidget.isSmallScreen(context)
+                                      ? 24
+                                      : 40,
+                                  weight: FontWeight.bold,
+                                ),
+                              )
+                            ],
+                          )),
+                      MediaQuery.removePadding(
+                          context: context,
+                          removeTop: true,
+                          child: Expanded(
+                              child: Padding(
+                                  padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                                  child: snapshot.data!)))
+                    ]));
           } else {
             return const Center(child: CircularProgressIndicator());
           }
