@@ -1,6 +1,8 @@
+import 'package:emailjs/emailjs.dart';
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/authentication/validators/email_validator.dart';
 import 'package:university_ticketing_system/gradient_animation.dart';
+import 'package:university_ticketing_system/home/homepage_screens/contact/emailJS_credentials.dart';
 import 'package:university_ticketing_system/responsive.dart';
 import 'package:university_ticketing_system/submit_button.dart';
 import 'package:university_ticketing_system/tff_decoration.dart';
@@ -197,7 +199,7 @@ class _ContactFormState extends State<ContactForm> {
                     name = nameController.text;
                   },
                   decoration: customDecoration(
-                      "Name", "Enter your name", Icons.person_2_rounded)),
+                      "Name", "Enter your name", Icons.person_rounded)),
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.035),
             SizedBox(
@@ -228,10 +230,44 @@ class _ContactFormState extends State<ContactForm> {
                     ? MediaQuery.of(context).size.height * 0.07
                     : MediaQuery.of(context).size.height * 0.05),
             SubmitButton(
-                onPressed: () {
-                  _formKey.currentState!.validate()
-                      ? print("Valid form")
-                      : print("Invalid form");
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    try {
+                      //Only attempt to send an email if all these fields are NOT empty.
+                      if ([
+                        EmailJSCredentials.email_js_service,
+                        EmailJSCredentials.email_js_template,
+                        EmailJSCredentials.email_js_public_key,
+                        EmailJSCredentials.email_js_private_key,
+                      ].isNotEmpty) {
+                        await EmailJS.send(
+                          EmailJSCredentials.email_js_service,
+                          EmailJSCredentials.email_js_template,
+                          {'name': name, 'email': email, 'message': message},
+                          const Options(
+                            publicKey: EmailJSCredentials.email_js_public_key,
+                            privateKey: EmailJSCredentials.email_js_private_key,
+                          ),
+                        )
+                            .then((value) => {
+                                  //Get the status code, which belongs to an object of type EmailJSResponseStatus
+
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content: Text(
+                                              "Thanks for contacting! We will get back to you ASAP.")))
+                                })
+                            .catchError((e) => throw e);
+                      }
+                    } catch (error) {
+                      print(error);
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text(
+                              " Whoops! Something went wrong processing your request. Please try again.")));
+                    }
+                  } else {
+                    print("Invalid form");
+                  }
                 },
                 scaleFactor:
                     ResponsiveWidget.isSmallScreen(context) ? 0.6 : 0.45,
