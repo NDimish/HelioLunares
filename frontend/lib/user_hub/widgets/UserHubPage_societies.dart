@@ -39,7 +39,8 @@ class _UserHubPage_societiesState extends State<UserHubPage_societies> {
           
         });
       }, // Controller for text field in CustomSearchBar_Events
-      search_controller
+      search_controller,
+      "SOCIETIES"
       ),
       
       body: Center(

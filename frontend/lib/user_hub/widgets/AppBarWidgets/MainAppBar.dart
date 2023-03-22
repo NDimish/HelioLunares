@@ -5,16 +5,22 @@ import 'package:university_ticketing_system/user_hub/widgets/SearchBarWidgets/Cu
 import 'package:university_ticketing_system/user_hub/widgets/ThemeDataWidgets/UserHubTheme.dart';
 import 'package:university_ticketing_system/home/homepage.dart';
 import 'bought_tickets/user_bought_ticket_screen.dart';
+import 'package:university_ticketing_system/backend_communication/authenticate.dart';
 
 class MainAppBar extends AppBar {
-  MainAppBar(BuildContext context, Function(String)? searchfunc, Function()? clearfunc, TextEditingController? search_controller,{super.key})
+  MainAppBar(BuildContext context, 
+  Function(String)? searchfunc, 
+  Function()? clearfunc, 
+  TextEditingController? search_controller,
+  String hinttext,
+  {super.key})
       : super(
             title: Center(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text("TickeX"), SizedBox(width: 30),
-                Expanded(child: CustomSearchBar(searchfunc, clearfunc, search_controller)),
+                Expanded(child: CustomSearchBar(searchfunc, clearfunc, search_controller, hinttext)),
               ]),
             ),
 
@@ -46,7 +52,7 @@ class MainAppBar extends AppBar {
                   key: Key("SettingsButton")),
               IconButton(tooltip:"Logout",
               onPressed: (){
-                
+                logout();
                 Navigator.push(
                         context,
                         MaterialPageRoute(
