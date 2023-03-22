@@ -134,6 +134,8 @@ class _HowToUseSectionState extends State<HowToUseSection> {
                                                 //     MainAxisAlignment.center,
                                                 children: <Widget>[
                                                   SubmitButton(
+                                                      key: const Key(
+                                                          "StuSubmit"),
                                                       onPressed: studentPage
                                                           ? () => setState(() {
                                                                 studentPage =
@@ -144,6 +146,8 @@ class _HowToUseSectionState extends State<HowToUseSection> {
                                                       textIn: "Students"),
                                                   const SizedBox(width: 20),
                                                   SubmitButton(
+                                                      key: const Key(
+                                                          "SocSubmit"),
                                                       onPressed: !studentPage
                                                           ? () => setState(() {
                                                                 studentPage =
@@ -163,24 +167,30 @@ class _HowToUseSectionState extends State<HowToUseSection> {
                                       children: [
                                         //Two different set of cards for both the student and societies.
                                         !studentPage
-                                            ? const HowToUseCard(steps: [
-                                                "Create an account with us, and browse thousands of society events from diffrent universities over the U.K",
-                                                "Search and filter through events to find the ones you want.",
-                                                "Book your tickets with us in a simple and hassle free way!"
-                                              ], imagesToShow: [
-                                                "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png?20220519031949",
-                                                "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png?20220519031949",
-                                                "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png?20220519031949",
-                                              ])
-                                            : const HowToUseCard(steps: [
-                                                "Create a society account with us, and set up events for your members.",
-                                                "Create events, that are accessible to students all over the U.K",
-                                                "Manage your committee members, and your society."
-                                              ], imagesToShow: [
-                                                "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png?20220519031949",
-                                                "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png?20220519031949",
-                                                "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png?20220519031949",
-                                              ])
+                                            ? const HowToUseCard(
+                                                key: Key("Stuhtu"),
+                                                steps: [
+                                                    "Create an account with us, and browse thousands of society events from diffrent universities over the U.K",
+                                                    "Search and filter through events to find the ones you want.",
+                                                    "Book your tickets with us in a simple and hassle free way!"
+                                                  ],
+                                                imagesToShow: [
+                                                    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png?20220519031949",
+                                                    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png?20220519031949",
+                                                    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png?20220519031949",
+                                                  ])
+                                            : const HowToUseCard(
+                                                key: Key("Sochtu"),
+                                                steps: [
+                                                    "Create a society account with us, and set up events for your members.",
+                                                    "Create events, that are accessible to students all over the U.K",
+                                                    "Manage your committee members, and your society."
+                                                  ],
+                                                imagesToShow: [
+                                                    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png?20220519031949",
+                                                    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png?20220519031949",
+                                                    "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png?20220519031949",
+                                                  ])
                                       ],
                                     ),
                                   )
