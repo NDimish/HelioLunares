@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/constants/style.dart';
 
-const rootRoute = "/";
+const rootRoute = "/societyhub";
 
 const societyHubPageDisplayName = "Profile";
-const societyHubPageRoute = "/society_hub";
+const societyHubPageRoute = "/profile";
 
 const societyEventsPageDisplayName = "Events";
 const societyEventsPageRoute = "/society_events";
@@ -23,13 +23,21 @@ const eventDetailsPageRoute = "/AddEventPopupCard";
 const editEventDetailsPageDisplayName = "Edit Details";
 const editEventDetailsPageRoute = "/EditEventDetails";
 
-//edit society hub page
-const editSocietyHubPageDisplayName = "Edit Society Hub Page";
-const editSocietyHubPageRoute = "/EditSocietyHub";
+//add event page
+const addEventPageDisplayName = "Add Event";
+const addEventPageRoute = "/AddEvent";
 
 //edit society members page
 const editSocietyMembersPageDisplayName = "Members";
 const editSocietyMembersPageRoute = "/EditSocietyMembers";
+
+//society settings page
+const societySettingsPageDisplayName = "Settings";
+const societySettingsPageRoute = "/SocietySettings";
+
+//society selection page
+const selectSocietyPageDisplayName = "Select Society";
+const selectSocietyPageRoute = "/SelectSociety";
 
 class EventDetailsRoute<T> extends PageRoute<T> {
   EventDetailsRoute({

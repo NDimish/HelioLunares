@@ -83,3 +83,22 @@ Future<http.Response> createPerson(String email, String password, int uniId,
   print("ending create person");
   return response;
 }
+
+Future<http.Response> logout() async {
+  print("beginning logout");
+  final response = await http.post(
+    Uri.parse('${DATASOURCE}log_out/'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+  );
+
+  if (response.statusCode == 200) {
+    print("Logged out.");
+    globals.localdataobj.setData("", "", 0, -1);
+  } else {
+    print("Not logged out.");
+  }
+  print("ending log out");
+  return response;
+}

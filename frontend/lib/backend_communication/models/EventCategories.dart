@@ -14,7 +14,7 @@ class EventCategories extends dataSets {
     return EventCategories(
         id: json['id'],
         eventCategory: EventCategoryType.fromJson(json['categoryId']),
-        event: Event.fromJsonNOID(json['eventId']));
+        event: Event.fromJson(json['eventId']));
   }
 
   factory EventCategories.fromJsonNOID(Map<String, dynamic> json) {

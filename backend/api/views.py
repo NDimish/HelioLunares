@@ -33,7 +33,10 @@ def homePage(request):
 
 @api_view(['GET'])
 def log_out(request):
-    logout(request)
+    try:
+        request.user.auth_token.delete()
+    except:
+        pass
     return Response(data={'user_logged_out': True}, status=status.HTTP_200_OK)
 
 class LogInView(APIView):
@@ -110,7 +113,8 @@ class UsersListView(generics.ListAPIView):
         u = ""
         try:
             u = University.objects.get(id=uni_content)
-        except:
+        except Exception as l:
+            print(l)
             return Response({'error':'University not found'},status=status.HTTP_400_BAD_REQUEST)
 
         try:
@@ -537,7 +541,7 @@ class EventApiView(generics.ListAPIView):
 #Event with id
 class EventApiInfoView(APIView):
     def get(self, request, pk):
-        event = Event.objects.filter(id=pk)
+        event = Event.objects.get(id=pk)
         serializer = EventModelSerializer(instance=event)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -631,7 +635,14 @@ class UniversityApiView(generics.ListAPIView):
     filter_backends = [DjangoFilterBackend,OrderingFilter]
     filterset_fields = '__all__'
     ordering_fields = '__all__'
+    permission_classes = [AllowAny]
 
+     # Add in list for all categories.
+    def get(self, request):
+        universities = University.objects.all()
+        serializer = UniversitySerializer(instance=universities, many=True)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+    
     def post(self, request):
         serializer = UniversitySerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -641,7 +652,7 @@ class UniversityApiView(generics.ListAPIView):
 #Get university with id
 class UniversityInfoApiView(APIView):
     def get(self, request, pk):
-        university = University.objects.filter(id=pk)
+        university = University.objects.get(id=pk)
         serializer = UniversitySerializer(instance=university)
         return Response(serializer.data)
 
@@ -1042,6 +1053,13 @@ class SocietyCategoriesTypeApiView(generics.ListAPIView):
     filterset_fields = '__all__'
     ordering_fields = '__all__'
     permission_classes = [AllowAny]
+    
+    # Add in list for all categories.
+    def get(self, request):
+        societyCategoriesType = SocietyCategoriesType.objects.all()
+        serializer = SocietyCategoriesTypeModelSerializer(instance=societyCategoriesType, many=True)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
 
     def post(self, request):
         serializer = SocietyCategoriesTypeModelSerializer(data=request.data)

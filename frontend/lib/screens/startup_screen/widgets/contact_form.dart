@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/log_in/widgets/submit_button.dart';
+import 'package:university_ticketing_system/screens/startup_screen/widgets/contact_submit.dart';
 
 const List<String> dropdownChoices = [
   'General',
@@ -23,12 +24,27 @@ class _ContactFormState extends State<ContactForm> {
   String contactType = dropdownChoices.first;
   int charCount = 0;
 
-  final nameController = TextEditingController();
-  final emailController = TextEditingController();
-  final messageController = TextEditingController();
+  late final nameController;
+  late final emailController;
+  late final messageController;
+
+  @override
+  void initState() {
+    nameController = TextEditingController();
+    emailController = TextEditingController();
+    messageController = TextEditingController();
+  }
 
   final emailRegex = RegExp(
       "[_a-zA-Z]+[_a-zA-Z0-9]?[\._]?[_a-zA-Z0-9]*@([a-zA-Z]+\.)?([a-zA-Z]+\.)?[a-zA-Z]+\.(com|net|de|uk|ro|jp)");
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    messageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +56,7 @@ class _ContactFormState extends State<ContactForm> {
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             TextFormField(
                 controller: nameController,
-                onFieldSubmitted: (value) => print("name submitted"),
-                onChanged: (value) => {},
+                key: const Key("ContactName"),
                 onSaved: (newValue) => name = newValue!,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -55,8 +70,7 @@ class _ContactFormState extends State<ContactForm> {
             const SizedBox(height: 35),
             TextFormField(
                 controller: emailController,
-                onFieldSubmitted: (value) => print("email submitted"),
-                onChanged: (value) => {},
+                key: const Key("ContactEmail"),
                 onSaved: (newValue) => email = newValue!,
                 validator: (value) {
                   if (value == null ||
@@ -94,8 +108,8 @@ class _ContactFormState extends State<ContactForm> {
             ),
             const SizedBox(height: 35),
             TextFormField(
+              key: const Key("ContactMessage"),
               controller: messageController,
-              onFieldSubmitted: (value) => print("message submitted"),
               onChanged: (value) => {
                 setState((() => {message = value}))
               },
@@ -114,15 +128,15 @@ class _ContactFormState extends State<ContactForm> {
               style: const TextStyle(color: Color(0xFFc8b8db)),
             ),
             const SizedBox(height: 40),
-            SubmitButton(
+            ContactSubmit(
                 buttonText: "Send Feedback",
                 onPressed: () async {
+                  if (_formKey.currentState == null) {
+                    return;
+                  }
                   if (_formKey.currentState!.validate()) {
-                    print("Valid form");
-
                     _formKey.currentState!.save();
                     try {
-                      print('SUCCESS! email send');
                       setState(() {
                         charCount = 0;
                       });

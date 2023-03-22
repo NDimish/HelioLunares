@@ -1,12 +1,29 @@
 import 'package:flutter/material.dart';
 
-class SideAppBarListTile extends ListTile {
-  SideAppBarListTile(String optionName, IconData iconname, Function func,
-      {super.key})
-      : super(
-          leading: Icon(iconname),
+class SideAppBarListTile extends StatelessWidget {
+  SideAppBarListTile({super.key,
+    required this.optionName,
+    required this.iconname,
+    required this.input
+  });
+
+  String optionName;
+  IconData iconname;
+  Widget input;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: Icon(iconname),
           title: Text(optionName),
-          //TODO: get this to work
-          onTap: () => func,
-        );
+          
+          onTap: () {
+            Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => input));
+          },
+    );
+  }
 }
+

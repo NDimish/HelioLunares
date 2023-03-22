@@ -28,10 +28,17 @@ ThemeData lightTheme() {
       ),
     ),
     textTheme: const TextTheme(
+        bodySmall: TextStyle(color: Colors.white, fontFamily: 'Arvo'),
         bodyMedium: TextStyle(color: Colors.black, fontFamily: 'Arvo'),
         titleLarge: TextStyle(
             color: Colors.black,
             fontFamily: 'Arvo',
             fontWeight: FontWeight.bold)),
+    pageTransitionsTheme: const PageTransitionsTheme(builders: {
+      TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),
+      TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
+      TargetPlatform.windows: FadeUpwardsPageTransitionsBuilder(),
+      TargetPlatform.linux: FadeUpwardsPageTransitionsBuilder(),
+    }),
   );
 }

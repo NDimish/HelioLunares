@@ -35,7 +35,7 @@ class _HeroCardState extends State<HeroCard> {
             }),
         child: SizedBox(
             width: width / 2,
-            height: width / 3.6,
+            height: width / 4,
             child: Container(
               decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(10.0)),

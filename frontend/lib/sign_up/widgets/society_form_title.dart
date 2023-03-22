@@ -11,7 +11,7 @@ class SocietyFormTitle extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Image.asset(
-              'images/university.png',
+              'assets/images/university.png',
               height: 80.0,
               fit: BoxFit.cover,
             ),

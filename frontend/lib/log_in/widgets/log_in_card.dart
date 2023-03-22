@@ -15,7 +15,7 @@ class LogInCard extends StatelessWidget {
       child:
           Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
         Image.asset(
-          'images/university.png',
+          'assets/images/university.png',
           height: 65.0,
           fit: BoxFit.cover,
         ),
