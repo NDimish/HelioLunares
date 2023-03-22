@@ -64,7 +64,7 @@ Future<http.Response> removeFromSociety(int userId, int societyId) async {
   } else {
     print("society role not removed.");
   }
-  print("endinding remove society role");
+  print("endind remove society role");
   return response;
 }
 
@@ -85,7 +85,7 @@ Future<http.Response> leaveFromSociety(int societyId) async {
   } else {
     print("society role not removed.");
   }
-  print("endinding remove society role");
+  print("endind remove society role");
   return response;
 }
 
@@ -110,6 +110,25 @@ Future<http.Response> buyTicket(int eventId, double price) async {
   } else {
     print("Ticket not created.");
   }
-  print("endinding remove but ticket");
+  print("endind remove buy ticket");
+  return response;
+}
+
+Future<http.Response> removeTicket(int ticketId) async {
+  print("beginning to delete ticket ");
+  final response = await http.delete(
+      Uri.parse('${DATASOURCE}ticket/${ticketId}/'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        HttpHeaders.authorizationHeader:
+            "token ${globals.localdataobj.getToken()}"
+      });
+
+  if (response.statusCode == 204) {
+    print("Ticket deleted.");
+  } else {
+    print("Ticket not deleted.");
+  }
+  print("ending ticket remove.");
   return response;
 }
