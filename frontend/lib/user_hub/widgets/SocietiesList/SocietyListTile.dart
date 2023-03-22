@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'IndividualSocietyPage.dart';
+
 var isVisible = true;
 var searchText = "";
 
@@ -63,14 +65,14 @@ class _SocietyListTileState extends State<SocietyListTile> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => Scaffold(
-                        appBar: AppBar(
-                          title: const Text("Event here!"),
-                        ),
-                        body: const Center(
-                            child: Text(
-                                "Page showing event details here")),
-                      )));
+                  builder: (context) => const MainSocietyPage(
+                                  societyName: 'Introduction to AI',
+                                  societyDescription:
+                                      'AI is the driving force of our economy.',
+                                  societyUni: 'Kings',
+                                  numberOfFollowers: '10',
+                                  socId:5,
+                                )));
           },
         ),
         )

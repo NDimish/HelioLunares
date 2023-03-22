@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'IndividualEventsPage.dart';
+
 // Should have:
 // Image
 // Name of event
@@ -75,14 +77,16 @@ class _EventListTileState extends State<EventListTile>{
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => Scaffold(
-                        appBar: AppBar(
-                          title: const Text("Event here!"),
-                        ),
-                        body: const Center(
-                            child: Text(
-                                "Page showing event details here")),
-                      )));
+                  builder: (context) => EventPage(
+                              eventName: 'Introduction to AI',
+                              eventDate: '10/04/2013',
+                              eventDescription: 'Great fun',
+                              eventDuration: '1 hour',
+                              eventLocation: 'Bush House',
+                              eventPrice: '£10',
+                              eventId:7,
+
+                                )));
           },
         ),
         ),
