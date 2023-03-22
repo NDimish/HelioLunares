@@ -166,39 +166,41 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
           child: Container(
             
           
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-
-
-
-                const SizedBox(height: 10),
-
-
-
-                _buildCollapsible(context),
-
-
-
-                const SizedBox(height: 50),
-
-
-
-                const Text(
-                  "Upcoming Tickets",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(fontSize: 25),
-                ),
-
-
-
-                const SizedBox(height: 10),
-
-
-                _buildUpcomingTix(context)
-                
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+            
+            
+            
+                  const SizedBox(height: 10),
+            
+            
+            
+                  _buildCollapsible(context),
+            
+            
+            
+                  const SizedBox(height: 50),
+            
+            
+            
+                  const Text(
+                    "Upcoming Tickets",
+                    textAlign: TextAlign.left,
+                    style: TextStyle(fontSize: 25),
+                  ),
+            
+            
+            
+                  const SizedBox(height: 10),
+            
+            
+                  _buildUpcomingTix(context)
+                  
+                ],
+              ),
             ),
           ),
         ),
