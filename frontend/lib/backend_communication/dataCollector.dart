@@ -87,11 +87,11 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
     responserFromUrL = response;
     if (response.statusCode == 200) {
       // print(response.body);
-      var data;
-      if (singlerecord) {
-        data = json.decode("[" + response.body + "]") as List;
-      } else {
+      List data;
+      try {
         data = json.decode(response.body) as List;
+      } catch (e) {
+        data = json.decode("[" + response.body + "]") as List;
       }
       output = data.map<T>((json) => (getClass(json, Database))).toList();
       notifyListeners();

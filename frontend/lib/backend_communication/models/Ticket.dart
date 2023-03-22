@@ -23,8 +23,8 @@ class Tickets extends dataSets {
   factory Tickets.fromJson(Map<String, dynamic> json) {
     return Tickets(
         id: json['id'],
-        user: User.fromJsonNOID(json['user']),
-        event: Event.fromJsonNOID(json['event']),
+        user: User.fromJson(json['user']),
+        event: Event.fromJson(json['event']),
         date: json['date'],
         price: json['price']);
   }
