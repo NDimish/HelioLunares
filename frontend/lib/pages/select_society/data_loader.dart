@@ -1,33 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:university_ticketing_system/backend_communication/authenticate.dart';
+
 import 'package:university_ticketing_system/backend_communication/dataCollector.dart'
     as data;
-import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:university_ticketing_system/constants/controllers.dart';
 import 'package:university_ticketing_system/globals.dart' as globals;
 
-import 'package:university_ticketing_system/backend_communication/models/Ticket.dart'; // for using tickets
-import 'package:university_ticketing_system/backend_communication/models/University.dart';
-import 'package:university_ticketing_system/helpers/local_navigator.dart';
 import 'package:university_ticketing_system/pages/select_society/widgets/society_card.dart';
-import 'package:university_ticketing_system/pages/society_hub/society_hub.dart';
-import 'package:university_ticketing_system/widgets/layout.dart';
 
 import '../../routing/routes.dart'; // for using university
 
-class DataLoader extends StatelessWidget {
+class DataLoader extends StatefulWidget {
+  const DataLoader({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _DataLoaderState();
+}
+
+class _DataLoaderState extends State<DataLoader> {
   final data.OrderType orderBy;
+
   final Map<String, String> filter;
   final int id;
 
-  const DataLoader(
+  _DataLoaderState(
       {Key? key,
       this.orderBy = data.OrderType.CHRONOLOGICAL,
       this.filter = const {},
-      this.id = -1})
-      : super(key: key);
+      this.id = -1});
+
   @override
   Widget build(BuildContext context) {
     var powInSocietyFilter = {
@@ -68,12 +69,13 @@ class DataLoader extends StatelessWidget {
                                   "ID is ${DataP.collection[index].societyCategory.id}");
                               //Get the selected society
                               //DataP.collection[index];
-
+                              sideMenuController.setVisible();
                               menuController.activeItem.value =
                                   societyHubPageDisplayName;
-                              navigationController.navigateToWArgs(
-                                  societyHubPageDisplayName,
-                                  DataP.collection[index].society);
+                              sideMenuController.setVisible();
+                              navigationController
+                                  .navigateTo(statisticsPageDisplayName);
+                              sideMenuController.setVisible();
                             }));
                   },
                   separatorBuilder: (BuildContext context, int index) {
