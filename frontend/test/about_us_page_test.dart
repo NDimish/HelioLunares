@@ -1,13 +1,9 @@
-import 'package:animated_background/animated_background.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'dart:io';
 
-import 'package:university_ticketing_system/home/homepage.dart';
 import 'package:university_ticketing_system/home/homepage_screens/discover/discover_card.dart';
 import 'package:university_ticketing_system/home/homepage_screens/discover/discover_screen.dart';
-import 'package:university_ticketing_system/home/ticket_animation.dart';
 
 void main() {
   setUpAll(() => {HttpOverrides.global = null});

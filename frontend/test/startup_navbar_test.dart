@@ -1,14 +1,10 @@
-import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:university_ticketing_system/home/homepage_screens/about_the_app/about_app.dart';
-import 'package:university_ticketing_system/home/homepage_screens/discover/discover_screen.dart';
-import 'package:university_ticketing_system/screens/landing_screen.dart';
+
 import 'package:university_ticketing_system/home/topbar.dart';
-import 'package:mockito/mockito.dart';
 
 void main() {
   final TestWidgetsFlutterBinding binding =

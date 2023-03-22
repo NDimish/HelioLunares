@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'dart:io';
 
-import 'package:university_ticketing_system/home/homepage_screens/about_the_app/about_app.dart';
 import 'package:university_ticketing_system/home/homepage_screens/contact/contact.dart';
 import 'package:university_ticketing_system/home/homepage_screens/contact/contact_form.dart';
-
-import 'package:university_ticketing_system/submit_button.dart';
 
 void main() {
 //Contact page simply houses the contact form!
