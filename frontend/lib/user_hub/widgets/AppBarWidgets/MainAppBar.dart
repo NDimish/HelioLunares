@@ -3,7 +3,7 @@ import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/Socie
 import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/userSettingsPage/user_settings.dart';
 import 'package:university_ticketing_system/user_hub/widgets/SearchBarWidgets/CustomSearchBar.dart';
 import 'package:university_ticketing_system/user_hub/widgets/ThemeDataWidgets/UserHubTheme.dart';
-
+import 'package:university_ticketing_system/home/homepage.dart';
 import 'bought_tickets/user_bought_ticket_screen.dart';
 
 class MainAppBar extends AppBar {
@@ -44,11 +44,13 @@ class MainAppBar extends AppBar {
                   },
                   icon: const Icon(Icons.settings),
                   key: Key("SettingsButton")),
-              IconButton(onPressed: (){
+              IconButton(tooltip:"Logout",
+              onPressed: (){
+                
                 Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const UserSettingsPage()));
+                            builder: (context) => const HomePage()));
               }, icon: Icon(Icons.logout))
             ]
             //
