@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:university_ticketing_system/constants/controllers.dart';
 import 'package:university_ticketing_system/helpers/responsiveness.dart';
+import 'package:university_ticketing_system/pages/events/event_list_maker.dart';
 import 'package:university_ticketing_system/pages/events/widgets/society_events.dart';
 import 'package:university_ticketing_system/routing/routes.dart';
 import 'package:university_ticketing_system/theme.dart';
@@ -65,8 +66,8 @@ class SocietyEventsPage extends StatelessWidget {
                 context: context,
                 removeTop: true,
                 child: Expanded(
-                  flex: 14,
-                  child: SocietyEventCards(),
+                  //flex: 14,
+                  child: EventDataLoader(), //SocietyEventCards(),
                 )),
             const SizedBox(height: 5),
           ],

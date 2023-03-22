@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:university_ticketing_system/backend_communication/dataCollector.dart'
     as data;
@@ -8,6 +9,7 @@ import 'package:university_ticketing_system/globals.dart' as globals;
 
 import 'package:university_ticketing_system/pages/select_society/widgets/society_card.dart';
 
+import '../../backend_communication/models/Society.dart';
 import '../../routing/routes.dart'; // for using university
 
 class DataLoader extends StatefulWidget {
@@ -27,7 +29,7 @@ class _DataLoaderState extends State<DataLoader> {
       {Key? key,
       this.orderBy = data.OrderType.CHRONOLOGICAL,
       this.filter = const {},
-      this.id = -1});
+      this.id = -9});
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +37,13 @@ class _DataLoaderState extends State<DataLoader> {
       'role__gt': '1',
       'user_at_society': globals.localdataobj.getUserID().toString()
     };
+
+    var societyFilter = {};
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(
               create: (context) =>
-                  data.dataCollector<data.Society>(filter: powInSocietyFilter)),
+                  data.dataCollector<data.Society>(filter: {})),
           ChangeNotifierProvider(
               create: (context) => data.dataCollector<data.SocietyCategories>(
                   filter: {}, order: orderBy))
@@ -65,8 +69,12 @@ class _DataLoaderState extends State<DataLoader> {
                             categoryName: DataP
                                 .collection[index].societyCategory.categoryName,
                             onTap: () {
+                              final Society society =
+                                  Get.put(DataP.collection[index].society);
+
+                              // Get.put(society);
                               print(
-                                  "ID is ${DataP.collection[index].societyCategory.id}");
+                                  "ID is ${DataP.collection[index].society.id}");
 
                               sideMenuController.setVisible();
                               menuController.activeItem.value =
