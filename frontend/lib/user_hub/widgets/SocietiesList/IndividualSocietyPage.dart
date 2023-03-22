@@ -288,16 +288,18 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                                     //                                                             });
                                     //           }),
                                     // ),
-                                    // ListButton(
-                                    //   onPressed: () => Navigator.of(context)
-                                    //       .push(MaterialPageRoute(
-                                    //           builder: (context) =>
-                                    //               SocietyEventsList(
-                                    //                 societyName: DataP
-                                    //                     .collection[0],
-                                    //               ))),
-                                    //   buttonText: "List of Events",
-                                    // ),
+                                    SizedBox(height:10),
+
+                                    ListButton(
+                                      onPressed: () => Navigator.of(context)
+                                          .push(MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SocietyEventsList(
+                                                    societyName: DataP
+                                                        .collection[0],
+                                                  ))),
+                                      buttonText: "List of Events",
+                                    ),
                                     !ResponsiveWidget.isSmallScreen(context)
                                         ? const SizedBox()
                                         : ElevatedButton(
