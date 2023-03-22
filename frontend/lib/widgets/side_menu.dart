@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:university_ticketing_system/backend_communication/dataCollector.dart';
 import 'package:university_ticketing_system/constants/style.dart';
 import 'package:university_ticketing_system/constants/controllers.dart';
 import 'package:university_ticketing_system/controllers/side_menu_controller.dart';
@@ -63,6 +64,8 @@ class _SideMenuState extends State<SideMenu> {
             SideMenuItem(
               itemName: selectSocietyPageDisplayName,
               onTap: () {
+                //DELETE OLD SOCIETY SO CAN PUT A NEW ONE AFTER SOCIETY SELECTION
+                Get.delete<Society>();
                 //HIDE OTHER SUBPAGES WHEN A SOCIETY IS NOT SELECTED
                 if ("/societyhub/SelectSociety" !=
                     ModalRoute.of(context)!.settings.name) {
