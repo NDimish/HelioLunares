@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:university_ticketing_system/backend_communication/authenticate.dart';
 import 'package:university_ticketing_system/submit_button.dart';
 import 'package:university_ticketing_system/authentication/models/user_account.dart';
 import 'package:university_ticketing_system/authentication/sign_up/choose_sign_up_screen.dart';
@@ -7,6 +8,7 @@ import 'package:university_ticketing_system/authentication/validators/email_vali
 import 'package:university_ticketing_system/authentication/validators/password_validator.dart';
 import 'package:university_ticketing_system/gradient_animation.dart';
 import 'package:university_ticketing_system/responsive.dart';
+import 'package:http/http.dart' as http;
 
 /// DESIGNED BY ISRAFEEL ASHRAF - K21008936
 ///
@@ -157,12 +159,18 @@ class _LogInFormState extends State<LogInForm> {
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.15),
             SubmitButton(
-                onPressed: () {
+                onPressed: () async {
                   //We check if the form is valid and we progress to the next page
                   //(which is the student screen or society screen) depending on the user account.
-                  _formKey.currentState!.validate()
-                      ? print("Valid form")
-                      : print("Invalid form");
+                  if (_formKey.currentState!.validate()) {
+                    http.Response response =
+                        await auth(userAccount.email, userAccount.password);
+                    if (response.statusCode == 200) {
+                      print("user is logged in - redirecting");
+                    } else {
+                      print("error logging in - try again later");
+                    }
+                  }
                 },
                 scaleFactor:
                     ResponsiveWidget.isSmallScreen(context) ? 0.6 : 0.45,

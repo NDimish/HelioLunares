@@ -347,7 +347,7 @@ class _StageTwoStudentSignUpState extends State<StageTwoStudentSignUp> {
                     if (response.statusCode == 201) {
                       ScaffoldMessenger.of(context).showSnackBar(
                           informationSnackbar(
-                              "Society Account Created! Redirecting to login"));
+                              "Student Account Created! Redirecting to login"));
                       Timer(const Duration(seconds: 2), () {
                         //print("Yeah, this line is printed after 3 seconds");
                         Navigator.pushReplacement(

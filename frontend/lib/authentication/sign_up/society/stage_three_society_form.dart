@@ -1,7 +1,11 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:university_ticketing_system/authentication/log_in/log_in_screen.dart';
 import 'package:university_ticketing_system/authentication/models/society_categories.dart';
 import 'package:university_ticketing_system/authentication/sign_up/society/society_sign_up.dart';
+import 'package:university_ticketing_system/authentication/sign_up/student/student_sign_up.dart';
+import 'package:university_ticketing_system/backend_communication/authenticate.dart';
 import 'package:university_ticketing_system/submit_button.dart';
 import 'package:university_ticketing_system/authentication/models/society.dart';
 import 'package:university_ticketing_system/gradient_animation.dart';
@@ -283,22 +287,45 @@ class _StageThreeSocietySignUpState extends State<StageThreeSocietySignUp> {
                   //getCategoryIds();
                   print("society categories: ${selectedIds}");
 
-                  var response = await createSociety(widget.soc);
-                  print("\n SOCIET SENT DATA \n");
+                  http.Response response = await createSociety(
+                      widget.soc.user.email,
+                      widget.soc.user.password,
+                      widget.soc.universityAtId,
+                      widget.soc.socName,
+                      widget.soc.dateCreated,
+                      bio,
+                      selectedIds);
+
+                  print("Status Code: ${response.statusCode}");
 
                   if (response.statusCode == 201) {
-                    print("Society Account Created");
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        informationSnackbar(
+                            "Society Account Created! Redirecting to login"));
+                    Timer(const Duration(seconds: 2), () {
+                      //print("Yeah, this line is printed after 3 seconds");
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LogInScreen()),
+                      );
+                    });
                   } else {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SocietySignUp()),
-                    );
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        informationSnackbar(
+                            "Your credentials were not accepted. Try again."));
+
+                    Timer(const Duration(seconds: 2), () {
+                      //print("Yeah, this line is printed after 3 seconds");
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SocietySignUp()),
+                      );
+                    });
                   }
 
-                  print(response.body);
-
-                  print("\n\n");
+                  print("Status Code: ${response.statusCode}");
                 }
               },
               scaleFactor: ResponsiveWidget.isSmallScreen(context) ? 0.6 : 0.40,
@@ -312,26 +339,6 @@ class _StageThreeSocietySignUpState extends State<StageThreeSocietySignUp> {
         selectedIds.add(selectedChoicesIds[element]!);
       });
     }
-  }
-
-  Future<http.Response> createSociety(Society soc) {
-    return http.post(
-      Uri.parse('http://localhost:8000/society/'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, dynamic>{
-        'user': {
-          'email': widget.soc.user.email,
-          'password': widget.soc.user.password
-        },
-        'university_society_is_at': soc.universityAtId,
-        'creation_date': soc.dateCreated,
-        'name': soc.socName,
-        'about_us': soc.bio,
-        //'categories': selectedIds
-      }),
-    );
   }
 
   //Separate styling for multi line text fields.
@@ -362,5 +369,16 @@ class _StageThreeSocietySignUpState extends State<StageThreeSocietySignUp> {
         floatingLabelStyle: const TextStyle(
             color: Colors.black, fontFamily: "Arvo", fontSize: 18),
         floatingLabelBehavior: FloatingLabelBehavior.always);
+  }
+
+  SnackBar informationSnackbar(String text) {
+    return SnackBar(
+      content: Text(
+        text,
+        style: const TextStyle(fontFamily: "Arvo", color: Colors.white),
+      ),
+      duration: const Duration(seconds: 2),
+      backgroundColor: Colors.black,
+    );
   }
 }
