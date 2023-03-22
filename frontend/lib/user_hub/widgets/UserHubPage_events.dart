@@ -41,7 +41,8 @@ class _UserHubPage_eventsState extends State<UserHubPage_events> {
           
         });
       }, // Controller for text field in CustomSearchBar_Events
-      search_controller
+      search_controller,
+      "EVENTS"
       ),
 
       body: Center(

@@ -3,18 +3,24 @@ import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/Socie
 import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/userSettingsPage/user_settings.dart';
 import 'package:university_ticketing_system/user_hub/widgets/SearchBarWidgets/CustomSearchBar.dart';
 import 'package:university_ticketing_system/user_hub/widgets/ThemeDataWidgets/UserHubTheme.dart';
-
+import 'package:university_ticketing_system/home/homepage.dart';
 import 'bought_tickets/user_bought_ticket_screen.dart';
+import 'package:university_ticketing_system/backend_communication/authenticate.dart';
 
 class MainAppBar extends AppBar {
-  MainAppBar(BuildContext context, Function(String)? searchfunc, Function()? clearfunc, TextEditingController? search_controller,{super.key})
+  MainAppBar(BuildContext context, 
+  Function(String)? searchfunc, 
+  Function()? clearfunc, 
+  TextEditingController? search_controller,
+  String hinttext,
+  {super.key})
       : super(
             title: Center(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text("TickeX"), SizedBox(width: 30),
-                Expanded(child: CustomSearchBar(searchfunc, clearfunc, search_controller)),
+                Expanded(child: CustomSearchBar(searchfunc, clearfunc, search_controller, hinttext)),
               ]),
             ),
 
@@ -44,11 +50,13 @@ class MainAppBar extends AppBar {
                   },
                   icon: const Icon(Icons.settings),
                   key: Key("SettingsButton")),
-              IconButton(onPressed: (){
+              IconButton(tooltip:"Logout",
+              onPressed: (){
+                logout();
                 Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const UserSettingsPage()));
+                            builder: (context) => const HomePage()));
               }, icon: Icon(Icons.logout))
             ]
             //

@@ -8,7 +8,7 @@ void main(){
   (tester)async{
     await tester.pumpWidget(MaterialApp(
       home:Scaffold(
-        body: CustomSearchBar((p0){}, (){}, testcontrol)
+        body: CustomSearchBar((p0){}, (){}, testcontrol, "TEST")
       )
     ));
     final widgetFinder = find.byType(CustomSearchBar);

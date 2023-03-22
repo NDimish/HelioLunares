@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:university_ticketing_system/backend_communication/societyfunctions.dart';
 import 'package:university_ticketing_system/gradient_animation.dart';
+import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/bought_tickets/buy_ticket_screen.dart';
 import 'package:university_ticketing_system/user_hub/widgets/EventsList/widgets/IndividualPageHeader.dart';
 
 import '../../../backend_communication/dataCollector.dart';
@@ -12,7 +14,7 @@ class EventPage extends StatefulWidget {
   final String eventLocation;
   final String eventDate;
   final String eventDuration;
-  final String eventPrice;
+  final double eventPrice;
   final int eventId;
 
   const EventPage({
@@ -34,7 +36,7 @@ class _EventPageState extends State<EventPage> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context) => dataCollector<Event>(ID: 5),
+        create: (context) => dataCollector<Event>(ID: widget.eventId),
         builder: (context, child) {
           final DataP = Provider.of<dataCollector<Event>>(context);
         return Scaffold(
@@ -183,8 +185,14 @@ class _EventPageState extends State<EventPage> {
                                   Padding(
                                     padding: const EdgeInsets.all(4.0),
                                     child: ElevatedButton(
-                                      onPressed: () => print(
-                                          "This would take you to the checkout and book the event. We would have to check if user has booked this event to disable this button."),
+                                      // -------------------------------
+                                      // Buy Button
+                                      /// ------------------------------
+                                      onPressed: () {
+                                        buyTicket(widget.eventId, widget.eventPrice);
+                                        print("Takes user to checkout. Need to check if user has booked this event to disable this button.");
+                                      }, 
+                                      // -------------------------------
                                       child: const Text("Book now"),
                                     ),
                                   ),

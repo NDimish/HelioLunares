@@ -201,6 +201,7 @@ class BuyTicketScreen extends StatelessWidget {
         final DataP = Provider.of<data.dataCollector<tic.Tickets>>(context);
         //print(DataP.collection.length);
         return Scaffold(
+          appBar: AppBar(),
           backgroundColor: const Color(0xFFE0BBE4),
           body: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -350,7 +351,17 @@ class BuyTicketScreen extends StatelessWidget {
                                               builder: (context) =>
                                                   const UserBoughtTicketScreen()));
                                     },
-                                    child: const Text('back'))
+                                    child: const Text('Back')),
+                                ElevatedButton(
+                                  key: Key('Remove ticket') ,
+                                  onPressed: () {
+                                      Navigator.pop(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const UserBoughtTicketScreen()));
+                                    },
+                                    child: const Text('Remove ticket'))
                               ],
                             );
                           }

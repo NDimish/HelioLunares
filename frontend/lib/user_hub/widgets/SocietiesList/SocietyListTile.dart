@@ -13,11 +13,13 @@ class SocietyListTile extends StatefulWidget {
   SocietyListTile({super.key,
   required this.societyName,
   required this.summary,
-  required this.uni,});
+  required this.uni,
+  required this.societyID});
 
   String societyName;
   String summary;
   String uni;
+  int societyID;
 
   @override
   State<SocietyListTile> createState() => _SocietyListTileState();
@@ -29,6 +31,7 @@ class _SocietyListTileState extends State<SocietyListTile> {
     var name = widget.societyName;
     var summary = widget.summary;
     var uni = widget.uni;
+    var socID = widget.societyID;
 
     RegExp reg = RegExp(r"" + searchText, caseSensitive: false);
     if(reg.hasMatch(name)){
@@ -65,13 +68,13 @@ class _SocietyListTileState extends State<SocietyListTile> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => const MainSocietyPage(
+                  builder: (context) => MainSocietyPage(
                                   societyName: 'Introduction to AI',
                                   societyDescription:
                                       'AI is the driving force of our economy.',
                                   societyUni: 'Kings',
                                   numberOfFollowers: '10',
-                                  socId:5,
+                                  socId:socID,
                                 )));
           },
         ),

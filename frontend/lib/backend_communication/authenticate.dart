@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'models/all.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -86,10 +88,12 @@ Future<http.Response> createPerson(String email, String password, int uniId,
 
 Future<http.Response> logout() async {
   print("beginning logout");
-  final response = await http.post(
+  final response = await http.get(
     Uri.parse('${DATASOURCE}log_out/'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
+      HttpHeaders.authorizationHeader:
+          "token ${globals.localdataobj.getToken()}"
     },
   );
 
