@@ -12,8 +12,8 @@ import 'package:university_ticketing_system/widgets/custom_text.dart';
 import '../../backend_communication/models/Society.dart';
 
 class SocietyHubPage extends StatelessWidget {
-  final Society society;
-  const SocietyHubPage({super.key, required this.society});
+  final Society society = Get.find<Society>();
+  SocietyHubPage({super.key});
 
   @override
   Widget build(BuildContext context) {

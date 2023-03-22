@@ -92,6 +92,7 @@ class _SideMenuState extends State<SideMenu> {
                               if (!menuController.isActive(item.name)) {
                                 menuController.changeActiveItemTo(item.name);
                                 if (ResponsiveWidget.isSmallScreen(context)) {
+                                  //CLOSE OPEN SIDE DRAWER AUTOMATICALLY AFTER SELECTING PAGE
                                   Get.back();
                                 }
 
