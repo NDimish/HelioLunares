@@ -72,9 +72,8 @@ class _DataLoaderState extends State<DataLoader> {
                               final Society society =
                                   Get.put(DataP.collection[index].society);
 
-                              // Get.put(society);
                               print(
-                                  "ID is ${DataP.collection[index].society.id}");
+                                  "ID is ${DataP.collection[index].society.user.id}");
 
                               sideMenuController.setVisible();
                               menuController.activeItem.value =

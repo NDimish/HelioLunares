@@ -45,11 +45,7 @@ class _EventDataLoaderState extends State<EventDataLoader> {
 
   @override
   Widget build(BuildContext context) {
-    print("YOYO");
-    print(_society.id);
-    print(_society.id.toString());
-    var eventFilter = {'society_id': '69'};
-    // var eventFilter = {"duration": '168'};
+    var eventFilter = {'society_id': _society.user.id.toString()};
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(
