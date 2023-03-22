@@ -12,6 +12,7 @@ import '../../../gradient_animation.dart';
 import '../../../helpers/responsiveness.dart';
 import '../EventsList/widgets/IndividualPageHeader.dart';
 import 'package:http/http.dart' as http;
+import 'package:university_ticketing_system/globals.dart' as global;
 
 class MainSocietyPage extends StatefulWidget {
   final String societyName;
@@ -20,7 +21,7 @@ class MainSocietyPage extends StatefulWidget {
   final String numberOfFollowers;
   final int socId;
 
-  const MainSocietyPage({
+   const MainSocietyPage({
     Key? key,
     required this.societyName,
     required this.societyDescription,
@@ -40,11 +41,21 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (context) => dataCollector<Society>(ID: widget.socId),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create:(context) => dataCollector<Society>(ID: widget.socId),
+        ),
+        ChangeNotifierProvider(create:(context) => dataCollector<SocietyRole>(filter: {'user_at_society':global.localdataobj.getUserID().toString(),'society':widget.socId.toString()}),
+        )
+      ],
         builder: (context, child) {
           final DataP = Provider.of<dataCollector<Society>>(context);
-          print(DataP.collection[0].image);
+          final DataRole = Provider.of<dataCollector<SocietyRole>>(context);
+
+           hasJoined = (DataRole.collection.length != 0);
+
+          
+          print(DataRole.collection);
           return Scaffold(
             appBar: AppBar(
                 title: Text(
@@ -59,12 +70,12 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.all(10.0),
+                     Padding(
+                      padding: const EdgeInsets.all(10.0),
                       child: SocietyBanner(
                         //Nathan the image thing
                           imageLink:
-                              "https://avatars.githubusercontent.com/u/32419965?v=4"),
+                              ("${global.DATASOURCE}${DataP.collection[0].image}")),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 20.0),
@@ -184,6 +195,7 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
+                                    SocietyButton( hasJoined: hasJoined, socId: widget.socId,),
                                     // Padding(
                                     //   padding: const EdgeInsets.all(4.0),
                                     //   child: hasJoined
@@ -227,13 +239,13 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                                     //                 ],
                                     //               );
                                     //             }
-                                    //             setState(() {
+                                    // //             setState(() {
                                                                                                   
-                                    //                                                             });
-                                    //           })
-                                    //       : SocietyButton(
-                                    //         buttonText: 'Leave',
-                                    //           onPressed: () async {
+                                    // //                                                             });
+                                    // //           })
+                                    // //       : SocietyButton(
+                                    // //         buttonText: 'Leave',
+                                    // //           onPressed: () async {
                                     //             http.Response join_repo =
                                     //                 await joinSociety(
                                     //                     widget.socId);
