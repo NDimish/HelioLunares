@@ -626,7 +626,7 @@ class TicketInfoApiView(APIView):
         return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
 
     def delete(self, request, pk):
-        Ticket.objects.filter(id=pk).delete()
+        Ticket.objects.get(id=pk).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 #get list of all event category types
