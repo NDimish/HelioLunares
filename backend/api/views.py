@@ -33,7 +33,10 @@ def homePage(request):
 
 @api_view(['GET'])
 def log_out(request):
-    logout(request)
+    try:
+        request.user.auth_token.delete()
+    except:
+        pass
     return Response(data={'user_logged_out': True}, status=status.HTTP_200_OK)
 
 class LogInView(APIView):
