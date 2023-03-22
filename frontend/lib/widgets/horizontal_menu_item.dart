@@ -37,7 +37,7 @@ class HorizontalMenuItem extends StatelessWidget {
                     child: Container(
                       width: 6,
                       height: 40,
-                      color: Colors.white,
+                      color: MyColours.textColourDark,
                     ),
                   ),
                   SizedBox(width: _width / 88),
