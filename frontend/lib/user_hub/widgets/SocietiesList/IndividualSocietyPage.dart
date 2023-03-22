@@ -186,7 +186,45 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                                       child: hasJoined
                                           ? SocietyButton(
                                               buttonText: "Leave",
-                                              onPressed: () async {})
+                                              onPressed: () async {
+                                                http.Response leave_repo =
+                                                    await leaveSociety(
+                                                        widget.socId);
+                                                if (leave_repo.statusCode ==
+                                                    201) {
+                                                  //Joined society
+                                                  AlertDialog(
+                                                    content: const Text(
+                                                        'You have "joined" successfully!'),
+                                                    actions: <Widget>[
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                context,
+                                                                'Confirm'),
+                                                        child: const Text(
+                                                            'Confirm'),
+                                                      ),
+                                                    ],
+                                                  );
+                                                } else {
+                                                  //Failed to join society
+                                                  AlertDialog(
+                                                    content: const Text(
+                                                        'You have failed to join society.'),
+                                                    actions: <Widget>[
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                context,
+                                                                'Confirm'),
+                                                        child: const Text(
+                                                            'Confirm'),
+                                                      ),
+                                                    ],
+                                                  );
+                                                }
+                                              })
                                           : SocietyButton(
                                               buttonText: "Join",
                                               onPressed: () async {
