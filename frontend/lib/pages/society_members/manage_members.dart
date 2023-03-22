@@ -8,54 +8,64 @@ import 'package:university_ticketing_system/globals.dart' as globals;
 
 class ManageMembers extends StatelessWidget {
   const ManageMembers({super.key});
-  final int user_society_role_level = 3;
+
   final int society_id =
       6; // this is the user's role in society // this is user level, 1/2 for non/student and 3 for society account
 
   @override
   Widget build(BuildContext context) {
-    if (user_society_role_level == 1) {
-      return Center(
-        child: Text(
-            'You do not have enough power in this society (id=$society_id)!'),
-      );
-    } else if (user_society_role_level == 2 || user_society_role_level == 3) {
-      return MultiProvider(
-          providers: [
-            ChangeNotifierProvider(
-                create: (context) => data.dataCollector<data.SocietyRole>(
-                    filter: {'society': society_id.toString()},
-                    order: data.OrderType.CHRONOLOGICAL))
-          ],
-          builder: (context, child) {
-            final roleData =
-                Provider.of<data.dataCollector<data.SocietyRole>>(context);
+    int userSocietyRoleLevel = 0;
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+              create: (context) =>
+                  data.dataCollector<data.SocietyRole>(filter: {
+                    'society': society_id.toString(),
+                  }, order: data.OrderType.CHRONOLOGICAL))
+        ],
+        builder: (context, child) {
+          final roleData =
+              Provider.of<data.dataCollector<data.SocietyRole>>(context);
 
-            return ListView(
-              children: [
-                const SizedBox(height: 40),
-                const Text("Admins"),
-                MembersTable(3, user_society_role_level,
-                    globals.localdataobj.getUserLevel(), roleData.collection),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Text("Local Admins"),
-                MembersTable(2, user_society_role_level,
-                    globals.localdataobj.getUserLevel(), roleData.collection),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Text("Members"),
-                MembersTable(1, user_society_role_level,
-                    globals.localdataobj.getUserLevel(), roleData.collection),
-              ],
-            );
-          });
-    } else {
-      return Center(
-        child: Text('You have not joined this society (id=$society_id)'),
-      );
-    }
+          //now check user role level first
+          if (globals.localdataobj.getUserLevel() != 3) {
+            //check in the array if they are in soc and have power
+            for (var i = 0; i < roleData.collection.length; i++) {
+              if (roleData.collection[i].people.user.id ==
+                  globals.localdataobj.getUserID()) {
+                userSocietyRoleLevel = roleData.collection[i].role;
+                break;
+              }
+            }
+            if (userSocietyRoleLevel == 1) {
+              return const Text("You do not have power in society.");
+            }
+            if (userSocietyRoleLevel == 0) {
+              return const Text("You are not part of this society.");
+            }
+          }
+
+          //They have enough power to be in this society
+          return ListView(
+            children: [
+              const SizedBox(height: 40),
+              const Text("Admins"),
+              MembersTable(3, userSocietyRoleLevel,
+                  globals.localdataobj.getUserLevel(), roleData.collection),
+              const SizedBox(
+                height: 20,
+              ),
+              const Text("Local Admins"),
+              MembersTable(2, userSocietyRoleLevel,
+                  globals.localdataobj.getUserLevel(), roleData.collection),
+              const SizedBox(
+                height: 20,
+              ),
+              const Text("Members"),
+              MembersTable(1, userSocietyRoleLevel,
+                  globals.localdataobj.getUserLevel(), roleData.collection),
+            ],
+          );
+        });
   }
 }

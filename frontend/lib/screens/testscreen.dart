@@ -86,7 +86,7 @@ class _testscreen extends State<testscreen> {
 
                 //login as person
                 http.Response log_in_as_perosn =
-                    await auth("thisisanewemail@gmail.com", "This.is.pass1091");
+                    await auth("nathgsg@gmail.com", "This.is.pass1091");
 
                 Navigator.pushNamed(context, '/societyhub');
               }),

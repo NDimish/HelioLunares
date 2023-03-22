@@ -29,18 +29,18 @@ class _MembersTableState extends State<MembersTable> {
       if (widget.role == 3) {
         return const [
           DropdownMenuItem(value: "Remove", child: Text("Remove")),
-          DropdownMenuItem(value: "demote", child: Text("Demote")),
+          DropdownMenuItem(value: "Demote", child: Text("Demote")),
         ];
       } else if (widget.role == 2) {
         return const [
           DropdownMenuItem(value: "Remove", child: Text("Remove")),
           DropdownMenuItem(value: "Promote", child: Text("Promote")),
-          DropdownMenuItem(value: "demote", child: Text("Demote")),
+          DropdownMenuItem(value: "Demote", child: Text("Demote")),
         ];
       } else {
         return const [
           DropdownMenuItem(value: "Remove", child: Text("Remove")),
-          DropdownMenuItem(value: "promote", child: Text("Promote")),
+          DropdownMenuItem(value: "Promote", child: Text("Promote")),
         ];
       }
     } else {
@@ -51,12 +51,12 @@ class _MembersTableState extends State<MembersTable> {
         } else if (widget.role == 2) {
           return const [
             DropdownMenuItem(value: "Remove", child: Text("Remove")),
-            DropdownMenuItem(value: "demote", child: Text("Demote")),
+            DropdownMenuItem(value: "Demote", child: Text("Demote")),
           ];
         } else {
           return const [
             DropdownMenuItem(value: "Remove", child: Text("Remove")),
-            DropdownMenuItem(value: "promote", child: Text("Promote")),
+            DropdownMenuItem(value: "Promote", child: Text("Promote")),
           ];
         }
       } else if (widget.user_society_role_level == 2) {
