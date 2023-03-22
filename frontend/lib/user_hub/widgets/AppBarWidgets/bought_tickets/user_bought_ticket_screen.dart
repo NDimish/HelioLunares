@@ -5,6 +5,7 @@ import '../../../../backend_communication/authenticate.dart';
 import '../../../../backend_communication/dataCollector.dart' as data;
 import 'package:university_ticketing_system/backend_communication/models/Ticket.dart' as tic;
 import 'package:university_ticketing_system/backend_communication/models/all.dart';
+import 'package:university_ticketing_system/globals.dart' as globals;
 
 class UserBoughtTicketScreen extends StatefulWidget {
   final data.OrderType Orderby;
@@ -32,11 +33,12 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var currentUserFilter = {'user':globals.localdataobj.getUserID().toString()};
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
           create: (context) => data.dataCollector<tic.Tickets>(
-            filter: widget.filter, order: widget.Orderby)),
+            filter: currentUserFilter, order: widget.Orderby)),
       ],
       builder: (context, child) {
         
