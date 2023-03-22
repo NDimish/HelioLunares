@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:university_ticketing_system/backend_communication/societyfunctions.dart';
 import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/bought_tickets/user_bought_ticket_screen.dart';
 import '../../../../backend_communication/authenticate.dart';
 import '../../../../backend_communication/dataCollector.dart' as data;
@@ -355,11 +356,15 @@ class BuyTicketScreen extends StatelessWidget {
                                 ElevatedButton(
                                   key: Key('Remove ticket') ,
                                   onPressed: () {
-                                      Navigator.pop(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const UserBoughtTicketScreen()));
+                                    
+                                    removeTicket(id);
+                                    Navigator.push(context, 
+                                    MaterialPageRoute(
+                                              builder: (context) {
+                                                return const UserBoughtTicketScreen();
+                                              }
+                                                  ));
+                                    
                                     },
                                     child: const Text('Remove ticket'))
                               ],
