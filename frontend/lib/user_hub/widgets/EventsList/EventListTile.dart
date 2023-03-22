@@ -86,7 +86,7 @@ class _EventListTileState extends State<EventListTile>{
                               eventDescription: 'Great fun',
                               eventDuration: '1 hour',
                               eventLocation: 'Bush House',
-                              eventPrice: '£10',
+                              eventPrice: 0,
                               eventId:eID,
                                 )));
           },
