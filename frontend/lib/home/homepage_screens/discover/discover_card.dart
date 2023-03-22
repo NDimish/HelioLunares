@@ -120,6 +120,7 @@ class _AboutCardState extends State<AboutCard> {
                               ),
                               IconButton(
                                 iconSize: 20,
+                                key: const Key("SecondIcon"),
                                 icon: Icon(widget.secondaryIcon),
                                 color: Colors.black,
                                 onPressed: widget.secondaryLink != null
