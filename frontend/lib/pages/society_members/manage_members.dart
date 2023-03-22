@@ -45,7 +45,8 @@ class ManageMembers extends StatelessWidget {
             }
           }
 
-          //They have enough power to be in this society
+          //They have enough power to be in this society management
+
           return ListView(
             children: [
               const SizedBox(height: 40),

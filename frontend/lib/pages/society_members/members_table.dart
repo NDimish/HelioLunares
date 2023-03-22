@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:university_ticketing_system/backend_communication/dataCollector.dart'
     as dataCol;
 import 'package:university_ticketing_system/backend_communication/models/all.dart';
+import 'package:university_ticketing_system/backend_communication/societyfunctions.dart';
 
 class MembersTable extends StatefulWidget {
   final int role;
@@ -20,10 +21,6 @@ class MembersTable extends StatefulWidget {
 }
 
 class _MembersTableState extends State<MembersTable> {
-  List<List<String>> data = [
-    ["John", "Doe", "johndoe@example.com", "12-02-2022", "yes"]
-  ];
-
   List<DropdownMenuItem> _actionsForRole() {
     if (widget.user_level == 3) {
       if (widget.role == 3) {
@@ -89,6 +86,15 @@ class _MembersTableState extends State<MembersTable> {
               ),
               height: 25,
               alignment: Alignment.center,
+              child: const Text("ID"),
+            ),
+            Container(
+              decoration: const BoxDecoration(
+                border: Border(
+                    right: BorderSide(width: 1, color: Color(0xFF703c6c))),
+              ),
+              height: 25,
+              alignment: Alignment.center,
               child: const Text("First Name"),
             ),
             Container(
@@ -130,6 +136,7 @@ class _MembersTableState extends State<MembersTable> {
     for (var i = 0; i < widget.dataset.length; i++) {
       if (widget.dataset[i].role == widget.role) {
         dataArr.add(_createDataRow({
+          "id": widget.dataset[i].people.user.id.toString(),
           "first_name": widget.dataset[i].people.first_name,
           "last_name": widget.dataset[i].people.last_name,
           "email": widget.dataset[i].people.user.email,
@@ -144,6 +151,11 @@ class _MembersTableState extends State<MembersTable> {
 
   TableRow _createDataRow(Map dataset) {
     return TableRow(children: [
+      Container(
+        height: 25,
+        alignment: Alignment.center,
+        child: Text(dataset["id"]),
+      ),
       Container(
         height: 25,
         alignment: Alignment.center,
@@ -171,7 +183,13 @@ class _MembersTableState extends State<MembersTable> {
               hint: const Text("Perform"),
               underline: const SizedBox(width: 0, height: 0),
               items: _actionsForRole(),
-              onChanged: ((value) => {}))),
+              onChanged: ((value) => {
+                    if (value == "Remove")
+                      {
+                        print(this)
+                        //removeFromSociety(userId, societyId)
+                      }
+                  }))),
     ]);
   }
 
