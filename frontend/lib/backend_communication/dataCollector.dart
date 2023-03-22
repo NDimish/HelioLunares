@@ -93,8 +93,8 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       } catch (e) {
         data = json.decode("[" + response.body + "]") as List;
       }
+       
        print(data);
-      // print('as');
       output = data.map<T>((json) => (getClass(json, Database))).toList();
       
       notifyListeners();
