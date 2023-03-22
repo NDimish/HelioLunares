@@ -134,6 +134,7 @@ class _ContactFormState extends State<ContactForm> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(15)),
                 child: DropdownButton(
+                  key: const Key("DropdownButton"),
                   style:
                       const TextStyle(fontFamily: "Arvo", color: Colors.black),
                   value: dropdownvalue,
@@ -159,6 +160,7 @@ class _ContactFormState extends State<ContactForm> {
                   ? MediaQuery.of(context).size.width * 0.85
                   : MediaQuery.of(context).size.width * 0.60,
               child: TextFormField(
+                  key: const Key("ContactEmail"),
                   cursorColor: Colors.black,
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.emailAddress,
@@ -184,6 +186,7 @@ class _ContactFormState extends State<ContactForm> {
                   ? MediaQuery.of(context).size.width * 0.85
                   : MediaQuery.of(context).size.width * 0.60,
               child: TextFormField(
+                  key: const Key("ContactName"),
                   cursorColor: Colors.black,
                   style:
                       const TextStyle(fontFamily: "Arvo", color: Colors.black),
@@ -207,6 +210,7 @@ class _ContactFormState extends State<ContactForm> {
                   ? MediaQuery.of(context).size.width * 0.85
                   : MediaQuery.of(context).size.width * 0.60,
               child: TextFormField(
+                  key: const Key("ContactMessage"),
                   maxLines: 5,
                   maxLength: 120,
                   cursorColor: Colors.black,

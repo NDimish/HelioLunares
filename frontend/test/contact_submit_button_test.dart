@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:university_ticketing_system/screens/startup_screen/widgets/contact_submit.dart';
+import 'package:university_ticketing_system/submit_button.dart';
 
 void main() {
   final TestWidgetsFlutterBinding binding =
@@ -14,8 +14,11 @@ void main() {
       int buttonPress = 0;
       await tester.pumpWidget(MaterialApp(
           home: Scaffold(
-        body:
-            ContactSubmit(onPressed: () => buttonPress++, buttonText: "Submit"),
+        body: SubmitButton(
+          onPressed: () => buttonPress++,
+          textIn: "Submit",
+          scaleFactor: 1.5,
+        ),
       )));
 
       final submitFinder = find.text("Submit");

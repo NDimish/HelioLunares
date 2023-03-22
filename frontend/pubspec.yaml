@@ -50,6 +50,7 @@ dependencies:
   image_picker_for_web: ^2.1.11
   image_picker: ^0.8.6+4
   animated_background: ^2.0.0
+  mockito: ^5.3.2
  
 
 dev_dependencies:

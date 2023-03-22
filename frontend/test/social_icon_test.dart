@@ -4,6 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:university_ticketing_system/screens/startup_screen/widgets/social_icons.dart';
 
+//These tests were designed for the social icons in the old startup screen, which we decided
+//to discard in the responsive version.
 void main() {
   final TestWidgetsFlutterBinding binding =
       TestWidgetsFlutterBinding.ensureInitialized();
