@@ -204,6 +204,7 @@ class DiscoverScreen extends StatelessWidget {
               itemCount: devs.length,
               itemBuilder: (BuildContext context, int index) {
                 return SizedBox(
+                    key: const Key("devSmall"),
                     height: 150,
                     width: MediaQuery.of(context).size.width * 0.9,
                     child: Card(
