@@ -34,6 +34,7 @@ class Society extends dataSets {
       aboutus = json['about_us'];
     }
     return Society(
+      id: User.fromJson(json['user']).id,
       user: User.fromJson(json['user']),
       university: University.fromJson(json['university_society_is_at']),
       name: json['name'],
