@@ -121,13 +121,13 @@ class _TestScreenAdditionState extends State<TestScreenAddition> {
           //     create: (context) => data.dataCollector<data.Event>(
           //         filter: widget.filter, order: widget.orderBy)),
           ChangeNotifierProvider(
-              create: (context) => data.dataCollector<data.SocietyRole>(
-                  filter: powerInSocFilter, order: widget.orderBy)),
+              create: (context) => data.dataCollector<data.Society>(
+                  filter: widget.filter, order: widget.orderBy)),
         ],
         builder: (context, child) {
           // final DataP2 = Provider.of<data.dataCollector<data.Event>>(context);
           final DataP =
-              Provider.of<data.dataCollector<data.SocietyRole>>(context);
+              Provider.of<data.dataCollector<data.Society>>(context);
           if (DataP.responserFromUrL.statusCode == 200) {
             return Scaffold(
               body: ListView.builder(
@@ -141,12 +141,12 @@ class _TestScreenAdditionState extends State<TestScreenAddition> {
                             DataP.deleteFromCollection(DataP.collection[index]);
                           }),
                       title: Text(
-                        DataP.collection[index].society.name,
+                        DataP.collection[index].name,
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       subtitle: Text(
-                        DataP.collection[index].role.toString(),
+                        DataP.collection[index].description,
                         style: TextStyle(fontSize: 15, color: Colors.black),
                       ));
                 },
