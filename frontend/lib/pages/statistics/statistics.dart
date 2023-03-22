@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:university_ticketing_system/pages/statistics/StatisticsPage.dart';
 import 'package:university_ticketing_system/widgets/custom_text.dart';
 
 import '../../constants/controllers.dart';
 import '../../helpers/responsiveness.dart';
+import 'package:university_ticketing_system/globals.dart' as globals;
 
 class StatisticsPage extends StatelessWidget {
   const StatisticsPage({Key? key}) : super(key: key);
@@ -27,15 +29,10 @@ class StatisticsPage extends StatelessWidget {
                 )
               ],
             )),
-        Padding(
-          padding: EdgeInsets.all(20),
-          child: CustomText(
-            size: 20,
-            weight: FontWeight.bold,
-            text: "Coming Soon...",
-            colour: Colors.white,
-          ),
-        )
+        Expanded(
+            child: (globals.localdataobj.getToken() != "")
+                ? const Statistics()
+                : const Text("Not Authenticated")),
       ],
     );
   }
