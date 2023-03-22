@@ -29,19 +29,21 @@ class _testscreen extends State<testscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Todo App'),
-      ),
-      body: globals.localdataobj.getToken() != ""
-          ? TestScreenAddition()
-          : Text("Not authenticated yet"),
-      floatingActionButton: FloatingActionButton(
-          child: Icon(
-            Icons.add,
-            size: 30,
-          ),
-          onPressed: () async {
-            //THIS IS CODE TO CREATE SOCIETY
+        appBar: AppBar(
+          title: Text('Todo App'),
+        ),
+        body: globals.localdataobj.getToken() != ""
+            ? TestScreenAddition()
+            : Text("Not authenticated yet"),
+        floatingActionButton:
+            Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+          FloatingActionButton(
+              child: Icon(
+                Icons.add,
+                size: 30,
+              ),
+              onPressed: () async {
+                // //THIS IS CODE TO CREATE SOCIETY
 
             // http.Response response = await createSociety(
             //     "nathgsg@gmail.com",
@@ -53,7 +55,7 @@ class _testscreen extends State<testscreen> {
             //     [1, 2, 3]);
             // print(response.statusCode);
 
-            //THIS IS CODE TO CREATE A PERSON
+                // //THIS IS CODE TO CREATE A PERSON
 
             // http.Response response_two = await createPerson(
             //     "thisisanewemail@gmail.com",
@@ -82,9 +84,9 @@ class _testscreen extends State<testscreen> {
             // http.Response promote_role = await updateSociety(
             //     json.decode(response_two.body)['user']['id'], 2);
 
-            //login as person
-            http.Response log_in_as_perosn =
-                await auth("thisisanewemail@gmail.com", "This.is.pass1091");
+                // //login as person
+                http.Response log_in_as_perosn =
+                    await auth("thisisanewemail@gmail.com", "This.is.pass1091");
 
             Navigator.pushNamed(context, '/societyhub');
           }),
@@ -123,7 +125,7 @@ class _TestScreenAdditionState extends State<TestScreenAddition> {
           //         filter: widget.filter, order: widget.orderBy)),
           ChangeNotifierProvider(
               create: (context) => data.dataCollector<data.SocietyRole>(
-                  filter: powerInSocFilter, order: widget.orderBy)),
+                  filter: widget.filter, order: widget.orderBy)),
         ],
         builder: (context, child) {
           // final DataP2 = Provider.of<data.dataCollector<data.Event>>(context);
@@ -147,7 +149,7 @@ class _TestScreenAdditionState extends State<TestScreenAddition> {
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       subtitle: Text(
-                        DataP.collection[index].role.toString(),
+                        DataP.collection[index].society.name,
                         style: TextStyle(fontSize: 15, color: Colors.black),
                       ));
                 },

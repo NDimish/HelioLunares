@@ -34,7 +34,7 @@ class Event extends dataSets {
   factory Event.fromJson(Map<String, dynamic> json) {
     return Event(
         id: json['id'],
-        society: Society.fromJsonNOID(json['society_id']),
+        society: Society.fromJson(json['society_id']),
         ticket_amount: json['attendance'],
         duration: json['duration'],
         price: json['price'],
@@ -49,7 +49,7 @@ class Event extends dataSets {
 
   factory Event.fromJsonNOID(Map<String, dynamic> json) {
     return Event(
-        society: Society.fromJsonNOID(json['society_id']),
+        society: Society.fromJson(json['society_id']),
         ticket_amount: json['attendance'],
         duration: json['duration'],
         price: json['price'],
