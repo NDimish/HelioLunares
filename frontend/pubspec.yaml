@@ -51,6 +51,7 @@ dependencies:
   image_picker: ^0.8.6+4
   animated_background: ^2.0.0
   mockito: ^5.3.2
+  fl_chart: ^0.61.0
  
 
 dev_dependencies:
