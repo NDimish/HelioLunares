@@ -158,16 +158,7 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                   const SizedBox(
                     width: 50,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: customTextFormField(
-                        'Phone Number',
-                        'Enter your phone number',
-                        Icons.phone,
-                        phoneController,
-                        true,
-                        null),
-                  ),
+                  
                   // (value) {
                   // if (value == null ||
                   ////      value.isEmpty ||

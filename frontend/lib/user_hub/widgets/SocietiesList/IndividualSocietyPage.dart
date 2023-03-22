@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:university_ticketing_system/backend_communication/societyfunctions.dart';
 
 import 'package:university_ticketing_system/user_hub/widgets/SocietiesList/EventsListPage.dart';
+import 'package:university_ticketing_system/user_hub/widgets/SocietiesList/widgets/LoeButton.dart';
 import 'package:university_ticketing_system/user_hub/widgets/SocietiesList/widgets/SocietyBanner.dart';
 import 'package:university_ticketing_system/user_hub/widgets/SocietiesList/widgets/SocietyButton.dart';
 
@@ -43,6 +44,7 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
         create: (context) => dataCollector<Society>(ID: widget.socId),
         builder: (context, child) {
           final DataP = Provider.of<dataCollector<Society>>(context);
+          print(DataP.collection[0].image);
           return Scaffold(
             appBar: AppBar(
                 title: Text(
@@ -60,6 +62,7 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                     const Padding(
                       padding: EdgeInsets.all(10.0),
                       child: SocietyBanner(
+                        //Nathan the image thing
                           imageLink:
                               "https://avatars.githubusercontent.com/u/32419965?v=4"),
                     ),
@@ -140,7 +143,7 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                                     )),
                                 const SizedBox(height: 10.0),
                                 Text(
-                                  widget.numberOfFollowers,
+                                  '15',
                                   style: TextStyle(
                                     fontSize: 14.0,
                                     color: Colors.grey[600],
@@ -181,102 +184,108 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: hasJoined
-                                          ? SocietyButton(
-                                              buttonText: "Leave",
-                                              onPressed: () async {
-                                                http.Response leave_repo =
-                                                    await leaveSociety(
-                                                        widget.socId);
-                                                if (leave_repo.statusCode ==
-                                                    201) {
-                                                  //Joined society
-                                                  AlertDialog(
-                                                    content: const Text(
-                                                        'You have "joined" successfully!'),
-                                                    actions: <Widget>[
-                                                      TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.pop(
-                                                                context,
-                                                                'Confirm'),
-                                                        child: const Text(
-                                                            'Confirm'),
-                                                      ),
-                                                    ],
-                                                  );
-                                                } else {
-                                                  //Failed to join society
-                                                  AlertDialog(
-                                                    content: const Text(
-                                                        'You have failed to join society.'),
-                                                    actions: <Widget>[
-                                                      TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.pop(
-                                                                context,
-                                                                'Confirm'),
-                                                        child: const Text(
-                                                            'Confirm'),
-                                                      ),
-                                                    ],
-                                                  );
-                                                }
-                                              })
-                                          : SocietyButton(
-                                              buttonText: "Join",
-                                              onPressed: () async {
-                                                http.Response join_repo =
-                                                    await joinSociety(
-                                                        widget.socId);
-                                                if (join_repo.statusCode ==
-                                                    201) {
-                                                  //Joined society
-                                                  AlertDialog(
-                                                    content: const Text(
-                                                        'You have "joined" successfully!'),
-                                                    actions: <Widget>[
-                                                      TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.pop(
-                                                                context,
-                                                                'Confirm'),
-                                                        child: const Text(
-                                                            'Confirm'),
-                                                      ),
-                                                    ],
-                                                  );
-                                                } else {
-                                                  //Failed to join society
-                                                  AlertDialog(
-                                                    content: const Text(
-                                                        'You have failed to join society.'),
-                                                    actions: <Widget>[
-                                                      TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.pop(
-                                                                context,
-                                                                'Confirm'),
-                                                        child: const Text(
-                                                            'Confirm'),
-                                                      ),
-                                                    ],
-                                                  );
-                                                }
-                                              }),
-                                    ),
-                                    SocietyButton(
-                                      onPressed: () => Navigator.of(context)
-                                          .push(MaterialPageRoute(
-                                              builder: (context) =>
-                                                  SocietyEventsList(
-                                                    societyName: DataP
-                                                        .collection[0],
-                                                  ))),
-                                      buttonText: "List of Events",
-                                    ),
+                                    // Padding(
+                                    //   padding: const EdgeInsets.all(4.0),
+                                    //   child: hasJoined
+                                    //       ? SocietyButton(
+                                    //         buttonText: "Join",
+                                    //           onPressed: () async {
+                                    //             http.Response leave_repo =
+                                    //                 await leaveFromSociety(
+                                    //                     widget.socId);
+                                    //             if (leave_repo.statusCode ==
+                                    //                 204) {
+                                    //               //Left society
+                                    //               AlertDialog(
+                                    //                 content: const Text(
+                                    //                     'You have "joined" successfully!'),
+                                    //                 actions: <Widget>[
+                                    //                   TextButton(
+                                    //                     onPressed: () =>
+                                    //                         Navigator.pop(
+                                    //                             context,
+                                    //                             'Confirm'),
+                                    //                     child: const Text(
+                                    //                         'Confirm'),
+                                    //                   ),
+                                    //                 ],
+                                    //               );
+                                    //             } else {
+                                    //               //Failed to leave society
+                                    //               AlertDialog(
+                                    //                 content: const Text(
+                                    //                     'You have failed to join society.'),
+                                    //                 actions: <Widget>[
+                                    //                   TextButton(
+                                    //                     onPressed: () =>
+                                    //                         Navigator.pop(
+                                    //                             context,
+                                    //                             'Confirm'),
+                                    //                     child: const Text(
+                                    //                         'Confirm'),
+                                    //                   ),
+                                    //                 ],
+                                    //               );
+                                    //             }
+                                    //             setState(() {
+                                                                                                  
+                                    //                                                             });
+                                    //           })
+                                    //       : SocietyButton(
+                                    //         buttonText: 'Leave',
+                                    //           onPressed: () async {
+                                    //             http.Response join_repo =
+                                    //                 await joinSociety(
+                                    //                     widget.socId);
+                                    //             if (join_repo.statusCode ==
+                                    //                 201) {
+                                    //               //Joined society
+                                    //               AlertDialog(
+                                    //                 content: const Text(
+                                    //                     'You have "joined" successfully!'),
+                                    //                 actions: <Widget>[
+                                    //                   TextButton(
+                                    //                     onPressed: () =>
+                                    //                         Navigator.pop(
+                                    //                             context,
+                                    //                             'Confirm'),
+                                    //                     child: const Text(
+                                    //                         'Confirm'),
+                                    //                   ),
+                                    //                 ],
+                                    //               );
+                                    //             } else {
+                                    //               //Failed to join society
+                                    //               AlertDialog(
+                                    //                 content: const Text(
+                                    //                     'You have failed to join society.'),
+                                    //                 actions: <Widget>[
+                                    //                   TextButton(
+                                    //                     onPressed: () =>
+                                    //                         Navigator.pop(
+                                    //                             context,
+                                    //                             'Confirm'),
+                                    //                     child: const Text(
+                                    //                         'Confirm'),
+                                    //                   ),
+                                    //                 ],
+                                    //               );
+                                    //             }
+                                    //             setState(() {
+                                                                                                  
+                                    //                                                             });
+                                    //           }),
+                                    // ),
+                                    // ListButton(
+                                    //   onPressed: () => Navigator.of(context)
+                                    //       .push(MaterialPageRoute(
+                                    //           builder: (context) =>
+                                    //               SocietyEventsList(
+                                    //                 societyName: DataP
+                                    //                     .collection[0],
+                                    //               ))),
+                                    //   buttonText: "List of Events",
+                                    // ),
                                     !ResponsiveWidget.isSmallScreen(context)
                                         ? const SizedBox()
                                         : ElevatedButton(

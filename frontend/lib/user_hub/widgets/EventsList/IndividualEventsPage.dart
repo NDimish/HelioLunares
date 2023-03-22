@@ -34,13 +34,13 @@ class _EventPageState extends State<EventPage> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context) => dataCollector<Society>(ID: widget.eventId),
+        create: (context) => dataCollector<Event>(ID: 5),
         builder: (context, child) {
-          final DataP = Provider.of<dataCollector<Society>>(context);
+          final DataP = Provider.of<dataCollector<Event>>(context);
         return Scaffold(
           appBar: AppBar(
               title: Text(
-            (widget.eventName),
+            (DataP.collection[0].title),
             style: TextStyle(fontFamily: "Arvo", fontWeight: FontWeight.bold),
           )),
           body: CustomLinearGradient(
@@ -65,7 +65,7 @@ class _EventPageState extends State<EventPage> {
                         child: Column(
                           children: [
                             Text(
-                              widget.eventName,
+                              DataP.collection[0].title,
                               style: TextStyle(
                                   fontFamily: "Arvo",
                                   fontSize: ResponsiveWidget.isSmallScreen(context)
@@ -110,7 +110,7 @@ class _EventPageState extends State<EventPage> {
                                   )),
                               const SizedBox(height: 10.0),
                               Text(
-                                widget.eventLocation,
+                                DataP.collection[0].venue,
                                 style: TextStyle(
                                   fontSize: 14.0,
                                   color: Colors.grey[600],
@@ -125,7 +125,7 @@ class _EventPageState extends State<EventPage> {
                                   )),
                               const SizedBox(height: 10.0),
                               Text(
-                                widget.eventPrice,
+                                DataP.collection[0].price.toString(),
                                 style: TextStyle(
                                   fontSize: 14.0,
                                   color: Colors.grey[600],
@@ -140,7 +140,7 @@ class _EventPageState extends State<EventPage> {
                                   )),
                               const SizedBox(height: 10.0),
                               Text(
-                                widget.eventDuration,
+                                DataP.collection[0].duration.toString(),
                                 style: TextStyle(
                                   fontSize: 14.0,
                                   color: Colors.grey[600],
@@ -202,8 +202,8 @@ class _EventPageState extends State<EventPage> {
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 24),
                                               ),
-                                              content: const Text(
-                                                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'),
+                                              content: Text(
+                                                  DataP.collection[0].description),
                                               actions: <Widget>[
                                                 TextButton(
                                                   onPressed: () => {
@@ -259,7 +259,7 @@ class _EventPageState extends State<EventPage> {
                                   ),
                                   const Divider(),
                                   Text(
-                                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+                                    DataP.collection[0].description,
                                     style: TextStyle(
                                       fontSize: 16.0,
                                       color: Colors.grey[600],

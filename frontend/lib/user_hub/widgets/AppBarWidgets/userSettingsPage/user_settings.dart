@@ -157,15 +157,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                   const SizedBox(
                     width: 50,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: customTextFormField(
-                        'Phone Number',
-                        'Enter your phone number',
-                        Icons.phone,
-                        phoneController,
-                        null),
-                  ),
+                  
                   
 
                   //query a database
@@ -188,6 +180,8 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                           _formKey.currentState!.save();
 
                           try {
+                            
+
                             //Here is where you will send a response to the database to update user values
 
                             //Upon saving you will have to check the fields which are empty.
@@ -280,3 +274,6 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
 //testing - improve code coverage
 
 //try catch block submit database
+
+
+
