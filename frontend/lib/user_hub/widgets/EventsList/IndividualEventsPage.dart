@@ -34,7 +34,7 @@ class _EventPageState extends State<EventPage> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context) => dataCollector<Event>(ID: 5),
+        create: (context) => dataCollector<Event>(ID: widget.eventId),
         builder: (context, child) {
           final DataP = Provider.of<dataCollector<Event>>(context);
         return Scaffold(

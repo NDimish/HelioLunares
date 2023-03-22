@@ -41,13 +41,15 @@ class EventListView extends StatelessWidget {
           var date = eventData.collection[index].date;
           var loc = eventData.collection[index].venue;
           var org = eventData.collection[index].society.name;
+          var eID = eventData.collection[index].id;
 
           return EventListTile(
             eventName: name,
             price: price,
             dateTime: date,
             location: loc, 
-            org: org);
+            org: org,
+            eventID: eID,);
           },
         ); 
       },

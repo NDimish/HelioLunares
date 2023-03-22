@@ -68,7 +68,7 @@ class _SocietyListTileState extends State<SocietyListTile> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => const MainSocietyPage(
+                  builder: (context) => MainSocietyPage(
                                   societyName: 'Introduction to AI',
                                   societyDescription:
                                       'AI is the driving force of our economy.',
