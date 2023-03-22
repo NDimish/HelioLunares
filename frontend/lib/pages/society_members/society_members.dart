@@ -34,7 +34,7 @@ class SocietyMembersPage extends StatelessWidget {
             child: (globals.localdataobj.getUserLevel() == 3)
                 ? const ManageMembersWrapper()
                 : //Put society id here from when the user selects it
-                const ManageMembers(societyId: 6))
+                ManageMembers(societyId: 6))
       ],
     );
   }

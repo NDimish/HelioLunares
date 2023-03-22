@@ -53,7 +53,7 @@ class _testscreen extends State<testscreen> {
                 //     '12/12/2002',
                 //     "about us text",
                 //     [1, 2, 3]);
-                // print(response.statusCode);
+                // print(response.body);
 
                 // //THIS IS CODE TO CREATE A PERSON
 
@@ -71,22 +71,23 @@ class _testscreen extends State<testscreen> {
                 // http.Response new_response =
                 //     await auth("thisisanewemail@gmail.com", "This.is.pass1091");
 
-                // // make person join society
+                // // // make person join society
                 // print(json.decode(response.body)['user']['id']);
                 // http.Response join_response =
                 //     await joinSociety(json.decode(response.body)['user']['id']);
+                // print(join_response.body);
 
-                // // login as society account
+                // // // login as society account
                 // http.Response person_response =
                 //     await auth("nathgsg@gmail.com", "This.is.pass1091");
 
-                // // promote person user in society
+                // // // promote person user in society
                 // http.Response promote_role = await updateSociety(
                 //     json.decode(response_two.body)['user']['id'], 2);
 
                 //login as person
-                http.Response log_in_as_perosn =
-                    await auth("nathgsg@gmail.com", "This.is.pass1091");
+                // http.Response log_in_as_perosn =
+                //     await auth("nathgsg@gmail.com", "This.is.pass1091");
 
                 Navigator.pushNamed(context, '/societyhub');
               }),

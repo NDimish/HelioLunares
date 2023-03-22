@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:university_ticketing_system/pages/society_members/members_table.dart';
 import 'package:university_ticketing_system/backend_communication/dataCollector.dart'
@@ -14,6 +15,7 @@ class ManageMembers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     int userSocietyRoleLevel = 0;
+    print(Get.find<data.Society>());
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(

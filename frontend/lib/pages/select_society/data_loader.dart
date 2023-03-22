@@ -45,13 +45,17 @@ class _DataLoaderState extends State<DataLoader> {
               create: (context) =>
                   data.dataCollector<data.Society>(filter: {})),
           ChangeNotifierProvider(
+              create: (context) => data.dataCollector<data.SocietyRole>(
+                  filter: powInSocietyFilter)),
+          ChangeNotifierProvider(
               create: (context) => data.dataCollector<data.SocietyCategories>(
                   filter: {}, order: orderBy))
         ],
         builder: (context, child) {
           final DataP =
               Provider.of<data.dataCollector<data.SocietyCategories>>(context);
-
+          final roleData =
+              Provider.of<data.dataCollector<data.SocietyRole>>(context);
           return Container(
               height: MediaQuery.of(context).size.height * 0.95,
               child: Scaffold(
@@ -59,13 +63,14 @@ class _DataLoaderState extends State<DataLoader> {
                 body: ListView.separated(
                   primary: false,
                   shrinkWrap: true,
-                  itemCount: DataP.collection.length,
+                  itemCount: roleData.collection.length,
                   itemBuilder: (BuildContext context, int index) {
                     return MediaQuery.removePadding(
                         context: context,
                         removeTop: true,
                         child: SocietyCard(
-                            societyName: DataP.collection[index].society.name,
+                            societyName:
+                                roleData.collection[index].society.name,
                             categoryName: DataP
                                 .collection[index].societyCategory.categoryName,
                             onTap: () {
