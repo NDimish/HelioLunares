@@ -39,4 +39,33 @@ void main(){
         expect(widgetFinder, findsOneWidget);
     }
   );
+
+  testWidgets(
+    "EventListTile onTap test", 
+    (tester) async {
+      await tester.pumpWidget(
+         MaterialApp(
+          home:Scaffold(
+            body: ListView(
+              children: [
+                EventListTile(
+                  eventName: testname, 
+                  price: testprice, 
+                  dateTime: testdate, 
+                  location: testlocation, 
+                  org: testorg
+                )
+              ],
+            ),
+          )
+        )
+      );
+
+      final finder = find.byType(EventListTile);
+      await tester.tap(finder);
+      await tester.pumpAndSettle();
+      expect(find.byType(Scaffold), findsOneWidget);
+
+    }
+  );
 }
