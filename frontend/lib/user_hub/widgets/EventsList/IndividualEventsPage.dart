@@ -266,26 +266,26 @@ class _EventPageState extends State<EventPage> {
                                     ),
                                   ),
                                   const Divider(),
-                                  ResponsiveWidget.isMediumScreen(context)
-                                      ? const SizedBox()
-                                      : RichText(
-                                          text: TextSpan(
-                                          children: [
-                                            TextSpan(
-                                                text: "Interested in more from "),
-                                            TextSpan(
-                                                text: "Society name here? ",
-                                                style: const TextStyle(
-                                                    fontWeight: FontWeight.bold)),
-                                            TextSpan(
-                                                text:
-                                                    "Check out their society page! (maybe put a link here somehow, would involve passing parameters?)")
-                                          ],
-                                          style: TextStyle(
-                                              fontSize: 16.0,
-                                              color: Colors.grey[600],
-                                              fontFamily: "Arvo"),
-                                        ))
+                                  // ResponsiveWidget.isMediumScreen(context)
+                                  //     ? const SizedBox()
+                                  //     : RichText(
+                                  //         text: TextSpan(
+                                  //         children: [
+                                  //           TextSpan(
+                                  //               text: "Interested in more from "),
+                                  //           TextSpan(
+                                  //               text: "Society name here? ",
+                                  //               style: const TextStyle(
+                                  //                   fontWeight: FontWeight.bold)),
+                                  //           TextSpan(
+                                  //               text:
+                                  //                   "Check out their society page! ")
+                                  //         ],
+                                  //         style: TextStyle(
+                                  //             fontSize: 16.0,
+                                  //             color: Colors.grey[600],
+                                  //             fontFamily: "Arvo"),
+                                  //       ))
                                 ],
                               ),
                             ),

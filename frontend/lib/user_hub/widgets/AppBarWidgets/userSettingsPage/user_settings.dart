@@ -118,7 +118,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                         'Enter your password',
                         Icons.password,
                         null,
-                        null), //IMPORTANT: Password allows for length 0 but should be matched with regex >0
+                        (password) => validators(password, RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$'), "Enter a valid password: \n At least - 1 uppercase, 1 lowercase, 1 number, 1 special character\n At least 8 characters long")), //IMPORTANT: Password allows for length 0 but should be matched with regex >0
                   ),
                 ],
               ),
@@ -151,7 +151,8 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                         'Enter your email',
                         Icons.email,
                         emailController,
-                        null), //IMPORTANT: Email allows for length 0 (doesn't update) but should be matched with regex >0
+                       (email) => (validators(email, RegExp(
+      "[_a-zA-Z]+[_a-zA-Z0-9]?[\._]?[_a-zA-Z0-9]*@([a-zA-Z]+\.)?([a-zA-Z]+\.)?[a-zA-Z]+\.(com|net|de|uk|ro|jp)"), "Enter a valid email address (Ex: shak@gmail.com)" ))), 
                   ),
 
 
@@ -264,8 +265,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
   }
 }
 
-//Add if stataemetns to determine if studnet or not
-//if statements lvl1 and lvl2 fields acccesible same as user hub
+
 //loading the data in Nmani
 //testing
 //try catch block submit database
@@ -275,6 +275,18 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
 //testing - improve code coverage
 
 //try catch block submit database
+
+String? validators(String? value, RegExp regex, String returnMessage) {
+  
+
+  if (value == null || value.length == 0) {
+    return null;
+  }
+  else if (!regex.hasMatch(value)) {
+    return returnMessage;
+  }
+  return null;
+}
 
 
 

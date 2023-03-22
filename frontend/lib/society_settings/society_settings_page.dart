@@ -187,6 +187,7 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                           _formKey.currentState!.save();
 
                           try {
+
                             //Here is where you will send a response to the database to update user values
 
                             //Upon saving you will have to check the fields which are empty.
@@ -268,11 +269,8 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
   }
 }
 
-//Add if stataemetns to determine if studnet or not
-//if statements lvl1 and lvl2 fields acccesible same as user hub
 //loading the data in Nmani
 //testing
-//make page responsive
 //try catch block submit database
 
 
@@ -288,9 +286,3 @@ String? validators(String? value, RegExp regex, String returnMessage) {
   return null;
 }
 
-
-RegExp PasswordRegex =
-      RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
-
-final emailRegex = RegExp(
-      "[_a-zA-Z]+[_a-zA-Z0-9]?[\._]?[_a-zA-Z0-9]*@([a-zA-Z]+\.)?([a-zA-Z]+\.)?[a-zA-Z]+\.(com|net|de|uk|ro|jp)");
