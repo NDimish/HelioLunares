@@ -13,6 +13,7 @@ import 'package:university_ticketing_system/pages/events/widgets/event_card.dart
 
 import 'package:university_ticketing_system/pages/select_society/widgets/society_card.dart';
 
+import '../../backend_communication/models/Event.dart';
 import '../../backend_communication/models/Society.dart';
 import '../../routing/routes.dart'; // for using university
 
@@ -25,6 +26,8 @@ class EventDataLoader extends StatefulWidget {
 
 class _EventDataLoaderState extends State<EventDataLoader> {
   late Society _society;
+  late Event _event;
+  late List<Event> _eventList;
 
   final data.OrderType orderBy;
 
@@ -70,12 +73,22 @@ class _EventDataLoaderState extends State<EventDataLoader> {
                         context: context,
                         removeTop: true,
                         child: EventCard(
-                          date: DataP.collection[index].date,
-                          location: DataP.collection[index].venue,
-                          name: DataP.collection[index].title,
-                          price: DataP.collection[index].price.toString(),
-                          onTap: () {},
-                        ));
+                            date: DataP.collection[index].date,
+                            location: DataP.collection[index].venue,
+                            name: DataP.collection[index].title,
+                            price: DataP.collection[index].price.toString(),
+                            onTap: () {
+                              //PASS THE SELECTED EVENT
+                              _event = DataP.collection[index];
+                              //PASS THE LIST OF EVENTS
+                              _eventList = DataP.collection;
+                              //PUT THE EVENT AND LIS
+                              Get.put(_event);
+                              Get.put(_eventList);
+                              //NAVIGATE TO THE EVENT DETAILS POPUP
+                              navigationController.navigateToPopupPage(
+                                  eventDetailsPageDisplayName);
+                            }));
                   },
                   separatorBuilder: (BuildContext context, int index) {
                     return const SizedBox(
