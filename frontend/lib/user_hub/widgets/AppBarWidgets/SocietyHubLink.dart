@@ -31,9 +31,6 @@ class SocietyHubLink extends StatelessWidget {
     };
     return MultiProvider(
       providers: [ChangeNotifierProvider(
-              create: (context) => data.dataCollector<data.User>(
-                  filter: filter, order: Orderby)),
-                  ChangeNotifierProvider(
               create: (context) => data.dataCollector<data.SocietyRole>(
                   filter: powerInSocFilter, order: Orderby))
       ],
@@ -46,6 +43,7 @@ class SocietyHubLink extends StatelessWidget {
         var isVisible = (roleData.collection.length == 0)?false:true;
 
         return Visibility(child:IconButton(
+            key: Key("SocietyHubLink"),
             icon: Icon(Icons.swap_horiz_outlined),
             tooltip: "Swap to Society Hub",
             onPressed: () {

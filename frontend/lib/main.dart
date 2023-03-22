@@ -43,6 +43,7 @@ class UniversityTicketingApp extends StatelessWidget {
       home: const HomePage(),
       //initialRoute: '/',
       routes: {
+
         //   '/': (context) => const StartupScreen(),
         //   '/auth': (context) => const LandingScreen(),
         '/userhub': (context) => UserHubPage_events(),

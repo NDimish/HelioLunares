@@ -43,7 +43,13 @@ class MainAppBar extends AppBar {
                             builder: (context) => const UserSettingsPage()));
                   },
                   icon: const Icon(Icons.settings),
-                  key: Key("SettingsButton"))
+                  key: Key("SettingsButton")),
+              IconButton(onPressed: (){
+                Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const UserSettingsPage()));
+              }, icon: Icon(Icons.logout))
             ]
             //
             );

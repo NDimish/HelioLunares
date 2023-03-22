@@ -29,6 +29,7 @@ class _testscreen extends State<testscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
         appBar: AppBar(
           title: Text('Todo App'),
         ),
@@ -91,6 +92,7 @@ class _testscreen extends State<testscreen> {
                 Navigator.pushNamed(context, '/societyhub');
               }),
         ]));
+
   }
 }
 

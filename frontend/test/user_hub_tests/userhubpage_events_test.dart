@@ -7,9 +7,8 @@ import 'dart:io';
 void main(){
   final TestWidgetsFlutterBinding binding =
       TestWidgetsFlutterBinding.ensureInitialized();
-
   setUpAll(() => {HttpOverrides.global = null,});
-  binding.window.physicalSizeTestValue = const Size(1920, 1080);
+
   testWidgets("UserHubPage_events type test", 
   (tester)async{
     await tester.pumpWidget(
@@ -36,6 +35,20 @@ void main(){
     await tester.enterText(finder, "test");
     await tester.pumpAndSettle();
     expect(finder, findsOneWidget);
+  });
+
+  testWidgets("UserHubPage_events clear searchbar test", 
+  (tester)async{
+    await tester.pumpWidget(
+      MaterialApp(
+        home: UserHubPage_events()
+      )
+    );
+    
+
+    final finder = find.byKey(Key("ClearSearchbarButton"));
+    await tester.tap(finder);
+    await tester.pumpAndSettle();
   });
 
 

@@ -27,6 +27,7 @@ class CustomSearchBar extends Container{
 
               // Clears search bar
               suffixIcon: IconButton(
+                key:Key("ClearSearchbarButton"),
                 tooltip: "Clear search",
                 icon: Icon(Icons.close, color: Color(0xff70587C),),
                 onPressed: clearfunc,
