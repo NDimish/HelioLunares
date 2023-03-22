@@ -19,7 +19,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
       String name,
       IconData nameIcon,
       TextEditingController? formController,
-      String? Function(String?)? validation) {
+      String? Function(String?)? validation,) {
     return SizedBox(
         width: 300,
         child: TextFormField(
@@ -29,27 +29,23 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
             decoration: customDecoration(headerName, name, nameIcon)));
   }
 
-//this is where you could query the database to get the permission. level 1 2 3
 
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
-  final phoneController = TextEditingController();
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
   final uniController = TextEditingController();
   final passwordController = TextEditingController();
-  final emailRegex = RegExp(
-      "[_a-zA-Z]+[_a-zA-Z0-9]?[\._]?[_a-zA-Z0-9]*@([a-zA-Z]+\.)?([a-zA-Z]+\.)?[a-zA-Z]+\.(com|net|de|uk|ro|jp)");
-  final phoneRegex = RegExp(
-      "[_a-zA-Z]+[_a-zA-Z0-9]?[\._]?[_a-zA-Z0-9]*@([a-zA-Z]+\.)?([a-zA-Z]+\.)?[a-zA-Z]+\.(com|net|de|uk|ro|jp)");
   
 
   @override
   Widget build(BuildContext context) {
+
     return ChangeNotifierProvider(
       create: (context) => dataCollector<User>(ID:global.localdataobj.getUserID()),
       builder: (context,child) {
         final User1 = Provider.of<dataCollector<User>>(context);
+        emailController.text = User1.collection[0].email;
         return Scaffold(
           
           backgroundColor: const Color(0xFFffffff).withOpacity(0.3),
@@ -85,7 +81,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                         'First Name',
                         'Enter your first name',
                         Icons.person_rounded,
-                        null,
+                        firstNameController,
                         null,
                         
                         ),
@@ -102,7 +98,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                         'Last Name',
                         'Enter your last name',
                         Icons.person_rounded,
-                        null,
+                        lastNameController,
                         null), 
                   ),
                   const SizedBox(
@@ -117,7 +113,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                         'Password',
                         'Enter your password',
                         Icons.password,
-                        null,
+                        passwordController,
                         (password) => validators(password, RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$'), "Enter a valid password: \n At least - 1 uppercase, 1 lowercase, 1 number, 1 special character\n At least 8 characters long")), //IMPORTANT: Password allows for length 0 but should be matched with regex >0
                   ),
                 ],
