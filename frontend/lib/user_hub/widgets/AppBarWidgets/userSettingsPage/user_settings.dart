@@ -40,12 +40,23 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    return MultiProvider (
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => dataCollector<User>(ID:global.localdataobj.getUserID()),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => dataCollector<People>(ID:global.localdataobj.getUserID()),
+        ),
+      ],
 
-    return ChangeNotifierProvider(
-      create: (context) => dataCollector<User>(ID:global.localdataobj.getUserID()),
-      builder: (context,child) {
-        final User1 = Provider.of<dataCollector<User>>(context);
-        emailController.text = User1.collection[0].email;
+    builder: (context, child)  {
+      final userProvider = Provider.of<dataCollector<User>>(context);
+      final peopleProvider = Provider.of<dataCollector<People>>(context);
+        emailController.text = userProvider.collection[0].email;
+        firstNameController.text = peopleProvider.collection[0].first_name;
+        lastNameController.text = peopleProvider.collection[0].last_name;
+
         return Scaffold(
           
           backgroundColor: const Color(0xFFffffff).withOpacity(0.3),
@@ -283,6 +294,10 @@ String? validators(String? value, RegExp regex, String returnMessage) {
   }
   return null;
 }
+
+
+
+
 
 
 
