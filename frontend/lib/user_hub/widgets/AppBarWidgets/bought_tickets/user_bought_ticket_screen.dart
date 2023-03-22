@@ -154,12 +154,8 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
 
   Widget _buildPanel(BuildContext context) {
     final DataP = Provider.of<data.dataCollector<tic.Tickets>>(context);
-    return Row(children: <Widget>[
-      Container(
-        color: const Color(0xFF8C7099),
-        child: const VerticalDivider(
-            thickness: 1, indent: 1, endIndent: 0, color: Color(0xFF8C7099)),
-      ),
+    return Column(children: <Widget>[
+      
 
       // right of screen
       Expanded(
@@ -168,8 +164,10 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Container(
+            
+          
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
 
@@ -212,58 +210,65 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
 
   Widget _buildUpcomingTix (BuildContext context){
     final DataP = Provider.of<data.dataCollector<tic.Tickets>>(context);
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: DataP.collection.length,
-      itemBuilder: (BuildContext context, int index){
-        return Column(
-          children: [
-            _OnHover(
-              child: OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                  backgroundColor: const Color(0xFFE8DAFA),
-                  side: const BorderSide(color: Colors.black)
-                ),
-                
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const BuyTicketScreen()
-                    )
-                  );
-                },
-                
-                child: Container(
-                  height: 55,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 10,
-                      color: Colors.transparent,
+    return Container(
+      height: 577,
+      alignment: Alignment.bottomCenter,
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: DataP.collection.length,
+        itemBuilder: (BuildContext context, int index){
+          return Expanded(
+            child: Column(
+              children: [
+                _OnHover(
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      backgroundColor: const Color(0xFFE8DAFA),
+                      side: const BorderSide(color: Colors.black)
                     ),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          // "${DataP.collection[index].event.title}",
-                          DataP.collection[index].event.title,
-                          textAlign: TextAlign.left,
-                          selectionColor: Colors.black,
+                    
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BuyTicketScreen(id:DataP.collection[index].id)
+                        )
+                      );
+                    },
+                    
+                    child: Container(
+                      key: Key("ticket"),
+                      height: 55,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 10,
+                          color: Colors.transparent,
                         ),
-                      )
-                    ],
-                  ),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              "${DataP.collection[index].event.title}",
+                              // DataP.collection[index].event.title,
+                              textAlign: TextAlign.left,
+                              selectionColor: Colors.black,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  )
                 ),
-              )
+          
+                const SizedBox(height: 20),
+              ]
             ),
-
-            const SizedBox(height: 20),
-          ]
-        );
-      }
+          );
+        }
+      ),
     );
   }
 
@@ -278,6 +283,7 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
         });
       },
       children: _data.map<ExpansionPanel>((Item item) {
+      
         return ExpansionPanel(
           backgroundColor: const Color(0xFFC8B8D8),
           headerBuilder: (BuildContext context, bool isExpanded) {
@@ -292,55 +298,58 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
             );
           },
           
-          body:ListView.builder(
-            shrinkWrap: true,
-            itemCount: DataP.collection.length,
-            itemBuilder: (BuildContext context, int index) {
-            // children: [
-
-              return Column(
-                children: [
-                  _OnHover(
-                    child: OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                        backgroundColor: const Color(0xFFE8DAFA),
-                        side: const BorderSide(color: Colors.black)
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const BuyTicketScreen()));
-                      },
-                      child: Container(
-                        height: 55,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 10,
-                            color: Colors.transparent,
+          body: SingleChildScrollView(
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: DataP.collection.length,
+              itemBuilder: (BuildContext context, int index) {
+              // children: [
+          
+                return Column(
+                    children: [
+                      _OnHover(
+                        child: OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            backgroundColor: const Color(0xFFE8DAFA),
+                            side: const BorderSide(color: Colors.black)
                           ),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Row(
-                          children: [
-    
-                            Expanded(
-                              child: Text(
-                                "${DataP.collection[index].event.title}",
-                                textAlign: TextAlign.left,
-                                selectionColor: Colors.black,
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => BuyTicketScreen(id:DataP.collection[index].id)));
+                          },
+                          child: Container(
+                            height: 55,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 10,
+                                color: Colors.transparent,
                               ),
+                              borderRadius: BorderRadius.circular(20),
                             ),
-                            
-                          ],
+                            child: Row(
+                              children: [
+                    
+                                Expanded(
+                                  child: Text(
+                                    "${DataP.collection[index].event.title}",
+                                    textAlign: TextAlign.left,
+                                    selectionColor: Colors.black,
+                                  ),
+                                ),
+                                
+                              ],
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                ],
-              );
-            },
+                      const SizedBox(height: 20),
+                    ],
+                  );
+                
+              },
+            ),
           ),
           isExpanded: item.isExpanded,
         );

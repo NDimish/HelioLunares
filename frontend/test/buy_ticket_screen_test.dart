@@ -13,52 +13,41 @@ void main() {
     
     await tester.pumpWidget(const MaterialApp(
       home: Scaffold(
+        body: UserBoughtTicketScreen()
+      )
+    ));
+
+    // final overview = find.text("Ticket Overview");
+    final title = find.text("Title:");
+    final date = find.text("Date:");
+    final venue = find.text("Venue:");
+    final description = find.text("Description:");
+    final price = find.text("Price:");
+    
+    // expect(overview, findsOneWidget);
+    expect(title, findsOneWidget);
+    expect(date, findsOneWidget);
+    expect(venue, findsOneWidget);
+    expect(description, findsOneWidget);
+    expect(price, findsOneWidget);
+
+  });
+
+  testWidgets('Back button brings you to user buy ticket screen', (tester) async{
+    await tester.pumpWidget(const MaterialApp(
+      home: Scaffold(
         body: BuyTicketScreen()
       )
     ));
 
-    final upcoming = find.text("Title");
-    final expired = find.text("Expired Ticket(s)");
+    final backButton = find.byKey(ValueKey('navigate'));
     
-    // expect(overview, findsOneWidget);
-    expect(upcoming, findsOneWidget);
-    expect(expired, findsOneWidget);
-
-  });
-
-  testWidgets('Expired ticket list expands', (tester) async{
-    await tester.pumpWidget(const MaterialApp(
-      home: Scaffold(
-        body: UserBoughtTicketScreen()
-      )
-    ));
-
-    final expanionListButton = find.byType(ExpansionPanelList);
+    expect(backButton, findsOneWidget);
     
-    await tester.tap(expanionListButton);
-
-    final ticket = find.byType(Container);
-
-    expect(ticket, findsWidgets);
-
-
-  });
-
-  testWidgets('Clicking on ticket brings you to another page', (tester) async{
-    await tester.pumpWidget(const MaterialApp(
-      home: Scaffold(
-        body: UserBoughtTicketScreen()
-      )
-    ));
-
-    final nextPage = find.byKey(ValueKey('ticket'));
-    
-    expect(nextPage, findsOneWidget);
-    
-    await tester.tap(nextPage);
+    await tester.tap(backButton);
     await tester.pumpAndSettle();
 
-    final lookfor = find.text("Ticket Details");
+    final lookfor = find.text("Expired Ticket(s)");
 
     expect(lookfor, findsOneWidget);
 
@@ -77,5 +66,3 @@ void main() {
 
 
 }
-
-
