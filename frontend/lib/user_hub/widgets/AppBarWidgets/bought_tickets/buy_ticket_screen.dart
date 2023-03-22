@@ -351,7 +351,17 @@ class BuyTicketScreen extends StatelessWidget {
                                               builder: (context) =>
                                                   const UserBoughtTicketScreen()));
                                     },
-                                    child: const Text('back'))
+                                    child: const Text('Back')),
+                                ElevatedButton(
+                                  key: Key('Remove ticket') ,
+                                  onPressed: () {
+                                      Navigator.pop(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const UserBoughtTicketScreen()));
+                                    },
+                                    child: const Text('Remove ticket'))
                               ],
                             );
                           }
