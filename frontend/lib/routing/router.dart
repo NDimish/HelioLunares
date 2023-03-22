@@ -18,10 +18,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
   Get.routing.args = settings.arguments;
   switch (settings.name) {
     case societyHubPageDisplayName:
-      final args = settings.arguments as Society;
-      return _getPageRoute(SocietyHubPage(society: args), societyHubPageRoute);
+      return _getPageRoute(SocietyHubPage(), societyHubPageRoute);
     case societyEventsPageDisplayName:
-      return _getPageRoute(const SocietyEventsPage(), societyEventsPageRoute);
+      return _getPageRoute(SocietyEventsPage(), societyEventsPageRoute);
     case statisticsPageDisplayName:
       return _getPageRoute(const StatisticsPage(), statisticsPageRoute);
     case editModePageDisplayName:
