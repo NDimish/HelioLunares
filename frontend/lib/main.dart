@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:university_ticketing_system/constants/style.dart';
+import 'package:university_ticketing_system/controllers/side_menu_controller.dart';
 import 'package:university_ticketing_system/pages/select_society/select_society_page.dart';
 import 'package:university_ticketing_system/screens/landing_screen.dart';
 import 'package:get/get.dart';
@@ -18,6 +19,7 @@ void main() {
   Get.put(menu.MenuController());
   //Register the navigation controller
   Get.put(NavigationController());
+  Get.put(SideMenuController());
 
   runApp(const UniversityTicketingApp());
 }

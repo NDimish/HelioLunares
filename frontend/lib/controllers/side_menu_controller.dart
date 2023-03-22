@@ -5,19 +5,13 @@ import '../widgets/side_menu_item.dart';
 
 class SideMenuController extends GetxController {
   static SideMenuController instance = Get.find<SideMenuController>();
-  var activeItem = menuController.activeItem.obs;
-  late final List<SideMenuItem> sideMenuItemList;
-  var hoverItem = "".obs;
+  var menuItemsAreVisible = false.obs;
 
-  changeActiveItemTo(String itemName) {
-    activeItem.value.value = itemName;
+  void setVisible() {
+    menuItemsAreVisible.value = true;
   }
 
-  onHover(String itemName) {
-    if (!isActive(itemName)) hoverItem.value = itemName;
+  void setInvisible() {
+    menuItemsAreVisible.value = false;
   }
-
-  isHovering(String itemName) => hoverItem.value == itemName;
-
-  isActive(String itemName) => activeItem.value == itemName;
 }
