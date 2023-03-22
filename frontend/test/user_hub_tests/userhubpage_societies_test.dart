@@ -36,4 +36,18 @@ void main(){
     await tester.pumpAndSettle();
     expect(finder, findsOneWidget);
   });
+
+  testWidgets("UserHubPage_societies clear searchbar test", 
+  (tester)async{
+    await tester.pumpWidget(
+      MaterialApp(
+        home: UserHubPage_societies()
+      )
+    );
+    
+
+    final finder = find.byKey(Key("ClearSearchbarButton"));
+    await tester.tap(finder);
+    await tester.pumpAndSettle();
+  });
 }

@@ -7,7 +7,7 @@ void main(){
   var testlocation = "Test summary";
   var testuni = "Test Uni";
   testWidgets(
-    "EventListTile has name, price, date, location, and organisation", 
+    "SocietyListTile has name, price, date, location, and organisation", 
     (tester) async {
       await tester.pumpWidget(
          MaterialApp(
@@ -34,6 +34,32 @@ void main(){
         expect(summaryFinder, findsOneWidget);
         expect(orgFinder, findsOneWidget);
         expect(widgetFinder, findsOneWidget);
+    }
+  );
+  testWidgets(
+    "EventListTile onTap test", 
+    (tester) async {
+      await tester.pumpWidget(
+         MaterialApp(
+          home:Scaffold(
+            body: ListView(
+              children: [
+                SocietyListTile(
+                  societyName: testname,
+                  summary: testlocation,
+                  uni: testuni,
+                )
+              ],
+            ),
+          )
+        )
+      );
+
+      final finder = find.byType(SocietyListTile);
+      await tester.tap(finder);
+      await tester.pumpAndSettle();
+      expect(find.byType(Scaffold), findsOneWidget);
+
     }
   );
 }
