@@ -9,6 +9,7 @@ import 'package:university_ticketing_system/authentication/validators/password_v
 import 'package:university_ticketing_system/gradient_animation.dart';
 import 'package:university_ticketing_system/responsive.dart';
 import 'package:http/http.dart' as http;
+import 'package:university_ticketing_system/globals.dart' as globals;
 
 /// DESIGNED BY ISRAFEEL ASHRAF - K21008936
 ///
@@ -166,6 +167,12 @@ class _LogInFormState extends State<LogInForm> {
                     http.Response response =
                         await auth(userAccount.email, userAccount.password);
                     if (response.statusCode == 200) {
+                      if (globals.Localdata.USERLEVEL == 1 ||
+                          globals.Localdata.USERLEVEL == 2) {
+                        print("Redirecting to student page");
+                      } else {
+                        print("Redirecting to society page.");
+                      }
                       print("user is logged in - redirecting");
                     } else {
                       print("error logging in - try again later");
