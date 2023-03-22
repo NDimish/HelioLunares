@@ -201,6 +201,7 @@ class BuyTicketScreen extends StatelessWidget {
         final DataP = Provider.of<data.dataCollector<tic.Tickets>>(context);
         //print(DataP.collection.length);
         return Scaffold(
+          appBar: AppBar(),
           backgroundColor: const Color(0xFFE0BBE4),
           body: Column(
             mainAxisAlignment: MainAxisAlignment.start,

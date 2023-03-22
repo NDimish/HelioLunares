@@ -41,6 +41,7 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
       builder: (context, child) {
         
         return Scaffold(
+          appBar: AppBar(),
           backgroundColor: const Color(0xFFC8B8D8), body: _buildPanel(context));
       }
     );
