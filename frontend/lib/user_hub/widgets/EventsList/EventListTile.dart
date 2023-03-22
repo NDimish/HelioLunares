@@ -22,13 +22,15 @@ class EventListTile extends StatefulWidget{
   required this.price,
   required this.dateTime,
   required this.location,
-  required this.org,});
+  required this.org,
+  required this.eventID});
 
   String eventName;
   double price;
   String dateTime; 
   String location; 
   String org;
+  int eventID;
 
   @override
   State<EventListTile> createState() => _EventListTileState();
@@ -42,6 +44,7 @@ class _EventListTileState extends State<EventListTile>{
     var date = widget.dateTime;
     var loc = widget.location;
     var organ = widget.org;
+    var eID = widget.eventID;
 
     // Regex checker
     RegExp reg = RegExp(r"" + searchText, caseSensitive: false);
@@ -84,7 +87,7 @@ class _EventListTileState extends State<EventListTile>{
                               eventDuration: '1 hour',
                               eventLocation: 'Bush House',
                               eventPrice: '£10',
-                              eventId:7,
+                              eventId:eID,
 
                                 )));
           },
