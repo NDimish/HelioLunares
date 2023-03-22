@@ -191,7 +191,8 @@ class _EventPageState extends State<EventPage> {
                                           print(
                                               "This would take you to the checkout and book the event. We would have to check if user has booked this event to disable this button.");
                                           SocietyFunc.buyTicket(
-                                              DataP.collection[0].id, 2.00);
+                                              DataP.collection[0].id,
+                                              DataP.collection[0].price);
                                         },
                                         child: const Text("Book now"),
                                       ),
