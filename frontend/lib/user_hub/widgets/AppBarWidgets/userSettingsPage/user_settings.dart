@@ -125,6 +125,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
               const SizedBox(
                 width: 50,
               ),
+              //Israfeel, add university dropdown.
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: const Text('University'),
