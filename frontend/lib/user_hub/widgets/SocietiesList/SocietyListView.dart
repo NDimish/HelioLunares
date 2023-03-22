@@ -39,11 +39,13 @@ class SocietyListView extends StatelessWidget {
           var name = socData.collection[index].name;
           var summary = socData.collection[index].description;
           var uni = socData.collection[index].university.name;
+          var sID = socData.collection[index].id
 
           return SocietyListTile(
             societyName: name,
             summary: summary,
             uni: uni,
+            societyID: sID,
           );
         },
       );
