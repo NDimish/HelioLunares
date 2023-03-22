@@ -300,8 +300,7 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
             );
           },
           
-          body: SingleChildScrollView(
-            child: ListView.builder(
+          body: ListView.builder(
               shrinkWrap: true,
               itemCount: DataP.collection.length,
               itemBuilder: (BuildContext context, int index) {
@@ -352,7 +351,7 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                 
               },
             ),
-          ),
+          
           isExpanded: item.isExpanded,
         );
       }).toList(),
