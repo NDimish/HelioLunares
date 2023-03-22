@@ -88,7 +88,6 @@ class _EventListTileState extends State<EventListTile>{
                               eventLocation: 'Bush House',
                               eventPrice: '£10',
                               eventId:eID,
-
                                 )));
           },
         ),

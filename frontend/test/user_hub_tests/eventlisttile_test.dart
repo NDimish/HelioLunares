@@ -1,7 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:university_ticketing_system/user_hub/widgets/EventsList/EventListTile.dart';
 import 'package:flutter/material.dart';
+import 'dart:io';
 void main(){
+  setUpAll(() => {HttpOverrides.global = null}); 
   var testname = "EventName";
   var testprice = 0.0;
   var testdate = "12-12-2023";
@@ -20,7 +22,8 @@ void main(){
                   price: testprice, 
                   dateTime: testdate, 
                   location: testlocation, 
-                  org: testorg
+                  org: testorg,
+                  eventID: 0,
                 )
               ],
             ),
@@ -40,7 +43,7 @@ void main(){
     }
   );
 
-  testWidgets(
+  testWidgets( //This will fail
     "EventListTile onTap test", 
     (tester) async {
       await tester.pumpWidget(
@@ -53,7 +56,8 @@ void main(){
                   price: testprice, 
                   dateTime: testdate, 
                   location: testlocation, 
-                  org: testorg
+                  org: testorg,
+                  eventID: 0,
                 )
               ],
             ),
