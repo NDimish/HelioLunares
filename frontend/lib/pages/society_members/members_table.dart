@@ -2,18 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:university_ticketing_system/backend_communication/dataCollector.dart'
     as dataCol;
+
+import 'package:http/http.dart' as http;
 import 'package:university_ticketing_system/backend_communication/models/all.dart';
 import 'package:university_ticketing_system/backend_communication/societyfunctions.dart';
 
 class MembersTable extends StatefulWidget {
   final int role;
+  final int societyId;
   final int user_society_role_level; // this is the user's role in society
   final int
       user_level; // this is user level, 1/2 for non/student and 3 for society account
   final List dataset;
 
-  const MembersTable(
-      this.role, this.user_society_role_level, this.user_level, this.dataset,
+  const MembersTable(this.role, this.user_society_role_level, this.user_level,
+      this.societyId, this.dataset,
       {super.key});
 
   @override
@@ -177,6 +180,7 @@ class _MembersTableState extends State<MembersTable> {
         child: Text(dataset["student"]),
       ),
       Container(
+          key: Key("userid-${dataset['id']}"),
           height: 25,
           alignment: Alignment.center,
           child: DropdownButton(
@@ -186,9 +190,13 @@ class _MembersTableState extends State<MembersTable> {
               onChanged: ((value) => {
                     if (value == "Remove")
                       {
-                        print(this)
-                        //removeFromSociety(userId, societyId)
+                        removeFromSociety(
+                            int.parse(dataset['id']), widget.societyId)
                       }
+                    else if (value == "Promote")
+                      {updateSociety(int.parse(dataset['id']), widget.role + 1)}
+                    else if (value == "Demote")
+                      {updateSociety(int.parse(dataset['id']), widget.role - 1)}
                   }))),
     ]);
   }

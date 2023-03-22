@@ -66,21 +66,21 @@ class _testscreen extends State<testscreen> {
                 //     "Tester");
                 // print(response.statusCode);
 
-                //THIS IS CODE TO AUTHENTICATE
-                //LOgs in as society account
+                // // THIS IS CODE TO AUTHENTICATE
+                // // LOgs in as society account
                 // http.Response new_response =
                 //     await auth("thisisanewemail@gmail.com", "This.is.pass1091");
 
-                //make person join society
+                // // make person join society
                 // print(json.decode(response.body)['user']['id']);
                 // http.Response join_response =
                 //     await joinSociety(json.decode(response.body)['user']['id']);
 
-                //login as society account
+                // // login as society account
                 // http.Response person_response =
                 //     await auth("nathgsg@gmail.com", "This.is.pass1091");
 
-                //promote person user in society
+                // // promote person user in society
                 // http.Response promote_role = await updateSociety(
                 //     json.decode(response_two.body)['user']['id'], 2);
 

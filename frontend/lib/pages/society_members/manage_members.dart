@@ -7,10 +7,9 @@ import 'package:university_ticketing_system/backend_communication/dataCollector.
 import 'package:university_ticketing_system/globals.dart' as globals;
 
 class ManageMembers extends StatelessWidget {
-  const ManageMembers({super.key});
-
-  final int society_id =
-      6; // this is the user's role in society // this is user level, 1/2 for non/student and 3 for society account
+  final int societyId;
+  const ManageMembers({required this.societyId, super.key});
+  // this is the user's role in society // this is user level, 1/2 for non/student and 3 for society account
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +19,7 @@ class ManageMembers extends StatelessWidget {
           ChangeNotifierProvider(
               create: (context) =>
                   data.dataCollector<data.SocietyRole>(filter: {
-                    'society': society_id.toString(),
+                    'society': societyId.toString(),
                   }, order: data.OrderType.CHRONOLOGICAL))
         ],
         builder: (context, child) {
@@ -51,20 +50,32 @@ class ManageMembers extends StatelessWidget {
             children: [
               const SizedBox(height: 40),
               const Text("Admins"),
-              MembersTable(3, userSocietyRoleLevel,
-                  globals.localdataobj.getUserLevel(), roleData.collection),
+              MembersTable(
+                  3,
+                  userSocietyRoleLevel,
+                  globals.localdataobj.getUserLevel(),
+                  societyId,
+                  roleData.collection),
               const SizedBox(
                 height: 20,
               ),
               const Text("Local Admins"),
-              MembersTable(2, userSocietyRoleLevel,
-                  globals.localdataobj.getUserLevel(), roleData.collection),
+              MembersTable(
+                  2,
+                  userSocietyRoleLevel,
+                  globals.localdataobj.getUserLevel(),
+                  societyId,
+                  roleData.collection),
               const SizedBox(
                 height: 20,
               ),
               const Text("Members"),
-              MembersTable(1, userSocietyRoleLevel,
-                  globals.localdataobj.getUserLevel(), roleData.collection),
+              MembersTable(
+                  1,
+                  userSocietyRoleLevel,
+                  globals.localdataobj.getUserLevel(),
+                  societyId,
+                  roleData.collection),
             ],
           );
         });

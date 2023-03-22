@@ -41,6 +41,7 @@ Future<http.Response> updateSociety(int userId, int roleLevel) async {
   if (response.statusCode == 204) {
     print("society role updated");
   } else {
+    print(response.body);
     print("society role not updated");
   }
   print("ending update society role");
