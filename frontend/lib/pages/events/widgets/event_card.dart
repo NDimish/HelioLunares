@@ -10,25 +10,6 @@ class EventCard extends StatelessWidget {
   final bool isActive;
   final VoidCallback onTap;
 
-//VIEW 1:
-  //name
-  //price
-  //date
-  //location
-
-//VIEW 2:
-  //name
-  //price
-  //date
-  //location
-  //duration
-  //description
-
-//OTHER:
-  //max ticket count ?
-  //society email
-  //view details button
-
   const EventCard(
       {Key? key,
       required this.onTap,
@@ -41,66 +22,84 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SingleChildScrollView(
       child: InkWell(
         onTap: onTap,
         child: Container(
-            height: 100,
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: MyColours.panelBackgroundColour,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: MyColours.textColourLight, width: .5),
-            ),
+                color: MyColours.panelBackgroundColour.withOpacity(0.5),
+                borderRadius: BorderRadius.circular(8)),
+            height: 120,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Flexible(
-                    child: CustomText(
-                  text: name,
-                  size: 20,
-                  weight: FontWeight.w300,
-                  colour: MyColours.textColourLight,
-                )),
-                Column(
+                Expanded(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                      Expanded(
+                          flex: 3,
+                          child: CustomText(
+                            text: name,
+                            size: 20,
+                            weight: FontWeight.bold,
+                          )),
+                      Flexible(
+                          child: Row(
+                        children: [
+                          const Icon(
+                            Icons.date_range,
+                            color: MyColours.textColourDark,
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Expanded(
+                              child: CustomText(
+                            text: date,
+                            size: 14,
+                            weight: FontWeight.w300,
+                            colour: MyColours.textColourDark,
+                          ))
+                        ],
+                      ))
+                    ])),
+                Expanded(
+                    child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(Icons.payments_outlined),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     Flexible(
                         child: CustomText(
                       text: "£$price",
-                      size: 16,
-                      weight: FontWeight.w300,
+                      size: 24,
+                      weight: FontWeight.bold,
                       colour: MyColours.textColourDark,
-                    ))
+                    )),
+                    const SizedBox(
+                      height: 10,
+                    ),
                   ],
-                ),
-                Column(
+                )),
+                Expanded(
+                    child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const Icon(Icons.date_range),
-                    Flexible(
-                        child: CustomText(
-                      text: date,
-                      size: 16,
-                      weight: FontWeight.w300,
-                      colour: MyColours.textColourDark,
-                    ))
-                  ],
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.location_on_outlined),
-                    Flexible(
-                        child: CustomText(
+                    CustomText(
                       text: location,
                       size: 16,
                       weight: FontWeight.w300,
                       colour: MyColours.textColourDark,
-                    ))
+                    ),
                   ],
-                )
+                ))
               ],
             )),
       ),

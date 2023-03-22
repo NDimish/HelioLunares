@@ -144,6 +144,7 @@ class _MembersTableState extends State<MembersTable> {
   @override
   Widget build(BuildContext context) {
     return Table(
+      defaultColumnWidth: IntrinsicColumnWidth(),
       border: const TableBorder(
           top: BorderSide(width: 2, color: Color(0xFF703c6c)),
           bottom: BorderSide(width: 2, color: Color(0xFF703c6c)),

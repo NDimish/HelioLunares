@@ -5,7 +5,7 @@ import 'package:university_ticketing_system/routing/routes.dart';
 
 class MenuController extends GetxController {
   static MenuController instance = Get.find<MenuController>();
-  var activeItem = societyHubPageDisplayName.obs;
+  var activeItem = selectSocietyPageDisplayName.obs;
 
   var hoverItem = "".obs;
 

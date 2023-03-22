@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/pages/society_members/members_table.dart';
+import 'package:university_ticketing_system/widgets/custom_text.dart';
 
 class ManageMembers extends StatelessWidget {
   const ManageMembers({super.key});
@@ -8,19 +9,32 @@ class ManageMembers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: const [
         SizedBox(height: 40),
-        Text("Admins"),
+        CustomText(
+          text: "Admins",
+          weight: FontWeight.bold,
+          size: 20,
+        ),
         MembersTable(),
         SizedBox(
           height: 20,
         ),
-        Text("Local Admins"),
+        CustomText(
+          text: "Local Admins",
+          weight: FontWeight.bold,
+          size: 20,
+        ),
         MembersTable(),
         SizedBox(
           height: 20,
         ),
-        Text("Members"),
+        CustomText(
+          text: "Members",
+          weight: FontWeight.bold,
+          size: 20,
+        ),
         MembersTable(),
       ],
     );

@@ -14,13 +14,14 @@ class SocietyMembersPage extends StatelessWidget {
     return Column(
       children: [
         Obx(() => Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
                   margin: EdgeInsets.only(
                       top: ResponsiveWidget.isSmallScreen(context) ? 56 : 6),
                   child: CustomText(
                     text: menuController.activeItem.value,
-                    size: 24,
+                    size: ResponsiveWidget.isSmallScreen(context) ? 24 : 40,
                     weight: FontWeight.bold,
                   ),
                 )
