@@ -27,6 +27,10 @@ class ManageMembers extends StatelessWidget {
               Provider.of<data.dataCollector<data.SocietyRole>>(context);
 
           //now check user role level first
+          if (globals.localdataobj.getToken() == "") {
+            return const Text("You have not been authenticated.");
+          }
+
           if (globals.localdataobj.getUserLevel() != 3) {
             //check in the array if they are in soc and have power
             for (var i = 0; i < roleData.collection.length; i++) {
