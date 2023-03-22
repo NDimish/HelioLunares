@@ -24,6 +24,7 @@ class People extends dataSets {
 
   factory People.fromJson(Map<String, dynamic> json) {
     return People(
+        id: User.fromJson(json['user']).id,
         user: User.fromJson(json['user']),
         university: University.fromJson(json['university_studying_at']),
         first_name: json['first_name'],
