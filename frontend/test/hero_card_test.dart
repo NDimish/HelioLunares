@@ -6,6 +6,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:university_ticketing_system/screens/startup_screen/widgets/about_card.dart';
 import 'package:university_ticketing_system/screens/startup_screen/widgets/hero_card.dart';
 
+//These tests were used for the animated hovering card on the old startup page. This is not included
+//in the responsive design but is still kept in should you wish to test the old version.
 void main() {
   setUpAll(() => {HttpOverrides.global = null});
 

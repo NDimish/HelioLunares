@@ -17,8 +17,9 @@ class SocietyRole extends dataSets {
 
   factory SocietyRole.fromJson(Map<String, dynamic> json) {
     return SocietyRole(
-        society: Society.fromJsonNOID(json['society']),
-        people: People.fromJsonNOID(json['user_at_society']),
+        id: json['id'],
+        society: Society.fromJson(json['society']),
+        people: People.fromJson(json['user_at_society']),
         role: json['role']);
   }
 

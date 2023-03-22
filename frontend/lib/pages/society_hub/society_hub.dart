@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:university_ticketing_system/constants/controllers.dart';
 import 'package:university_ticketing_system/helpers/responsiveness.dart';
-import 'package:university_ticketing_system/pages/society_hub/widgets/circular_card.dart';
+import 'package:university_ticketing_system/pages/society_hub/widgets/image_card.dart';
 import 'package:university_ticketing_system/pages/society_hub/widgets/society_cards_small.dart';
 import 'package:university_ticketing_system/pages/society_hub/widgets/society_cards_medium.dart';
 import 'package:university_ticketing_system/pages/society_hub/widgets/society_cards_large.dart';
 
 import 'package:university_ticketing_system/widgets/custom_text.dart';
 
+import '../../backend_communication/models/Society.dart';
+
 class SocietyHubPage extends StatelessWidget {
-  const SocietyHubPage({super.key});
+  final Society society = Get.find<Society>();
+  SocietyHubPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,13 +22,14 @@ class SocietyHubPage extends StatelessWidget {
         children: [
           Obx(
             () => Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
                     margin: EdgeInsets.only(
                         top: ResponsiveWidget.isSmallScreen(context) ? 56 : 6),
                     child: CustomText(
+                      size: ResponsiveWidget.isSmallScreen(context) ? 24 : 40,
                       text: menuController.activeItem.value,
-                      size: 24,
                       weight: FontWeight.bold,
                     )),
               ],
@@ -34,15 +38,19 @@ class SocietyHubPage extends StatelessWidget {
           Expanded(
               child: ListView(
             children: [
-              const CircularCard(),
+              ImageCard(
+                image: (society != null)
+                    ? NetworkImage('assets/icons/kcl.png') //Load
+                    : NetworkImage('assets/images/logo.jpg'),
+              ),
               if (ResponsiveWidget.isLargeScreen(context) ||
                   ResponsiveWidget.isMediumScreen(context))
                 if (ResponsiveWidget.isCustomSize(context))
-                  const SocietyHubCardsMedium()
+                  SocietyHubCardsMedium(society: society)
                 else
-                  const SocietyHubCardsLarge()
+                  SocietyHubCardsLarge(society: society)
               else
-                SocietyHubCardsSmall(),
+                SocietyHubCardsSmall(society: society),
             ],
           ))
         ],

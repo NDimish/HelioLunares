@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:university_ticketing_system/backend_communication/models/Society.dart';
+import 'package:university_ticketing_system/gradient_animation.dart';
 import 'package:university_ticketing_system/helpers/responsiveness.dart';
 import 'package:university_ticketing_system/widgets/large_screen.dart';
 import 'package:university_ticketing_system/widgets/side_menu.dart';
@@ -8,23 +10,25 @@ import '../helpers/local_navigator.dart';
 
 class SiteLayout extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+  final Society? society;
 
-  SiteLayout({super.key});
+  SiteLayout({super.key, this.society});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
-      extendBodyBehindAppBar: true,
-      appBar: topNavBar(context, scaffoldKey),
-      drawer: const Drawer(
-        child: SideMenu(),
-      ),
-      body: ResponsiveWidget(
-          largeScreen: const LargeScreen(),
-          smallScreen: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: localNavigator(),
-          )),
-    );
+        key: scaffoldKey,
+        extendBodyBehindAppBar: true,
+        appBar: topNavBar(context, scaffoldKey, true),
+        drawer: Drawer(
+          child: CustomLinearGradient(child: SideMenu()),
+        ),
+        body: CustomLinearGradient(
+          child: ResponsiveWidget(
+              largeScreen: const LargeScreen(),
+              smallScreen: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: localNavigator(),
+              )),
+        ));
   }
 }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:university_ticketing_system/screens/startup_screen/widgets/widget_carousel.dart';
 
+//These sets of tests are for the widget carousel which has been discarded in the responsive
+//version of the startup screen.
 void main() {
   group("Josh Widget Carousel Tests", () {
     testWidgets(

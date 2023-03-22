@@ -29,66 +29,70 @@ class _testscreen extends State<testscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Todo App'),
-      ),
-      body: globals.localdataobj.getToken() != ""
-          ? TestScreenAddition()
-          : Text("Not authenticated yet"),
-      floatingActionButton: FloatingActionButton(
-          child: Icon(
-            Icons.add,
-            size: 30,
-          ),
-          onPressed: () async {
-            //THIS IS CODE TO CREATE SOCIETY
 
-            // http.Response response = await createSociety(
-            //     "nathgsg@gmail.com",
-            //     "This.is.pass1091",
-            //     1,
-            //     "socname",
-            //     '12/12/2002',
-            //     "about us text",
-            //     [1, 2, 3]);
-            // print(response.statusCode);
+        appBar: AppBar(
+          title: Text('Todo App'),
+        ),
+        body: globals.localdataobj.getToken() != ""
+            ? TestScreenAddition()
+            : Text("Not authenticated yet"),
+        floatingActionButton:
+            Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+          FloatingActionButton(
+              child: Icon(
+                Icons.add,
+                size: 30,
+              ),
+              onPressed: () async {
+                // //THIS IS CODE TO CREATE SOCIETY
 
-            //THIS IS CODE TO CREATE A PERSON
+                // http.Response response = await createSociety(
+                //     "nathgsg@gmail.com",
+                //     "This.is.pass1091",
+                //     1,
+                //     "socname",
+                //     '12/12/2002',
+                //     "about us text",
+                //     [1, 2, 3]);
+                // print(response.statusCode);
 
-            // http.Response response_two = await createPerson(
-            //     "hisisanewemail@gmail.com",
-            //     "This.is.pass1091",
-            //     1,
-            //     "Water",
-            //     "Rock",
-            //     "Tester");
-            // print(response_two.statusCode);
+                // //THIS IS CODE TO CREATE A PERSON
 
-            //THIS IS CODE TO AUTHENTICATE
-            //LOgs in as society account
-            http.Response new_response =
-                await auth("hisisanewemail@gmail.com", "This.is.pass1091");
+                // http.Response response_two = await createPerson(
+                //     "thisisanewemail@gmail.com",
+                //     "This.is.pass1091",
+                //     1,
+                //     "Water",
+                //     "Rock",
+                //     "Tester");
+                // print(response.statusCode);
 
-            // //make person join society
-            // print(json.decode(response.body)['user']['id']);
-            // http.Response join_response =
-            //     await joinSociety(json.decode(response.body)['user']['id']);
+                //THIS IS CODE TO AUTHENTICATE
+                //LOgs in as society account
+                // http.Response new_response =
+                //     await auth("thisisanewemail@gmail.com", "This.is.pass1091");
 
-            // //login as society account
-            // http.Response person_response =
-            //     await auth("nathgsg@gmail.com", "This.is.pass1091");
+                //make person join society
+                // print(json.decode(response.body)['user']['id']);
+                // http.Response join_response =
+                //     await joinSociety(json.decode(response.body)['user']['id']);
 
-            // //promote person user in society
-            // http.Response promote_role = await updateSociety(
-            //     json.decode(response_two.body)['user']['id'], 2);
+                // //login as society account
+                // http.Response person_response =
+                //     await auth("nathgsg@gmail.com", "This.is.pass1091");
 
-            // //login as person
-            // http.Response log_in_as_perosn =
-            //     await auth("thisisanewemail@gmail.com", "This.is.pass1091");
+                // //promote person user in society
+                // http.Response promote_role = await updateSociety(
+                //     json.decode(response_two.body)['user']['id'], 2);
 
-            Navigator.pushNamed(context, '/whatever');
-          }),
-    );
+                // //login as person
+                http.Response log_in_as_perosn =
+                    await auth("thisisanewemail@gmail.com", "This.is.pass1091");
+
+                Navigator.pushNamed(context, '/societyhub');
+              }),
+        ]));
+
   }
 }
 
@@ -122,13 +126,12 @@ class _TestScreenAdditionState extends State<TestScreenAddition> {
           //     create: (context) => data.dataCollector<data.Event>(
           //         filter: widget.filter, order: widget.orderBy)),
           ChangeNotifierProvider(
-              create: (context) => data.dataCollector<data.Society>(
+              create: (context) => data.dataCollector<data.SocietyRole>(
                   filter: widget.filter, order: widget.orderBy)),
         ],
         builder: (context, child) {
           // final DataP2 = Provider.of<data.dataCollector<data.Event>>(context);
-          final DataP =
-              Provider.of<data.dataCollector<data.Society>>(context);
+          final DataP = Provider.of<data.dataCollector<data.Society>>(context);
           if (DataP.responserFromUrL.statusCode == 200) {
             return Scaffold(
               body: ListView.builder(
