@@ -16,7 +16,7 @@ class AboutCard extends StatefulWidget {
   final String imagePath;
   final String githubLink;
   final IconData secondaryIcon;
-  final String secondaryLink;
+  final String? secondaryLink;
   final double cardSize;
 
   const AboutCard(
@@ -122,8 +122,10 @@ class _AboutCardState extends State<AboutCard> {
                                 iconSize: 20,
                                 icon: Icon(widget.secondaryIcon),
                                 color: Colors.black,
-                                onPressed: () async => await launchUrl(
-                                    Uri.parse(widget.secondaryLink)),
+                                onPressed: widget.secondaryLink != null
+                                    ? () async => await launchUrl(
+                                        Uri.parse(widget.secondaryLink!))
+                                    : null,
                               ),
                             ],
                           ),
