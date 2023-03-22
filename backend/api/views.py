@@ -538,7 +538,7 @@ class EventApiView(generics.ListAPIView):
 #Event with id
 class EventApiInfoView(APIView):
     def get(self, request, pk):
-        event = Event.objects.filter(id=pk)
+        event = Event.objects.get(id=pk)
         serializer = EventModelSerializer(instance=event)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -578,7 +578,7 @@ class UniversityApiView(generics.ListAPIView):
 #Get university with id
 class UniversityInfoApiView(APIView):
     def get(self, request, pk):
-        university = University.objects.filter(id=pk)
+        university = University.objects.get(id=pk)
         serializer = UniversitySerializer(instance=university)
         return Response(serializer.data)
 
