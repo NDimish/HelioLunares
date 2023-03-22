@@ -4,6 +4,7 @@ import 'package:university_ticketing_system/constants/style.dart';
 import 'package:university_ticketing_system/helpers/responsiveness.dart';
 import 'package:university_ticketing_system/routing/routes.dart';
 import 'package:university_ticketing_system/widgets/custom_text.dart';
+import 'package:university_ticketing_system/globals.dart' as globals;
 
 AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key,
         bool? societySelected) =>
@@ -57,17 +58,19 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key,
             const SizedBox(
               width: 12,
             ),
-            ElevatedButton(
-                style: ButtonStyle(
-                    backgroundColor:
-                        const MaterialStatePropertyAll(Colors.transparent)),
-                onPressed: () {
-                  //Go to user hub
-                },
-                child: const CustomText(
-                  text: "Back to User Hub",
-                  colour: MyColours.navbarColour,
-                )),
+            (globals.localdataobj.getUserLevel() != 3)
+                ? ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            const MaterialStatePropertyAll(Colors.transparent)),
+                    onPressed: () {
+                      //Go to user hub
+                    },
+                    child: const CustomText(
+                      text: "Back to User Hub",
+                      colour: MyColours.navbarColour,
+                    ))
+                : const Text(""),
             const SizedBox(
               width: 16,
             ),

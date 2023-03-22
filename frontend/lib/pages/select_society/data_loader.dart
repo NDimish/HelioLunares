@@ -42,8 +42,11 @@ class _DataLoaderState extends State<DataLoader> {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(
-              create: (context) =>
-                  data.dataCollector<data.Society>(filter: {})),
+              create: (context) => data.dataCollector<data.Society>(
+                  ID: globals.localdataobj.getUserID())),
+          ChangeNotifierProvider(
+              create: (context) => data.dataCollector<data.SocietyRole>(
+                  filter: powInSocietyFilter)),
           ChangeNotifierProvider(
               create: (context) => data.dataCollector<data.SocietyCategories>(
                   filter: {}, order: orderBy))
@@ -51,29 +54,28 @@ class _DataLoaderState extends State<DataLoader> {
         builder: (context, child) {
           final DataP =
               Provider.of<data.dataCollector<data.SocietyCategories>>(context);
+          final roleData =
+              Provider.of<data.dataCollector<data.SocietyRole>>(context);
+          final societyData =
+              Provider.of<data.dataCollector<data.Society>>(context);
 
           return Container(
               height: MediaQuery.of(context).size.height * 0.95,
               child: Scaffold(
                 backgroundColor: Colors.transparent,
-                body: ListView.separated(
-                  primary: false,
-                  shrinkWrap: true,
-                  itemCount: DataP.collection.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return MediaQuery.removePadding(
+                body: (globals.localdataobj.getUserLevel() == 3)
+                    ? MediaQuery.removePadding(
                         context: context,
                         removeTop: true,
                         child: SocietyCard(
-                            societyName: DataP.collection[index].society.name,
+                            societyName: societyData.collection[0].name,
                             categoryName: DataP
-                                .collection[index].societyCategory.categoryName,
+                                .collection[0].societyCategory.categoryName,
                             onTap: () {
                               final Society society =
-                                  Get.put(DataP.collection[index].society);
+                                  Get.put(societyData.collection[0]);
 
-                              print(
-                                  "ID is ${DataP.collection[index].society.user.id}");
+                              print("ID is ${societyData.collection[0].id}");
 
                               sideMenuController.setVisible();
                               menuController.activeItem.value =
@@ -81,16 +83,45 @@ class _DataLoaderState extends State<DataLoader> {
                               sideMenuController.setVisible();
                               navigationController.navigateToWArgs(
                                   societyHubPageDisplayName,
-                                  DataP.collection[index].society);
+                                  societyData.collection[0]);
                               sideMenuController.setVisible();
-                            }));
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const SizedBox(
-                      height: 8,
-                    );
-                  },
-                ),
+                            }))
+                    : ListView.separated(
+                        primary: false,
+                        shrinkWrap: true,
+                        itemCount: roleData.collection.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return MediaQuery.removePadding(
+                              context: context,
+                              removeTop: true,
+                              child: SocietyCard(
+                                  societyName:
+                                      roleData.collection[index].society.name,
+                                  categoryName: DataP.collection[index]
+                                      .societyCategory.categoryName,
+                                  onTap: () {
+                                    final Society society = Get.put(
+                                        roleData.collection[index].society);
+
+                                    print(
+                                        "ID is ${roleData.collection[index].society.user.id}");
+
+                                    sideMenuController.setVisible();
+                                    menuController.activeItem.value =
+                                        societyHubPageDisplayName;
+                                    sideMenuController.setVisible();
+                                    navigationController.navigateToWArgs(
+                                        societyHubPageDisplayName,
+                                        roleData.collection[index].society);
+                                    sideMenuController.setVisible();
+                                  }));
+                        },
+                        separatorBuilder: (BuildContext context, int index) {
+                          return const SizedBox(
+                            height: 8,
+                          );
+                        },
+                      ),
               ));
         });
   }
