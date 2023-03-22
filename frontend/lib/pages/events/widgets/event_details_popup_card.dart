@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:university_ticketing_system/backend_communication/dataCollector.dart';
 import 'package:university_ticketing_system/constants/controllers.dart';
 import 'package:university_ticketing_system/constants/style.dart';
-import 'package:university_ticketing_system/backend_communication/models/SocietyEvent.dart';
 import 'package:university_ticketing_system/routing/routes.dart';
 import '../../../backend_communication/models/Event.dart';
 import '../../../widgets/circle_icon.dart';
@@ -13,6 +13,8 @@ const String _heroAddTodo = 'add-todo-hero';
 class AddEventPopupCard extends StatelessWidget {
   //All event details to display
   final Event event = Get.find<Event>();
+  // final dataCollector<Event> eventDataProvider =
+  //     Get.find<dataCollector<Event>>();
   // final List<Event> eventList =
   AddEventPopupCard({Key? key}) : super(key: key);
 
