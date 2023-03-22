@@ -67,14 +67,14 @@ class _DataLoaderState extends State<DataLoader> {
                             onTap: () {
                               print(
                                   "ID is ${DataP.collection[index].societyCategory.id}");
-                              //Get the selected society
-                              //DataP.collection[index];
+
                               sideMenuController.setVisible();
                               menuController.activeItem.value =
                                   societyHubPageDisplayName;
                               sideMenuController.setVisible();
-                              navigationController
-                                  .navigateTo(statisticsPageDisplayName);
+                              navigationController.navigateToWArgs(
+                                  societyHubPageDisplayName,
+                                  DataP.collection[index].society);
                               sideMenuController.setVisible();
                             }));
                   },
