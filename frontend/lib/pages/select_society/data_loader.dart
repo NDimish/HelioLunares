@@ -79,9 +79,8 @@ class _DataLoaderState extends State<DataLoader> {
                               menuController.activeItem.value =
                                   societyHubPageDisplayName;
                               sideMenuController.setVisible();
-                              navigationController.navigateToWArgs(
-                                  societyHubPageDisplayName,
-                                  DataP.collection[index].society);
+                              navigationController
+                                  .navigateTo(societyHubPageDisplayName);
                               sideMenuController.setVisible();
                             }));
                   },
