@@ -10,6 +10,8 @@ import 'package:university_ticketing_system/gradient_animation.dart';
 import 'package:university_ticketing_system/responsive.dart';
 import 'package:http/http.dart' as http;
 import 'package:university_ticketing_system/globals.dart' as globals;
+import 'package:university_ticketing_system/user_hub/widgets/UserHubPage_events.dart';
+import 'package:university_ticketing_system/widgets/layout.dart';
 
 /// DESIGNED BY ISRAFEEL ASHRAF - K21008936
 ///
@@ -164,14 +166,24 @@ class _LogInFormState extends State<LogInForm> {
                   //We check if the form is valid and we progress to the next page
                   //(which is the student screen or society screen) depending on the user account.
                   if (_formKey.currentState!.validate()) {
-                    http.Response response =
-                        await auth(userAccount.email, userAccount.password);
+                    http.Response response = await auth(
+                        emailController.text, passwordController.text);
+                    print(response.body);
                     if (response.statusCode == 200) {
                       if (globals.Localdata.USERLEVEL == 1 ||
                           globals.Localdata.USERLEVEL == 2) {
                         print("Redirecting to student page");
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UserHubPage_events()),
+                        );
                       } else {
                         print("Redirecting to society page.");
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => SiteLayout()),
+                        );
                       }
                       print("user is logged in - redirecting");
                     } else {

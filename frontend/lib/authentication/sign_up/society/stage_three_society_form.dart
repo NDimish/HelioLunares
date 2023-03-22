@@ -295,7 +295,7 @@ class _StageThreeSocietySignUpState extends State<StageThreeSocietySignUp> {
                       widget.soc.dateCreated,
                       bio,
                       selectedIds);
-
+                  print("SOC SIGN UP BODY ${response.body}");
                   print("Status Code: ${response.statusCode}");
 
                   if (response.statusCode == 201) {
