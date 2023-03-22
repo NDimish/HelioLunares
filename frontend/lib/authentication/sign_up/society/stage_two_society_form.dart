@@ -11,6 +11,7 @@ import 'package:university_ticketing_system/gradient_animation.dart';
 import 'package:university_ticketing_system/responsive.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
+import 'package:university_ticketing_system/globals.dart' as globals;
 
 /// DESIGNED BY ISRAFEEL ASHRAF - K21008936
 ///
@@ -36,6 +37,7 @@ class _StageTwoSocietySignUpState extends State<StageTwoSocietySignUp> {
 
   TextEditingController societyNameController = TextEditingController();
   TextEditingController dateCreatedController = TextEditingController();
+
   String? uniValue;
 
   List<String> uniNames = [];
@@ -44,7 +46,7 @@ class _StageTwoSocietySignUpState extends State<StageTwoSocietySignUp> {
   late Future<List<dynamic>> returnedUniversitiesFromEndPoint;
   Future<List<dynamic>> getUniversities() async {
     final response =
-        await http.get(Uri.parse("http://localhost:8000/university/"));
+        await http.get(Uri.parse("${globals.DATASOURCE}university/"));
     final List<dynamic> data = json.decode(response.body);
     return data;
   }
