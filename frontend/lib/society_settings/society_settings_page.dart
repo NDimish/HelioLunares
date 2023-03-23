@@ -55,7 +55,7 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
       return uniNames;
     });
   }
-  
+
   Widget customTextFormField(
       String headerName,
       String name,
@@ -79,7 +79,7 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
   final societyNameController = TextEditingController();
-  
+
   final uniController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -95,14 +95,18 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
             create: (context) =>
                 dataCollector<People>(ID: global.localdataobj.getUserID()),
           ),
+          ChangeNotifierProvider(
+            create: (context) =>
+                dataCollector<Society>(ID: Get.find<Society>().id),
+          ),
         ],
         builder: (context, child) {
           final userProvider = Provider.of<dataCollector<User>>(context);
           final peopleProvider = Provider.of<dataCollector<People>>(context);
+          final societyProvider = Provider.of<dataCollector<Society>>(context);
           Society societyInfo = Get.find<Society>();
           emailController.text = userProvider.collection[0].email;
           societyNameController.text = societyInfo.name;
-         
 
           return Scaffold(
             backgroundColor: const Color(0xFFffffff).withOpacity(0.3),
@@ -181,7 +185,6 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           return SizedBox(
-
                             width: ResponsiveWidget.isSmallScreen(context)
                                 ? MediaQuery.of(context).size.width * 0.95
                                 : MediaQuery.of(context).size.width * 0.75,
@@ -301,10 +304,14 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                             print("Valid form");
                             _formKey.currentState!.save();
 
-                           try {
-                              String sName = firstNameController.text;
-                              String lName = lastNameController.text;
+                            try {
+                              String phone = phoneController.text;
+                              String socName = societyNameController.text;
+                              String uniName = uniController.text;
                               String email = emailController.text;
+                              String password = passwordController.text;
+                              String socDescription =
+                                  societyProvider.collection[0].description;
 
                               User update_user = User(
                                   id: userProvider.collection[0].id,
@@ -312,17 +319,20 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                                   userType: userProvider.collection[0].userType,
                                   date_joined:
                                       userProvider.collection[0].date_joined);
-                              People update_person = People(
-                                  id: peopleProvider.collection[0].id,
-                                  user: peopleProvider.collection[0].user,
+                              Society update_society = Society(
+                                  id: societyProvider.collection[0].id,
+                                  user: userProvider.collection[0],
                                   university:
-                                      peopleProvider.collection[0].university,
-                                  first_name: fName,
-                                  last_name: lName,
-                                  field_of_study: peopleProvider
-                                      .collection[0].field_of_study);
+                                      societyProvider.collection[0].university,
+                                  name: socName,
+                                  description: socDescription,
+                                  created_at:
+                                      societyProvider.collection[0].created_at,
+                                  join_date:
+                                      societyProvider.collection[0].join_date,
+                                  image: societyProvider.collection[0].image);
 
-                              peopleProvider.updateCollection(update_person);
+                              societyProvider.updateCollection(update_society);
                               userProvider.updateCollection(update_user);
                               //Here is where you will send a response to the database to update user values
 
