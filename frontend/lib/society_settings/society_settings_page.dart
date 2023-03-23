@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:university_ticketing_system/backend_communication/dataCollector.dart';
-import '../../../backend_communication/dataCollector.dart';
+
 import 'package:university_ticketing_system/globals.dart' as global;
 
 import '../helpers/responsiveness.dart';
@@ -41,9 +41,7 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
 
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
-  final phoneController = TextEditingController();
-  final firstNameController = TextEditingController();
-  final lastNameController = TextEditingController();
+  final societyNameController = TextEditingController();
   final uniController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -56,7 +54,7 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
           create: (context) => dataCollector<User>(ID:global.localdataobj.getUserID()),
         ),
         ChangeNotifierProvider(
-          create: (context) => dataCollector<People>(ID:global.localdataobj.getUserID()),
+          create: (context) => dataCollector<Society>(ID:global.localdataobj.getUserID()),
         ),
       ],
 
@@ -64,8 +62,8 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
       final userProvider = Provider.of<dataCollector<User>>(context);
       final peopleProvider = Provider.of<dataCollector<People>>(context);
         emailController.text = userProvider.collection[0].email;
-        firstNameController.text = peopleProvider.collection[0].first_name;
-        lastNameController.text = peopleProvider.collection[0].last_name;
+        societyNameController.text = peopleProvider.collection[0].first_name;
+        
 
         return Scaffold(
           
@@ -104,7 +102,7 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                         Icons.person_rounded,
                         null,
                         (userProvider.collection[0].userType == 3) ? true : false,
-                        (title) =>(title == null || title.isEmpty) ? 'Title cannot be blank' : 'ss',
+                        (title) =>(title == null || title.isEmpty) ? 'Title cannot be blank' : 'Success',
                         
                         ),
                   ),
@@ -201,6 +199,29 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                           _formKey.currentState!.save();
 
                           try {
+
+                            String sName =
+                                  societyNameController.text;
+                            String email = emailController.text;
+
+                              User update_user = User(
+                                  id: userProvider.collection[0].id,
+                                  email: email,
+                                  userType: userProvider.collection[0].userType,
+                                  date_joined:
+                                      userProvider.collection[0].date_joined);
+                              People update_person = People(
+                                  id: peopleProvider.collection[0].id,
+                                  user: peopleProvider.collection[0].user,
+                                  university:
+                                      peopleProvider.collection[0].university,
+                                  first_name: fName,
+                                  last_name: lName,
+                                  field_of_study: peopleProvider
+                                      .collection[0].field_of_study);
+
+                              peopleProvider.updateCollection(update_person);
+                              userProvider.updateCollection(update_user);
                             
 
                             //Here is where you will send a response to the database to update user values
