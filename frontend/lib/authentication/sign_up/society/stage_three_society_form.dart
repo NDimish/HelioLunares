@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/authentication/log_in/log_in_screen.dart';
 import 'package:university_ticketing_system/authentication/models/society_categories.dart';
 import 'package:university_ticketing_system/authentication/sign_up/society/society_sign_up.dart';
 import 'package:university_ticketing_system/authentication/sign_up/student/student_sign_up.dart';
 import 'package:university_ticketing_system/backend_communication/authenticate.dart';
+import 'package:university_ticketing_system/home/homepage.dart';
 import 'package:university_ticketing_system/submit_button.dart';
 import 'package:university_ticketing_system/authentication/models/society.dart';
 import 'package:university_ticketing_system/gradient_animation.dart';
@@ -248,6 +250,18 @@ class _StageThreeSocietySignUpState extends State<StageThreeSocietySignUp> {
                           ).toList(),
                         );
                       } else if (snapshot.hasError) {
+                        WidgetsBinding.instance.addPostFrameCallback((_) =>
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                informationSnackbar(
+                                    "An error occurred downloading category data from the server. Try again later.")));
+                        Timer(const Duration(seconds: 3), () {
+                          //print("Yeah, this line is printed after 3 seconds");
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HomePage()),
+                          );
+                        });
                         return SizedBox(
                             width: ResponsiveWidget.isSmallScreen(context)
                                 ? MediaQuery.of(context).size.width * 0.85
@@ -256,8 +270,8 @@ class _StageThreeSocietySignUpState extends State<StageThreeSocietySignUp> {
                               enabled: false,
                               decoration: customDecoration(
                                   "Categories",
-                                  "Unable to load categories from server",
-                                  Icons.school_rounded),
+                                  "Unable to load category data",
+                                  Icons.category_outlined),
                             ));
                       }
 
@@ -386,6 +400,7 @@ class _StageThreeSocietySignUpState extends State<StageThreeSocietySignUp> {
     return SnackBar(
       content: Text(
         text,
+        textAlign: TextAlign.center,
         style: const TextStyle(fontFamily: "Arvo", color: Colors.white),
       ),
       duration: const Duration(seconds: 2),

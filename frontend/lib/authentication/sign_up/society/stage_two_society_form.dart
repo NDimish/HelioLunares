@@ -1,7 +1,11 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:university_ticketing_system/authentication/sign_up/society/stage_three_society_form.dart';
+import 'package:university_ticketing_system/home/homepage.dart';
 import 'package:university_ticketing_system/submit_button.dart';
 import 'package:university_ticketing_system/authentication/log_in/log_in_screen.dart';
 import 'package:university_ticketing_system/authentication/models/society.dart';
@@ -44,6 +48,7 @@ class _StageTwoSocietySignUpState extends State<StageTwoSocietySignUp> {
   Map<String, int> uniMap = {};
 
   late Future<List<dynamic>> returnedUniversitiesFromEndPoint;
+
   Future<List<dynamic>> getUniversities() async {
     final response =
         await http.get(Uri.parse("${globals.DATASOURCE}university/"));
@@ -61,7 +66,6 @@ class _StageTwoSocietySignUpState extends State<StageTwoSocietySignUp> {
       setState(() {
         uniNames = result.map((e) => e['name'].toString()).toList();
         result.forEach((value) => uniMap[value['name']] = value['id']);
-
         uniNames.sort((a, b) => a.toLowerCase().compareTo(b.toLowerCase()));
       });
       return uniNames;
@@ -289,6 +293,18 @@ class _StageTwoSocietySignUpState extends State<StageTwoSocietySignUp> {
                       ),
                     );
                   } else if (snapshot.hasError) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) =>
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            informationSnackbar(
+                                "An error occurred downloading university data from the server. Try again later.")));
+                    Timer(const Duration(seconds: 3), () {
+                      //print("Yeah, this line is printed after 3 seconds");
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomePage()),
+                      );
+                    });
                     return SizedBox(
                         width: ResponsiveWidget.isSmallScreen(context)
                             ? MediaQuery.of(context).size.width * 0.85
@@ -297,13 +313,12 @@ class _StageTwoSocietySignUpState extends State<StageTwoSocietySignUp> {
                           enabled: false,
                           decoration: customDecoration(
                               "University",
-                              "Unable to load universities from the server",
-                              Icons.school_rounded),
+                              "Unable to load university data",
+                              Icons.school_outlined),
                         ));
                   }
-
+                  return const Center(child: CircularProgressIndicator());
                   // By default, show a loading spinner.
-                  return const CircularProgressIndicator();
                 }),
             SizedBox(height: MediaQuery.of(context).size.height * 0.11),
             SubmitButton(
@@ -318,7 +333,7 @@ class _StageTwoSocietySignUpState extends State<StageTwoSocietySignUp> {
                               StageThreeSocietySignUp(soc: society)),
                     );
                   } else {
-                    print("Invalid form");
+                    print("Stage 2 invalid form");
                   }
                 },
                 scaleFactor:
@@ -349,5 +364,17 @@ class _StageTwoSocietySignUpState extends State<StageTwoSocietySignUp> {
     society.setUni(uniValue!);
     society.setUserAccount(widget.user);
     society.setUniId(uniMap[uniValue]!);
+  }
+
+  SnackBar informationSnackbar(String text) {
+    return SnackBar(
+      content: Text(
+        text,
+        textAlign: TextAlign.center,
+        style: const TextStyle(fontFamily: "Arvo", color: Colors.white),
+      ),
+      duration: const Duration(seconds: 2),
+      backgroundColor: Colors.black,
+    );
   }
 }
