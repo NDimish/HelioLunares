@@ -178,7 +178,7 @@ class _StageThreeSocietySignUpState extends State<StageThreeSocietySignUp> {
                 onChanged: (value) {
                   bio = bioController.text;
                   widget.soc.setBio(bio);
-                  print(widget.soc.bio);
+                  // print(widget.soc.bio);
                 },
                 onSaved: (newValue) {
                   widget.soc.setBio(newValue!);
@@ -269,23 +269,23 @@ class _StageThreeSocietySignUpState extends State<StageThreeSocietySignUp> {
                   });
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 } else {
-                  print("\n\n");
-                  print("SOCIETY: ");
-                  print("email: ${widget.soc.user.email}");
-                  print("password: ${widget.soc.user.password}");
-                  print(
-                      "confirmed password: ${widget.soc.user.confirmedPassword}");
-                  print("\n");
-                  print("society_name: ${widget.soc.socName}");
-                  print("society creation_date: ${widget.soc.dateCreated}");
-                  print("society university at: ${widget.soc.universityAt}");
-                  print(
-                      "society university at id: ${widget.soc.universityAtId}");
-                  print("\n");
-                  print("society bio: $bio");
-                  print("society categories: ${selectedChoices}");
-                  //getCategoryIds();
-                  print("society categories: ${selectedIds}");
+                  // print("\n\n");
+                  // print("SOCIETY: ");
+                  // print("email: ${widget.soc.user.email}");
+                  // print("password: ${widget.soc.user.password}");
+                  // print(
+                  //     "confirmed password: ${widget.soc.user.confirmedPassword}");
+                  // print("\n");
+                  // print("society_name: ${widget.soc.socName}");
+                  // print("society creation_date: ${widget.soc.dateCreated}");
+                  // print("society university at: ${widget.soc.universityAt}");
+                  // print(
+                  //     "society university at id: ${widget.soc.universityAtId}");
+                  // print("\n");
+                  // print("society bio: $bio");
+                  // print("society categories: ${selectedChoices}");
+                  // //getCategoryIds();
+                  // print("society categories: ${selectedIds}");
 
                   http.Response response = await createSociety(
                       widget.soc.user.email,

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'datasets.dart';
 import 'Society.dart';
 
@@ -108,6 +110,17 @@ class Event extends dataSets {
     this.description = description;
   }
 
+  String getDateTime(String timeString, String dateString) {
+    String dateTimeString = '$dateString $timeString';
+
+    // Convert to DateTime object
+    DateTime dateTime = DateTime.parse(dateTimeString);
+
+    // Convert to JSON
+    String json = jsonEncode({'datetime': dateTime.toIso8601String()});
+    return json;
+  }
+
   @override
   updateToJson() {
     return {
@@ -116,7 +129,7 @@ class Event extends dataSets {
       'update_time': update_time,
       'create_time': create_time,
       'event_name': title,
-      'event_date': ('${date}T$time'),
+      'event_date': "${date} ${time}:00",
       'location': venue,
       'description': description,
       'attendance': attendance
@@ -130,7 +143,7 @@ class Event extends dataSets {
     return {
       "society_id": society.id,
       "duration": duration,
-      "event_date": "${date}T${time}:00Z",
+      "event_date": "${date} ${time}:00",
       "event_name": title,
       "location": venue,
       "description": description,
