@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/bought_tickets/buy_ticket_screen.dart';
 import '../../../../backend_communication/authenticate.dart';
 import '../../../../backend_communication/dataCollector.dart' as data;
 import 'package:university_ticketing_system/backend_communication/models/Ticket.dart' as tic;
 import 'package:university_ticketing_system/backend_communication/models/all.dart';
+import 'package:university_ticketing_system/globals.dart';
+
+
 
 class UserBoughtTicketScreen extends StatefulWidget {
   final data.OrderType Orderby;
-  final Map<String,String> filter;
+  //final Map<String,String> filter;
   // final int id;
   
 
   const UserBoughtTicketScreen(
       {Key? key,
       this.Orderby = data.OrderType.CHRONOLOGICAL,
-      this.filter = const{},
       // this.id = -1
       }
     )
@@ -35,12 +38,13 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => data.dataCollector<tic.Tickets>(
-            filter: widget.filter, order: widget.Orderby)),
+          create: (context) => Tickets(
+            filter: {'user':localdataobj.getUserID().toString()})),
       ],
       builder: (context, child) {
         
         return Scaffold(
+          appBar: AppBar(),
           backgroundColor: const Color(0xFFC8B8D8), body: _buildPanel(context));
       }
     );
@@ -153,7 +157,8 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
   // }
 
   Widget _buildPanel(BuildContext context) {
-    final DataP = Provider.of<data.dataCollector<tic.Tickets>>(context);
+    final DataP = Provider.of<Tickets>(context);
+    DataP.ticketSort();
     return Column(children: <Widget>[
       
 
@@ -211,13 +216,13 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
 
 
   Widget _buildUpcomingTix (BuildContext context){
-    final DataP = Provider.of<data.dataCollector<tic.Tickets>>(context);
+    final DataP = Provider.of<Tickets>(context);
     return Container(
       height: 577,
-      alignment: Alignment.bottomCenter,
+      // alignment: Alignment.bottomCenter,
       child: ListView.builder(
         shrinkWrap: true,
-        itemCount: DataP.collection.length,
+        itemCount: DataP.upcoming.length,
         itemBuilder: (BuildContext context, int index){
           return Expanded(
             child: Column(
@@ -233,7 +238,7 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => BuyTicketScreen(id:DataP.collection[index].id)
+                          builder: (context) => BuyTicketScreen(id:DataP.upcoming[index].id)
                         )
                       );
                     },
@@ -253,7 +258,7 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                         children: [
                           Expanded(
                             child: Text(
-                              "${DataP.collection[index].event.title}",
+                              "${DataP.upcoming[index].event.title}",
                               // DataP.collection[index].event.title,
                               textAlign: TextAlign.left,
                               selectionColor: Colors.black,
@@ -275,7 +280,7 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
   }
 
   Widget _buildCollapsible(BuildContext context) {
-    final DataP = Provider.of<data.dataCollector<tic.Tickets>>(context); 
+    final DataP = Provider.of<Tickets>(context); 
     // print(DataP.collection[0].event.date);
     return ExpansionPanelList(
       elevation: 0,
@@ -302,7 +307,7 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
           
           body: ListView.builder(
               shrinkWrap: true,
-              itemCount: DataP.collection.length,
+              itemCount: DataP.expired.length,
               itemBuilder: (BuildContext context, int index) {
               // children: [
           
@@ -318,7 +323,7 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => BuyTicketScreen(id:DataP.collection[index].id)));
+                                    builder: (context) => BuyTicketScreen(id:DataP.expired[index].id)));
                           },
                           child: Container(
                             height: 55,
@@ -334,7 +339,7 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                     
                                 Expanded(
                                   child: Text(
-                                    "${DataP.collection[index].event.title}",
+                                    "${DataP.expired[index].event.title}",
                                     textAlign: TextAlign.left,
                                     selectionColor: Colors.black,
                                   ),
@@ -409,4 +414,51 @@ class _OnHoverState extends State<_OnHover> {
       this.isHovered = isHovered;
     });
   }
+}
+
+class Tickets extends data.dataCollector<tic.Tickets>{
+
+  Tickets({super.filter}) :super();
+
+  List<tic.Tickets> expiredtix = [];
+  List<tic.Tickets> upcomingtix = [];
+
+    List<tic.Tickets> get upcoming {
+    return [...upcomingtix];
+  }
+
+    List<tic.Tickets> get expired {
+    return [...expiredtix];
+  }
+
+  ticketSort() async {
+
+    //print("collectin: ${collection.length}");
+    DateTime now = DateTime.now();
+    List<tic.Tickets> temp1 = [];
+    List<tic.Tickets> temp2 = [];
+  for (tic.Tickets tix in collection){
+    
+    DateTime date = DateFormat("yyyy-MM-dd").parse(tix.date);
+
+    if(date.isAfter(now) || date.isAtSameMomentAs(now)){
+      temp1.add(tix);
+    }
+    else {
+      temp2.add(tix);
+    }
+    
+  }
+
+  expiredtix= temp2;
+  upcomingtix = temp1;
+  // print(expiredtix);
+  // print(upcomingtix);
+
+
+  }
+
+
+
+
 }
