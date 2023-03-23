@@ -65,7 +65,8 @@ class DataLoader extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.95,
               child: Scaffold(
                 backgroundColor: Colors.transparent,
-                body: (globals.localdataobj.getUserLevel() == 3)
+                body: (globals.localdataobj.getUserLevel() == 3 ||
+                        globals.localdataobj.getUserLevel() == 2)
                     ? ListView.separated(
                         primary: false,
                         shrinkWrap: true,
