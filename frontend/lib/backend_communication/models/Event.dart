@@ -5,7 +5,7 @@ class Event extends dataSets {
   final String title;
   final String date;
   final String time;
-  final int ticket_amount;
+  final int attendance;
   final String venue;
   final String description;
 
@@ -19,7 +19,7 @@ class Event extends dataSets {
   Event(
       {int id = 0,
       required this.society,
-      required this.ticket_amount,
+      required this.attendance,
       required this.duration,
       required this.price,
       required this.update_time,
@@ -35,7 +35,7 @@ class Event extends dataSets {
     return Event(
         id: json['id'],
         society: Society.fromJson(json['society_id']),
-        ticket_amount: json['attendance'],
+        attendance: json['attendance'],
         duration: json['duration'],
         price: json['price'],
         update_time: json['update_time'],
@@ -50,7 +50,7 @@ class Event extends dataSets {
   factory Event.fromJsonNOID(Map<String, dynamic> json) {
     return Event(
         society: Society.fromJson(json['society_id']),
-        ticket_amount: json['attendance'],
+        attendance: json['attendance'],
         duration: json['duration'],
         price: json['price'],
         update_time: json['update_time'],
@@ -77,6 +77,6 @@ class Event extends dataSets {
         'event_date': ('${date}T$time'),
         'location': venue,
         'description': description,
-        'attendance': ticket_amount
+        'attendance': attendance
       };
 }
