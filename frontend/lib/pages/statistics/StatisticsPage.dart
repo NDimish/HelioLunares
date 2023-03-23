@@ -2,8 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:fl_chart/fl_chart.dart';
-import 'package:provider/provider.dart';
 import 'package:university_ticketing_system/constants/style.dart';
 import 'package:university_ticketing_system/backend_communication/dataCollector.dart'
     as data;
@@ -15,7 +13,7 @@ import 'package:university_ticketing_system/backend_communication/models/Event.d
 import 'package:university_ticketing_system/backend_communication/models/SocietyRole.dart';
 
 import 'package:university_ticketing_system/globals.dart' as globals;
-import 'package:university_ticketing_system/pages/statistics/set_attendance.dart';
+import 'package:university_ticketing_system/pages/statistics/listOfTickets.dart';
 
 class Statistics extends StatefulWidget {
   final int societyId;
@@ -258,7 +256,15 @@ class _StatisticsState extends State<Statistics> {
             ],
             onChanged: ((value) => {
                   if (value == "addattendance")
-                    {_displayTextInputDialog(context, items[i].id)},
+                    {_displayTextInputDialog(context, items[i].id)}
+                  else if (value == "getlistticket")
+                    {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ListOfTickets(eventID: items[i].id)))
+                    },
                 }),
           ),
         )

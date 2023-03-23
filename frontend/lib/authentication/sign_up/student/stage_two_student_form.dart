@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:ffi';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/backend_communication/authenticate.dart';
@@ -12,8 +10,6 @@ import 'package:university_ticketing_system/authentication/models/student.dart';
 import 'package:university_ticketing_system/authentication/models/user_account.dart';
 import 'package:university_ticketing_system/tff_decoration.dart';
 import 'package:university_ticketing_system/gradient_animation.dart';
-import 'package:university_ticketing_system/home/home_drawer.dart';
-import 'package:university_ticketing_system/home/topbar.dart';
 import 'package:university_ticketing_system/responsive.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
