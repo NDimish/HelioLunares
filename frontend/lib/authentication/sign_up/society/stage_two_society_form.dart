@@ -289,11 +289,17 @@ class _StageTwoSocietySignUpState extends State<StageTwoSocietySignUp> {
                       ),
                     );
                   } else if (snapshot.hasError) {
-                    //return Text('${snapshot.error}');
-                    return const AlertDialog(
-                      content: Text("Error occured"),
-                      elevation: 10,
-                    );
+                    return SizedBox(
+                        width: ResponsiveWidget.isSmallScreen(context)
+                            ? MediaQuery.of(context).size.width * 0.85
+                            : MediaQuery.of(context).size.width * 0.60,
+                        child: TextFormField(
+                          enabled: false,
+                          decoration: customDecoration(
+                              "University",
+                              "Unable to load universities from the server",
+                              Icons.school_rounded),
+                        ));
                   }
 
                   // By default, show a loading spinner.
