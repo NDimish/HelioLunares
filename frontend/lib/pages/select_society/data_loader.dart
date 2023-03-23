@@ -81,17 +81,47 @@ class _DataLoaderState extends State<DataLoader> {
                               menuController.activeItem.value =
                                   societyHubPageDisplayName;
                               sideMenuController.setVisible();
-                              navigationController
-                                  .navigateTo(societyHubPageDisplayName);
+                              navigationController.navigateToWArgs(
+                                  societyHubPageDisplayName,
+                                  societyData.collection[0]);
                               sideMenuController.setVisible();
-                            }));
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const SizedBox(
-                      height: 8,
-                    );
-                  },
-                ),
+                            }))
+                    : ListView.separated(
+                        primary: false,
+                        shrinkWrap: true,
+                        itemCount: roleData.collection.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return MediaQuery.removePadding(
+                              context: context,
+                              removeTop: true,
+                              child: SocietyCard(
+                                  societyName:
+                                      roleData.collection[index].society.name,
+                                  categoryName: DataP.collection[index]
+                                      .societyCategory.categoryName,
+                                  onTap: () {
+                                    final Society society = Get.put(
+                                        roleData.collection[index].society);
+
+                                    print(
+                                        "ID is ${roleData.collection[index].society.user.id}");
+
+                                    sideMenuController.setVisible();
+                                    menuController.activeItem.value =
+                                        societyHubPageDisplayName;
+                                    sideMenuController.setVisible();
+                                    navigationController.navigateToWArgs(
+                                        societyHubPageDisplayName,
+                                        roleData.collection[index].society);
+                                    sideMenuController.setVisible();
+                                  }));
+                        },
+                        separatorBuilder: (BuildContext context, int index) {
+                          return const SizedBox(
+                            height: 8,
+                          );
+                        },
+                      ),
               ));
         });
   }
