@@ -97,16 +97,16 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
           ),
           ChangeNotifierProvider(
             create: (context) =>
-                dataCollector<Society>(ID: Get.find<Society>().id),
+                dataCollector<Society>(ID: 9),
           ),
         ],
         builder: (context, child) {
           final userProvider = Provider.of<dataCollector<User>>(context);
           final peopleProvider = Provider.of<dataCollector<People>>(context);
           final societyProvider = Provider.of<dataCollector<Society>>(context);
-          Society societyInfo = Get.find<Society>();
+          //Society societyInfo = Get.find<Society>();
           emailController.text = userProvider.collection[0].email;
-          societyNameController.text = societyInfo.name;
+          societyNameController.text = societyProvider.collection[0].name;
 
           return Scaffold(
             backgroundColor: const Color(0xFFffffff).withOpacity(0.3),
@@ -143,13 +143,11 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                         'Society Name',
                         'Enter your society name',
                         Icons.person_rounded,
-                        null,
+                        societyNameController,
                         (userProvider.collection[0].userType == 3)
                             ? true
                             : false,
-                        (title) => (title == null || title.isEmpty)
-                            ? 'Title cannot be blank'
-                            : 'ss',
+                            null,
                       ),
                     ),
                     const SizedBox(
@@ -417,3 +415,5 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
 //loading the data in Nmani
 //testing
 //try catch block submit database
+
+//
