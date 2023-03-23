@@ -181,9 +181,10 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           return SizedBox(
+
                             width: ResponsiveWidget.isSmallScreen(context)
-                                ? MediaQuery.of(context).size.width * 0.85
-                                : MediaQuery.of(context).size.width * 0.60,
+                                ? MediaQuery.of(context).size.width * 0.95
+                                : MediaQuery.of(context).size.width * 0.75,
                             child: DropdownButtonHideUnderline(
                               child: DropdownButtonFormField(
                                   validator: (value) {
@@ -300,7 +301,29 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                             print("Valid form");
                             _formKey.currentState!.save();
 
-                            try {
+                           try {
+                              String sName = firstNameController.text;
+                              String lName = lastNameController.text;
+                              String email = emailController.text;
+
+                              User update_user = User(
+                                  id: userProvider.collection[0].id,
+                                  email: email,
+                                  userType: userProvider.collection[0].userType,
+                                  date_joined:
+                                      userProvider.collection[0].date_joined);
+                              People update_person = People(
+                                  id: peopleProvider.collection[0].id,
+                                  user: peopleProvider.collection[0].user,
+                                  university:
+                                      peopleProvider.collection[0].university,
+                                  first_name: fName,
+                                  last_name: lName,
+                                  field_of_study: peopleProvider
+                                      .collection[0].field_of_study);
+
+                              peopleProvider.updateCollection(update_person);
+                              userProvider.updateCollection(update_user);
                               //Here is where you will send a response to the database to update user values
 
                               //Upon saving you will have to check the fields which are empty.
