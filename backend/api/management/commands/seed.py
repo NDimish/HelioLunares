@@ -461,6 +461,110 @@ class Command(BaseCommand):
         self.generate_event_categories_type()
         self.generate_society_categories_type()
         
+        
+        unis = University.objects.all()
+        
+        first_name_1 = "John"
+        last_name_1 = "Doe"
+        user_level_1 = 1
+        
+        # john.doe@gmail.com  
+        # JohnDoe123!
+        try:
+            johnDoe = User.objects.create_user(
+                email = f'{first_name_1.lower()}.{last_name_1.lower()}@{"gmail.com"}', 
+                password = "JohnDoe123!",
+                user_level = user_level_1
+            )
+            johnDoe.save()
+        except (IntegrityError):
+            print(f"object {first_name_1, last_name_1}  was already seeded.")
+        
+        
+        first_name_2 = "Jane"
+        last_name_2 = "Doe"
+        user_level_2 = 2
+        
+        # jane.doe@gmail.com  
+        # JaneDoe123!
+        try:
+            janeDoe = User.objects.create_user(
+                email = f'{first_name_2.lower()}.{last_name_2.lower()}@{"gmail.com"}', 
+                password = "JaneDoe123!",
+                user_level = user_level_2
+            )
+            janeDoe.save()
+        except (IntegrityError):
+            print(f"object {first_name_2, last_name_2}  was already seeded.")
+            
+            
+        soc_email = "kingsCollegeGeographySoc@kcl.ac.uk"
+        user_level_3 = 3
+        
+        # kingsCollegeGeographySoc@kcl.ac.uk 
+        # KingsCollegeGeog10!
+        try:
+            kclGeogSoc = User.objects.create_user(
+                email = soc_email,
+                password = "KingsCollegeGeog10!",
+                user_level = user_level_3
+            )
+            
+            kclGeogSoc.save()
+            
+        except (IntegrityError):
+            print(f"object {soc_email}  was already seeded.")
+        
+        # Create the actual students and societies.
+        
+        try:
+            john_university_at = unis[random.randint(0, len(unis) - 1)]
+            person_john = People.objects.create(
+                user = johnDoe,
+                first_name = first_name_1,
+                last_name = last_name_1,
+                field_of_study = self.faker.field_of_study(),
+                university_studying_at = john_university_at
+            )
+            person_john.save()
+            
+        except (IntegrityError):
+            print(f"object {johnDoe.first_name, johnDoe.last_name}  was already seeded.")
+        
+        
+        try:
+            jane_university_at = unis[random.randint(0, len(unis) - 1)]
+            person_jane = People.objects.create(
+                user = janeDoe,
+                first_name = first_name_2,
+                last_name = last_name_2,
+                field_of_study = self.faker.field_of_study(),
+                university_studying_at = jane_university_at
+            )
+            person_jane.save()
+            
+        except (IntegrityError):
+            print(f"object {janeDoe.first_name, janeDoe.last_name}  was already seeded.")
+        
+    
+        try:
+            soc_university_at = unis[random.randint(0, len(unis) - 1)]
+            soc = Society.objects.create(
+                user = kclGeogSoc,
+                name = soc_university_at.name + " " + self.faker.society_name(),
+                creation_date = self.faker.date(),
+                about_us = self.faker.paragraphs(nb=3),
+                university_society_is_at = soc_university_at
+            )
+            
+            soc.save()
+            
+        except (IntegrityError):
+            print(f"object {kclGeogSoc.soc_email, soc_university_at.name}  was already seeded.")
+        
+        
+        
+        
         #NOTE: The number 'counter', below must be the same for both for loops as socities and persons to user is a 1 to 1 relationship.
         counter = 75
         
