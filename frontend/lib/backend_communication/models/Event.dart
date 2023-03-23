@@ -2,24 +2,24 @@ import 'datasets.dart';
 import 'Society.dart';
 
 class Event extends dataSets {
-  final String title;
-  final String date;
-  final String time;
-  final int ticket_amount;
-  final String venue;
-  final String description;
+  String title;
+  String date;
+  String time;
+  int attendance;
+  String venue;
+  String description;
 
-  final Society society;
-  final double duration;
-  final double price;
-  final String update_time;
-  final String create_time;
+  Society society;
+  double duration;
+  double price;
+  String update_time;
+  String create_time;
   // final String password;
 
   Event(
       {int id = 0,
       required this.society,
-      required this.ticket_amount,
+      required this.attendance,
       required this.duration,
       required this.price,
       required this.update_time,
@@ -35,7 +35,7 @@ class Event extends dataSets {
     return Event(
         id: json['id'],
         society: Society.fromJson(json['society_id']),
-        ticket_amount: json['attendance'],
+        attendance: json['attendance'],
         duration: json['duration'],
         price: json['price'],
         update_time: json['update_time'],
@@ -50,7 +50,7 @@ class Event extends dataSets {
   factory Event.fromJsonNOID(Map<String, dynamic> json) {
     return Event(
         society: Society.fromJson(json['society_id']),
-        ticket_amount: json['attendance'],
+        attendance: json['attendance'],
         duration: json['duration'],
         price: json['price'],
         update_time: json['update_time'],
@@ -77,6 +77,64 @@ class Event extends dataSets {
         'event_date': ('${date}T$time'),
         'location': venue,
         'description': description,
-        'attendance': ticket_amount
+        'attendance': attendance
       };
+
+  void setTitle(String title) {
+    this.title = title;
+  }
+
+  void setPrice(double price) {
+    this.price = price;
+  }
+
+  void setDate(String date) {
+    this.date = date;
+  }
+
+  void setTime(String time) {
+    this.time = time;
+  }
+
+  void setVenue(String venue) {
+    this.venue = venue;
+  }
+
+  void setDuration(double duration) {
+    this.duration = duration;
+  }
+
+  void setDescription(String description) {
+    this.description = description;
+  }
+
+  @override
+  updateToJson() {
+    return {
+      'duration': duration,
+      'price': price,
+      'update_time': update_time,
+      'create_time': create_time,
+      'event_name': title,
+      'event_date': ('${date}T$time'),
+      'location': venue,
+      'description': description,
+      'attendance': attendance
+    };
+  }
+
+  @override
+  createJson() {
+    print(date);
+    print(time);
+    return {
+      "society_id": society.id,
+      "duration": duration,
+      "event_date": "${date}T${time}:00Z",
+      "event_name": title,
+      "location": venue,
+      "description": description,
+      "price": price
+    };
+  }
 }

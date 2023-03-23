@@ -29,4 +29,6 @@ class EventCategories extends dataSets {
   }
 
   dynamic toJson() => {'id': id, 'event': event, 'category': eventCategory};
+ @override
+  updateToJson(){ return {'id': id, 'event': event, 'category': eventCategory};}
 }

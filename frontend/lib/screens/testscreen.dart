@@ -65,7 +65,7 @@ class _testscreen extends State<testscreen> {
                 //     "Water",
                 //     "Rock",
                 //     "Tester");
-                // print(response.statusCode);
+                // print(response_two.statusCode);
 
                 //THIS IS CODE TO AUTHENTICATE
                 //LOgs in as society account

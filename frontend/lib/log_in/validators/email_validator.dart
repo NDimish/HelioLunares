@@ -10,5 +10,5 @@ String? emailValidator(String? value) {
   if (!emailValid) {
     return "This email is not valid.";
   }
-  return null;
+  return value;
 }

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:university_ticketing_system/backend_communication/models/SocietyEvent.dart';
 import 'package:university_ticketing_system/constants/controllers.dart';
 import 'package:university_ticketing_system/pages/events/events.dart';
 import 'package:university_ticketing_system/widgets/layout.dart';
 
+import '../../../backend_communication/models/Event.dart';
 import '../../../widgets/custom_text.dart';
 
 class DeleteEventConfirmation extends StatelessWidget {
-  final SocietyEvent event;
+  final Event event;
 
   const DeleteEventConfirmation({super.key, required this.event});
 
@@ -24,7 +24,7 @@ class DeleteEventConfirmation extends StatelessWidget {
         // data.dataCollector<SocietyEvent> collector =
         //     data.dataCollector<SocietyEvent>();
         // collector.deleteFromCollection(event);
-        print(event.name);
+        print(event.title);
         print("Event deleted");
         Navigator.of(context, rootNavigator: true).pop();
 

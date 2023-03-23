@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import 'package:university_ticketing_system/pages/events/widgets/add_event_form.dart';
 import 'package:university_ticketing_system/pages/events/widgets/event_form.dart';
 
-import '../../backend_communication/models/SocietyEvent.dart';
-
 class AddSocietyEventsPage extends StatelessWidget {
   AddSocietyEventsPage({super.key});
 

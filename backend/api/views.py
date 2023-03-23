@@ -533,7 +533,7 @@ class EventApiView(generics.ListAPIView):
     ordering_fields = '__all__'
     
     def post(self, request):
-        serializer = EventModelSerializer(data=request.data)
+        serializer = CreateEventSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)

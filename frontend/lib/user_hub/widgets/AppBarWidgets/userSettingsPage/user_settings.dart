@@ -54,6 +54,12 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
     TextEditingController? formController,
     String? Function(String?)? validation,
   ) {
+    String headerName,
+    String name,
+    IconData nameIcon,
+    TextEditingController? formController,
+    String? Function(String?)? validation,
+  ) {
     return SizedBox(
         width: 300,
         child: TextFormField(
@@ -69,6 +75,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
   final lastNameController = TextEditingController();
   final uniController = TextEditingController();
   final passwordController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -245,7 +252,28 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                     const SizedBox(
                       width: 50,
                     ),
+                    const SizedBox(
+                      width: 50,
+                    ),
 
+                    //query a database
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(
+                        style: ButtonStyle(
+                          foregroundColor:
+                              MaterialStateProperty.all<Color>(Colors.blue),
+                        ),
+                        onPressed: () async {
+                          await Future.delayed(const Duration(seconds: 1));
+                          if (_formKey.currentState!.validate()) {
+                            print("Valid form");
+                            _formKey.currentState!.save();
                     //query a database
                   ],
                 ),
@@ -268,6 +296,9 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                             try {
                               //Here is where you will send a response to the database to update user values
 
+                              //Upon saving you will have to check the fields which are empty.
+                              //If they are all empty or nothing has changed don't update the DB at all.
+                              //Otherwise check whatever is changed, and update DB accordingly.
                               //Upon saving you will have to check the fields which are empty.
                               //If they are all empty or nothing has changed don't update the DB at all.
                               //Otherwise check whatever is changed, and update DB accordingly.
@@ -352,6 +383,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
 
 //Add if stataemetns to determine if studnet or not
 //loading the data
+//loading the data
 //testing - improve code coverage
 
 //try catch block submit database
@@ -359,6 +391,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
 String? validators(String? value, RegExp regex, String returnMessage) {
   if (value == null || value.length == 0) {
     return null;
+  } else if (!regex.hasMatch(value)) {
   } else if (!regex.hasMatch(value)) {
     return returnMessage;
   }

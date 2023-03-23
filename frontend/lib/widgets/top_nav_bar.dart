@@ -64,7 +64,7 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key,
                         backgroundColor:
                             const MaterialStatePropertyAll(Colors.transparent)),
                     onPressed: () {
-                      //Go to user hub
+                      Navigator.pushNamed(context, "/userhub");
                     },
                     child: const CustomText(
                       text: "Back to User Hub",
