@@ -38,4 +38,5 @@ abstract class dataSets {
   }
 
   updateToJson() {}
+  createJson() {}
 }

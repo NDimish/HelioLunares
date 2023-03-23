@@ -141,9 +141,10 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
             "token ${globals.localdataobj.getToken()}"
         //HttpHeaders.authorizationHeader: Cookies.CSRFToken
       },
-      body: json.encode(task),
+      body: jsonEncode(task.createJson()),
     );
     responserFromUrL = response;
+    print(response.body);
     if (response.statusCode == 201) {
       collection.add(task);
       return true;
@@ -185,7 +186,7 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
     if (response.statusCode == 201) {
       notifyListeners();
       return true;
-      this.fetchData(createUrl(sets[T]!,ID: task.id), true, sets[T]!);
+      this.fetchData(createUrl(sets[T]!, ID: task.id), true, sets[T]!);
     }
     return false;
   }

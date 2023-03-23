@@ -122,4 +122,19 @@ class Event extends dataSets {
       'attendance': attendance
     };
   }
+
+  @override
+  createJson() {
+    print(date);
+    print(time);
+    return {
+      "society_id": society.id,
+      "duration": duration,
+      "event_date": "${date}T${time}:00Z",
+      "event_name": title,
+      "location": venue,
+      "description": description,
+      "price": price
+    };
+  }
 }
