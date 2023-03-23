@@ -110,6 +110,7 @@ class _LogInFormState extends State<LogInForm> {
 
               //This text form takes in the email and validates it.
               child: TextFormField(
+                  key: const Key("Email"),
                   cursorColor: Colors.black,
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.emailAddress,
@@ -117,12 +118,8 @@ class _LogInFormState extends State<LogInForm> {
                       const TextStyle(fontFamily: "Arvo", color: Colors.black),
                   controller: emailController,
                   validator: emailValidator,
-                  onFieldSubmitted: (value) {
-                    print("submitted");
-                  },
                   onChanged: (value) {
                     userAccount.setEmail(emailController.text);
-                    print(userAccount.email);
                   },
                   onSaved: (newValue) {
                     userAccount.setEmail(newValue!);
@@ -138,17 +135,14 @@ class _LogInFormState extends State<LogInForm> {
 
               //This text form takes in the password and validates it.
               child: TextFormField(
+                  key: const Key("Password"),
                   cursorColor: Colors.black,
                   style:
                       const TextStyle(fontFamily: "Arvo", color: Colors.black),
                   controller: passwordController,
                   validator: passwordValidator,
-                  onFieldSubmitted: (value) {
-                    print("submitted");
-                  },
                   onChanged: (value) {
                     userAccount.setPassword(passwordController.text);
-                    print(userAccount.password);
                   },
                   onSaved: (newValue) {
                     userAccount.setPassword(newValue!);
@@ -172,23 +166,18 @@ class _LogInFormState extends State<LogInForm> {
                     if (response.statusCode == 200) {
                       if (globals.Localdata.USERLEVEL == 1 ||
                           globals.Localdata.USERLEVEL == 2) {
-                        print("Redirecting to student page");
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (context) => UserHubPage_events()),
                         );
                       } else {
-                        print("Redirecting to society page.");
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(builder: (context) => SiteLayout()),
                         );
                       }
-                      print("user is logged in - redirecting");
-                    } else {
-                      print("error logging in - try again later");
-                    }
+                    } else {}
                   }
                 },
                 scaleFactor:
