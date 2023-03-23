@@ -16,16 +16,7 @@ class ManageMembers extends StatefulWidget {
 }
 
 class _ManageMembersState extends State<ManageMembers> {
-  var x = 0;
-  var roleData;
   // this is the user's role in society // this is user level, 1/2 for non/student and 3 for society account
-  void callback(int test) {
-    setState(() {
-      print("YOOO WHAT IS THIS");
-      print(roleData.collection[0].role);
-      this.x = test;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,11 +32,8 @@ class _ManageMembersState extends State<ManageMembers> {
                     }, order: data.OrderType.CHRONOLOGICAL))
           ],
           builder: (context, child) {
-            roleData =
+            final roleData =
                 Provider.of<data.dataCollector<data.SocietyRole>>(context);
-            print("Test1");
-            print(roleData.collection[0].role);
-            print("Test2");
             //now check user role level first
             if (globals.localdataobj.getToken() == "") {
               return const Text("You have not been authenticated.");
@@ -79,8 +67,7 @@ class _ManageMembersState extends State<ManageMembers> {
                     userSocietyRoleLevel,
                     globals.localdataobj.getUserLevel(),
                     widget.societyId,
-                    roleData.collection,
-                    callback),
+                    roleData.collection),
                 const SizedBox(
                   height: 20,
                 ),
@@ -90,19 +77,18 @@ class _ManageMembersState extends State<ManageMembers> {
                     userSocietyRoleLevel,
                     globals.localdataobj.getUserLevel(),
                     widget.societyId,
-                    roleData.collection,
-                    callback),
+                    roleData.collection),
                 const SizedBox(
                   height: 20,
                 ),
                 const Text("Members"),
                 MembersTable(
-                    1,
-                    userSocietyRoleLevel,
-                    globals.localdataobj.getUserLevel(),
-                    widget.societyId,
-                    roleData.collection,
-                    callback),
+                  1,
+                  userSocietyRoleLevel,
+                  globals.localdataobj.getUserLevel(),
+                  widget.societyId,
+                  roleData.collection,
+                ),
               ],
             );
           }),

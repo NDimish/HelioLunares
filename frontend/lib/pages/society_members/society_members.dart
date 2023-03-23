@@ -31,10 +31,12 @@ class SocietyMembersPage extends StatelessWidget {
               ],
             )),
         Expanded(
-            child: (globals.localdataobj.getUserLevel() == 3)
-                ? const ManageMembersWrapper()
-                : //Put society id here from when the user selects it
-                ManageMembers(societyId: Get.find<data.Society>().id))
+            child: (globals.localdataobj.getToken() != "")
+                ? ((globals.localdataobj.getUserLevel() == 3)
+                    ? const ManageMembersWrapper()
+                    : //Put society id here from when the user selects it
+                    ManageMembers(societyId: Get.find<data.Society>().id))
+                : const Text("Not Authenticated"))
       ],
     );
   }

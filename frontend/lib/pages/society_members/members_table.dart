@@ -14,10 +14,9 @@ class MembersTable extends StatefulWidget {
   final int
       user_level; // this is user level, 1/2 for non/student and 3 for society account
   final List dataset;
-  final Function statify;
 
   const MembersTable(this.role, this.user_society_role_level, this.user_level,
-      this.societyId, this.dataset, this.statify,
+      this.societyId, this.dataset,
       {super.key});
 
   @override
@@ -201,7 +200,6 @@ class _MembersTableState extends State<MembersTable> {
                         updateSociety(
                             int.parse(dataset['id']), widget.role - 1),
                       },
-                    this.widget.statify(2)
                   })),
     ]);
   }
