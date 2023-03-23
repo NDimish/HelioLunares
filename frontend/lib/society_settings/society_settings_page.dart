@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:university_ticketing_system/backend_communication/dataCollector.dart';
 import 'package:university_ticketing_system/tff_decoration.dart';
@@ -10,15 +7,10 @@ import 'package:university_ticketing_system/globals.dart' as global;
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../helpers/responsiveness.dart';
-import '../tff_decoration.dart';
-import '../user_hub/widgets/AppBarWidgets/userSettingsPage/user_settings.dart';
 
 class SocietySettingsPage extends StatefulWidget {
   //final int userId;
 
-  const SocietySettingsPage({
-    Key? key,
-  }) : super(key: key);
   const SocietySettingsPage({
     Key? key,
   }) : super(key: key);
@@ -82,8 +74,8 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
-  final societyNameController = TextEditingController();
-  
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
   final uniController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -266,37 +258,7 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                     //  }
                     //   return null;
                     //  }
-                    const SizedBox(
-                      width: 50,
-                    ),
 
-                    // (value) {
-                    // if (value == null ||
-                    ////      value.isEmpty ||
-                    //    !phoneRegex.hasMatch(value)) {
-                    //   return "Please enter a valid phone number.";
-                    //  }
-                    //   return null;
-                    //  }
-
-                    //query a database
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TextButton(
-                        style: ButtonStyle(
-                          foregroundColor:
-                              MaterialStateProperty.all<Color>(Colors.blue),
-                        ),
-                        onPressed: () async {
-                          await Future.delayed(const Duration(seconds: 1));
-                          if (_formKey.currentState!.validate()) {
-                            print("Valid form");
-                            _formKey.currentState!.save();
                     //query a database
                   ],
                 ),
@@ -318,62 +280,11 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
 
                             try {
                               //Here is where you will send a response to the database to update user values
-                            try {
-                              //Here is where you will send a response to the database to update user values
 
                               //Upon saving you will have to check the fields which are empty.
                               //If they are all empty or nothing has changed don't update the DB at all.
                               //Otherwise check whatever is changed, and update DB accordingly.
-                              //Upon saving you will have to check the fields which are empty.
-                              //If they are all empty or nothing has changed don't update the DB at all.
-                              //Otherwise check whatever is changed, and update DB accordingly.
 
-                              showDialog<String>(
-                                context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                                  title: const Text('Details saved!'),
-                                  content: const Text(
-                                      'Society settings have been modified.'),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () => {
-                                        Navigator.pop(context, 'OK'),
-                                      },
-                                      child: const Text('OK'),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            } catch (error) {
-                              //This can be turned into a reusable widget?
-                              showDialog<String>(
-                                context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                                  title: const Text('Whoops!'),
-                                  content: const Text(
-                                      'Something went wrong when changing society settings. Please try again.'),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () => {
-                                        Navigator.pop(context, 'OK'),
-                                      },
-                                      child: const Text('OK'),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }
-                          }
-                        },
-                        child: const Text('Update Details'),
-                      ),
-                    ],
-                  ),
-                )
-              ])),
-            )),
-          );
-        });
                               showDialog<String>(
                                 context: context,
                                 builder: (BuildContext context) => AlertDialog(
