@@ -125,7 +125,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                         'Enter your password',
                         Icons.password,
                         passwordController,
-                        (password) => validators(password, RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$'), "Enter a valid password: \n At least - 1 uppercase, 1 lowercase, 1 number, 1 special character\n At least 8 characters long")), //IMPORTANT: Password allows for length 0 but should be matched with regex >0
+                        (password) => PasswordValidator(password, RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$'), "Enter a valid password: \n At least - 1 uppercase, 1 lowercase, 1 number, 1 special character\n At least 8 characters long")), //IMPORTANT: Password allows for length 0 but should be matched with regex >0
                   ),
                 ],
               ),
@@ -189,6 +189,20 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                           _formKey.currentState!.save();
 
                           try {
+                            String fname = peopleProvider.collection[0].first_name;
+                            String lname = peopleProvider.collection[0].last_name;
+                            String email = userProvider.collection[0].email;
+
+                            if(!firstNameController.text.isEmpty){
+
+                            }
+                            if(!lastNameController.text.isEmpty){
+
+                            }
+                            if(!emailController.text.isEmpty){
+
+                            User update_user = User(id: userProvider.collection[0].id,email: email, userType: userProvider.collection[0].userType, date_joined: userProvider.collection[0].date_joined);
+                            People updtade_person = People(id:peopleProvider.collection[0].id, user:peopleProvider.collection[0].user,university:peopleProvider.collection[0].university,first_name: fName,last_name: lName,field_of_study: :peopleProvider.collection[0].field_of_study);
                             
 
                             //Here is where you will send a response to the database to update user values
@@ -284,6 +298,18 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
 //try catch block submit database
 
 String? validators(String? value, RegExp regex, String returnMessage) {
+  
+
+  if (value == null || value.length == 0) {
+    return returnMessage;
+  }
+  else if (!regex.hasMatch(value)) {
+    return returnMessage;
+  }
+  return null;
+}
+
+String? PasswordValidator(String? value, RegExp regex, String returnMessage) {
   
 
   if (value == null || value.length == 0) {

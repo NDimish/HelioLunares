@@ -187,6 +187,7 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                           _formKey.currentState!.save();
 
                           try {
+                            
 
                             //Here is where you will send a response to the database to update user values
 
