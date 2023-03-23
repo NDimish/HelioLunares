@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:university_ticketing_system/backend_communication/dataCollector.dart';
 import '../../../backend_communication/dataCollector.dart';
@@ -42,8 +43,8 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
-  final firstNameController = TextEditingController();
-  final lastNameController = TextEditingController();
+  final societyNameController = TextEditingController();
+  
   final uniController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -63,9 +64,10 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
         builder: (context, child) {
           final userProvider = Provider.of<dataCollector<User>>(context);
           final peopleProvider = Provider.of<dataCollector<People>>(context);
+          Society societyInfo = Get.find<Society>();
           emailController.text = userProvider.collection[0].email;
-          firstNameController.text = peopleProvider.collection[0].first_name;
-          lastNameController.text = peopleProvider.collection[0].last_name;
+          societyNameController.text = societyInfo.name;
+         
 
           return Scaffold(
             backgroundColor: const Color(0xFFffffff).withOpacity(0.3),
