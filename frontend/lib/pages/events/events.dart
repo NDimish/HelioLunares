@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:university_ticketing_system/constants/controllers.dart';
 import 'package:university_ticketing_system/helpers/responsiveness.dart';
 import 'package:university_ticketing_system/pages/events/event_list_maker.dart';
-import 'package:university_ticketing_system/pages/events/widgets/society_events.dart';
 import 'package:university_ticketing_system/routing/routes.dart';
 import 'package:university_ticketing_system/theme.dart';
 import 'package:university_ticketing_system/widgets/custom_text.dart';

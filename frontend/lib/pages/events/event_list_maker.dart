@@ -75,10 +75,11 @@ class _EventDataLoaderState extends State<EventDataLoader> {
                         context: context,
                         removeTop: true,
                         child: EventCard(
-                            date: DataP.collection[index].date,
+                            date: "${DataP.collection[index].date}",
+                            time: "${DataP.collection[index].time}",
                             location: DataP.collection[index].venue,
                             name: DataP.collection[index].title,
-                            price: DataP.collection[index].price.toString(),
+                            price: DataP.collection[index].price,
                             onTap: () {
                               //PASS THE SELECTED EVENT
                               _event = DataP.collection[index];

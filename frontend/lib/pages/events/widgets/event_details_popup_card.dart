@@ -18,6 +18,15 @@ class AddEventPopupCard extends StatelessWidget {
   // final List<Event> eventList =
   AddEventPopupCard({Key? key}) : super(key: key);
 
+  String formatTime(String time) {
+    print(time);
+    print("thats the time");
+    DateTime dateTime = DateTime.parse("2022-03-23T$time");
+    String formattedTime =
+        '${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}';
+    return formattedTime;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -59,7 +68,7 @@ class AddEventPopupCard extends StatelessWidget {
                                 width: 10,
                               ),
                               CustomText(
-                                text: "£${event.price}",
+                                text: "£${event.price.toStringAsFixed(2)}",
                                 size: 18,
                                 weight: FontWeight.bold,
                               )
@@ -81,7 +90,7 @@ class AddEventPopupCard extends StatelessWidget {
                                 width: 10,
                               ),
                               CustomText(
-                                text: event.date,
+                                text: event.date + " " + formatTime(event.time),
                                 size: 18,
                                 weight: FontWeight.bold,
                               )
