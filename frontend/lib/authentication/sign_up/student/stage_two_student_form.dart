@@ -178,6 +178,10 @@ class _StageTwoStudentSignUpState extends State<StageTwoStudentSignUp> {
                       return "Name cannot have numbers";
                     }
 
+                    if (value.length > 39) {
+                      return "Name cannot be longer than 40 characters";
+                    }
+
                     return null;
                   },
                   onFieldSubmitted: (value) {
@@ -212,6 +216,10 @@ class _StageTwoStudentSignUpState extends State<StageTwoStudentSignUp> {
 
                     if (value.contains(RegExp(r'(\d+)'))) {
                       return "Name cannot have numbers";
+                    }
+
+                    if (value.length > 39) {
+                      return "Name cannot be longer than 40 characters";
                     }
 
                     return null;
@@ -249,6 +257,10 @@ class _StageTwoStudentSignUpState extends State<StageTwoStudentSignUp> {
 
                     if (value.contains(RegExp(r'(\d+)'))) {
                       return "Field of study cannot have numbers";
+                    }
+
+                    if (value.length > 29) {
+                      return "Name cannot be longer than 30 characters";
                     }
 
                     return null;
@@ -334,7 +346,7 @@ class _StageTwoStudentSignUpState extends State<StageTwoStudentSignUp> {
                           decoration: customDecoration(
                               "University",
                               "Unable to load university data",
-                              Icons.scale_outlined),
+                              Icons.school_outlined),
                         ));
                   }
                   // By default, show a loading spinner.
@@ -433,7 +445,10 @@ class _StageTwoStudentSignUpState extends State<StageTwoStudentSignUp> {
     student.setLastName(lastNameController.text);
     student.setUniversity(uniValue!);
     student.setUserAccount(widget.user);
-    student.setUniversityId(uniMap[uniValue]!);
+
+    if (uniValue != null) {
+      student.setUniversityId(uniMap[uniValue]!);
+    }
   }
 
   SnackBar informationSnackbar(String text) {
