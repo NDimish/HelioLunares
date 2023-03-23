@@ -4,13 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:university_ticketing_system/constants/controllers.dart';
+import 'package:university_ticketing_system/widgets/custom_text.dart';
 import '../../../backend_communication/dataCollector.dart';
 import '../../../constants/style.dart';
-
 import 'package:provider/provider.dart';
-
 import '../../../widgets/circle_icon.dart';
-import '../../../widgets/custom_text.dart';
 
 class AddEventForm extends StatefulWidget {
   const AddEventForm({super.key});
@@ -416,7 +414,7 @@ class _AddEventFormState extends State<AddEventForm> {
                                 duration: finalEventDuration,
                                 price: finalEventPrice,
                                 society: society,
-                                ticket_amount: 0,
+                                attendance: 0,
                                 title: finalEventName,
                                 update_time: createDate,
                                 venue: finalEventLocation,

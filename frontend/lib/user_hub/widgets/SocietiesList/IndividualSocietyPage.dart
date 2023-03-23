@@ -21,7 +21,7 @@ class MainSocietyPage extends StatefulWidget {
   final String numberOfFollowers;
   final int socId;
 
-   const MainSocietyPage({
+  const MainSocietyPage({
     Key? key,
     required this.societyName,
     required this.societyDescription,
@@ -42,19 +42,28 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create:(context) => dataCollector<Society>(ID: widget.socId),
-        ),
-        ChangeNotifierProvider(create:(context) => dataCollector<SocietyRole>(filter: {'user_at_society':global.localdataobj.getUserID().toString(),'society':widget.socId.toString()}),
-        )
-      ],
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => dataCollector<Society>(ID: widget.socId),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => dataCollector<SocietyRole>(filter: {
+              'user_at_society': global.localdataobj.getUserID().toString(),
+              'society': widget.socId.toString()
+            }),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => followerCounterProvider(
+                filter: {'society': widget.socId.toString()}),
+          )
+        ],
         builder: (context, child) {
           final DataP = Provider.of<dataCollector<Society>>(context);
           final DataRole = Provider.of<dataCollector<SocietyRole>>(context);
+          final followercount = Provider.of<followerCounterProvider>(context);
 
-           hasJoined = (DataRole.collection.length != 0);
+          hasJoined = (DataRole.collection.length != 0);
 
-          
           print(DataRole.collection);
           return Scaffold(
             appBar: AppBar(
@@ -70,10 +79,10 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                     Padding(
+                    Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: SocietyBanner(
-                        //Nathan the image thing
+                          //Nathan the image thing
                           imageLink:
                               ("${global.DATASOURCE}${DataP.collection[0].image}")),
                     ),
@@ -154,7 +163,7 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                                     )),
                                 const SizedBox(height: 10.0),
                                 Text(
-                                  '15',
+                                  followercount.collection.length.toString(),
                                   style: TextStyle(
                                     fontSize: 14.0,
                                     color: Colors.grey[600],
@@ -195,7 +204,10 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    SocietyButton( hasJoined: hasJoined, socId: widget.socId,),
+                                    SocietyButton(
+                                      hasJoined: hasJoined,
+                                      socId: widget.socId,
+                                    ),
                                     // Padding(
                                     //   padding: const EdgeInsets.all(4.0),
                                     //   child: hasJoined
@@ -240,7 +252,7 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                                     //               );
                                     //             }
                                     // //             setState(() {
-                                                                                                  
+
                                     // //                                                             });
                                     // //           })
                                     // //       : SocietyButton(
@@ -284,19 +296,19 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                                     //               );
                                     //             }
                                     //             setState(() {
-                                                                                                  
+
                                     //                                                             });
                                     //           }),
                                     // ),
-                                    SizedBox(height:10),
+                                    SizedBox(height: 10),
 
                                     ListButton(
                                       onPressed: () => Navigator.of(context)
                                           .push(MaterialPageRoute(
                                               builder: (context) =>
                                                   SocietyEventsList(
-                                                    societyName: DataP
-                                                        .collection[0],
+                                                    societyName:
+                                                        DataP.collection[0],
                                                   ))),
                                       buttonText: "List of Events",
                                     ),
@@ -401,7 +413,9 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
   }
 }
 
-
+class followerCounterProvider extends dataCollector<SocietyRole> {
+  followerCounterProvider({super.filter}) : super();
+}
 
 //join society call url in backend
 //201 - joined the society

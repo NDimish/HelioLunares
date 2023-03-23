@@ -53,4 +53,13 @@ class People extends dataSets {
         'last_name': last_name,
         'field_of_study': field_of_study
       };
+
+      @override
+       updateToJson() {
+        return{
+        'first_name': first_name,
+        'last_name': last_name,
+        'field_of_study': field_of_study
+        };
+      }
 }

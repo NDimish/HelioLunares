@@ -2,18 +2,18 @@ import 'datasets.dart';
 import 'Society.dart';
 
 class Event extends dataSets {
-  final String title;
-  final String date;
-  final String time;
-  final int attendance;
-  final String venue;
-  final String description;
+  String title;
+  String date;
+  String time;
+  int attendance;
+  String venue;
+  String description;
 
-  final Society society;
+  Society society;
   double duration;
   double price;
-  final String update_time;
-  final String create_time;
+  String update_time;
+  String create_time;
   // final String password;
 
   Event(
@@ -106,5 +106,20 @@ class Event extends dataSets {
 
   void setDescription(String description) {
     this.description = description;
+  }
+
+  @override
+  updateToJson() {
+    return {
+      'duration': duration,
+      'price': price,
+      'update_time': update_time,
+      'create_time': create_time,
+      'event_name': title,
+      'event_date': ('${date}T$time'),
+      'location': venue,
+      'description': description,
+      'attendance': attendance
+    };
   }
 }
