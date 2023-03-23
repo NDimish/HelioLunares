@@ -5,10 +5,10 @@ import 'package:provider/provider.dart';
 import 'package:university_ticketing_system/globals.dart';
 import '../../../../backend_communication/dataCollector.dart';
 import 'package:university_ticketing_system/globals.dart' as global;
-import 'package:http/http.dart' as http;
+
 
 import '../../../../helpers/responsiveness.dart';
-import '../../../../tff_decoration.dart';
+
 
 class UserSettingsPage extends StatefulWidget {
   const UserSettingsPage({super.key});
@@ -19,42 +19,14 @@ class UserSettingsPage extends StatefulWidget {
 
 class _UserSettingsPageState extends State<UserSettingsPage> {
 
-   String? uniValue;
-
-  //Shakeeb send this over to the backend.
-  int? universityId;
-
-  List<String> uniNames = [];
-  Map<String, int> uniMap = {};
-
-  late Future<List<dynamic>> returnedUniversitiesFromEndPoint;
-  Future<List<dynamic>> getUniversities() async {
-    final response =
-        await http.get(Uri.parse("${global.DATASOURCE}university/"));
-    final List<dynamic> data = json.decode(response.body);
-    return data;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    returnedUniversitiesFromEndPoint =
-        getUniversities().then((List<dynamic> result) {
-      setState(() {
-        uniNames = result.map((e) => e['name'].toString()).toList();
-        result.forEach((value) => uniMap[value['name']] = value['id']);
-
-        uniNames.sort((a, b) => a.toLowerCase().compareTo(b.toLowerCase()));
-      });
-      return uniNames;
-    });
-  }
+   
   
   Widget customTextFormField(
     String headerName,
     String name,
     IconData nameIcon,
     TextEditingController? formController,
+    bool shouldBeEnabled,
     String? Function(String?)? validation,
   ) {
     return SizedBox(
@@ -92,6 +64,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
           emailController.text = userProvider.collection[0].email;
           firstNameController.text = peopleProvider.collection[0].first_name;
           lastNameController.text = peopleProvider.collection[0].last_name;
+          uniController.text = peopleProvider.collection[0].university.name;
 
           return Scaffold(
             backgroundColor: const Color(0xFFffffff).withOpacity(0.3),
@@ -129,6 +102,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                         'Enter your first name',
                         Icons.person_rounded,
                         firstNameController,
+                        true,
                         (name) => validators(
                             name,
                             RegExp(
@@ -149,6 +123,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                         'Enter your last name',
                         Icons.person_rounded,
                         lastNameController,
+                        true,
                         (name) => validators(
                             name,
                             RegExp(
@@ -169,6 +144,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                           'Enter your password',
                           Icons.password,
                           passwordController,
+                          true,
                           (password) => PasswordValidator(
                               password,
                               RegExp(
@@ -182,62 +158,15 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                 ),
                 //Israfeel, add university dropdown.
                 Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: FutureBuilder<List<dynamic>>(
-                      future: returnedUniversitiesFromEndPoint,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return SizedBox(
-                            width: ResponsiveWidget.isSmallScreen(context)
-                                ? MediaQuery.of(context).size.width * 0.85
-                                : MediaQuery.of(context).size.width * 0.60,
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButtonFormField(
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return "Select a university";
-                                    }
-                                    return null;
-                                  },
-                                  style: const TextStyle(
-                                      fontFamily: "Arvo", color: Colors.black),
-                                  decoration: customDecorationForDropDown(
-                                      "University", "Select your university"),
-                                  isExpanded: true,
-                                  hint: const Text('Select any category',
-                                      style: TextStyle(
-                                          fontSize: 15, fontFamily: "Arvo")),
-                                  items: List<DropdownMenuItem>.generate(
-                                      uniNames.length, (int index) {
-                                    return DropdownMenuItem(
-                                        value: uniNames[index],
-                                        child: Text(
-                                          uniNames[index].toString(),
-                                          style: const TextStyle(
-                                              fontFamily: 'Arvo', fontSize: 16),
-                                        ));
-                                  }).toList(),
-                                  onChanged: (val) {
-                                    setState(() {
-                                      print(val);
-                                      uniValue = val.toString();
-                                      universityId = uniMap[uniValue]!;
-                                    });
-                                  }),
-                            ),
-                          );
-                        } else if (snapshot.hasError) {
-                          //return Text('${snapshot.error}');
-                          return const AlertDialog(
-                            content: Text("Error occured"),
-                            elevation: 10,
-                          );
-                        }
-
-                        // By default, show a loading spinner.
-                        return const CircularProgressIndicator();
-                      }),
-                ),
+                      padding: const EdgeInsets.all(8.0),
+                      child: customTextFormField(
+                          'University',
+                          '',
+                          Icons.school,
+                          uniController,
+                          false,
+                          null), 
+                    ),
 
                 const SizedBox(height: 35),
                 const Text(
@@ -260,6 +189,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                           'Enter your email',
                           Icons.email,
                           emailController,
+                          true,
                           (email) => (validators(
                               email,
                               RegExp(
@@ -271,7 +201,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                       width: 50,
                     ),
 
-                    //query a database
+            
                   ],
                 ),
                 Padding(

@@ -6,10 +6,10 @@ import 'package:provider/provider.dart';
 import 'package:university_ticketing_system/backend_communication/dataCollector.dart';
 import '../../../backend_communication/dataCollector.dart';
 import 'package:university_ticketing_system/globals.dart' as global;
-import 'package:http/http.dart' as http;
+
 
 import '../helpers/responsiveness.dart';
-import '../tff_decoration.dart';
+
 import '../user_hub/widgets/AppBarWidgets/userSettingsPage/user_settings.dart';
 
 class SocietySettingsPage extends StatefulWidget {
@@ -26,35 +26,6 @@ class SocietySettingsPage extends StatefulWidget {
 
 class _SocietySettingsPageState extends State<SocietySettingsPage> {
   String? uniValue;
-
-  //Shakeeb send this over to the backend.
-  int? universityId;
-
-  List<String> uniNames = [];
-  Map<String, int> uniMap = {};
-
-  late Future<List<dynamic>> returnedUniversitiesFromEndPoint;
-  Future<List<dynamic>> getUniversities() async {
-    final response =
-        await http.get(Uri.parse("${global.DATASOURCE}university/"));
-    final List<dynamic> data = json.decode(response.body);
-    return data;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    returnedUniversitiesFromEndPoint =
-        getUniversities().then((List<dynamic> result) {
-      setState(() {
-        uniNames = result.map((e) => e['name'].toString()).toList();
-        result.forEach((value) => uniMap[value['name']] = value['id']);
-
-        uniNames.sort((a, b) => a.toLowerCase().compareTo(b.toLowerCase()));
-      });
-      return uniNames;
-    });
-  }
 
   Widget customTextFormField(
       String headerName,
@@ -79,6 +50,7 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
   final societyNameController = TextEditingController();
+  
 
   final uniController = TextEditingController();
   final passwordController = TextEditingController();
@@ -107,6 +79,7 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
           //Society societyInfo = Get.find<Society>();
           emailController.text = userProvider.collection[0].email;
           societyNameController.text = societyProvider.collection[0].name;
+          uniController.text = societyProvider.collection[0].university.name;
 
           return Scaffold(
             backgroundColor: const Color(0xFFffffff).withOpacity(0.3),
@@ -175,64 +148,19 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                 const SizedBox(
                   width: 50,
                 ),
-                //Israfeel, add university dropdown.
+                
                 Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: FutureBuilder<List<dynamic>>(
-                      future: returnedUniversitiesFromEndPoint,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return SizedBox(
-                            width: ResponsiveWidget.isSmallScreen(context)
-                                ? MediaQuery.of(context).size.width * 0.95
-                                : MediaQuery.of(context).size.width * 0.75,
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButtonFormField(
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return "Select a university";
-                                    }
-                                    return null;
-                                  },
-                                  style: const TextStyle(
-                                      fontFamily: "Arvo", color: Colors.black),
-                                  decoration: customDecorationForDropDown(
-                                      "University", "Select your university"),
-                                  isExpanded: true,
-                                  hint: const Text('Select any category',
-                                      style: TextStyle(
-                                          fontSize: 15, fontFamily: "Arvo")),
-                                  items: List<DropdownMenuItem>.generate(
-                                      uniNames.length, (int index) {
-                                    return DropdownMenuItem(
-                                        value: uniNames[index],
-                                        child: Text(
-                                          uniNames[index].toString(),
-                                          style: const TextStyle(
-                                              fontFamily: 'Arvo', fontSize: 16),
-                                        ));
-                                  }).toList(),
-                                  onChanged: (val) {
-                                    setState(() {
-                                      print(val);
-                                      uniValue = val.toString();
-                                      universityId = uniMap[uniValue]!;
-                                    });
-                                  }),
-                            ),
-                          );
-                        } else if (snapshot.hasError) {
-                          //return Text('${snapshot.error}');
-                          return const AlertDialog(
-                            content: Text("Error occured"),
-                            elevation: 10,
-                          );
-                        }
-
-                        // By default, show a loading spinner.
-                        return const CircularProgressIndicator();
-                      }),
+                      padding: const EdgeInsets.all(8.0),
+                      child: customTextFormField(
+                          'University',
+                          '',
+                          Icons.school,
+                          uniController,
+                          false,
+                          null,
+                    ),
                 ),
+
                 const SizedBox(height: 35),
                 const Text(
                   'Personal Information',
