@@ -260,7 +260,7 @@ class BuyTicketScreen extends StatelessWidget {
                                       children:  [
                                         Expanded(
                                           child:
-                                              Text('Date: ' + "${DataP.collection[index].date}", 
+                                              Text('Date: ' + "${DataP.collection[index].event.date}", 
                                               textAlign: TextAlign.left),
                                         ),
                                       ],
@@ -337,7 +337,7 @@ class BuyTicketScreen extends StatelessWidget {
                                     child: Row(
                                       children:  [
                                         Expanded(
-                                          child: Text('Price: ' + "${DataP.collection[index].price.toString()}",
+                                          child: Text('Price: ' + "${DataP.collection[index].event.price}",
                                               textAlign: TextAlign.left),
                                         ),
                                       ],
