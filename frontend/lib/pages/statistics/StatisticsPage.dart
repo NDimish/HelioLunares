@@ -12,6 +12,7 @@ import 'package:university_ticketing_system/backend_communication/models/Ticket.
 
 import 'package:http/http.dart' as http;
 import 'package:university_ticketing_system/backend_communication/models/Event.dart';
+import 'package:university_ticketing_system/backend_communication/models/SocietyRole.dart';
 
 import 'package:university_ticketing_system/globals.dart' as globals;
 
@@ -25,7 +26,7 @@ class Statistics extends StatefulWidget {
 
 class _StatisticsState extends State<Statistics> {
   Future<Set<List<Event>>> _fetchEventData() async {
-    print("This is loading data.");
+    print("This is loading event data.");
     // Event=${widget.societyId}
     final response = await http.get(
         Uri.parse("${globals.DATASOURCE}event/?society_id=${widget.societyId}"),
@@ -51,7 +52,7 @@ class _StatisticsState extends State<Statistics> {
   }
 
   Future<Set<List<Ticks.Tickets>>> _fetchTicketData(int eventId) async {
-    print("This is loading data.");
+    print("This is loading ticket data.");
     // Event=${widget.societyId}
     final response = await http.get(
         Uri.parse("${globals.DATASOURCE}ticket/?event=${eventId}"),
@@ -75,6 +76,38 @@ class _StatisticsState extends State<Statistics> {
                 data
                     .map<Ticks.Tickets>(
                         (json) => (Ticks.Tickets.fromJson(json)))
+                    .toList()
+              });
+    }
+    print("failed");
+    return {};
+  }
+
+  Future<Set<List<SocietyRole>>> _fetchSocietyRoleData() async {
+    print("This is loading society role data.");
+    // Event=${widget.societyId}
+    final response = await http.get(
+        Uri.parse(
+            "${globals.DATASOURCE}societyrole/?society=${widget.societyId}"),
+        headers: (globals.localdataobj.getToken() != "")
+            ? {
+                HttpHeaders.authorizationHeader:
+                    "token ${globals.localdataobj.getToken()}"
+              }
+            : {});
+    if (response.statusCode == 200) {
+      // print(response.body);
+      List data;
+      try {
+        data = json.decode(response.body) as List;
+      } catch (e) {
+        data = json.decode("[" + response.body + "]") as List;
+      }
+      return Future.delayed(
+          const Duration(microseconds: 0),
+          () => {
+                data
+                    .map<SocietyRole>((json) => (SocietyRole.fromJson(json)))
                     .toList()
               });
     }
@@ -167,118 +200,237 @@ class _StatisticsState extends State<Statistics> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(
-              create: (context) => data.dataCollector<data.Event>(
-                  filter: {'society_id': widget.societyId.toString()},
-                  order: data.OrderType.CHRONOLOGICAL)),
-          ChangeNotifierProvider(
-              create: (context) => data.dataCollector<data.SocietyRole>(
-                  filter: {'society': widget.societyId.toString()},
-                  order: data.OrderType.CHRONOLOGICAL)),
-          ChangeNotifierProvider(
-              create: (context) => data.dataCollector<Ticks.Tickets>(
-                  filter: {}, order: data.OrderType.CHRONOLOGICAL))
-        ],
-        builder: (context, child) {
-          final eventData =
-              Provider.of<data.dataCollector<data.Event>>(context);
-          final membersData =
-              Provider.of<data.dataCollector<data.SocietyRole>>(context);
-          final ticketsData =
-              Provider.of<data.dataCollector<Ticks.Tickets>>(context);
-
-          return ListView(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                    color: MyColours.navbarColour,
-                    child: Column(
-                      children: [
-                        const Text("Number of Members:"),
-                        Text(membersData.collection.length.toString())
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                    color: MyColours.navbarColour,
-                    child: Column(
-                      children: [
-                        const Text("Number of Events:"),
-                        Text(eventData.collection.length.toString())
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                  padding: const EdgeInsets.all(30.0),
-                  child: FutureBuilder(
-                      future: _fetchEventData(),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<Set<List<Event>>> snapshot) {
-                        if (snapshot.hasData) {
-                          return _allEvents(snapshot.requireData.first, []);
-                        } else {
-                          return Text("Loading");
-                        }
-                      })),
-              Expanded(
-                child: AspectRatio(
-                  aspectRatio: 1.50,
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: LineChart(LineChartData(
-                      gridData: FlGridData(
-                        show: true,
-                        drawVerticalLine: true,
-                        horizontalInterval: 1,
-                        verticalInterval: 1,
-                        getDrawingHorizontalLine: (value) {
-                          return FlLine(
-                            color: Color(0xFFFFFFFF),
-                            strokeWidth: 1,
-                          );
-                        },
-                        getDrawingVerticalLine: (value) {
-                          return FlLine(
-                            color: Color(0xFFFFFFFF),
-                            strokeWidth: 1,
-                          );
-                        },
+    return FutureBuilder(
+        future: _fetchEventData(),
+        builder:
+            (BuildContext context, AsyncSnapshot<Set<List<Event>>> snapshot) {
+          if (snapshot.hasData) {
+            // return _allEvents(snapshot.requireData.first, []);
+            return ListView(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                      color: MyColours.navbarColour,
+                      child: Column(
+                        children: [
+                          FutureBuilder(
+                              future: _fetchSocietyRoleData(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<Set<List<SocietyRole>>>
+                                      snapshot) {
+                                if (snapshot.hasData) {
+                                  return Text(
+                                      "Number of members: ${snapshot.requireData.first.length}");
+                                } else {
+                                  return const Text("Number of Members:");
+                                }
+                              })
+                        ],
                       ),
-                      borderData: FlBorderData(
-                        show: true,
-                        border: Border.all(color: const Color(0xff37434d)),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                      color: MyColours.navbarColour,
+                      child: Column(
+                        children: [
+                          FutureBuilder(
+                              future: _fetchEventData(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<Set<List<Event>>> snapshot) {
+                                if (snapshot.hasData) {
+                                  return Text(
+                                      "Number of events: ${snapshot.requireData.first.length}");
+                                } else {
+                                  return const Text("Number of Events:");
+                                }
+                              })
+                        ],
                       ),
-                      minX: 0,
-                      maxX: 5,
-                      minY: 0,
-                      maxY: 5,
-                      lineBarsData: [
-                        LineChartBarData(spots: const [
-                          FlSpot(0, 0),
-                          FlSpot(1, 2),
-                          FlSpot(2, 5),
-                          FlSpot(3, 3),
-                          FlSpot(4, 4),
-                          FlSpot(5, 3),
-                        ])
-                      ],
-                    )),
-                  ),
+                    ),
+                  ],
                 ),
-              )
-            ],
-          );
+                Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: FutureBuilder(
+                        future: _fetchEventData(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<Set<List<Event>>> snapshot) {
+                          if (snapshot.hasData) {
+                            return _allEvents(snapshot.requireData.first, []);
+                          } else {
+                            return Text("Loading");
+                          }
+                        })),
+                Expanded(
+                  child: AspectRatio(
+                    aspectRatio: 1.50,
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: LineChart(LineChartData(
+                        gridData: FlGridData(
+                          show: true,
+                          drawVerticalLine: true,
+                          horizontalInterval: 1,
+                          verticalInterval: 1,
+                          getDrawingHorizontalLine: (value) {
+                            return FlLine(
+                              color: Color(0xFFFFFFFF),
+                              strokeWidth: 1,
+                            );
+                          },
+                          getDrawingVerticalLine: (value) {
+                            return FlLine(
+                              color: Color(0xFFFFFFFF),
+                              strokeWidth: 1,
+                            );
+                          },
+                        ),
+                        borderData: FlBorderData(
+                          show: true,
+                          border: Border.all(color: const Color(0xff37434d)),
+                        ),
+                        minX: 0,
+                        maxX: 5,
+                        minY: 0,
+                        maxY: 5,
+                        lineBarsData: [
+                          LineChartBarData(spots: const [
+                            FlSpot(0, 0),
+                            FlSpot(1, 2),
+                            FlSpot(2, 5),
+                            FlSpot(3, 3),
+                            FlSpot(4, 4),
+                            FlSpot(5, 3),
+                          ])
+                        ],
+                      )),
+                    ),
+                  ),
+                )
+              ],
+            );
+          } else {
+            return Text("Loading");
+          }
         });
+    // return MultiProvider(
+    //     providers: [
+    //       ChangeNotifierProvider(
+    //           create: (context) => data.dataCollector<data.Event>(
+    //               filter: {'society_id': widget.societyId.toString()},
+    //               order: data.OrderType.CHRONOLOGICAL)),
+    //       ChangeNotifierProvider(
+    //           create: (context) => data.dataCollector<data.SocietyRole>(
+    //               filter: {'society': widget.societyId.toString()},
+    //               order: data.OrderType.CHRONOLOGICAL)),
+    //       ChangeNotifierProvider(
+    //           create: (context) => data.dataCollector<Ticks.Tickets>(
+    //               filter: {}, order: data.OrderType.CHRONOLOGICAL))
+    //     ],
+    //     builder: (context, child) {
+    //       final eventData =
+    //           Provider.of<data.dataCollector<data.Event>>(context);
+    //       final membersData =
+    //           Provider.of<data.dataCollector<data.SocietyRole>>(context);
+    //       final ticketsData =
+    //           Provider.of<data.dataCollector<Ticks.Tickets>>(context);
+
+    //       return ListView(
+    //         children: [
+    //           Row(
+    //             mainAxisAlignment: MainAxisAlignment.center,
+    //             children: [
+    //               Container(
+    //                 padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+    //                 color: MyColours.navbarColour,
+    //                 child: Column(
+    //                   children: [
+    //                     const Text("Number of Members:"),
+    //                     Text(membersData.collection.length.toString())
+    //                   ],
+    //                 ),
+    //               ),
+    //               const SizedBox(
+    //                 width: 20,
+    //               ),
+    //               Container(
+    //                 padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+    //                 color: MyColours.navbarColour,
+    //                 child: Column(
+    //                   children: [
+    //                     const Text("Number of Events:"),
+    //                     Text(eventData.collection.length.toString())
+    //                   ],
+    //                 ),
+    //               ),
+    //             ],
+    //           ),
+    //           Padding(
+    //               padding: const EdgeInsets.all(30.0),
+    //               child: FutureBuilder(
+    //                   future: _fetchEventData(),
+    //                   builder: (BuildContext context,
+    //                       AsyncSnapshot<Set<List<Event>>> snapshot) {
+    //                     if (snapshot.hasData) {
+    //                       return _allEvents(snapshot.requireData.first, []);
+    //                     } else {
+    //                       return Text("Loading");
+    //                     }
+    //                   })),
+    //           Expanded(
+    //             child: AspectRatio(
+    //               aspectRatio: 1.50,
+    //               child: Padding(
+    //                 padding: const EdgeInsets.all(20),
+    //                 child: LineChart(LineChartData(
+    //                   gridData: FlGridData(
+    //                     show: true,
+    //                     drawVerticalLine: true,
+    //                     horizontalInterval: 1,
+    //                     verticalInterval: 1,
+    //                     getDrawingHorizontalLine: (value) {
+    //                       return FlLine(
+    //                         color: Color(0xFFFFFFFF),
+    //                         strokeWidth: 1,
+    //                       );
+    //                     },
+    //                     getDrawingVerticalLine: (value) {
+    //                       return FlLine(
+    //                         color: Color(0xFFFFFFFF),
+    //                         strokeWidth: 1,
+    //                       );
+    //                     },
+    //                   ),
+    //                   borderData: FlBorderData(
+    //                     show: true,
+    //                     border: Border.all(color: const Color(0xff37434d)),
+    //                   ),
+    //                   minX: 0,
+    //                   maxX: 5,
+    //                   minY: 0,
+    //                   maxY: 5,
+    //                   lineBarsData: [
+    //                     LineChartBarData(spots: const [
+    //                       FlSpot(0, 0),
+    //                       FlSpot(1, 2),
+    //                       FlSpot(2, 5),
+    //                       FlSpot(3, 3),
+    //                       FlSpot(4, 4),
+    //                       FlSpot(5, 3),
+    //                     ])
+    //                   ],
+    //                 )),
+    //               ),
+    //             ),
+    //           )
+    //         ],
+    //       );
+    //     });
   }
 }
