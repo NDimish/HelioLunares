@@ -12,6 +12,7 @@ import 'package:university_ticketing_system/gradient_animation.dart';
 import 'package:university_ticketing_system/responsive.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:university_ticketing_system/tff_decoration.dart';
 
 /// DESIGNED BY ISRAFEEL ASHRAF - K21008936
 ///
@@ -247,7 +248,17 @@ class _StageThreeSocietySignUpState extends State<StageThreeSocietySignUp> {
                           ).toList(),
                         );
                       } else if (snapshot.hasError) {
-                        return Text('${snapshot.error}');
+                        return SizedBox(
+                            width: ResponsiveWidget.isSmallScreen(context)
+                                ? MediaQuery.of(context).size.width * 0.85
+                                : MediaQuery.of(context).size.width * 0.60,
+                            child: TextFormField(
+                              enabled: false,
+                              decoration: customDecoration(
+                                  "Categories",
+                                  "Unable to load categories from server",
+                                  Icons.school_rounded),
+                            ));
                       }
 
                       // By default, show a loading spinner.
