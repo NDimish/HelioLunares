@@ -32,6 +32,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
     return SizedBox(
         width: 300,
         child: TextFormField(
+            enabled: shouldBeEnabled,
             obscureText: headerName.contains("Password") ? true : false,
             controller: formController,
             validator: validation,
@@ -168,7 +169,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                           null), 
                     ),
 
-                const SizedBox(height: 35),
+                const SizedBox(height: 17.5),
                 const Text(
                   'Personal Information',
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 28),
