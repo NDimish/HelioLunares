@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:university_ticketing_system/user_hub/widgets/SocietiesList/SocietyListTile.dart';
-
+import 'dart:io';
 void main(){
+  setUpAll(() => {HttpOverrides.global = null}); 
   var testname = "SocName";
   var testlocation = "Test summary";
   var testuni = "Test Uni";
@@ -18,6 +19,7 @@ void main(){
                   societyName: testname,
                   summary: testlocation,
                   uni: testuni,
+                  societyID: 0,
                 )
               ],
             ),
@@ -36,7 +38,7 @@ void main(){
         expect(widgetFinder, findsOneWidget);
     }
   );
-  testWidgets(
+  testWidgets( //This will fail
     "EventListTile onTap test", 
     (tester) async {
       await tester.pumpWidget(
@@ -48,6 +50,7 @@ void main(){
                   societyName: testname,
                   summary: testlocation,
                   uni: testuni,
+                  societyID: 0,
                 )
               ],
             ),

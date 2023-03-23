@@ -187,7 +187,7 @@ class _MembersTableState extends State<MembersTable> {
               hint: const Text("Perform"),
               underline: const SizedBox(width: 0, height: 0),
               items: _actionsForRole(),
-              onChanged: ((value) => {
+              onChanged: (value) => {
                     if (value == "Remove")
                       {
                         removeFromSociety(
@@ -196,8 +196,11 @@ class _MembersTableState extends State<MembersTable> {
                     else if (value == "Promote")
                       {updateSociety(int.parse(dataset['id']), widget.role + 1)}
                     else if (value == "Demote")
-                      {updateSociety(int.parse(dataset['id']), widget.role - 1)}
-                  }))),
+                      {
+                        updateSociety(
+                            int.parse(dataset['id']), widget.role - 1),
+                      },
+                  })),
     ]);
   }
 

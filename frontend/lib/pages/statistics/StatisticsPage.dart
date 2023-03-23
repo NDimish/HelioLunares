@@ -4,18 +4,19 @@ import 'package:provider/provider.dart';
 import 'package:university_ticketing_system/constants/style.dart';
 import 'package:university_ticketing_system/backend_communication/dataCollector.dart'
     as data;
+import 'package:university_ticketing_system/backend_communication/models/Ticket.dart'
+    as Ticks;
 
 class Statistics extends StatefulWidget {
-  const Statistics({super.key});
+  final int societyId;
+  const Statistics({required this.societyId, super.key});
 
   @override
   State<Statistics> createState() => _StatisticsState();
 }
 
 class _StatisticsState extends State<Statistics> {
-  final List<int> eventModelData = [5, 2, 1];
-
-  Table _allEvents(List<int> items) {
+  Table _allEvents(List<data.Event> items, List<Ticks.Tickets> tickets) {
     List<TableRow> allEvents = [];
 
     allEvents.add(const TableRow(
@@ -37,12 +38,12 @@ class _StatisticsState extends State<Statistics> {
         )),
         Center(
             child: Text(
-          "Attendance",
+          "Price",
           style: TextStyle(fontSize: 20),
         )),
         Center(
             child: Text(
-          "Event ID",
+          "Attendance",
           style: TextStyle(fontSize: 20),
         )),
         Center(
@@ -55,12 +56,18 @@ class _StatisticsState extends State<Statistics> {
     ));
 
     for (var i = 0; i < items.length; i++) {
+      int noTickets = 0;
+      // for (var j = 0; j < tickets.length; j++) {
+      //   if (tickets[j].event.id == items[i].id) {
+      //     noTickets++;
+      //   }
+      // }
       allEvents.add(TableRow(children: [
-        Center(child: Text(items[i].toString())),
-        Center(child: Text("Event Name")),
-        Center(child: Text("No of Tickets")),
-        Center(child: Text("Attendance")),
-        Center(child: Text("Event ID")),
+        Center(child: Text(items[i].id.toString())),
+        Center(child: Text(items[i].title)),
+        Center(child: Text(noTickets.toString())),
+        Center(child: Text(items[i].price.toString())),
+        Center(child: Text("attendance")),
         Center(
           child: DropdownButton(
             hint: const Text('Perform:'),
@@ -94,16 +101,28 @@ class _StatisticsState extends State<Statistics> {
 
   @override
   Widget build(BuildContext context) {
-    int eventNo = eventModelData.length;
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(
               create: (context) => data.dataCollector<data.Event>(
+                  filter: {'society_id': widget.societyId.toString()},
+                  order: data.OrderType.CHRONOLOGICAL)),
+          ChangeNotifierProvider(
+              create: (context) => data.dataCollector<data.SocietyRole>(
+                  filter: {'society': widget.societyId.toString()},
+                  order: data.OrderType.CHRONOLOGICAL)),
+          ChangeNotifierProvider(
+              create: (context) => data.dataCollector<Ticks.Tickets>(
                   filter: {}, order: data.OrderType.CHRONOLOGICAL))
         ],
         builder: (context, child) {
           final eventData =
               Provider.of<data.dataCollector<data.Event>>(context);
+          final membersData =
+              Provider.of<data.dataCollector<data.SocietyRole>>(context);
+          final ticketsData =
+              Provider.of<data.dataCollector<Ticks.Tickets>>(context);
+
           return ListView(
             children: [
               Row(
@@ -115,7 +134,7 @@ class _StatisticsState extends State<Statistics> {
                     child: Column(
                       children: [
                         const Text("Number of Members:"),
-                        Text(eventModelData.length.toString())
+                        Text(membersData.collection.length.toString())
                       ],
                     ),
                   ),
@@ -136,7 +155,7 @@ class _StatisticsState extends State<Statistics> {
               ),
               Padding(
                 padding: const EdgeInsets.all(30.0),
-                child: _allEvents(eventModelData),
+                child: _allEvents(eventData.collection, ticketsData.collection),
               ),
               Expanded(
                 child: AspectRatio(

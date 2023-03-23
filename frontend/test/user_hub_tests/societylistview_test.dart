@@ -15,6 +15,8 @@ void main(){
 
       expect(typeFinder, findsOneWidget);
     });
+
+    //This will fail because of lack of children
     testWidgets("SocietyListView has child of SocietyListTile type", (tester) async{
       await tester.pumpWidget(MaterialApp(
         home:Scaffold(

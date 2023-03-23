@@ -533,7 +533,7 @@ class EventApiView(generics.ListAPIView):
     ordering_fields = '__all__'
     
     def post(self, request):
-        serializer = EventModelSerializer(data=request.data)
+        serializer = CreateEventSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -626,7 +626,7 @@ class TicketInfoApiView(APIView):
         return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
 
     def delete(self, request, pk):
-        Ticket.objects.filter(id=pk).delete()
+        Ticket.objects.get(id=pk).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 #get list of all event category types
