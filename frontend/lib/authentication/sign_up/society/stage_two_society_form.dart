@@ -192,6 +192,11 @@ class _StageTwoSocietySignUpState extends State<StageTwoSocietySignUp> {
                     if (value == null || value.isEmpty) {
                       return "Enter a name";
                     }
+
+                    if (value.length > 39) {
+                      return "Name cannot be longer than 39 characters";
+                    }
+
                     return null;
                   },
                   onFieldSubmitted: (value) {
@@ -363,7 +368,10 @@ class _StageTwoSocietySignUpState extends State<StageTwoSocietySignUp> {
     society.setSocName(societyNameController.text);
     society.setUni(uniValue!);
     society.setUserAccount(widget.user);
-    society.setUniId(uniMap[uniValue]!);
+
+    if (uniValue != null) {
+      society.setUniId(uniMap[uniValue]!);
+    }
   }
 
   SnackBar informationSnackbar(String text) {
