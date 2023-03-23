@@ -10,8 +10,8 @@ class Event extends dataSets {
   final String description;
 
   final Society society;
-  final double duration;
-  final double price;
+  double duration;
+  double price;
   final String update_time;
   final String create_time;
   // final String password;
@@ -79,4 +79,32 @@ class Event extends dataSets {
         'description': description,
         'attendance': attendance
       };
+
+  void setTitle(String title) {
+    this.title = title;
+  }
+
+  void setPrice(double price) {
+    this.price = price;
+  }
+
+  void setDate(String date) {
+    this.date = date;
+  }
+
+  void setTime(String time) {
+    this.time = time;
+  }
+
+  void setVenue(String venue) {
+    this.venue = venue;
+  }
+
+  void setDuration(double duration) {
+    this.duration = duration;
+  }
+
+  void setDescription(String description) {
+    this.description = description;
+  }
 }

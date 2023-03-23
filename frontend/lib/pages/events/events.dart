@@ -8,10 +8,12 @@ import 'package:university_ticketing_system/routing/routes.dart';
 import 'package:university_ticketing_system/theme.dart';
 import 'package:university_ticketing_system/widgets/custom_text.dart';
 
+import '../../backend_communication/models/Society.dart';
 import '../../constants/style.dart';
 
 class SocietyEventsPage extends StatelessWidget {
-  const SocietyEventsPage({super.key});
+  final Society society = Get.find<Society>();
+  SocietyEventsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
