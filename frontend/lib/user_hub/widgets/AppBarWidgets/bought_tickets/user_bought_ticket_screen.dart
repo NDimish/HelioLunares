@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/bought_tickets/buy_ticket_screen.dart';
+import 'package:university_ticketing_system/user_hub/widgets/UserHubPage_events.dart';
 import '../../../../backend_communication/authenticate.dart';
 import '../../../../backend_communication/dataCollector.dart' as data;
 import 'package:university_ticketing_system/backend_communication/models/Ticket.dart' as tic;
@@ -33,6 +34,9 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
 
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      
+    });
     var currentUserFilter = {'user':globals.localdataobj.getUserID().toString()};
     return MultiProvider(
       providers: [
@@ -43,7 +47,12 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
       builder: (context, child) {
         
         return Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(
+            leading:BackButton(onPressed: (){
+              Navigator.push(context, 
+              MaterialPageRoute(builder: (context) => UserHubPage_events()));
+            },)
+          ),
           backgroundColor: const Color(0xFFC8B8D8), body: _buildPanel(context));
       }
     );
