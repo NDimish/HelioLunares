@@ -51,4 +51,17 @@ class University extends dataSets {
         'street_name': street_name,
         'postcode': postcode,
       };
+
+  @override
+
+  updateToJson() {
+    return {
+      'name': name,
+      // 'duration': duration,
+      ' latitude': latitude,
+      'longitude': longitude,
+      'street_name': street_name,
+      'postcode': postcode,
+    };
+  }
 }

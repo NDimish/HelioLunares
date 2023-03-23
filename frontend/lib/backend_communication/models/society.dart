@@ -69,4 +69,15 @@ class Society extends dataSets {
         'creation_date': created_at,
         'image': image
       };
+
+  @override
+  updateToJson() {
+    return {
+      'about_us': description,
+      'name': name,
+      'join_date': join_date,
+      'creation_date': created_at,
+      'image': image
+    };
+  }
 }

@@ -42,4 +42,14 @@ class User extends dataSets {
         'date_joined': date_joined,
         'password': password
       };
+
+  @override
+  updateToJson() {
+    return {
+      'email': email,
+      'user_level': (userType),
+      'date_joined': date_joined,
+      'password': password
+    };
+  }
 }

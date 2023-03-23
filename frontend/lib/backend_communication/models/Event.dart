@@ -79,4 +79,19 @@ class Event extends dataSets {
         'description': description,
         'attendance': ticket_amount
       };
+
+      @override
+     updateToJson() {
+      return{
+        'duration': duration,
+        'price': price,
+        'update_time': update_time,
+        'create_time': create_time,
+        'event_name': title,
+        'event_date': ('${date}T$time'),
+        'location': venue,
+        'description': description,
+        'attendance': ticket_amount
+      };
+      }
 }

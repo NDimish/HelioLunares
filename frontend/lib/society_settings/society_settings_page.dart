@@ -5,6 +5,7 @@ import '../../../backend_communication/dataCollector.dart';
 import 'package:university_ticketing_system/globals.dart' as global;
 
 import '../helpers/responsiveness.dart';
+import '../user_hub/widgets/AppBarWidgets/userSettingsPage/user_settings.dart';
 
 class SocietySettingsPage extends StatefulWidget {
   //final int userId;
@@ -49,10 +50,23 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => dataCollector<User>(ID:global.localdataobj.getUserID()),
-      builder: (context,child) {
-        final User1 = Provider.of<dataCollector<User>>(context);
+    return MultiProvider (
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => dataCollector<User>(ID:global.localdataobj.getUserID()),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => dataCollector<People>(ID:global.localdataobj.getUserID()),
+        ),
+      ],
+
+    builder: (context, child)  {
+      final userProvider = Provider.of<dataCollector<User>>(context);
+      final peopleProvider = Provider.of<dataCollector<People>>(context);
+        emailController.text = userProvider.collection[0].email;
+        firstNameController.text = peopleProvider.collection[0].first_name;
+        lastNameController.text = peopleProvider.collection[0].last_name;
+
         return Scaffold(
           
           backgroundColor: const Color(0xFFffffff).withOpacity(0.3),
@@ -89,8 +103,8 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                         'Enter your society name',
                         Icons.person_rounded,
                         null,
-                        (User1.collection[0].userType == 3) ? true : false,
-                        null,
+                        (userProvider.collection[0].userType == 3) ? true : false,
+                        (title) =>(title == null || title.isEmpty) ? 'Title cannot be blank' : 'ss',
                         
                         ),
                   ),
@@ -108,7 +122,7 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                         Icons.password,
                         null,
                         true,
-                        (password) => validators(password, RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$'), "Enter a valid password: \n At least - 1 uppercase, 1 lowercase, 1 number, 1 special character\n At least 8 characters long")), //IMPORTANT: Password allows for length 0 but should be matched with regex >0
+                        (password) => PasswordValidator(password, RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$'), "Enter a valid password: \n At least - 1 uppercase, 1 lowercase, 1 number, 1 special character\n At least 8 characters long")), //IMPORTANT: Password allows for length 0 but should be matched with regex >0
                   )
                 ],
               ),
@@ -275,15 +289,5 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
 //try catch block submit database
 
 
-String? validators(String? value, RegExp regex, String returnMessage) {
-  
 
-  if (value == null || value.length == 0) {
-    return null;
-  }
-  else if (!regex.hasMatch(value)) {
-    return returnMessage;
-  }
-  return null;
-}
 

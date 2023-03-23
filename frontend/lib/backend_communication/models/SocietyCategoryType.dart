@@ -20,4 +20,8 @@ class SocietyCategoryType extends dataSets {
   }
 
   dynamic toJson() => {'id': id, 'category_name': categoryName};
+  @override
+  updateToJson() {
+    return {'category_name': categoryName};
+  }
 }
