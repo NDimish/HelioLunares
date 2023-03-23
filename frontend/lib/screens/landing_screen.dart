@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/components/home_card.dart';
-import 'package:university_ticketing_system/log_in/log_in_screen.dart';
-import 'package:university_ticketing_system/sign_up/sign_up_as_student.dart';
-import 'package:university_ticketing_system/sign_up/sign_up_as_society.dart';
+import 'package:university_ticketing_system/authentication/log_in/log_in_screen.dart';
+import 'package:university_ticketing_system/authentication/sign_up/student/student_sign_up.dart';
+import 'package:university_ticketing_system/authentication/sign_up/society/society_sign_up.dart';
 
 import 'startup_screen/widgets/startup_footer.dart';
 
@@ -141,7 +141,7 @@ class _LandingScreenState extends State<LandingScreen> {
     setState(() {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const SocietySignUpScreen()),
+        MaterialPageRoute(builder: (context) => const SocietySignUp()),
       );
     });
   }
@@ -150,7 +150,7 @@ class _LandingScreenState extends State<LandingScreen> {
     setState(() {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const StudentSignUpScreen()),
+        MaterialPageRoute(builder: (context) => const StudentSignUp()),
       );
     });
   }
