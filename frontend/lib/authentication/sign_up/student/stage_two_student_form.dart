@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/backend_communication/authenticate.dart';
@@ -11,8 +10,6 @@ import 'package:university_ticketing_system/authentication/models/student.dart';
 import 'package:university_ticketing_system/authentication/models/user_account.dart';
 import 'package:university_ticketing_system/tff_decoration.dart';
 import 'package:university_ticketing_system/gradient_animation.dart';
-import 'package:university_ticketing_system/home/home_drawer.dart';
-import 'package:university_ticketing_system/home/topbar.dart';
 import 'package:university_ticketing_system/responsive.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -178,6 +175,10 @@ class _StageTwoStudentSignUpState extends State<StageTwoStudentSignUp> {
                       return "Name cannot have numbers";
                     }
 
+                    if (value.length > 39) {
+                      return "Name cannot be longer than 40 characters";
+                    }
+
                     return null;
                   },
                   onFieldSubmitted: (value) {
@@ -212,6 +213,10 @@ class _StageTwoStudentSignUpState extends State<StageTwoStudentSignUp> {
 
                     if (value.contains(RegExp(r'(\d+)'))) {
                       return "Name cannot have numbers";
+                    }
+
+                    if (value.length > 39) {
+                      return "Name cannot be longer than 40 characters";
                     }
 
                     return null;
@@ -249,6 +254,10 @@ class _StageTwoStudentSignUpState extends State<StageTwoStudentSignUp> {
 
                     if (value.contains(RegExp(r'(\d+)'))) {
                       return "Field of study cannot have numbers";
+                    }
+
+                    if (value.length > 29) {
+                      return "Name cannot be longer than 30 characters";
                     }
 
                     return null;
@@ -313,17 +322,30 @@ class _StageTwoStudentSignUpState extends State<StageTwoStudentSignUp> {
                       ),
                     );
                   } else if (snapshot.hasError) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) =>
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            informationSnackbar(
+                                "An error occurred downloading university data from the server. Try again later.")));
+                    Timer(const Duration(seconds: 3), () {
+                      //print("Yeah, this line is printed after 3 seconds");
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomePage()),
+                      );
+                    });
                     return SizedBox(
                         width: ResponsiveWidget.isSmallScreen(context)
                             ? MediaQuery.of(context).size.width * 0.85
                             : MediaQuery.of(context).size.width * 0.60,
                         child: TextFormField(
                           enabled: false,
-                          decoration: customDecoration("University",
-                              "Enter your university", Icons.school_rounded),
+                          decoration: customDecoration(
+                              "University",
+                              "Unable to load university data",
+                              Icons.school_outlined),
                         ));
                   }
-
                   // By default, show a loading spinner.
                   return const CircularProgressIndicator();
                 }),
@@ -420,49 +442,21 @@ class _StageTwoStudentSignUpState extends State<StageTwoStudentSignUp> {
     student.setLastName(lastNameController.text);
     student.setUniversity(uniValue!);
     student.setUserAccount(widget.user);
-    student.setUniversityId(uniMap[uniValue]!);
+
+    if (uniValue != null) {
+      student.setUniversityId(uniMap[uniValue]!);
+    }
   }
 
   SnackBar informationSnackbar(String text) {
     return SnackBar(
       content: Text(
         text,
+        textAlign: TextAlign.center,
         style: const TextStyle(fontFamily: "Arvo", color: Colors.white),
       ),
       duration: const Duration(seconds: 2),
       backgroundColor: Colors.black,
     );
-  }
-
-  void showAlertDialog() {
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-              child: AlertDialog(
-                title: const Text('Return Home',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontFamily: "Arvo", fontWeight: FontWeight.bold)),
-                content: const Text(
-                    'An error occured downloading university data from the server. Please sign up later.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontFamily: "Arvo")),
-                actions: <Widget>[
-                  SubmitButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => const HomePage()));
-                      },
-                      scaleFactor: 0.4,
-                      textIn: "Return to home page")
-                ],
-              ));
-        });
   }
 }

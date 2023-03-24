@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:university_ticketing_system/authentication/log_in/log_in_screen.dart';
 import 'package:university_ticketing_system/authentication/models/society_categories.dart';
 import 'package:university_ticketing_system/authentication/sign_up/society/society_sign_up.dart';
 import 'package:university_ticketing_system/authentication/sign_up/student/student_sign_up.dart';
 import 'package:university_ticketing_system/backend_communication/authenticate.dart';
+import 'package:university_ticketing_system/home/homepage.dart';
 import 'package:university_ticketing_system/submit_button.dart';
 import 'package:university_ticketing_system/authentication/models/society.dart';
 import 'package:university_ticketing_system/gradient_animation.dart';
@@ -179,7 +181,7 @@ class _StageThreeSocietySignUpState extends State<StageThreeSocietySignUp> {
                 onChanged: (value) {
                   bio = bioController.text;
                   widget.soc.setBio(bio);
-                  print(widget.soc.bio);
+                  // print(widget.soc.bio);
                 },
                 onSaved: (newValue) {
                   widget.soc.setBio(newValue!);
@@ -248,6 +250,18 @@ class _StageThreeSocietySignUpState extends State<StageThreeSocietySignUp> {
                           ).toList(),
                         );
                       } else if (snapshot.hasError) {
+                        WidgetsBinding.instance.addPostFrameCallback((_) =>
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                informationSnackbar(
+                                    "An error occurred downloading category data from the server. Try again later.")));
+                        Timer(const Duration(seconds: 3), () {
+                          //print("Yeah, this line is printed after 3 seconds");
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HomePage()),
+                          );
+                        });
                         return SizedBox(
                             width: ResponsiveWidget.isSmallScreen(context)
                                 ? MediaQuery.of(context).size.width * 0.85
@@ -256,8 +270,8 @@ class _StageThreeSocietySignUpState extends State<StageThreeSocietySignUp> {
                               enabled: false,
                               decoration: customDecoration(
                                   "Categories",
-                                  "Unable to load categories from server",
-                                  Icons.school_rounded),
+                                  "Unable to load category data",
+                                  Icons.category_outlined),
                             ));
                       }
 
@@ -280,23 +294,23 @@ class _StageThreeSocietySignUpState extends State<StageThreeSocietySignUp> {
                   });
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 } else {
-                  print("\n\n");
-                  print("SOCIETY: ");
-                  print("email: ${widget.soc.user.email}");
-                  print("password: ${widget.soc.user.password}");
-                  print(
-                      "confirmed password: ${widget.soc.user.confirmedPassword}");
-                  print("\n");
-                  print("society_name: ${widget.soc.socName}");
-                  print("society creation_date: ${widget.soc.dateCreated}");
-                  print("society university at: ${widget.soc.universityAt}");
-                  print(
-                      "society university at id: ${widget.soc.universityAtId}");
-                  print("\n");
-                  print("society bio: $bio");
-                  print("society categories: ${selectedChoices}");
-                  //getCategoryIds();
-                  print("society categories: ${selectedIds}");
+                  // print("\n\n");
+                  // print("SOCIETY: ");
+                  // print("email: ${widget.soc.user.email}");
+                  // print("password: ${widget.soc.user.password}");
+                  // print(
+                  //     "confirmed password: ${widget.soc.user.confirmedPassword}");
+                  // print("\n");
+                  // print("society_name: ${widget.soc.socName}");
+                  // print("society creation_date: ${widget.soc.dateCreated}");
+                  // print("society university at: ${widget.soc.universityAt}");
+                  // print(
+                  //     "society university at id: ${widget.soc.universityAtId}");
+                  // print("\n");
+                  // print("society bio: $bio");
+                  // print("society categories: ${selectedChoices}");
+                  // //getCategoryIds();
+                  // print("society categories: ${selectedIds}");
 
                   http.Response response = await createSociety(
                       widget.soc.user.email,
@@ -386,6 +400,7 @@ class _StageThreeSocietySignUpState extends State<StageThreeSocietySignUp> {
     return SnackBar(
       content: Text(
         text,
+        textAlign: TextAlign.center,
         style: const TextStyle(fontFamily: "Arvo", color: Colors.white),
       ),
       duration: const Duration(seconds: 2),
