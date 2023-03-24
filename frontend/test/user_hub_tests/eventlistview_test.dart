@@ -69,7 +69,7 @@ void main(){
             image: "image");
             
             var testevent = Event(society: testsoc, 
-            ticket_amount: 0, 
+            attendance: 0, 
             duration: 0.0, 
             price: 0.0, 
             update_time: "x", 
