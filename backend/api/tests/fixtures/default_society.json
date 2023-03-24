@@ -1,6 +1,7 @@
 [
     {
         "model":"api.society",
+        "pk": 1,
         "fields": {
             "user": 3,
             "name": "test_soc_one",
@@ -11,6 +12,7 @@
     },
     {
         "model":"api.society",
+        "pk": 2,
         "fields": {
             "user": 4,
             "name": "test_soc_two",
@@ -21,6 +23,7 @@
     },
     {
         "model":"api.society",
+        "pk": 3,
         "fields": {
             "user": 5,
             "name": "test_soc_three",

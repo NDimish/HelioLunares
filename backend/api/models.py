@@ -103,7 +103,7 @@ class PeopleRoleAtSociety(models.Model):
     role = models.PositiveSmallIntegerField(choices=SOCIETY_ROLE, default=1)
 
 class Event(models.Model):
-    society_id = models.ForeignKey(Society, on_delete=models.CASCADE, blank=False)
+    society = models.ForeignKey(Society, on_delete=models.CASCADE, blank=False)
     duration = models.IntegerField(blank=False, unique=False)
     event_date = models.DateTimeField(blank=False)
     event_name = models.CharField(max_length=50, blank=False)
