@@ -192,10 +192,25 @@ class _EventPageState extends State<EventPage> {
                                         // Buy Button
                                         /// ------------------------------
                                         onPressed: () {
-                                          buyTicket(widget.eventId,
-                                              widget.eventPrice);
-                                          print(
-                                              "Takes user to checkout. Need to check if user has booked this event to disable this button.");
+                                          buyTicket(widget.eventId, widget.eventPrice);
+                                          showDialog(context: context,
+                                            builder: 
+                                            (context) {
+                                              return AlertDialog(
+                                                content: const Text(
+                                                  'Ticket bought!'),
+                                                actions: <Widget>[
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                      Navigator.pop(context,'Confirm'),
+                                                child: const Text('Confirm'),
+                                              ),
+                                            ],
+                                          );
+                                                  },
+                                          );
+                                            
+                                          
                                         },
                                         // -------------------------------
                                         child: const Text("Book now"),
