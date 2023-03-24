@@ -17,11 +17,6 @@ class HorizontalMenuItem extends StatelessWidget {
 
     return InkWell(
         onTap: onTap,
-        // onHover: (value) {
-        //   value
-        //       ? menuController.onHover(itemName)
-        //       : menuController.onHover("not hovering");
-        // },
         child: Obx(() => Container(
               color: menuController.isHovering(itemName)
                   ? MyColours.navButtonHoverColour.withOpacity(.1)
