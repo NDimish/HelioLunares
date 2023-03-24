@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:university_ticketing_system/globals.dart';
+
 import '../../../../backend_communication/dataCollector.dart';
 import 'package:university_ticketing_system/globals.dart' as global;
 
@@ -249,14 +249,6 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                               peopleProvider.updateCollection(update_person);
                               userProvider.updateCollection(update_user);
 
-                              // print(peopleProvider.collection[0].first_name);
-                              // print(userProvider.collection[
-                              //     0].password); //Here is where you will send a response to the database to update user values
-
-                              //Upon saving you will have to check the fields which are empty.
-                              //If they are all empty or nothing has changed don't update the DB at all.
-                              //Otherwise check whatever is changed, and update DB accordingly.
-
                               showDialog<String>(
                                 context: context,
                                 builder: (BuildContext context) => AlertDialog(
@@ -334,15 +326,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
   }
 }
 
-//loading the data in Nmani
-//testing
-//try catch block submit database
 
-//Add if stataemetns to determine if studnet or not
-//loading the data
-//testing - improve code coverage
-
-//try catch block submit database
 
 String? validators(String? value, RegExp regex, String returnMessage) {
   if (value == null || value.length == 0) {

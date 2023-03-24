@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:university_ticketing_system/backend_communication/societyfunctions.dart';
 
 import 'package:university_ticketing_system/user_hub/widgets/SocietiesList/EventsListPage.dart';
 import 'package:university_ticketing_system/user_hub/widgets/SocietiesList/widgets/LoeButton.dart';
@@ -11,7 +10,6 @@ import '../../../backend_communication/dataCollector.dart';
 import '../../../gradient_animation.dart';
 import '../../../helpers/responsiveness.dart';
 import '../EventsList/widgets/IndividualPageHeader.dart';
-import 'package:http/http.dart' as http;
 import 'package:university_ticketing_system/globals.dart' as global;
 
 class MainSocietyPage extends StatefulWidget {
@@ -64,7 +62,7 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
 
           hasJoined = (DataRole.collection.length != 0);
 
-          print(DataRole.collection);
+          
           return Scaffold(
             appBar: AppBar(
                 title: Text(
@@ -326,17 +324,4 @@ class followerCounterProvider extends dataCollector<SocietyRole> {
   followerCounterProvider({super.filter}) : super();
 }
 
-//join society call url in backend
-//201 - joined the society
-//400 - already joined
-//anything else - error
-
-
-
-
-//join button 
-
-
-                    
-//list of events button 
 

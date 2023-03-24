@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:university_ticketing_system/backend_communication/dataCollector.dart';
-import '../../../backend_communication/dataCollector.dart';
+
 import 'package:university_ticketing_system/globals.dart' as global;
 
 
@@ -13,12 +13,12 @@ import '../helpers/responsiveness.dart';
 import '../user_hub/widgets/AppBarWidgets/userSettingsPage/user_settings.dart';
 
 class SocietySettingsPage extends StatefulWidget {
-  //final int userId;
+  
 
   const SocietySettingsPage({
     Key? key,
   }) : super(key: key);
-  //required this.userId
+  
 
   @override
   State<SocietySettingsPage> createState() => _SocietySettingsPageState();
@@ -44,7 +44,6 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
             decoration: customDecoration(headerName, name, nameIcon)));
   }
 
-//this is where you could query the database to get the permission. level 1 2 3
 
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
@@ -187,31 +186,15 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                               email,
                               RegExp(
                                   "[_a-zA-Z]+[_a-zA-Z0-9]?[\._]?[_a-zA-Z0-9]*@([a-zA-Z]+\.)?([a-zA-Z]+\.)?[a-zA-Z]+\.(com|net|de|uk|ro|jp)"),
-                              "Enter a valid email address (Ex: shak@gmail.com)"))), //IMPORTANT: Email allows for length 0 (doesn't update) but should be matched with regex >0
+                              "Enter a valid email address (Ex: shak@gmail.com)"))), 
                     ),
-                    //(value) {
-                    //if (value == null ||
-                    //     value.isEmpty ||
-                    //    !emailRegex.hasMatch(value)) {
-                    //   return "Please enter a valid email.";
-                    // }
-                    //   return null;
-                    //  }
+              
 
                     const SizedBox(
                       width: 50,
                     ),
 
-                    // (value) {
-                    // if (value == null ||
-                    ////      value.isEmpty ||
-                    //    !phoneRegex.hasMatch(value)) {
-                    //   return "Please enter a valid phone number.";
-                    //  }
-                    //   return null;
-                    //  }
-
-                    //query a database
+                
                   ],
                 ),
                 Padding(
@@ -261,15 +244,9 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                                   image: societyProvider.collection[0].image);
 
                               societyProvider.updateCollection(update_society);
-                              print(update_user.password);
-                              print(passwordInput);
-                              print('space');
+                              
                               userProvider.updateCollection(update_user);
-                              //Here is where you will send a response to the database to update user values
-
-                              //Upon saving you will have to check the fields which are empty.
-                              //If they are all empty or nothing has changed don't update the DB at all.
-                              //Otherwise check whatever is changed, and update DB accordingly.
+                             
 
                               showDialog<String>(
                                 context: context,
@@ -292,7 +269,7 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                                 ),
                               );
                             } catch (error) {
-                              //This can be turned into a reusable widget?
+                            
                               showDialog<String>(
                                 context: context,
                                 builder: (BuildContext context) => AlertDialog(
@@ -349,8 +326,4 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
   }
 }
 
-//loading the data in Nmani
-//testing
-//try catch block submit database
 
-//
