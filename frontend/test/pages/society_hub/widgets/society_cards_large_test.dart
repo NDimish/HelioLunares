@@ -9,8 +9,12 @@ import 'package:university_ticketing_system/backend_communication/models/Univers
 void main() {
   final TestWidgetsFlutterBinding binding =
       TestWidgetsFlutterBinding.ensureInitialized();
-  User user =
-      User(email: "test@gmail.com", userType: 2, date_joined: "12/02/20");
+  User user = User(
+      email: "test@gmail.com",
+      userType: 2,
+      date_joined: "12/02/20",
+      password: "w",
+      id: 1);
 
   University university = University(
       name: "KCL",

@@ -14,8 +14,12 @@ void main() {
     //Medium Screen Size is of a width 768< x < 1366
     binding.window.physicalSizeTestValue = const Size(900, 1080);
     binding.window.devicePixelRatioTestValue = 1.0;
-    User user =
-        User(email: "test@gmail.com", userType: 2, date_joined: "12/02/20");
+    User user = User(
+        email: "test@gmail.com",
+        userType: 2,
+        date_joined: "12/02/20",
+        password: "p",
+        id: 1);
 
     University university = University(
         name: "KCL",
