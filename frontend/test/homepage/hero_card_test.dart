@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:university_ticketing_system/screens/startup_screen/widgets/about_card.dart';
 import 'package:university_ticketing_system/screens/startup_screen/widgets/hero_card.dart';
 
 //These tests were used for the animated hovering card on the old startup page. This is not included

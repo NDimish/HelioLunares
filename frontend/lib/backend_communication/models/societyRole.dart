@@ -40,4 +40,13 @@ class SocietyRole extends dataSets {
         'user_at_society': people,
         'role': role,
       };
+
+  @override
+  updateToJson() {
+    return {
+      'society': society,
+      'user_at_society': people,
+      'role': role,
+    };
+  }
 }

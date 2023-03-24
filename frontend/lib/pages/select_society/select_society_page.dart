@@ -14,27 +14,8 @@ class SelectSocietyPage extends StatelessWidget {
   const SelectSocietyPage({super.key});
 
   Future<Widget> loadData() async {
-    // http.Response response = await createSociety(
-    //     "nathg@gmail.com",
-    //     "This.is.pass1091",
-    //     1,
-    //     "NEWSOCIETY",
-    //     '12/12/2002',
-    //     "about us text",
-    //     [1, 2, 3]);
-    // print(response.statusCode);
-
-    // //THIS IS CODE TO AUTHENTICATE
-    // http.Response newResponse =
-    //     await auth("nathg@gmail.com", "This.is.pass1091");
-
-    // if (newResponse.statusCode == HttpStatus.ok) {
-    //   "Print start dataloader";
-    return DataLoader();
-    // } else {
-    //   print("NO");
-    // }
-    // return const Text("Auth failed");
+    Widget result = DataLoader();
+    return result;
   }
 
   @override

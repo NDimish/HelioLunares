@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:university_ticketing_system/backend_communication/dataCollector.dart';
 import 'package:university_ticketing_system/tff_decoration.dart';
 import '../../../backend_communication/dataCollector.dart';
 import 'package:university_ticketing_system/globals.dart' as global;
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+
 import '../helpers/responsiveness.dart';
+
+import '../user_hub/widgets/AppBarWidgets/userSettingsPage/user_settings.dart';
 
 class SocietySettingsPage extends StatefulWidget {
   //final int userId;
@@ -22,35 +24,6 @@ class SocietySettingsPage extends StatefulWidget {
 
 class _SocietySettingsPageState extends State<SocietySettingsPage> {
   String? uniValue;
-
-  //Shakeeb send this over to the backend.
-  int? universityId;
-
-  List<String> uniNames = [];
-  Map<String, int> uniMap = {};
-
-  late Future<List<dynamic>> returnedUniversitiesFromEndPoint;
-  Future<List<dynamic>> getUniversities() async {
-    final response =
-        await http.get(Uri.parse("${global.DATASOURCE}university/"));
-    final List<dynamic> data = json.decode(response.body);
-    return data;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    returnedUniversitiesFromEndPoint =
-        getUniversities().then((List<dynamic> result) {
-      setState(() {
-        uniNames = result.map((e) => e['name'].toString()).toList();
-        result.forEach((value) => uniMap[value['name']] = value['id']);
-
-        uniNames.sort((a, b) => a.toLowerCase().compareTo(b.toLowerCase()));
-      });
-      return uniNames;
-    });
-  }
 
   Widget customTextFormField(
       String headerName,
@@ -74,18 +47,37 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
-  final firstNameController = TextEditingController();
-  final lastNameController = TextEditingController();
+  final societyNameController = TextEditingController();
+
   final uniController = TextEditingController();
   final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (context) =>
-            dataCollector<User>(ID: global.localdataobj.getUserID()),
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) =>
+                dataCollector<User>(ID: global.localdataobj.getUserID()),
+          ),
+          ChangeNotifierProvider(
+            create: (context) =>
+                dataCollector<People>(ID: global.localdataobj.getUserID()),
+          ),
+          ChangeNotifierProvider(
+            create: (context) =>
+                dataCollector<Society>(ID: Get.find<Society>().id),
+          ),
+        ],
         builder: (context, child) {
-          final User1 = Provider.of<dataCollector<User>>(context);
+          final userProvider = Provider.of<dataCollector<User>>(context);
+          final peopleProvider = Provider.of<dataCollector<People>>(context);
+          final societyProvider = Provider.of<dataCollector<Society>>(context);
+          //Society societyInfo = Get.find<Society>();
+          emailController.text = userProvider.collection[0].email;
+          societyNameController.text = societyProvider.collection[0].name;
+          uniController.text = societyProvider.collection[0].university.name;
+
           return Scaffold(
             backgroundColor: const Color(0xFFffffff).withOpacity(0.3),
             body: SafeArea(
@@ -121,8 +113,10 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                         'Society Name',
                         'Enter your society name',
                         Icons.person_rounded,
-                        null,
-                        (User1.collection[0].userType == 3) ? true : false,
+                        societyNameController,
+                        (userProvider.collection[0].userType == 3)
+                            ? true
+                            : false,
                         null,
                       ),
                     ),
@@ -138,7 +132,7 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                           'Password',
                           'Enter your password',
                           Icons.password,
-                          null,
+                          passwordController,
                           true,
                           (password) => validators(
                               password,
@@ -151,63 +145,16 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                 const SizedBox(
                   width: 50,
                 ),
-                //Israfeel, add university dropdown.
                 Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: FutureBuilder<List<dynamic>>(
-                      future: returnedUniversitiesFromEndPoint,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return SizedBox(
-                            width: ResponsiveWidget.isSmallScreen(context)
-                                ? MediaQuery.of(context).size.width * 0.85
-                                : MediaQuery.of(context).size.width * 0.60,
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButtonFormField(
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return "Select a university";
-                                    }
-                                    return null;
-                                  },
-                                  style: const TextStyle(
-                                      fontFamily: "Arvo", color: Colors.black),
-                                  decoration: customDecorationForDropDown(
-                                      "University", "Select your university"),
-                                  isExpanded: true,
-                                  hint: const Text('Select any category',
-                                      style: TextStyle(
-                                          fontSize: 15, fontFamily: "Arvo")),
-                                  items: List<DropdownMenuItem>.generate(
-                                      uniNames.length, (int index) {
-                                    return DropdownMenuItem(
-                                        value: uniNames[index],
-                                        child: Text(
-                                          uniNames[index].toString(),
-                                          style: const TextStyle(
-                                              fontFamily: 'Arvo', fontSize: 16),
-                                        ));
-                                  }).toList(),
-                                  onChanged: (val) {
-                                    setState(() {
-                                      print(val);
-                                      uniValue = val.toString();
-                                      universityId = uniMap[uniValue]!;
-                                    });
-                                  }),
-                            ),
-                          );
-                        } else if (snapshot.hasError) {
-                          //return Text('${snapshot.error}');
-                          return const AlertDialog(
-                            content: Text("Error occured"),
-                            elevation: 10,
-                          );
-                        }
-
-                        // By default, show a loading spinner.
-                        return const CircularProgressIndicator();
-                      }),
+                  padding: const EdgeInsets.all(8.0),
+                  child: customTextFormField(
+                    'University',
+                    '',
+                    Icons.school,
+                    uniController,
+                    false,
+                    null,
+                  ),
                 ),
                 const SizedBox(height: 35),
                 const Text(
@@ -279,6 +226,39 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                             _formKey.currentState!.save();
 
                             try {
+                              String socName = societyNameController.text;
+                              String uniName = uniController.text;
+                              String email = emailController.text;
+                              String passwordInput = passwordController.text;
+                              String socDescription =
+                                  societyProvider.collection[0].description;
+
+                              User update_user = User(
+                                  id: userProvider.collection[0].id,
+                                  email: email,
+                                  userType: userProvider.collection[0].userType,
+                                  date_joined:
+                                      userProvider.collection[0].date_joined,
+                                  password: passwordInput);
+
+                              Society update_society = Society(
+                                  id: societyProvider.collection[0].id,
+                                  user: userProvider.collection[0],
+                                  university:
+                                      societyProvider.collection[0].university,
+                                  name: socName,
+                                  description: socDescription,
+                                  created_at:
+                                      societyProvider.collection[0].created_at,
+                                  join_date:
+                                      societyProvider.collection[0].join_date,
+                                  image: societyProvider.collection[0].image);
+
+                              societyProvider.updateCollection(update_society);
+                              print(update_user.password);
+                              print(passwordInput);
+                              print('space');
+                              userProvider.updateCollection(update_user);
                               //Here is where you will send a response to the database to update user values
 
                               //Upon saving you will have to check the fields which are empty.
@@ -294,6 +274,12 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                                   actions: <Widget>[
                                     TextButton(
                                       onPressed: () => {
+                                        societyNameController.text =
+                                            update_society.name,
+                                        emailController.text =
+                                            update_user.email,
+                                        passwordController.text =
+                                            update_user.password,
                                         Navigator.pop(context, 'OK'),
                                       },
                                       child: const Text('OK'),
@@ -363,11 +349,4 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
 //testing
 //try catch block submit database
 
-String? validators(String? value, RegExp regex, String returnMessage) {
-  if (value == null || value.length == 0) {
-    return null;
-  } else if (!regex.hasMatch(value)) {
-    return returnMessage;
-  }
-  return null;
-}
+//

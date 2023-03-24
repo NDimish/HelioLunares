@@ -8,9 +8,9 @@ class Society extends dataSets {
   final User user;
   final University university; //university_studying_at
   final String name;
-  final String description;
+  String description;
   final String created_at;
-  late String image;
+  String image;
 
   final String join_date;
   // final String password;
@@ -47,7 +47,7 @@ class Society extends dataSets {
 
   factory Society.fromJsonNOID(Map<String, dynamic> json) {
     return Society(
-        user: User.fromJsonNOID(json['user']),
+        user: User.fromJson(json['user']),
         university: University.fromJsonNOID(json['university_society_is_at']),
         name: json['name'],
         description: json['about_us'],
@@ -69,4 +69,23 @@ class Society extends dataSets {
         'creation_date': created_at,
         'image': image
       };
+
+  @override
+  updateToJson() {
+    return {
+      'about_us': description,
+      'name': name,
+      'join_date': join_date,
+      'creation_date': created_at,
+      'image': image
+    };
+  }
+
+  void setDescription(String description) {
+    this.description = description;
+  }
+
+  void setImage(String image) {
+    this.image = image;
+  }
 }

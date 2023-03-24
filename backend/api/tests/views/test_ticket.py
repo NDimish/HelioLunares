@@ -6,41 +6,47 @@ from api.models import User, Ticket
 
 
 class TicketTestCase(APITestCase):
-    def setUp(self):
-        self.user = User.objects.filter(email='johndoe@example.org').first()
+    fixtures = [
+        'api/tests/fixtures/default_users.json',
+        'api/tests/fixtures/default_university.json',
+        'api/tests/fixtures/default_society.json',
+        'api/tests/fixtures/default_event.json',
+        'api/tests/fixtures/default_ticket.json',
+    ]
 
-    def login(self):
-        url = reverse("log_in")
-        response = self.client.post(url, {'email': 'johndoe@example.org', 'password': 'Password123'},
-                                    format='json')
-        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-        self.data['token'] = response.data['token']
+    def setUp(self):
+        self.url = '/ticket/'
+        self.user = User.objects.get(email='johndoe@example.org')
+        self.user_data = {
+            'email': 'johndoe@example.org',
+            'password': 'Password123'
+        }
+
+        self.data = {
+            "event": 1,
+            "user": 1,
+            "date": "2023-03-15T10:00:20Z",
+            "price": 93.0
+        }
 
     def test_ticket_create(self):
         """create ticket """
-        self.login()
+        response = self.client.post('/log_in/', self.user_data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
 
-        url = reverse("ticket")
-        data = {
-            "event_id": 1,
-            "user": 1,
-            "date": "2023-3-15",
-            "price": 90.9
-        }
-        response = self.client.post(url, data=data, format="json")
+        response = self.client.post(self.url, data=self.data, format="json", **header)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Ticket.objects.count(), 1)
-        self.assertEqual(Ticket.objects.get("price"), "90.9")
+        self.assertEqual(response.data.get("price"), 93.0)
+        self.assertEqual(Ticket.objects.count(), 2)
 
     def test_ticket_list(self):
         """get all ticket"""
 
-        self.login()
-
-        # create obj first
-        self.test_ticket_create()
-
-        url = reverse("ticket")
-        response = self.client.post(url, format="json")
+        response = self.client.post('/log_in/', self.user_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assert_(len(response.data) > 0)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
+
+        response = self.client.get(self.url, format="json", **header)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 1)

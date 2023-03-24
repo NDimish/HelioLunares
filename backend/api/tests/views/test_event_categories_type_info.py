@@ -1,46 +1,49 @@
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from api.models import EventCategoriesType
+from api.models import EventCategoriesType, User
 
 
 class EventCategoriesTypeInfoTestCase(APITestCase):
-    def login(self):
-        response = self.client.post('/log_in/', {'email': 'johndoe@example.org', 'password': 'Password123'},
-                                    format='json')
-        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-        self.data['token'] = response.data['token']
+    fixtures = [
+        'api/tests/fixtures/default_users.json',
+        'api/tests/fixtures/default_eventcategoriestype.json',
+    ]
 
-    def create(self):
-        self.login()
-        data = {
-            "category_name": "sport"
+    def setUp(self):
+        self.url = '/event_categories_type/1/'
+        self.user = User.objects.get(email='johndoe@example.org')
+        self.user_data = {
+            'email': 'johndoe@example.org',
+            'password': 'Password123'
         }
-        response = self.client.post("/event_categories_type/", data=data, format="json")
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assert_(len(response.data) > 0)
-        return response.data
+        self.data = {
+            "category_name": "sport_your"
+        }
 
     def test_event_categories_type_get_with_id(self):
-        self.login()
-        id = self.create().get("id")
-        response = self.client.get(f"/event_categories_type/{id}", format="json")
+        response = self.client.post('/log_in/', self.user_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assert_(len(response.data) > 0)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
+
+        response = self.client.get(self.url, format="json", **header)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data.get("category_name"), "sport")
 
     def test_event_categories_type_update_with_id(self):
-        self.login()
-        id = self.create().get("id")
-        data = {
-            "category_name": "sport01"
-        }
-        response = self.client.put(f"/event_categories_type/{id}", data=data, format="json")
+        response = self.client.post('/log_in/', self.user_data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
+
+        response = self.client.put(self.url, data=self.data, format="json", **header)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertEqual(response.data["student_email"], "justin1@gmail.com")
+        self.assertEqual(response.data.get("category_name"), "sport_your")
 
     def test_event_categories_type_delete_with_id(self):
-        self.login()
-        id = self.create().get("id")
-        response = self.client.delete(f"/event_categories_type/{id}", format="json")
+        response = self.client.post('/log_in/', self.user_data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
+
+        response = self.client.delete(self.url, format="json", **header)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertEqual(len(EventCategoriesType.objects.filter(id=id)), 0)
+        self.assertEqual(len(EventCategoriesType.objects.filter(id=1)), 0)

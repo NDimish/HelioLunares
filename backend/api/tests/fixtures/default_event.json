@@ -1,0 +1,17 @@
+[
+   {
+        "model":"api.event",
+        "pk":1,
+        "fields":{
+            "society":1,
+            "duration":10,
+            "event_date":"2023-02-22T00:00:00Z",
+            "event_name":"football-match",
+            "location":"london",
+            "description":"london is very famous city",
+            "price":37,
+            "update_time":"2023-03-18T07:05:12.252Z",
+            "create_time":"2023-03-18T07:05:12.252Z"
+        }
+    }
+]

@@ -13,6 +13,8 @@ import 'package:university_ticketing_system/globals.dart' as globals;
 import 'package:university_ticketing_system/user_hub/widgets/UserHubPage_events.dart';
 import 'package:university_ticketing_system/widgets/layout.dart';
 
+import '../../helpers/deleteAllObjects.dart';
+
 /// DESIGNED BY ISRAFEEL ASHRAF - K21008936
 ///
 /// This widget is used for logging the user in.
@@ -172,10 +174,14 @@ class _LogInFormState extends State<LogInForm> {
                               builder: (context) => UserHubPage_events()),
                         );
                       } else {
+
+                        print("Redirecting to society page.");
+                        DeleteAllObjects d = DeleteAllObjects();
+
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(builder: (context) => SiteLayout()),
-                        );
+                        ).then((value) => d.delete());
                       }
                     } else {}
                   }

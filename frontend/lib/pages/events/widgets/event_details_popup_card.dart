@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:university_ticketing_system/backend_communication/dataCollector.dart';
 import 'package:university_ticketing_system/constants/controllers.dart';
 import 'package:university_ticketing_system/constants/style.dart';
-import 'package:university_ticketing_system/backend_communication/models/SocietyEvent.dart';
 import 'package:university_ticketing_system/routing/routes.dart';
 import '../../../backend_communication/models/Event.dart';
 import '../../../widgets/circle_icon.dart';
@@ -13,8 +13,17 @@ const String _heroAddTodo = 'add-todo-hero';
 class AddEventPopupCard extends StatelessWidget {
   //All event details to display
   final Event event = Get.find<Event>();
+  // final dataCollector<Event> eventDataProvider =
+  //     Get.find<dataCollector<Event>>();
   // final List<Event> eventList =
   AddEventPopupCard({Key? key}) : super(key: key);
+
+  String formatTime(String time) {
+    DateTime dateTime = DateTime.parse("2022-03-23T$time");
+    String formattedTime =
+        '${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}';
+    return formattedTime;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +66,7 @@ class AddEventPopupCard extends StatelessWidget {
                                 width: 10,
                               ),
                               CustomText(
-                                text: "£${event.price}",
+                                text: "£${event.price.toStringAsFixed(2)}",
                                 size: 18,
                                 weight: FontWeight.bold,
                               )
@@ -79,7 +88,7 @@ class AddEventPopupCard extends StatelessWidget {
                                 width: 10,
                               ),
                               CustomText(
-                                text: event.date,
+                                text: event.date + " " + formatTime(event.time),
                                 size: 18,
                                 weight: FontWeight.bold,
                               )
@@ -173,8 +182,9 @@ class AddEventPopupCard extends StatelessWidget {
                             ),
                             onPressed: () {
                               Get.put(event);
-                              navigationController
-                                  .navigateTo(editEventDetailsPageDisplayName);
+                              navigationController.navigateToEvent(
+                                  editEventDetailsPageDisplayName);
+                              Get.put(event);
                             },
                             child: const CustomText(
                               colour: MyColours.active,

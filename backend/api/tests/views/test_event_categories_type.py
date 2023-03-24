@@ -2,37 +2,45 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from api.models import EventCategoriesType
+from api.models import EventCategoriesType, User
 
 
 class EventCategoriesTypeTestCase(APITestCase):
-    def login(self):
-        response = self.client.post('/log_in/', {'email': 'johndoe@example.org', 'password': 'Password123'},
-                                    format='json')
-        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-        self.data['token'] = response.data['token']
+    fixtures = [
+        'api/tests/fixtures/default_users.json',
+        'api/tests/fixtures/default_eventcategoriestype.json',
+    ]
+
+    def setUp(self):
+        self.url = '/event_categories_type/'
+        self.user = User.objects.get(email='johndoe@example.org')
+        self.user_data = {
+            'email': 'johndoe@example.org',
+            'password': 'Password123'
+        }
+        self.data = {
+            "category_name": "sport_my"
+        }
 
     def test_event_categories_type_create(self):
         """create eventCategoriesType """
-        self.login()
+        response = self.client.post('/log_in/', self.user_data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
 
-        url = reverse("event_categories_type")
-        data = {
-            "category_name": "sport"
-        }
-        response = self.client.post(url, data=data, format="json")
+        response = self.client.post(self.url, data=self.data, format="json", **header)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(EventCategoriesType.objects.count(), 1)
-        self.assertEqual(EventCategoriesType.objects.get("category_name"), "sport")
+        self.assertEqual(response.data.get("category_name"), "sport_my")
+        self.assertEqual(EventCategoriesType.objects.count(), 2)
 
     def test_event_categories_type_list(self):
-        """get all eventCategoriesType"""
-        self.login()
+        """get all event categories type"""
+        response = self.client.post('/log_in/', self.user_data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
 
         # create obj first
-        self.test_event_categories_type_create()
-
-        url = reverse("event_categories_type")
-        response = self.client.post(url, format="json")
+        response = self.client.get(self.url, format="json", **header)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assert_(len(response.data) > 0)
+        self.assert_(len(response.data) == 1)

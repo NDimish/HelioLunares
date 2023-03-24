@@ -1,11 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:university_ticketing_system/globals.dart';
 import 'package:university_ticketing_system/tff_decoration.dart';
 import '../../../../backend_communication/dataCollector.dart';
 import 'package:university_ticketing_system/globals.dart' as global;
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+
 import '../../../../helpers/responsiveness.dart';
 
 class UserSettingsPage extends StatefulWidget {
@@ -16,47 +17,18 @@ class UserSettingsPage extends StatefulWidget {
 }
 
 class _UserSettingsPageState extends State<UserSettingsPage> {
-  String? uniValue;
-
-  //Shakeeb send this over to the backend.
-  int? universityId;
-
-  List<String> uniNames = [];
-  Map<String, int> uniMap = {};
-
-  late Future<List<dynamic>> returnedUniversitiesFromEndPoint;
-  Future<List<dynamic>> getUniversities() async {
-    final response =
-        await http.get(Uri.parse("${global.DATASOURCE}university/"));
-    final List<dynamic> data = json.decode(response.body);
-    return data;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    returnedUniversitiesFromEndPoint =
-        getUniversities().then((List<dynamic> result) {
-      setState(() {
-        uniNames = result.map((e) => e['name'].toString()).toList();
-        result.forEach((value) => uniMap[value['name']] = value['id']);
-
-        uniNames.sort((a, b) => a.toLowerCase().compareTo(b.toLowerCase()));
-      });
-      return uniNames;
-    });
-  }
-
   Widget customTextFormField(
     String headerName,
     String name,
     IconData nameIcon,
     TextEditingController? formController,
+    bool shouldBeEnabled,
     String? Function(String?)? validation,
   ) {
     return SizedBox(
         width: 300,
         child: TextFormField(
+            enabled: shouldBeEnabled,
             obscureText: headerName.contains("Password") ? true : false,
             controller: formController,
             validator: validation,
@@ -76,10 +48,16 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
         create: (context) =>
             dataCollector<User>(ID: global.localdataobj.getUserID()),
         builder: (context, child) {
-          final User1 = Provider.of<dataCollector<User>>(context);
-          emailController.text = User1.collection[0].email;
+          final userProvider = Provider.of<dataCollector<User>>(context);
+          final peopleProvider = Provider.of<dataCollector<People>>(context);
+          emailController.text = userProvider.collection[0].email;
+          firstNameController.text = peopleProvider.collection[0].first_name;
+          lastNameController.text = peopleProvider.collection[0].last_name;
+          uniController.text = peopleProvider.collection[0].university.name;
+
           return Scaffold(
             backgroundColor: const Color(0xFFffffff).withOpacity(0.3),
+            appBar: AppBar(),
             body: SafeArea(
                 child: Form(
               key: _formKey,
@@ -114,7 +92,12 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                         'Enter your first name',
                         Icons.person_rounded,
                         firstNameController,
-                        null,
+                        true,
+                        (name) => validators(
+                            name,
+                            RegExp(
+                                r'^[a-zA-Z]+(?:-[a-zA-Z]+)*(?: [a-zA-Z]+(?:-[a-zA-Z]+)*)*$'),
+                            'First name cannot have numbers'),
                       ),
                     ),
                     const SizedBox(
@@ -126,11 +109,17 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: customTextFormField(
-                          'Last Name',
-                          'Enter your last name',
-                          Icons.person_rounded,
-                          lastNameController,
-                          null),
+                        'Last Name',
+                        'Enter your last name',
+                        Icons.person_rounded,
+                        lastNameController,
+                        true,
+                        (name) => validators(
+                            name,
+                            RegExp(
+                                r'^[a-zA-Z]+(?:-[a-zA-Z]+)*(?: [a-zA-Z]+(?:-[a-zA-Z]+)*)*$'),
+                            'Last name cannot have numbers'),
+                      ),
                     ),
                     const SizedBox(
                       width: 50,
@@ -145,7 +134,8 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                           'Enter your password',
                           Icons.password,
                           passwordController,
-                          (password) => validators(
+                          true,
+                          (password) => PasswordValidator(
                               password,
                               RegExp(
                                   r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$'),
@@ -158,63 +148,12 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                 ),
                 //Israfeel, add university dropdown.
                 Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: FutureBuilder<List<dynamic>>(
-                      future: returnedUniversitiesFromEndPoint,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return SizedBox(
-                            width: ResponsiveWidget.isSmallScreen(context)
-                                ? MediaQuery.of(context).size.width * 0.85
-                                : MediaQuery.of(context).size.width * 0.60,
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButtonFormField(
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return "Select a university";
-                                    }
-                                    return null;
-                                  },
-                                  style: const TextStyle(
-                                      fontFamily: "Arvo", color: Colors.black),
-                                  decoration: customDecorationForDropDown(
-                                      "University", "Select your university"),
-                                  isExpanded: true,
-                                  hint: const Text('Select any category',
-                                      style: TextStyle(
-                                          fontSize: 15, fontFamily: "Arvo")),
-                                  items: List<DropdownMenuItem>.generate(
-                                      uniNames.length, (int index) {
-                                    return DropdownMenuItem(
-                                        value: uniNames[index],
-                                        child: Text(
-                                          uniNames[index].toString(),
-                                          style: const TextStyle(
-                                              fontFamily: 'Arvo', fontSize: 16),
-                                        ));
-                                  }).toList(),
-                                  onChanged: (val) {
-                                    setState(() {
-                                      print(val);
-                                      uniValue = val.toString();
-                                      universityId = uniMap[uniValue]!;
-                                    });
-                                  }),
-                            ),
-                          );
-                        } else if (snapshot.hasError) {
-                          //return Text('${snapshot.error}');
-                          return const AlertDialog(
-                            content: Text("Error occured"),
-                            elevation: 10,
-                          );
-                        }
-
-                        // By default, show a loading spinner.
-                        return const CircularProgressIndicator();
-                      }),
+                  padding: const EdgeInsets.all(8.0),
+                  child: customTextFormField('University', '', Icons.school,
+                      uniController, false, null),
                 ),
-                const SizedBox(height: 35),
+
+                const SizedBox(height: 17.5),
                 const Text(
                   'Personal Information',
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 28),
@@ -235,18 +174,16 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                           'Enter your email',
                           Icons.email,
                           emailController,
+                          true,
                           (email) => (validators(
                               email,
                               RegExp(
                                   "[_a-zA-Z]+[_a-zA-Z0-9]?[\._]?[_a-zA-Z0-9]*@([a-zA-Z]+\.)?([a-zA-Z]+\.)?[a-zA-Z]+\.(com|net|de|uk|ro|jp)"),
                               "Enter a valid email address (Ex: shak@gmail.com)"))),
                     ),
-
                     const SizedBox(
                       width: 50,
                     ),
-
-                    //query a database
                   ],
                 ),
                 Padding(
@@ -266,7 +203,34 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                             _formKey.currentState!.save();
 
                             try {
-                              //Here is where you will send a response to the database to update user values
+                              String fName = firstNameController.text;
+                              String lName = lastNameController.text;
+                              String email = emailController.text;
+                              String passwordInput = passwordController.text;
+
+                              User update_user = User(
+                                  id: userProvider.collection[0].id,
+                                  email: email,
+                                  userType: userProvider.collection[0].userType,
+                                  date_joined:
+                                      userProvider.collection[0].date_joined,
+                                  password: passwordInput);
+                              People update_person = People(
+                                  id: peopleProvider.collection[0].id,
+                                  user: peopleProvider.collection[0].user,
+                                  university:
+                                      peopleProvider.collection[0].university,
+                                  first_name: fName,
+                                  last_name: lName,
+                                  field_of_study: peopleProvider
+                                      .collection[0].field_of_study);
+
+                              peopleProvider.updateCollection(update_person);
+                              userProvider.updateCollection(update_user);
+
+                              // print(peopleProvider.collection[0].first_name);
+                              // print(userProvider.collection[
+                              //     0].password); //Here is where you will send a response to the database to update user values
 
                               //Upon saving you will have to check the fields which are empty.
                               //If they are all empty or nothing has changed don't update the DB at all.
@@ -281,6 +245,14 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                                   actions: <Widget>[
                                     TextButton(
                                       onPressed: () => {
+                                        emailController.text =
+                                            update_user.email,
+                                        passwordController.text =
+                                            update_user.password,
+                                        firstNameController.text =
+                                            update_person.first_name,
+                                        lastNameController.text =
+                                            update_person.last_name,
                                         Navigator.pop(context, 'OK'),
                                       },
                                       child: const Text('OK'),
@@ -289,7 +261,6 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                                 ),
                               );
                             } catch (error) {
-                              //This can be turned into a reusable widget?
                               showDialog<String>(
                                 context: context,
                                 builder: (BuildContext context) => AlertDialog(
@@ -357,6 +328,15 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
 //try catch block submit database
 
 String? validators(String? value, RegExp regex, String returnMessage) {
+  if (value == null || value.length == 0) {
+    return null;
+  } else if (!regex.hasMatch(value)) {
+    return returnMessage;
+  }
+  return null;
+}
+
+String? PasswordValidator(String? value, RegExp regex, String returnMessage) {
   if (value == null || value.length == 0) {
     return null;
   } else if (!regex.hasMatch(value)) {

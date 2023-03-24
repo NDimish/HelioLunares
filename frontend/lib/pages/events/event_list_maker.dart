@@ -28,6 +28,7 @@ class _EventDataLoaderState extends State<EventDataLoader> {
   late Society _society;
   late Event _event;
   late List<Event> _eventList;
+  late data.dataCollector<Event> allEventsDataProvider;
 
   final data.OrderType orderBy;
 
@@ -58,7 +59,8 @@ class _EventDataLoaderState extends State<EventDataLoader> {
         ],
         builder: (context, child) {
           final DataP = Provider.of<data.dataCollector<data.Event>>(context);
-          print("NO. OF EVENTS FOUND${DataP.collection.length}");
+          final eventDataProvider =
+              print("NO. OF EVENTS FOUND${DataP.collection.length}");
 
           return Container(
               height: MediaQuery.of(context).size.height * 0.95,
@@ -73,18 +75,21 @@ class _EventDataLoaderState extends State<EventDataLoader> {
                         context: context,
                         removeTop: true,
                         child: EventCard(
-                            date: DataP.collection[index].date,
+                            date: "${DataP.collection[index].date}",
+                            time: "${DataP.collection[index].time}",
                             location: DataP.collection[index].venue,
                             name: DataP.collection[index].title,
-                            price: DataP.collection[index].price.toString(),
+                            price: DataP.collection[index].price,
                             onTap: () {
                               //PASS THE SELECTED EVENT
                               _event = DataP.collection[index];
                               //PASS THE LIST OF EVENTS
-                              _eventList = DataP.collection;
+                              //_eventList = DataP.collection;
                               //PUT THE EVENT AND LIS
                               Get.put(_event);
-                              Get.put(_eventList);
+                              // Get.put(_eventList);
+                              //CALL THE DATA PROVIDER
+
                               //NAVIGATE TO THE EVENT DETAILS POPUP
                               navigationController.navigateToPopupPage(
                                   eventDetailsPageDisplayName);

@@ -78,6 +78,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   Column smallTitle(BuildContext context) {
     return Column(
+      key: const Key("HomepageCol"),
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Text("Society Event Finder",
@@ -101,6 +102,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   Card cardTitle(BuildContext context) {
     return Card(
+        key: const Key("HomepageCard"),
         color: Colors.white.withOpacity(0.4),
         elevation: 0,
         shape: const RoundedRectangleBorder(
