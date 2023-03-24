@@ -19,8 +19,6 @@ class AddEventPopupCard extends StatelessWidget {
   AddEventPopupCard({Key? key}) : super(key: key);
 
   String formatTime(String time) {
-    print(time);
-    print("thats the time");
     DateTime dateTime = DateTime.parse("2022-03-23T$time");
     String formattedTime =
         '${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}';

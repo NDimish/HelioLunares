@@ -138,8 +138,6 @@ class Event extends dataSets {
 
   @override
   createJson() {
-    print(date);
-    print(time);
     return {
       "society_id": society.id,
       "duration": duration,

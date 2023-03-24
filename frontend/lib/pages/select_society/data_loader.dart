@@ -55,7 +55,10 @@ class DataLoader extends StatelessWidget {
           final roleData =
               Provider.of<data.dataCollector<data.SocietyRole>>(context);
 
-          if (societyData.collection.isEmpty || DataP.collection.isEmpty) {
+          while ((societyData.collection.isEmpty &&
+                  globals.localdataobj.getUserLevel() == 3) ||
+              roleData.collection.isEmpty ||
+              DataP.collection.isEmpty) {
             return Center(
               child: CircularProgressIndicator(),
             );
@@ -64,47 +67,95 @@ class DataLoader extends StatelessWidget {
           return Container(
               height: MediaQuery.of(context).size.height * 0.95,
               child: Scaffold(
-                backgroundColor: Colors.transparent,
-                body: (globals.localdataobj.getUserLevel() == 3 ||
-                        globals.localdataobj.getUserLevel() == 2)
-                    ? ListView.separated(
-                        primary: false,
-                        shrinkWrap: true,
-                        itemCount: societyData.collection.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return MediaQuery.removePadding(
-                              context: context,
-                              removeTop: true,
-                              child: SocietyCard(
-                                  societyName:
-                                      societyData.collection[index].name,
-                                  categoryName: DataP.collection[index]
-                                      .societyCategory.categoryName,
-                                  onTap: () {
-                                    final Society society =
-                                        Get.put(societyData.collection[index]);
+                  backgroundColor: Colors.transparent,
+                  body: (globals.localdataobj.getUserLevel() == 3)
+                      ? ListView.separated(
+                          primary: false,
+                          shrinkWrap: true,
+                          itemCount: societyData.collection.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return MediaQuery.removePadding(
+                                context: context,
+                                removeTop: true,
+                                child: SocietyCard(
+                                    societyName:
+                                        societyData.collection[index].name,
+                                    categoryName: DataP.collection[index]
+                                        .societyCategory.categoryName,
+                                    onTap: () {
+                                      final Society society = Get.put(
+                                          societyData.collection[index]);
 
-                                    print(
-                                        "ID is ${societyData.collection[index].id}");
+                                      print(
+                                          "ID is ${societyData.collection[index].id}");
 
-                                    sideMenuController.setVisible();
-                                    menuController.activeItem.value =
-                                        societyHubPageDisplayName;
-                                    sideMenuController.setVisible();
-                                    navigationController.navigateToWArgs(
-                                        societyHubPageDisplayName,
-                                        societyData.collection[index]);
-                                    sideMenuController.setVisible();
-                                  }));
-                        },
-                        separatorBuilder: (BuildContext context, int index) {
-                          return const SizedBox(
-                            height: 8,
-                          );
-                        },
-                      )
-                    : Container(),
-              ));
+                                      if (globals.localdataobj.getUserLevel() ==
+                                          3) {
+                                        sideMenuController
+                                            .setLevelThreeMenuItemsVisible();
+                                      }
+                                      sideMenuController
+                                          .setLevelTwoMenuItemsVisible();
+                                      sideMenuController
+                                          .setSelectSocietyInvisible();
+
+                                      menuController.activeItem.value =
+                                          societyHubPageDisplayName;
+
+                                      navigationController.navigateToWArgs(
+                                          societyHubPageDisplayName,
+                                          societyData.collection[index]);
+                                    }));
+                          },
+                          separatorBuilder: (BuildContext context, int index) {
+                            return const SizedBox(
+                              height: 8,
+                            );
+                          },
+                        )
+                      :
+
+                      /**
+                     * FOR ROLE LEVEL 2
+                     */
+
+                      ListView.separated(
+                          primary: false,
+                          shrinkWrap: true,
+                          itemCount: roleData.collection.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return MediaQuery.removePadding(
+                                context: context,
+                                removeTop: true,
+                                child: SocietyCard(
+                                    societyName:
+                                        roleData.collection[index].society.name,
+                                    categoryName: DataP.collection[index]
+                                        .societyCategory.categoryName,
+                                    onTap: () {
+                                      final Society society = Get.put(
+                                          roleData.collection[index].society);
+
+                                      print(
+                                          "ID is ${roleData.collection[index].society.id}");
+
+                                      sideMenuController
+                                          .setLevelTwoMenuItemsVisible();
+                                      sideMenuController
+                                          .setSelectSocietyInvisible();
+                                      menuController.activeItem.value =
+                                          societyHubPageDisplayName;
+
+                                      navigationController.navigateTo(
+                                          societyHubPageDisplayName);
+                                    }));
+                          },
+                          separatorBuilder: (BuildContext context, int index) {
+                            return const SizedBox(
+                              height: 8,
+                            );
+                          },
+                        )));
         });
   }
 }
