@@ -28,6 +28,7 @@ enum PostType { READ, ADD, DELETE, UPDATE }
 
 //abstract to use in places
 
+
 class dataCollector<T extends dataSets> with ChangeNotifier {
   List<T> output = [];
 
@@ -198,5 +199,13 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
 
       default:
     }
+  }
+
+  Future<void> refresh() async {
+    bool singlerecord = true;
+    fetchData(
+        createUrl(sets[T]!, filter: {}, order: OrderType.CHRONOLOGICAL, ID: -1),
+        singlerecord,
+        sets[T]!);
   }
 }
