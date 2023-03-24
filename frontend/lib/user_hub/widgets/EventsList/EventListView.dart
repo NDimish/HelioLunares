@@ -35,21 +35,23 @@ class EventListView extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           itemCount: size,
           itemBuilder: (context, index){
-            
-            var name = eventData.collection[index].title;
-            var price = eventData.collection[index].price;
-            var date = eventData.collection[index].date;
-            var loc = eventData.collection[index].venue;
-            var org = eventData.collection[index].society.name;
+          
+          var name = eventData.collection[index].title;
+          var price = eventData.collection[index].price;
+          var date = eventData.collection[index].date;
+          var loc = eventData.collection[index].venue;
+          var org = eventData.collection[index].society.name;
+          var eID = eventData.collection[index].id;
 
-            return EventListTile(
-              eventName: name,
-              price: price,
-              dateTime: date,
-              location: loc, 
-              org: org);
-        },
-      ); 
+          return EventListTile(
+            eventName: name,
+            price: price,
+            dateTime: date,
+            location: loc, 
+            org: org,
+            eventID: eID,);
+          },
+        ); 
       },
     );
 

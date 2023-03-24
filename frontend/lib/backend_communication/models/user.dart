@@ -4,7 +4,7 @@ enum UserType { Blank, NONESTUDENT, STUDENT, SOCIETY, ADMIN }
 
 class User extends dataSets {
   final String email;
-  late final String password;
+  String password = "";
   final String date_joined;
   final int userType;
   // final String password;
@@ -13,7 +13,8 @@ class User extends dataSets {
       {int id = 0,
       required this.email,
       required this.userType,
-      required this.date_joined})
+      required this.date_joined,
+      required this.password})
       : super(id: id);
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -21,14 +22,16 @@ class User extends dataSets {
         id: json['id'],
         email: json['email'],
         userType: json['user_level'],
-        date_joined: json['date_joined']);
+        date_joined: json['date_joined'],
+        password: '');
   }
 
   factory User.fromJsonNOID(Map<String, dynamic> json) {
     return User(
         email: json['email'],
         userType: json['user_level'],
-        date_joined: json['date_joined']);
+        date_joined: json['date_joined'],
+        password: '');
   }
 
   @override
@@ -42,4 +45,17 @@ class User extends dataSets {
         'date_joined': date_joined,
         'password': password
       };
+
+  @override
+  updateToJson() {
+    print({
+      'email': email,
+      'password': password
+    });
+    return {
+      'email': email,
+      'password': password
+    };
+  }
+ 
 }

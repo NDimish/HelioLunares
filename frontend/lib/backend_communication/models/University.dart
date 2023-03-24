@@ -19,7 +19,7 @@ class University extends dataSets {
 
   factory University.fromJson(Map<String, dynamic> json) {
     return University(
-      id: json['id'],
+      //id: json['id'],
       name: json['name'],
       latitude: json['latitude'],
       longitude: json['longitude'],
@@ -51,4 +51,17 @@ class University extends dataSets {
         'street_name': street_name,
         'postcode': postcode,
       };
+
+  @override
+
+  updateToJson() {
+    return {
+      'name': name,
+      // 'duration': duration,
+      ' latitude': latitude,
+      'longitude': longitude,
+      'street_name': street_name,
+      'postcode': postcode,
+    };
+  }
 }

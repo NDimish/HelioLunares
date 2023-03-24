@@ -33,7 +33,10 @@ def homePage(request):
 
 @api_view(['GET'])
 def log_out(request):
-    logout(request)
+    try:
+        request.user.auth_token.delete()
+    except:
+        pass
     return Response(data={'user_logged_out': True}, status=status.HTTP_200_OK)
 
 class LogInView(APIView):
@@ -180,8 +183,12 @@ class UserView(APIView):
             return Response({'error':'User not found.'},status=status.HTTP_404_NOT_FOUND)
 
     def put(self, request, pk):
+        print(request.data)
+        print(pk)
+        print(request.user.id)
         if(pk != request.user.id):
             return Response({'error':'Can only change our own user data.'},status=status.HTTP_400_BAD_REQUEST)
+
         
         user = User.objects.get(id=pk)
         serializer = UserSerializer(instance=user, data=request.data,partial=True)
@@ -194,6 +201,7 @@ class UserView(APIView):
             new_pass = False
         
         if new_pass == False:
+            print(serializer.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             try:
@@ -530,7 +538,7 @@ class EventApiView(generics.ListAPIView):
     ordering_fields = '__all__'
     
     def post(self, request):
-        serializer = EventModelSerializer(data=request.data)
+        serializer = CreateEventSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -538,7 +546,7 @@ class EventApiView(generics.ListAPIView):
 #Event with id
 class EventApiInfoView(APIView):
     def get(self, request, pk):
-        event = Event.objects.filter(id=pk)
+        event = Event.objects.get(id=pk)
         serializer = EventModelSerializer(instance=event)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -578,7 +586,7 @@ class UniversityApiView(generics.ListAPIView):
 #Get university with id
 class UniversityInfoApiView(APIView):
     def get(self, request, pk):
-        university = University.objects.filter(id=pk)
+        university = University.objects.get(id=pk)
         serializer = UniversitySerializer(instance=university)
         return Response(serializer.data)
 
@@ -623,7 +631,7 @@ class TicketInfoApiView(APIView):
         return Response(data=serializer.data, status=status.HTTP_204_NO_CONTENT)
 
     def delete(self, request, pk):
-        Ticket.objects.filter(id=pk).delete()
+        Ticket.objects.get(id=pk).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 #get list of all event category types

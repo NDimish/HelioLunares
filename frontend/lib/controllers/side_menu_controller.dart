@@ -5,13 +5,31 @@ import '../widgets/side_menu_item.dart';
 
 class SideMenuController extends GetxController {
   static SideMenuController instance = Get.find<SideMenuController>();
-  var menuItemsAreVisible = false.obs;
+  var levelTwoMenuItemsAreVisible = false.obs;
+  var levelThreeMenuItemsAreVisible = false.obs;
+  var selectSocietyMenuItemIsVisible = true.obs;
 
-  void setVisible() {
-    menuItemsAreVisible.value = true;
+  void setSelectSocietyVisible() {
+    selectSocietyMenuItemIsVisible.value = true;
   }
 
-  void setInvisible() {
-    menuItemsAreVisible.value = false;
+  void setSelectSocietyInvisible() {
+    selectSocietyMenuItemIsVisible.value = false;
+  }
+
+  void setLevelTwoMenuItemsVisible() {
+    levelTwoMenuItemsAreVisible.value = true;
+  }
+
+  void setLevelTwoMenuItemsInvisible() {
+    levelTwoMenuItemsAreVisible.value = false;
+  }
+
+  void setLevelThreeMenuItemsVisible() {
+    levelThreeMenuItemsAreVisible.value = true;
+  }
+
+  void setLevelThreeMenuItemsInvisible() {
+    levelThreeMenuItemsAreVisible.value = false;
   }
 }

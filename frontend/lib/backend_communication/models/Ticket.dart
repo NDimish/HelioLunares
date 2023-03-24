@@ -48,4 +48,14 @@ class Tickets extends dataSets {
         'date': date,
         'price': price,
       };
+
+@override
+  updateToJson() {
+    return {
+      'user': user.toJson(),
+      'event': event.toJson(),
+      'date': date,
+      'price': price,
+    };
+  }
 }

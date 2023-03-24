@@ -4,8 +4,9 @@ import '../../../constants/style.dart';
 
 class EventCard extends StatelessWidget {
   final String name;
-  final String price;
+  final double price;
   final String date;
+  final String time;
   final String location;
   final bool isActive;
   final VoidCallback onTap;
@@ -16,9 +17,17 @@ class EventCard extends StatelessWidget {
       required this.name,
       required this.price,
       required this.date,
+      required this.time,
       required this.location,
       this.isActive = false})
       : super(key: key);
+
+  String formatTime(String time) {
+    DateTime dateTime = DateTime.parse("2022-03-23T$time");
+    String formattedTime =
+        '${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}';
+    return formattedTime;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +69,7 @@ class EventCard extends StatelessWidget {
                           ),
                           Expanded(
                               child: CustomText(
-                            text: date,
+                            text: "$date ${formatTime(time)}",
                             size: 14,
                             weight: FontWeight.w300,
                             colour: MyColours.textColourDark,
@@ -77,7 +86,7 @@ class EventCard extends StatelessWidget {
                     ),
                     Flexible(
                         child: CustomText(
-                      text: "£$price",
+                      text: "£${price.toStringAsFixed(2)}",
                       size: 24,
                       weight: FontWeight.bold,
                       colour: MyColours.textColourDark,

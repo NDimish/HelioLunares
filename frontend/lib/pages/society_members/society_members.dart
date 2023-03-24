@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'package:university_ticketing_system/constants/controllers.dart';
 import 'package:university_ticketing_system/pages/society_members/manage_members.dart';
 import 'package:university_ticketing_system/widgets/custom_text.dart';
-
+import 'package:university_ticketing_system/globals.dart' as globals;
 import '../../helpers/responsiveness.dart';
+import 'package:university_ticketing_system/backend_communication/dataCollector.dart'
+    as data;
 
 class SocietyMembersPage extends StatelessWidget {
   const SocietyMembersPage({super.key});
@@ -27,8 +30,34 @@ class SocietyMembersPage extends StatelessWidget {
                 )
               ],
             )),
-        const Expanded(child: ManageMembers())
+        Expanded(
+            child: (globals.localdataobj.getToken() != "")
+                ? ((globals.localdataobj.getUserLevel() == 3)
+                    ? const ManageMembersWrapper()
+                    : //Put society id here from when the user selects it
+                    ManageMembers(societyId: Get.find<data.Society>().id))
+                : const Text("Not Authenticated"))
       ],
     );
+  }
+}
+
+class ManageMembersWrapper extends StatelessWidget {
+  const ManageMembersWrapper({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+              create: (context) => data.dataCollector<data.Society>(filter: {
+                    'user': globals.localdataobj.getUserID().toString(),
+                  }, order: data.OrderType.CHRONOLOGICAL))
+        ],
+        builder: (context, child) {
+          final societyData =
+              Provider.of<data.dataCollector<data.Society>>(context);
+          return ManageMembers(societyId: societyData.collection[0].id);
+        });
   }
 }

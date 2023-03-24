@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 // var search_controller = TextEditingController();
 
 class CustomSearchBar extends Container{
-  CustomSearchBar(Function(String)? searchfunc, Function()? clearfunc, TextEditingController? search_controller):super(
+  CustomSearchBar(Function(String)? searchfunc, 
+  Function()? clearfunc, 
+  TextEditingController? search_controller,
+  String hinttext):super(
     decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
         child: SizedBox(
           child: TextField(
@@ -22,11 +25,12 @@ class CustomSearchBar extends Container{
             decoration: InputDecoration(
               contentPadding: EdgeInsets.all(15),
               border: InputBorder.none,
-              hintText:"Search by name or tags...",
+              hintText:"Search $hinttext by name or tags...",
 
 
               // Clears search bar
               suffixIcon: IconButton(
+                key:Key("ClearSearchbarButton"),
                 tooltip: "Clear search",
                 icon: Icon(Icons.close, color: Color(0xff70587C),),
                 onPressed: clearfunc,

@@ -29,6 +29,7 @@ class _testscreen extends State<testscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
         appBar: AppBar(
           title: Text('Todo App'),
         ),
@@ -64,7 +65,7 @@ class _testscreen extends State<testscreen> {
                 //     "Water",
                 //     "Rock",
                 //     "Tester");
-                // print(response.statusCode);
+                // print(response_two.statusCode);
 
                 //THIS IS CODE TO AUTHENTICATE
                 //LOgs in as society account
@@ -91,6 +92,7 @@ class _testscreen extends State<testscreen> {
                 Navigator.pushNamed(context, '/societyhub');
               }),
         ]));
+
   }
 }
 

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'models/all.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -81,5 +83,26 @@ Future<http.Response> createPerson(String email, String password, int uniId,
     print("Person failed to be created.");
   }
   print("ending create person");
+  return response;
+}
+
+Future<http.Response> logout() async {
+  print("beginning logout");
+  final response = await http.get(
+    Uri.parse('${DATASOURCE}log_out/'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      HttpHeaders.authorizationHeader:
+          "token ${globals.localdataobj.getToken()}"
+    },
+  );
+
+  if (response.statusCode == 200) {
+    print("Logged out.");
+    globals.localdataobj.setData("", "", 0, -1);
+  } else {
+    print("Not logged out.");
+  }
+  print("ending log out");
   return response;
 }

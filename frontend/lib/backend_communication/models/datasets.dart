@@ -36,4 +36,7 @@ abstract class dataSets {
   Databases getDatabase() {
     return Databases.users;
   }
+
+  updateToJson() {}
+  createJson() {}
 }

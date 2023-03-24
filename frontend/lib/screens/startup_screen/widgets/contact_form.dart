@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:university_ticketing_system/log_in/widgets/submit_button.dart';
+import 'package:university_ticketing_system/submit_button.dart';
 import 'package:university_ticketing_system/screens/startup_screen/widgets/contact_submit.dart';
 
 const List<String> dropdownChoices = [
