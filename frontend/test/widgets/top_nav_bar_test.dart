@@ -14,8 +14,12 @@ class MockBuildContext extends Mock implements BuildContext {}
 void main() {
   final TestWidgetsFlutterBinding binding =
       TestWidgetsFlutterBinding.ensureInitialized();
-  User user =
-      User(email: "test@gmail.com", userType: 2, date_joined: "12/02/20");
+  User user = User(
+      email: "test@gmail.com",
+      userType: 2,
+      date_joined: "12/02/20",
+      password: "p",
+      id: 0);
 
   University university = University(
       name: "KCL",
