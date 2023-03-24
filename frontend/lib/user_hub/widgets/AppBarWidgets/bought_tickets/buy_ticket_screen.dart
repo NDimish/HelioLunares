@@ -31,6 +31,7 @@ class BuyTicketScreen extends StatelessWidget {
       builder: (context, child) {
         
         final DataP = Provider.of<data.dataCollector<tic.Tickets>>(context);
+        
         return Scaffold(
           backgroundColor: const Color(0xFFE0BBE4),
           body: Column(
@@ -89,11 +90,30 @@ class BuyTicketScreen extends StatelessWidget {
                                       children:  [
                                         Expanded(
                                           child:
-                                              Text('Date: ' + "${DataP.collection[index].date}", 
+                                              Text('Date: ' + "${DataP.collection[index].event.date}", 
+                                              textAlign: TextAlign.left),
+                                        ),
+    
+                                      ],
+                                    )),
+
+                                Container(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        width: 10,
+                                        color: const Color(0xFFFEC8D8),
+                                      ),
+                                    ),
+                                    child: Row(
+                                      children:  [
+                                        Expanded(
+                                          child:
+                                              Text('Time: ' + "${DataP.collection[index].event.time}", 
                                               textAlign: TextAlign.left),
                                         ),
                                       ],
                                     )),
+
                                 Container(
                                     decoration: BoxDecoration(
                                       border: Border.all(

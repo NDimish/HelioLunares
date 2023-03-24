@@ -5,6 +5,17 @@ import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/bough
 import '../lib/user_hub/widgets/AppBarWidgets/bought_tickets/user_bought_ticket_screen.dart';
 
 
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/bought_tickets/user_bought_ticket_screen.dart';
+import '../../../../backend_communication/authenticate.dart';
+import '../../../../backend_communication/dataCollector.dart' as data;
+import 'package:university_ticketing_system/backend_communication/models/Ticket.dart' as tic;
+import 'package:university_ticketing_system/backend_communication/models/all.dart';
+
+
+
+
 void main() {
   
   final TestWidgetsFlutterBinding binding =
@@ -36,7 +47,7 @@ void main() {
   testWidgets('Back button brings you to user buy ticket screen', (tester) async{
     await tester.pumpWidget(const MaterialApp(
       home: Scaffold(
-        body: BuyTicketScreen()
+        body: BuyTicketScreen(id: 0,)
       )
     ));
 

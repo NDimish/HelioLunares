@@ -13,7 +13,7 @@ void main() {
     
     await tester.pumpWidget(const MaterialApp(
       home: Scaffold(
-        body: BuyTicketScreen()
+        body: BuyTicketScreen(id: 0,)
       )
     ));
 
@@ -62,10 +62,10 @@ void main() {
 
     expect(lookfor, findsOneWidget);
 
-
-
-
   });
+
+
+  
 
   
   
