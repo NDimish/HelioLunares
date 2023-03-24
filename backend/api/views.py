@@ -183,8 +183,12 @@ class UserView(APIView):
             return Response({'error':'User not found.'},status=status.HTTP_404_NOT_FOUND)
 
     def put(self, request, pk):
+        print(request.data)
+        print(pk)
+        print(request.user.id)
         if(pk != request.user.id):
             return Response({'error':'Can only change our own user data.'},status=status.HTTP_400_BAD_REQUEST)
+
         
         user = User.objects.get(id=pk)
         serializer = UserSerializer(instance=user, data=request.data,partial=True)
@@ -197,6 +201,7 @@ class UserView(APIView):
             new_pass = False
         
         if new_pass == False:
+            print(serializer.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             try:
