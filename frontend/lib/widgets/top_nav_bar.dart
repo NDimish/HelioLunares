@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart';
 import 'package:university_ticketing_system/constants/controllers.dart';
 import 'package:university_ticketing_system/constants/style.dart';
+import 'package:university_ticketing_system/helpers/local_navigator.dart';
 import 'package:university_ticketing_system/helpers/responsiveness.dart';
 import 'package:university_ticketing_system/routing/routes.dart';
 import 'package:university_ticketing_system/widgets/custom_text.dart';
 import 'package:university_ticketing_system/globals.dart' as globals;
 
 import '../backend_communication/authenticate.dart';
+import '../helpers/deleteAllObjects.dart';
 import '../home/homepage.dart';
 
 AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key,
@@ -48,11 +52,12 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key,
                     backgroundColor:
                         const MaterialStatePropertyAll(Colors.transparent)),
                 onPressed: () {
+                  Navigator.popAndPushNamed(context, "/");
+
                   logout();
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const HomePage()));
+                  // Get.offAndToNamed('/');
+                  DeleteAllObjects d = DeleteAllObjects();
+                  d.delete();
                 },
                 child: const CustomText(
                   text: "Log Out",
@@ -84,7 +89,7 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key,
                             const MaterialStatePropertyAll(Colors.transparent)),
                     onPressed: () {
                       //Go to user hub
-                      Navigator.pushNamed(context, '/userhub');
+                      Navigator.popAndPushNamed(context, '/userhub');
                     },
                     child: const CustomText(
                       text: "Back to User Hub",

@@ -182,8 +182,9 @@ class AddEventPopupCard extends StatelessWidget {
                             ),
                             onPressed: () {
                               Get.put(event);
-                              navigationController
-                                  .navigateTo(editEventDetailsPageDisplayName);
+                              navigationController.navigateToEvent(
+                                  editEventDetailsPageDisplayName);
+                              Get.put(event);
                             },
                             child: const CustomText(
                               colour: MyColours.active,

@@ -5,6 +5,6 @@ import 'package:university_ticketing_system/routing/routes.dart';
 
 Navigator localNavigator() => Navigator(
       key: navigationController.navigationKey,
-      initialRoute: selectSocietyPageRoute,
+      initialRoute: "",
       onGenerateRoute: generateRoute,
     );

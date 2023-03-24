@@ -10,9 +10,10 @@ import 'package:university_ticketing_system/widgets/layout.dart';
 
 void main() {
   //Register the menu controller
-  Get.put(menu.MenuController());
+
   //Register the navigation controller
   Get.put(NavigationController());
+  Get.put(menu.MenuController());
   Get.put(SideMenuController());
 
   runApp(const UniversityTicketingApp());
@@ -43,9 +44,8 @@ class UniversityTicketingApp extends StatelessWidget {
       home: const HomePage(),
       //initialRoute: '/',
       routes: {
-
         //   '/': (context) => const StartupScreen(),
-        //   '/auth': (context) => const LandingScreen(),
+        // '/auth': (context) => const LandingScreen(),
         '/userhub': (context) => UserHubPage_events(),
         '/societyhub': (context) => SiteLayout(),
       },
