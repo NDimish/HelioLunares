@@ -63,9 +63,30 @@ void main() {
     expect(lookfor, findsOneWidget);
 
 
+  });
 
+  testWidgets('Displays message when there is no upcoming tickets', (tester) async{
+    await tester.pumpWidget(const MaterialApp(
+      home: Scaffold(
+        body: BuyTicketScreen(id: 0,)
+      )
+    ));
+    
+
+    
 
   });
+
+  testWidgets('Displays message when there is no upcoming tickets', (tester) async{
+    await tester.pumpWidget(const MaterialApp(
+      home: Scaffold(
+        body: BuyTicketScreen(id: 0,)
+      )
+    ));
+    
+    
+  });
+
 
   
   
