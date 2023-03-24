@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:university_ticketing_system/constants/controllers.dart';
+import 'package:university_ticketing_system/routing/routes.dart';
 import 'package:university_ticketing_system/widgets/custom_text.dart';
 import '../../../backend_communication/models/Event.dart';
 import '../../../constants/style.dart';
@@ -66,14 +67,6 @@ class _EventFormState extends State<EventForm> {
     return false;
   }
 
-  Future<void> _submitForm(
-      dataCollector<Event> provider, Event eventToUpdate) async {
-    bool result = await saveData(provider, eventToUpdate);
-    setState(() {
-      _isSaved = result;
-    });
-  }
-
   bool checkAllValidators() {
     //final FormState form = _formKey.currentState;
     return (!_validateName &&
@@ -93,8 +86,8 @@ class _EventFormState extends State<EventForm> {
     nameController.text = event.title;
     //.format function requires int not string
     priceController.text = _formatCurrencyInput.format(event.price);
-    dateController.text =
-        DateFormat('yyyy-MM-dd HH:mm').format(DateTime.parse(event.date));
+    dateController.text = DateFormat('yyyy-MM-dd HH:mm')
+        .format(DateTime.parse("${event.date} ${event.time}"));
     locationController.text = event.venue;
     durationController.text = event.duration.toString();
     descriptionController.text = event.description;
@@ -249,29 +242,26 @@ class _EventFormState extends State<EventForm> {
                           );
                           if (pickedDate != null && pickedTime != null) {
                             print(
-                                '$pickedDate,$pickedTime'); //pickedDate output format => 2021-03-10 00:00:00.000
+                                '$pickedDate $pickedTime'); //pickedDate output format => 2021-03-10 00:00:00.000
 
                             //Create DateTime
                             DateTime pickedDateTime = DateTime(
-                              pickedDate.year,
-                              pickedDate.month,
-                              pickedDate.day,
-                            );
-
-                            String formatttedTime = DateFormat("HH:mm").format(
-                                DateTime(pickedTime.hour, pickedTime.minute));
+                                pickedDate.year,
+                                pickedDate.month,
+                                pickedDate.day,
+                                pickedTime.hour,
+                                pickedTime.minute);
 
                             String formattedDate =
-                                DateFormat('yyyy-MM-dd').format(pickedDateTime);
-                            print(
-                                "$formattedDate and $formatttedTime"); //formatted date output using intl package =>  2021-03-16
+                                DateFormat('yyyy-MM-dd HH:mm')
+                                    .format(pickedDateTime);
                             setState(() {
                               dateController.text =
-                                  ("$formattedDate $formatttedTime"); //set output date to TextFormField value.
+                                  (formattedDate); //set output date to TextFormField value.
                             });
                           } else {}
                         },
-                      ))
+                      )),
                     ]),
                     const SizedBox(
                       height: 20,
@@ -409,6 +399,7 @@ class _EventFormState extends State<EventForm> {
                                 MyColours.navButtonColour.withOpacity(0.5))),
                         onPressed: () {
                           _formKey.currentState!.validate();
+                          _formKey.currentState!.save();
                           setState(
                             () {
                               nameController.text.isEmpty
@@ -441,19 +432,10 @@ class _EventFormState extends State<EventForm> {
                                 "EVENT ID IS ${event.id} UPDATED EVENT ${event.title} AND COSTS ${event.price} "
                                 "AND IS AT ${event.date} AT ${event.time} AT ${event.venue} AND LASTS  ${event.duration} MINS "
                                 " AND DESCRIPTION IS ${event.description}");
-                            _submitForm(eventDataProvider, event);
 
-                            // Get.put(event);
-
-                            // navigationController.goBack();
-
-                            // navigationController.refresh();
-                            // navigationController.goBack();
-                            // navigationController.refresh();
-
-                            /**
-                   * UPDATE THE EVENT event 
-                   */
+                            eventDataProvider.updateCollection(event);
+                            navigationController
+                                .navigateTo(societyEventsPageDisplayName);
                           } else {
                             print("input error");
                           }

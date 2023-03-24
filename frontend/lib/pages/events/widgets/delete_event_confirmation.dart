@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'package:university_ticketing_system/constants/controllers.dart';
+import 'package:university_ticketing_system/helpers/local_navigator.dart';
 import 'package:university_ticketing_system/pages/events/events.dart';
+import 'package:university_ticketing_system/routing/routes.dart';
 import 'package:university_ticketing_system/widgets/layout.dart';
 
+import '../../../backend_communication/dataCollector.dart';
 import '../../../backend_communication/models/Event.dart';
 import '../../../widgets/custom_text.dart';
 
@@ -12,30 +17,40 @@ class DeleteEventConfirmation extends StatelessWidget {
   const DeleteEventConfirmation({super.key, required this.event});
 
   showAlertDialog(BuildContext context) {
-    Widget okButton = ElevatedButton(
-      key: const Key("OKButton"),
-      child: CustomText(
-        text: "OK",
-        colour: Colors.white,
-      ),
-      onPressed: () {
-        //Delete the event
-        //UNCOMMENT ONCE IMPLEMENTED :
-        // data.dataCollector<SocietyEvent> collector =
-        //     data.dataCollector<SocietyEvent>();
-        // collector.deleteFromCollection(event);
-        print(event.title);
-        print("Event deleted");
-        Navigator.of(context, rootNavigator: true).pop();
+    Widget okButton = MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+              create: (context) => dataCollector<Event>(filter: {})),
+        ],
+        builder: (context, child) {
+          dataCollector<Event> eventDataProvider =
+              Provider.of<dataCollector<Event>>(context);
+          return ElevatedButton(
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                    Colors.black.withOpacity(0.7))),
+            key: const Key("OKButton"),
+            child: CustomText(
+              text: "OK",
+              colour: Colors.white,
+            ),
+            onPressed: () {
+              //DELETE SELECTED EVENT
+              Event event = Get.find<Event>();
+              eventDataProvider.deleteFromCollection(event);
 
-        navigationController.goBack();
-        navigationController.goBack();
-        // Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(
-        //     builder: (context) =>
-        //         SiteLayout(childWidget: const SocietyEventsPage())));
-      },
-    );
+              print(event.title);
+              print("Event deleted");
+              Navigator.of(context, rootNavigator: true).pop();
+
+              navigationController.navigateTo(societyEventsPageDisplayName);
+            },
+          );
+        });
     Widget cancelButton = ElevatedButton(
+      style: ButtonStyle(
+          backgroundColor:
+              MaterialStateProperty.all<Color>(Colors.black.withOpacity(0.7))),
       key: const Key("CancelButton"),
       child: const CustomText(
         text: "Cancel",

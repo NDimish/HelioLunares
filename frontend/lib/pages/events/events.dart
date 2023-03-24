@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:university_ticketing_system/constants/controllers.dart';
 import 'package:university_ticketing_system/helpers/responsiveness.dart';
 import 'package:university_ticketing_system/pages/events/event_list_maker.dart';
-import 'package:university_ticketing_system/pages/events/widgets/society_events.dart';
 import 'package:university_ticketing_system/routing/routes.dart';
 import 'package:university_ticketing_system/theme.dart';
 import 'package:university_ticketing_system/widgets/custom_text.dart';
@@ -43,24 +42,33 @@ class SocietyEventsPage extends StatelessWidget {
               height: ResponsiveWidget.isSmallScreen(context) ? 5 : 30,
             ),
             Card(
-                child: (Padding(
-                    padding: EdgeInsets.all(20),
-                    child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          ElevatedButton(
-                              child: CustomText(
-                                text: "Add Event",
-                                size: 20,
-                                colour: Colors.white,
-                                weight: FontWeight.bold,
-                              ),
-                              onPressed: () {
-                                navigationController
-                                    .navigateTo(addEventPageDisplayName);
-                              }),
-                        ])))),
+                color: Colors.transparent.withOpacity(0),
+                child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      ElevatedButton(
+                          style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                              )),
+                              padding: const MaterialStatePropertyAll(
+                                  EdgeInsets.all(20)),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.black.withOpacity(0.7))),
+                          child: CustomText(
+                            text: "Add Event",
+                            size: 20,
+                            colour: Colors.white,
+                            weight: FontWeight.bold,
+                          ),
+                          onPressed: () {
+                            navigationController
+                                .navigateTo(addEventPageDisplayName);
+                          }),
+                    ])),
             SizedBox(
               height: ResponsiveWidget.isSmallScreen(context) ? 5 : 10,
             ),

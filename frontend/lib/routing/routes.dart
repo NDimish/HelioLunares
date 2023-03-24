@@ -87,10 +87,13 @@ class MenuItem {
   MenuItem(this.name, this.route);
 }
 
-List<MenuItem> sideMenuItemRoutes = [
+List<MenuItem> sideMenuItemRoutesLevelTwo = [
   MenuItem(societyHubPageDisplayName, societyHubPageRoute),
   MenuItem(societyEventsPageDisplayName, societyEventsPageRoute),
+  MenuItem(editSocietyMembersPageDisplayName, editSocietyMembersPageRoute)
+];
+
+List<MenuItem> sideMenuItemRoutesLevelThree = [
   MenuItem(statisticsPageDisplayName, statisticsPageRoute),
   MenuItem(editModePageDisplayName, editModePageRoute),
-  MenuItem(editSocietyMembersPageDisplayName, editSocietyMembersPageRoute)
 ];

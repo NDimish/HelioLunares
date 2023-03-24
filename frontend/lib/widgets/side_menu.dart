@@ -69,7 +69,8 @@ class _SideMenuState extends State<SideMenu> {
                 //HIDE OTHER SUBPAGES WHEN A SOCIETY IS NOT SELECTED
                 if ("/societyhub/SelectSociety" !=
                     ModalRoute.of(context)!.settings.name) {
-                  sideMenuController.setInvisible();
+                  sideMenuController.setLevelTwoMenuItemsInvisible();
+                  sideMenuController.setLevelThreeMenuItemsInvisible();
                 }
 //UPDATE THE MENU CONTROLLER
                 if (!menuController.isActive(selectSocietyPageDisplayName)) {
@@ -82,11 +83,33 @@ class _SideMenuState extends State<SideMenu> {
             ),
             Obx(() => Visibility(
                 //ONCE A SOCIETY IS SELECTED, SHOW ALL OTHER SUBPAGES
-                //TODO - SHOW RELEVANT PAGES BASED ON MEMBER LEVEL
-                visible: sideMenuController.menuItemsAreVisible.value,
+                visible: sideMenuController.levelTwoMenuItemsAreVisible.value,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
-                  children: sideMenuItemRoutes
+                  children: sideMenuItemRoutesLevelTwo
+                      .map((item) => SideMenuItem(
+                            onTap: () {
+                              if (!menuController.isActive(item.name)) {
+                                menuController.changeActiveItemTo(item.name);
+                                if (ResponsiveWidget.isSmallScreen(context)) {
+                                  //CLOSE OPEN SIDE DRAWER AUTOMATICALLY AFTER SELECTING PAGE
+                                  Get.back();
+                                }
+
+                                navigationController.navigateTo(item.name);
+                              }
+                            },
+                            itemName: item.name,
+                          ))
+                      .toList(),
+                ))),
+            Obx(() => Visibility(
+                //ONCE A SOCIETY IS SELECTED, SHOW ALL OTHER SUBPAGES
+
+                visible: sideMenuController.levelThreeMenuItemsAreVisible.value,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: sideMenuItemRoutesLevelThree
                       .map((item) => SideMenuItem(
                             onTap: () {
                               if (!menuController.isActive(item.name)) {
