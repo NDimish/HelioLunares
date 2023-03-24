@@ -34,8 +34,9 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(
-              create: (context) => Tickets(
-                  filter: {'user': localdataobj.getUserID().toString()})),
+              create: (context) => Tickets(filter: {
+                    'user': globals.localdataobj.getUserID().toString()
+                  })),
           // filter: {'user':26.toString()})),
         ],
         builder: (context, child) {
