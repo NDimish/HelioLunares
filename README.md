@@ -13,6 +13,7 @@
 - Josh Susak
 - Shun Sheng Lee
 - Israfeel Ashraf
+- Shakeeb Jumaan
 
 ## Developer's setup instructions and video demonstration
 
