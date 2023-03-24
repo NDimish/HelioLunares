@@ -1,49 +1,54 @@
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from api.models import SocietyCategories
+from api.models import SocietyCategories, User
 
 
 class SocietyCategoriesInfoTestCase(APITestCase):
-    def login(self):
-        response = self.client.post('/log_in/', {'email': 'johndoe@example.org', 'password': 'Password123'},
-                                    format='json')
-        self.assertNotEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-        self.data['token'] = response.data['token']
+    fixtures = [
+        'api/tests/fixtures/default_users.json',
+        'api/tests/fixtures/default_university.json',
+        'api/tests/fixtures/default_society.json',
+        'api/tests/fixtures/default_societycategories.json',
+        'api/tests/fixtures/default_societycategoriestype.json',
+    ]
 
-    def create(self):
-        self.login()
-        data = {
-            "student_email": "justin3@gmail.com",
-            "event_id": 1
+    def setUp(self):
+        self.url = '/society_categories/1/'
+        self.user = User.objects.get(email='johndoe@example.org')
+        self.user_data = {
+            'email': 'johndoe@example.org',
+            'password': 'Password123'
         }
-        response = self.client.post("/society_categories/", data=data, format="json")
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assert_(len(response.data) > 0)
-        return response.data
+        self.data = {
+            "society": 1,
+            "category": 1
+        }
 
     def test_society_categories_get_with_id(self):
-        self.login()
-        id = self.create().get("id")
-        response = self.client.get(f"/society_categories/{id}", format="json")
+        response = self.client.post('/log_in/', self.user_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assert_(len(response.data) > 0)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
+
+        response = self.client.get(self.url, format="json", **header)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data.get("society"), 1)
+        self.assertEqual(response.data.get("category"), 1)
 
     def test_society_categories_update_with_id(self):
-        self.login()
-        id = self.create().get("id")
-        # todo
-        data = {
-            "societyId": 3,
-            "categoryId": 3
-        }
-        response = self.client.put(f"/society_categories/{id}", data=data, format="json")
+        response = self.client.post('/log_in/', self.user_data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
+
+        response = self.client.put(self.url, data=self.data, format="json", **header)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertEqual(response.data["student_email"], "justin1@gmail.com")
+        self.assertEqual(response.data.get("category"), 1)
 
     def test_society_categories_delete_with_id(self):
-        self.login()
-        id = self.create().get("id")
-        response = self.client.delete(f"/society_categories/{id}", format="json")
+        response = self.client.post('/log_in/', self.user_data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
+
+        response = self.client.delete(self.url, format="json", **header)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertEqual(len(SocietyCategories.objects.filter(id=id)), 0)
+        self.assertEqual(len(SocietyCategories.objects.filter(id=1)), 0)

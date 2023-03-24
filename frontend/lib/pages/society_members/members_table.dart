@@ -10,13 +10,14 @@ import 'package:university_ticketing_system/backend_communication/societyfunctio
 class MembersTable extends StatefulWidget {
   final int role;
   final int societyId;
-  final int user_society_role_level; // this is the user's role in society
+  final int userSocietyRoleLevel; // this is the user's role in society
   final int
-      user_level; // this is user level, 1/2 for non/student and 3 for society account
+      userLevel; // this is user level, 1/2 for non/student and 3 for society account
   final List dataset;
+  final Function statify;
 
-  const MembersTable(this.role, this.user_society_role_level, this.user_level,
-      this.societyId, this.dataset,
+  const MembersTable(this.role, this.userSocietyRoleLevel, this.userLevel,
+      this.societyId, this.dataset, this.statify,
       {super.key});
 
   @override
@@ -25,7 +26,7 @@ class MembersTable extends StatefulWidget {
 
 class _MembersTableState extends State<MembersTable> {
   List<DropdownMenuItem> _actionsForRole() {
-    if (widget.user_level == 3) {
+    if (widget.userLevel == 3) {
       if (widget.role == 3) {
         return const [
           DropdownMenuItem(value: "Remove", child: Text("Remove")),
@@ -45,7 +46,7 @@ class _MembersTableState extends State<MembersTable> {
       }
     } else {
       //This is if it is not a society account so we need to see if they are in soc
-      if (widget.user_society_role_level == 3) {
+      if (widget.userSocietyRoleLevel == 3) {
         if (widget.role == 3) {
           return const [];
         } else if (widget.role == 2) {
@@ -59,7 +60,7 @@ class _MembersTableState extends State<MembersTable> {
             DropdownMenuItem(value: "Promote", child: Text("Promote")),
           ];
         }
-      } else if (widget.user_society_role_level == 2) {
+      } else if (widget.userSocietyRoleLevel == 2) {
         if (widget.role == 3) {
           return const [];
         } else if (widget.role == 2) {
@@ -187,7 +188,7 @@ class _MembersTableState extends State<MembersTable> {
               hint: const Text("Perform"),
               underline: const SizedBox(width: 0, height: 0),
               items: _actionsForRole(),
-              onChanged: ((value) => {
+              onChanged: (value) => {
                     if (value == "Remove")
                       {
                         removeFromSociety(
@@ -196,8 +197,12 @@ class _MembersTableState extends State<MembersTable> {
                     else if (value == "Promote")
                       {updateSociety(int.parse(dataset['id']), widget.role + 1)}
                     else if (value == "Demote")
-                      {updateSociety(int.parse(dataset['id']), widget.role - 1)}
-                  }))),
+                      {
+                        updateSociety(
+                            int.parse(dataset['id']), widget.role - 1),
+                      },
+                    widget.statify()
+                  })),
     ]);
   }
 

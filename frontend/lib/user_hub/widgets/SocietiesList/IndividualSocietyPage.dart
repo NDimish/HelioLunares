@@ -62,7 +62,7 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
 
           hasJoined = (DataRole.collection.length != 0);
 
-          
+
           return Scaffold(
             appBar: AppBar(
                 title: Text(
@@ -323,4 +323,5 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
 class followerCounterProvider extends dataCollector<SocietyRole> {
   followerCounterProvider({super.filter}) : super();
 }
+
 

@@ -78,6 +78,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   Column smallTitle(BuildContext context) {
     return Column(
+      key: const Key("HomepageCol"),
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Text("Society Event Finder",
@@ -101,6 +102,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   Card cardTitle(BuildContext context) {
     return Card(
+        key: const Key("HomepageCard"),
         color: Colors.white.withOpacity(0.4),
         elevation: 0,
         shape: const RoundedRectangleBorder(
@@ -110,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("Society Event Finder",
+              Text("University Ticketing System",
                   textAlign: TextAlign.center,
                   textScaleFactor: 2.5,
                   style: TextStyle(
@@ -119,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                       fontSize:
                           ResponsiveWidget.isSmallScreen(context) ? 13 : 20)),
               const SizedBox(height: 5),
-              Text("--- Find Uni Events Across The U.K ---",
+              Text("--- Join the events you love! ---",
                   textAlign: TextAlign.center,
                   textScaleFactor: 1.3,
                   style: TextStyle(

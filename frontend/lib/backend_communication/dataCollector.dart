@@ -28,6 +28,7 @@ enum PostType { READ, ADD, DELETE, UPDATE }
 
 //abstract to use in places
 
+
 class dataCollector<T extends dataSets> with ChangeNotifier {
   List<T> output = [];
 
@@ -70,7 +71,7 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       url += "&format=json";
     }
 
-    // print(url);
+    print(url);
     return url;
   }
 
@@ -93,7 +94,10 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
       } catch (e) {
         data = json.decode("[" + response.body + "]") as List;
       }
+
+      print(data);
       output = data.map<T>((json) => (getClass(json, Database))).toList();
+
       notifyListeners();
     }
     // print(response.body);
@@ -138,9 +142,10 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
             "token ${globals.localdataobj.getToken()}"
         //HttpHeaders.authorizationHeader: Cookies.CSRFToken
       },
-      body: json.encode(task),
+      body: jsonEncode(task.createJson()),
     );
     responserFromUrL = response;
+    print(response.body);
     if (response.statusCode == 201) {
       collection.add(task);
       return true;
@@ -169,19 +174,20 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
 
   Future<bool> updateCollection(T task) async {
     final response = await http.put(
-      Uri.parse(createUrl(sets[T]!, postType: PostType.UPDATE)),
+      Uri.parse(createUrl(sets[T]!, ID: task.id, postType: PostType.UPDATE)),
       headers: {
         "Content-Type": "application/json",
         HttpHeaders.authorizationHeader:
             "token ${globals.localdataobj.getToken()}"
         //HttpHeaders.authorizationHeader: Cookies.CSRFToken
       },
-      body: json.encode(task),
+      body: jsonEncode(task.updateToJson()),
     );
     responserFromUrL = response;
     if (response.statusCode == 201) {
       notifyListeners();
       return true;
+      this.fetchData(createUrl(sets[T]!, ID: task.id), true, sets[T]!);
     }
     return false;
   }
@@ -193,5 +199,13 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
 
       default:
     }
+  }
+
+  Future<void> refresh() async {
+    bool singlerecord = true;
+    fetchData(
+        createUrl(sets[T]!, filter: {}, order: OrderType.CHRONOLOGICAL, ID: -1),
+        singlerecord,
+        sets[T]!);
   }
 }
