@@ -1,7 +1,7 @@
 # HelioLunares - C1: Ticket selling platform for university societies
 
 - Developed as a submission for the 5CCS2SEG 'Software Engineering Group Project' major group assignment.
-- Project title (here).
+- C1: Ticket selling platform for university societies
 
 ## Members
 
@@ -22,6 +22,8 @@
 ## Deployment Links
 
 - You can find the deployed version of the software HERE.
+- Frontend: https://helio-lunares.web.app/
+- Backend server:  https://heliolunares.pythonanywhere.com/
 
 #### Brief notes
 
