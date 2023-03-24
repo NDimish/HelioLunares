@@ -69,7 +69,7 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
           ),
           ChangeNotifierProvider(
             create: (context) =>
-                dataCollector<Society>(ID: 9),
+                dataCollector<Society>(ID:Get.find<Society>().id ),
           ),
         ],
         builder: (context, child) {
@@ -135,7 +135,7 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                           'Password',
                           'Enter your password',
                           Icons.password,
-                          null,
+                          passwordController,
                           true,
                           (password) => PasswordValidator(
                               password,
@@ -231,11 +231,11 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                             _formKey.currentState!.save();
 
                             try {
-                              String phone = phoneController.text;
+                              
                               String socName = societyNameController.text;
                               String uniName = uniController.text;
                               String email = emailController.text;
-                              String password = passwordController.text;
+                              String passwordInput = passwordController.text;
                               String socDescription =
                                   societyProvider.collection[0].description;
 
@@ -244,7 +244,9 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                                   email: email,
                                   userType: userProvider.collection[0].userType,
                                   date_joined:
-                                      userProvider.collection[0].date_joined);
+                                      userProvider.collection[0].date_joined,
+                                  password: passwordInput);
+                                  
                               Society update_society = Society(
                                   id: societyProvider.collection[0].id,
                                   user: userProvider.collection[0],
@@ -259,6 +261,9 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                                   image: societyProvider.collection[0].image);
 
                               societyProvider.updateCollection(update_society);
+                              print(update_user.password);
+                              print(passwordInput);
+                              print('space');
                               userProvider.updateCollection(update_user);
                               //Here is where you will send a response to the database to update user values
 
@@ -275,7 +280,9 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                                   actions: <Widget>[
                                     TextButton(
                                       onPressed: () => {
+                                        societyNameController.text = update_society.name,
                                         Navigator.pop(context, 'OK'),
+
                                       },
                                       child: const Text('OK'),
                                     ),

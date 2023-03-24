@@ -39,4 +39,5 @@ abstract class dataSets {
 
   updateToJson() {}
   createJson() {}
+  setPassword(String password) {}
 }

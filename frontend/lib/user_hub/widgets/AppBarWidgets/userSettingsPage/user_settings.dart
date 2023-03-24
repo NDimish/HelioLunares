@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:university_ticketing_system/globals.dart';
@@ -69,6 +70,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
 
           return Scaffold(
             backgroundColor: const Color(0xFFffffff).withOpacity(0.3),
+            appBar: AppBar(),
             body: SafeArea(
                 child: Form(
               key: _formKey,
@@ -225,13 +227,15 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                               String fName = firstNameController.text;
                               String lName = lastNameController.text;
                               String email = emailController.text;
+                              String passwordInput = passwordController.text;
 
                               User update_user = User(
                                   id: userProvider.collection[0].id,
                                   email: email,
                                   userType: userProvider.collection[0].userType,
                                   date_joined:
-                                      userProvider.collection[0].date_joined);
+                                      userProvider.collection[0].date_joined,
+                                      password: passwordInput);
                               People update_person = People(
                                   id: peopleProvider.collection[0].id,
                                   user: peopleProvider.collection[0].user,
