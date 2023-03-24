@@ -174,7 +174,6 @@ class _LogInFormState extends State<LogInForm> {
                               builder: (context) => UserHubPage_events()),
                         );
                       } else {
-
                         print("Redirecting to society page.");
                         DeleteAllObjects d = DeleteAllObjects();
 
@@ -183,7 +182,11 @@ class _LogInFormState extends State<LogInForm> {
                           MaterialPageRoute(builder: (context) => SiteLayout()),
                         ).then((value) => d.delete());
                       }
-                    } else {}
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          informationSnackbar(
+                              "Your credentials were not accepted. Please try again."));
+                    }
                   }
                 },
                 scaleFactor:
@@ -212,5 +215,17 @@ class _LogInFormState extends State<LogInForm> {
     setState(() {
       passwordVisible = !passwordVisible;
     });
+  }
+
+  SnackBar informationSnackbar(String text) {
+    return SnackBar(
+      content: Text(
+        text,
+        textAlign: TextAlign.center,
+        style: const TextStyle(fontFamily: "Arvo", color: Colors.white),
+      ),
+      duration: const Duration(seconds: 2),
+      backgroundColor: Colors.black,
+    );
   }
 }
