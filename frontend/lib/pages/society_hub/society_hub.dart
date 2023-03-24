@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:university_ticketing_system/constants/controllers.dart';
@@ -38,11 +40,11 @@ class SocietyHubPage extends StatelessWidget {
           Expanded(
               child: ListView(
             children: [
-              ImageCard(
-                image: (society != null)
-                    ? NetworkImage('assets/icons/kcl.png') //Load
-                    : NetworkImage('assets/images/logo.jpg'),
-              ),
+              ImageCard(image: NetworkImage(society.image) // NetworkImage(
+                  //"https://example.com/images/${society.image}")
+                  // ? NetworkImage('assets/icons/kcl.png') //Load
+                  // : NetworkImage('assets/images/logo.jpg'),
+                  ),
               if (ResponsiveWidget.isLargeScreen(context) ||
                   ResponsiveWidget.isMediumScreen(context))
                 if (ResponsiveWidget.isCustomSize(context))

@@ -12,7 +12,7 @@ class MenuController extends GetxController {
 
   changeActiveItemTo(String itemName) {
     activeItem.value = itemName;
-    //navigationController.navigateTo(itemName);
+    navigationController.navigateTo(itemName);
   }
 
   onHover(String itemName) {

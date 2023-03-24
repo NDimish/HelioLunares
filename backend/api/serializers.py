@@ -102,7 +102,7 @@ class SocietyHomePageSerializer(serializers.ModelSerializer):
     
     def get_image(self, society):
         if society.image:
-            return society.image.url
+            return society.image
         else:
             return "media/default-image.png"
 
