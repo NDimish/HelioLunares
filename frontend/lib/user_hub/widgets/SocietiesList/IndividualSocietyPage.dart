@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:university_ticketing_system/backend_communication/societyfunctions.dart';
 
 import 'package:university_ticketing_system/user_hub/widgets/SocietiesList/EventsListPage.dart';
 import 'package:university_ticketing_system/user_hub/widgets/SocietiesList/widgets/LoeButton.dart';
@@ -11,7 +10,6 @@ import '../../../backend_communication/dataCollector.dart';
 import '../../../gradient_animation.dart';
 import '../../../helpers/responsiveness.dart';
 import '../EventsList/widgets/IndividualPageHeader.dart';
-import 'package:http/http.dart' as http;
 import 'package:university_ticketing_system/globals.dart' as global;
 
 class MainSocietyPage extends StatefulWidget {
@@ -21,7 +19,7 @@ class MainSocietyPage extends StatefulWidget {
   final String numberOfFollowers;
   final int socId;
 
-   const MainSocietyPage({
+  const MainSocietyPage({
     Key? key,
     required this.societyName,
     required this.societyDescription,
@@ -42,20 +40,29 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create:(context) => dataCollector<Society>(ID: widget.socId),
-        ),
-        ChangeNotifierProvider(create:(context) => dataCollector<SocietyRole>(filter: {'user_at_society':global.localdataobj.getUserID().toString(),'society':widget.socId.toString()}),
-        )
-      ],
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => dataCollector<Society>(ID: widget.socId),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => dataCollector<SocietyRole>(filter: {
+              'user_at_society': global.localdataobj.getUserID().toString(),
+              'society': widget.socId.toString()
+            }),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => followerCounterProvider(
+                filter: {'society': widget.socId.toString()}),
+          )
+        ],
         builder: (context, child) {
           final DataP = Provider.of<dataCollector<Society>>(context);
           final DataRole = Provider.of<dataCollector<SocietyRole>>(context);
+          final followercount = Provider.of<followerCounterProvider>(context);
 
-           hasJoined = (DataRole.collection.length != 0);
+          hasJoined = (DataRole.collection.length != 0);
 
           
-          print(DataRole.collection);
           return Scaffold(
             appBar: AppBar(
                 title: Text(
@@ -70,10 +77,10 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                     Padding(
+                    Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: SocietyBanner(
-                        //Nathan the image thing
+                        
                           imageLink:
                               ("${global.DATASOURCE}${DataP.collection[0].image}")),
                     ),
@@ -154,7 +161,7 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                                     )),
                                 const SizedBox(height: 10.0),
                                 Text(
-                                  '15',
+                                  followercount.collection.length.toString(),
                                   style: TextStyle(
                                     fontSize: 14.0,
                                     color: Colors.grey[600],
@@ -195,108 +202,20 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    SocietyButton( hasJoined: hasJoined, socId: widget.socId,),
-                                    // Padding(
-                                    //   padding: const EdgeInsets.all(4.0),
-                                    //   child: hasJoined
-                                    //       ? SocietyButton(
-                                    //         buttonText: "Join",
-                                    //           onPressed: () async {
-                                    //             http.Response leave_repo =
-                                    //                 await leaveFromSociety(
-                                    //                     widget.socId);
-                                    //             if (leave_repo.statusCode ==
-                                    //                 204) {
-                                    //               //Left society
-                                    //               AlertDialog(
-                                    //                 content: const Text(
-                                    //                     'You have "joined" successfully!'),
-                                    //                 actions: <Widget>[
-                                    //                   TextButton(
-                                    //                     onPressed: () =>
-                                    //                         Navigator.pop(
-                                    //                             context,
-                                    //                             'Confirm'),
-                                    //                     child: const Text(
-                                    //                         'Confirm'),
-                                    //                   ),
-                                    //                 ],
-                                    //               );
-                                    //             } else {
-                                    //               //Failed to leave society
-                                    //               AlertDialog(
-                                    //                 content: const Text(
-                                    //                     'You have failed to join society.'),
-                                    //                 actions: <Widget>[
-                                    //                   TextButton(
-                                    //                     onPressed: () =>
-                                    //                         Navigator.pop(
-                                    //                             context,
-                                    //                             'Confirm'),
-                                    //                     child: const Text(
-                                    //                         'Confirm'),
-                                    //                   ),
-                                    //                 ],
-                                    //               );
-                                    //             }
-                                    // //             setState(() {
-                                                                                                  
-                                    // //                                                             });
-                                    // //           })
-                                    // //       : SocietyButton(
-                                    // //         buttonText: 'Leave',
-                                    // //           onPressed: () async {
-                                    //             http.Response join_repo =
-                                    //                 await joinSociety(
-                                    //                     widget.socId);
-                                    //             if (join_repo.statusCode ==
-                                    //                 201) {
-                                    //               //Joined society
-                                    //               AlertDialog(
-                                    //                 content: const Text(
-                                    //                     'You have "joined" successfully!'),
-                                    //                 actions: <Widget>[
-                                    //                   TextButton(
-                                    //                     onPressed: () =>
-                                    //                         Navigator.pop(
-                                    //                             context,
-                                    //                             'Confirm'),
-                                    //                     child: const Text(
-                                    //                         'Confirm'),
-                                    //                   ),
-                                    //                 ],
-                                    //               );
-                                    //             } else {
-                                    //               //Failed to join society
-                                    //               AlertDialog(
-                                    //                 content: const Text(
-                                    //                     'You have failed to join society.'),
-                                    //                 actions: <Widget>[
-                                    //                   TextButton(
-                                    //                     onPressed: () =>
-                                    //                         Navigator.pop(
-                                    //                             context,
-                                    //                             'Confirm'),
-                                    //                     child: const Text(
-                                    //                         'Confirm'),
-                                    //                   ),
-                                    //                 ],
-                                    //               );
-                                    //             }
-                                    //             setState(() {
-                                                                                                  
-                                    //                                                             });
-                                    //           }),
-                                    // ),
-                                    SizedBox(height:10),
+                                    SocietyButton(
+                                      hasJoined: hasJoined,
+                                      socId: widget.socId,
+                                    ),
+                              
+                                    SizedBox(height: 10),
 
                                     ListButton(
                                       onPressed: () => Navigator.of(context)
                                           .push(MaterialPageRoute(
                                               builder: (context) =>
                                                   SocietyEventsList(
-                                                    societyName: DataP
-                                                        .collection[0],
+                                                    societyName:
+                                                        DataP.collection[0],
                                                   ))),
                                       buttonText: "List of Events",
                                     ),
@@ -401,19 +320,7 @@ class _MainSocietyPageState extends State<MainSocietyPage> {
   }
 }
 
-
-
-//join society call url in backend
-//201 - joined the society
-//400 - already joined
-//anything else - error
-
-
-
-
-//join button 
-
-
-                    
-//list of events button 
+class followerCounterProvider extends dataCollector<SocietyRole> {
+  followerCounterProvider({super.filter}) : super();
+}
 
