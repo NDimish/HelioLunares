@@ -131,6 +131,59 @@ void main() {
       expect(find.byType(Text).hitTestable(), findsNWidgets(4));
       expect(find.byType(Divider), findsNWidgets(2));
       expect(find.byType(Icon).hitTestable(), findsNWidgets(2));
+      expect(
+          tester
+              .widget<IconButton>(find.byKey(const Key("SecondIcon")))
+              .onPressed,
+          isNotNull);
+
+      await tester.pumpAndSettle(const Duration(seconds: 10));
+    });
+
+    testWidgets(
+        'Back side of card renders correct information but secondary icon is null',
+        (tester) async {
+      binding.window.physicalSizeTestValue = const Size(1920, 1080);
+      binding.window.devicePixelRatioTestValue = 1.0;
+      addTearDown(binding.window.clearPhysicalSizeTestValue);
+      await tester.pumpWidget(const MaterialApp(
+          home: Scaffold(
+        body: AboutCard(
+          devName: "Josh Susak",
+          roles: [
+            "Front-end dev",
+            "Back-end dev",
+          ],
+          imagePath: "https://avatars.githubusercontent.com/u/114754624?v=4",
+          githubLink: "https://github.com/JSusak",
+          secondaryIcon: Icons.web,
+          secondaryLink: null,
+          cardSize: 300,
+        ),
+      )));
+
+      //The front side of the card should simply contain an image to show to the user.
+      //Any further info should not be present unless the user chooses to hover over it.
+      final imageFinder = find.byType(Image);
+      expect(imageFinder, findsOneWidget);
+      expect(find.byType(Text).hitTestable(), findsNothing);
+      expect(find.byType(Icon).hitTestable(), findsNothing);
+
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      final hover = await tester.createGesture(kind: PointerDeviceKind.mouse);
+      await hover.addPointer(location: Offset.zero);
+      addTearDown(hover.removePointer);
+      await tester.pumpAndSettle();
+      //Simulate hovering of the card.
+      await hover.moveTo(tester.getCenter(find.byType(AboutCard)));
+      await tester.pumpAndSettle();
+
+      expect(
+          tester
+              .widget<IconButton>(find.byKey(const Key("SecondIcon")))
+              .onPressed,
+          isNull);
 
       await tester.pumpAndSettle(const Duration(seconds: 10));
     });

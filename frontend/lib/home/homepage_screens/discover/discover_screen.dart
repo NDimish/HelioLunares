@@ -5,11 +5,80 @@ import 'package:university_ticketing_system/home/homepage_screens/discover/disco
 import 'package:university_ticketing_system/home/topbar.dart';
 import 'package:university_ticketing_system/responsive.dart';
 
-/// DESIGNED BY JOSHUA SUZAK - K...
+/// DESIGNED BY JOSHUA SUSAK - K...
 ///
 /// This part of the app deals with the discover screen, showing our story
 /// to the users of this application.
 ///
+///
+
+List devs = [
+  {
+    "devName": "Israfeel Ashraf",
+    "devImage": "https://avatars.githubusercontent.com/u/32419965?v=4",
+    "text2": "Front-end, back-end",
+    "githubLink": "https://github.com/Israfeel-Ashraf",
+    "secondaryLink": null,
+  },
+  {
+    "devName": "Jaidev Nileshkumar",
+    "devImage": "https://avatars.githubusercontent.com/u/58425365?v=4",
+    "text2": "Front-end, back-end",
+    "githubLink": "https://github.com/jnile",
+    "secondaryLink": null,
+  },
+  {
+    "devName": "Josh Susak",
+    "devImage":
+        "https://avatars.githubusercontent.com/u/77983856?s=400&u=aec10224ed714a03cbb82a2e98606a963804bc6f&v=4",
+    "text2": "Front-end",
+    "githubLink": "https://github.com/JSusak",
+    "secondaryLink": "https://jsusak.github.io/",
+  },
+  {
+    "devName": "Wesley Lin",
+    "devImage": "https://avatars.githubusercontent.com/u/114866867?s=64&v=4",
+    "text2": "Front-end",
+    "githubLink": "https://github.com/JSusak",
+    "secondaryLink": null,
+  },
+  {
+    "devName": "Issac Lee",
+    "devImage": "https://avatars.githubusercontent.com/u/101655182?s=64&v=4",
+    "text2": "Front-end",
+    "githubLink": "https://github.com/ssIsaac",
+    "secondaryLink": null,
+  },
+  {
+    "devName": "Nathan Mani",
+    "devImage": "https://avatars.githubusercontent.com/u/62480903?v=4",
+    "text2": "Middleware, back-end",
+    "githubLink": "https://github.com/NDimish",
+    "secondaryLink": null,
+  },
+  {
+    "devName": "Sita Sethurajan",
+    "devImage": "https://avatars.githubusercontent.com/u/114754624?s=64&v=4",
+    "text2": "Front-end",
+    "githubLink": "https://github.com/SitaSeth",
+    "secondaryLink": null,
+  },
+  {
+    "devName": "Justin Lu",
+    "devImage": "https://avatars.githubusercontent.com/u/115050058?s=64&v=4",
+    "text2": "Back-end",
+    "githubLink": "https://github.com/jlu88887",
+    "secondaryLink": null,
+  },
+  {
+    "devName": "Shakeeb Jumaan",
+    "devImage": "https://avatars.githubusercontent.com/u/82671431?v=4",
+    "text2": "Front-end",
+    "githubLink": "https://github.com/10shakeeb",
+    "secondaryLink": null,
+  },
+];
+
 class DiscoverScreen extends StatelessWidget {
   const DiscoverScreen({super.key});
 
@@ -73,118 +142,29 @@ class DiscoverScreen extends StatelessWidget {
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.06),
             Expanded(
-              child: GridView.count(
-                crossAxisCount: !ResponsiveWidget.isSmallScreen(context) &&
-                        screenSize.width <= 1000
-                    ? 3
-                    : !ResponsiveWidget.isSmallScreen(context) &&
-                            screenSize.width <= 1500
-                        ? 4
-                        : 5,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                children: const <Widget>[
-                  AboutCard(
-                    devName: "Josh Susak",
-                    roles: ["Front-end dev", "Back-end dev", "Full-stack dev"],
-                    imagePath:
-                        "https://avatars.githubusercontent.com/u/77983856?s=400&u=aec10224ed714a03cbb82a2e98606a963804bc6f&v=4",
-                    githubLink: "https://github.com/JSusak",
-                    secondaryIcon: Icons.web,
-                    secondaryLink: "https://jsusak.github.io/",
-                    cardSize: 200,
-                  ),
-                  AboutCard(
-                    devName: "Josh Susak",
-                    roles: ["Front-end dev", "Back-end dev", "Full-stack dev"],
-                    imagePath:
-                        "https://avatars.githubusercontent.com/u/32419965?v=4",
-                    githubLink: "https://github.com/JSusak",
-                    secondaryIcon: Icons.web,
-                    secondaryLink: "https://jsusak.github.io/",
-                    cardSize: 200,
-                  ),
-                  AboutCard(
-                    devName: "Josh Susak",
-                    roles: ["Front-end dev", "Back-end dev", "Full-stack dev"],
-                    imagePath:
-                        "https://avatars.githubusercontent.com/u/58425365?v=4",
-                    githubLink: "https://github.com/JSusak",
-                    secondaryIcon: Icons.web,
-                    secondaryLink: "https://jsusak.github.io/",
-                    cardSize: 200,
-                  ),
-                  AboutCard(
-                    devName: "Josh Susak",
-                    roles: ["Front-end dev", "Back-end dev", "Full-stack dev"],
-                    imagePath:
-                        "https://avatars.githubusercontent.com/u/62480903?v=4",
-                    githubLink: "https://github.com/JSusak",
-                    secondaryIcon: Icons.web,
-                    secondaryLink: "https://jsusak.github.io/",
-                    cardSize: 200,
-                  ),
-                  AboutCard(
-                    devName: "Josh Susak",
-                    roles: ["Front-end dev", "Back-end dev", "Full-stack dev"],
-                    imagePath:
-                        "https://avatars.githubusercontent.com/u/114866867?v=4",
-                    githubLink: "https://github.com/JSusak",
-                    secondaryIcon: Icons.web,
-                    secondaryLink: "https://jsusak.github.io/",
-                    cardSize: 200,
-                  ),
-                  AboutCard(
-                    devName: "Josh Susak",
-                    roles: ["Front-end dev", "Back-end dev", "Full-stack dev"],
-                    imagePath:
-                        "https://avatars.githubusercontent.com/u/115050058?v=4",
-                    githubLink: "https://github.com/JSusak",
-                    secondaryIcon: Icons.web,
-                    secondaryLink: "https://jsusak.github.io/",
-                    cardSize: 200,
-                  ),
-                  AboutCard(
-                    devName: "Josh Susak",
-                    roles: ["Front-end dev", "Back-end dev", "Full-stack dev"],
-                    imagePath:
-                        "https://avatars.githubusercontent.com/u/101655182?v=4",
-                    githubLink: "https://github.com/JSusak",
-                    secondaryIcon: Icons.web,
-                    secondaryLink: "https://jsusak.github.io/",
-                    cardSize: 200,
-                  ),
-                  AboutCard(
-                    devName: "Josh Susak",
-                    roles: ["Front-end dev", "Back-end dev", "Full-stack dev"],
-                    imagePath:
-                        "https://avatars.githubusercontent.com/u/77983856?s=400&u=aec10224ed714a03cbb82a2e98606a963804bc6f&v=4",
-                    githubLink: "https://github.com/JSusak",
-                    secondaryIcon: Icons.web,
-                    secondaryLink: "https://jsusak.github.io/",
-                    cardSize: 200,
-                  ),
-                  AboutCard(
-                    devName: "Josh Susak",
-                    roles: ["Front-end dev", "Back-end dev", "Full-stack dev"],
-                    imagePath:
-                        "https://avatars.githubusercontent.com/u/77983856?s=400&u=aec10224ed714a03cbb82a2e98606a963804bc6f&v=4",
-                    githubLink: "https://github.com/JSusak",
-                    secondaryIcon: Icons.web,
-                    secondaryLink: "https://jsusak.github.io/",
-                    cardSize: 200,
-                  ),
-                  AboutCard(
-                    devName: "Josh Susak",
-                    roles: ["Front-end dev", "Back-end dev", "Full-stack dev"],
-                    imagePath:
-                        "https://avatars.githubusercontent.com/u/77983856?s=400&u=aec10224ed714a03cbb82a2e98606a963804bc6f&v=4",
-                    githubLink: "https://github.com/JSusak",
-                    secondaryIcon: Icons.web,
-                    secondaryLink: "https://jsusak.github.io/",
-                    cardSize: 200,
-                  ),
-                ],
+              child: GridView.builder(
+                itemCount: devs.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: !ResponsiveWidget.isSmallScreen(context) &&
+                            screenSize.width <= 1000
+                        ? 3
+                        : !ResponsiveWidget.isSmallScreen(context) &&
+                                screenSize.width <= 1500
+                            ? 4
+                            : 5,
+                    childAspectRatio: 1,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10),
+                itemBuilder: (BuildContext context, int index) {
+                  return AboutCard(
+                      devName: devs[index]['devName'],
+                      roles: [devs[index]['text2']],
+                      imagePath: devs[index]['devImage'],
+                      githubLink: devs[index]['githubLink'],
+                      secondaryIcon: Icons.web,
+                      secondaryLink: devs[index]['secondaryLink'],
+                      cardSize: 200);
+                },
               ),
             )
           ],
@@ -221,9 +201,10 @@ class DiscoverScreen extends StatelessWidget {
         Expanded(
           child: ListView.builder(
               physics: const ClampingScrollPhysics(),
-              itemCount: 10,
+              itemCount: devs.length,
               itemBuilder: (BuildContext context, int index) {
                 return SizedBox(
+                    key: const Key("devSmall"),
                     height: 150,
                     width: MediaQuery.of(context).size.width * 0.9,
                     child: Card(
@@ -240,26 +221,22 @@ class DiscoverScreen extends StatelessWidget {
                           children: <Widget>[
                             ClipRRect(
                               borderRadius: BorderRadius.circular(15.0),
-                              child: Image.network(
-                                  "https://avatars.githubusercontent.com/u/32419965?v=4"),
+                              child:
+                                  Image.network("${devs[index]['devImage']}"),
                             ),
                             SizedBox(width: 15),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              //crossAxisAlignment: CrossAxisAlignment.end,
-                              children: const <Widget>[
-                                Text("Text 1",
-                                    textAlign: TextAlign.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text("${devs[index]['devName']}",
+                                    textAlign: TextAlign.left,
                                     style: TextStyle(
                                         fontSize: 20, fontFamily: "Arvo")),
-                                Text("Text 2",
-                                    textAlign: TextAlign.center,
+                                Text("${devs[index]['text2']}",
+                                    textAlign: TextAlign.left,
                                     style: TextStyle(
                                         fontSize: 15, fontFamily: "Arvo")),
-                                Text("Text 3",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 10, fontFamily: "Arvo"))
                               ],
                             ),
                           ],
