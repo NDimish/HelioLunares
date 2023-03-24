@@ -35,8 +35,8 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
       providers: [
         ChangeNotifierProvider(
           create: (context) => Tickets(
-            // filter: {'user':localdataobj.getUserID().toString()})),
-            filter: {'user':26.toString()})),
+            filter: {'user':localdataobj.getUserID().toString()})),
+            // filter: {'user':26.toString()})),
       ],
       builder: (context, child) {
         
@@ -265,224 +265,203 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
 
 
 
-  Widget _buildCollapsible(BuildContext context) {
-    final DataP = Provider.of<Tickets>(context); 
-    return ExpansionPanelList(
-      elevation: 0,
-      expansionCallback: (int index, bool isExpanded) {
-        setState(() {
-          _data[index].isExpanded = !isExpanded;
-        });
-      },
-      children: _data.map<ExpansionPanel>((Item item) {
+  // Widget _buildCollapsible(BuildContext context) {
+  //   final DataP = Provider.of<Tickets>(context); 
+  //   return ExpansionPanelList(
+  //     elevation: 0,
+  //     expansionCallback: (int index, bool isExpanded) {
+  //       setState(() {
+  //         _data[index].isExpanded = !isExpanded;
+  //       });
+  //     },
+  //     children: _data.map<ExpansionPanel>((Item item) {
       
-        return ExpansionPanel(
+  //       return ExpansionPanel(
+  //         backgroundColor: const Color(0xFFC8B8D8),
+  //         headerBuilder: (BuildContext context, bool isExpanded) {
+  //           return ListTile(
+  //             contentPadding: const EdgeInsets.all(0),
+  //             hoverColor: const Color(0xFFC8B8D8),
+  //             title: Text(
+  //               item.headerValue,
+  //               style: const TextStyle(
+  //                   fontFamily: 'Arvo', color: Colors.black, fontSize: 25),
+  //             ),
+  //           );
+  //         },
+          
+  //         body: ListView.builder(
+  //             shrinkWrap: true,
+  //             itemCount: DataP.expired.length,
+  //             itemBuilder: (BuildContext context, int index) {
+          
+  //               return Column(
+  //                   children: [
+  //                     _OnHover(
+  //                       child: OutlinedButton(
+  //                         style: OutlinedButton.styleFrom(
+  //                           backgroundColor: const Color(0xFFE8DAFA),
+  //                           side: const BorderSide(color: Colors.black)
+  //                         ),
+  //                         onPressed: () {
+  //                           Navigator.push(
+  //                               context,
+  //                               MaterialPageRoute(
+  //                                   builder: (context) => BuyTicketScreen(id:DataP.expired[index].id)));
+  //                         },
+  //                         child: Container(
+  //                           height: 55,
+  //                           decoration: BoxDecoration(
+  //                             border: Border.all(
+  //                               width: 10,
+  //                               color: Colors.transparent,
+  //                             ),
+  //                             borderRadius: BorderRadius.circular(20),
+  //                           ),
+  //                           child: Row(
+  //                             children: [
+                    
+  //                               Expanded(
+  //                                 child: Text(
+  //                                   "${DataP.expired[index].event.title}",
+  //                                   textAlign: TextAlign.left,
+  //                                   selectionColor: Colors.black,
+  //                                 ),
+  //                               ),
+                                
+  //                             ],
+  //                           ),
+  //                         ),
+  //                       ),
+  //                     ),
+  //                     const SizedBox(height: 20),
+  //                   ],
+  //                 );
+                
+  //             },
+  //           ),
+          
+  //         isExpanded: item.isExpanded,
+  //       );
+  //     }).toList(),
+  //   );
+  // }
+
+
+Widget _buildCollapsible(BuildContext context) {
+  final DataP = Provider.of<Tickets>(context);
+  return ExpansionPanelList(
+    elevation: 0,
+    expansionCallback: (int index, bool isExpanded) {
+      setState(() {
+        _data[index].isExpanded = !isExpanded;
+      });
+    },
+    children: [
+      // Render a panel with expired tickets only when there are expired tickets
+      if (DataP.expired.length > 0)
+        ExpansionPanel(
           backgroundColor: const Color(0xFFC8B8D8),
           headerBuilder: (BuildContext context, bool isExpanded) {
             return ListTile(
               contentPadding: const EdgeInsets.all(0),
               hoverColor: const Color(0xFFC8B8D8),
               title: Text(
-                item.headerValue,
+                "Expired Tickets",
                 style: const TextStyle(
-                    fontFamily: 'Arvo', color: Colors.black, fontSize: 25),
+                  fontFamily: 'Arvo',
+                  color: Colors.black,
+                  fontSize: 25,
+                ),
               ),
             );
           },
-          
           body: ListView.builder(
-              shrinkWrap: true,
-              itemCount: DataP.expired.length,
-              itemBuilder: (BuildContext context, int index) {
-          
-                return Column(
-                    children: [
-                      _OnHover(
-                        child: OutlinedButton(
-                          style: OutlinedButton.styleFrom(
-                            backgroundColor: const Color(0xFFE8DAFA),
-                            side: const BorderSide(color: Colors.black)
+            shrinkWrap: true,
+            itemCount: DataP.expired.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Column(
+                children: [
+                  _OnHover(
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        backgroundColor: const Color(0xFFE8DAFA),
+                        side: const BorderSide(color: Colors.black),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BuyTicketScreen(
+                              id: DataP.expired[index].id,
+                            ),
                           ),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => BuyTicketScreen(id:DataP.expired[index].id)));
-                          },
-                          child: Container(
-                            height: 55,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 10,
-                                color: Colors.transparent,
+                        );
+                      },
+                      child: Container(
+                        height: 55,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 10,
+                            color: Colors.transparent,
+                          ),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                "${DataP.expired[index].event.title}",
+                                textAlign: TextAlign.left,
+                                selectionColor: Colors.black,
                               ),
-                              borderRadius: BorderRadius.circular(20),
                             ),
-                            child: Row(
-                              children: [
-                    
-                                Expanded(
-                                  child: Text(
-                                    "${DataP.expired[index].event.title}",
-                                    textAlign: TextAlign.left,
-                                    selectionColor: Colors.black,
-                                  ),
-                                ),
-                                
-                              ],
-                            ),
-                          ),
+                          ],
                         ),
                       ),
-                      const SizedBox(height: 20),
-                    ],
-                  );
-                
-              },
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                ],
+              );
+            },
+          ),
+          isExpanded: _data[0].isExpanded,
+        ),
+      // Render a panel with the "no expired tickets" message when there are no expired tickets
+      if (DataP.expired.length == 0)
+        ExpansionPanel(
+          backgroundColor: const Color(0xFFC8B8D8),
+          headerBuilder: (BuildContext context, bool isExpanded) {
+            return ListTile(
+              contentPadding: const EdgeInsets.all(0),
+              hoverColor: const Color(0xFFC8B8D8),
+              title: Text(
+                "Expired Tickets",
+                style: const TextStyle(
+                  fontFamily: 'Arvo',
+                  color: Colors.black,
+                  fontSize: 25,
+                ),
+              ),
+            );
+          },
+          body: ListTile(
+            title: Text(
+              "You currently have no expired tickets.",
+              style: const TextStyle(
+                fontFamily: 'Arvo',
+                color: Colors.black,
+                fontSize: 20,
+              ),
             ),
-          
-          isExpanded: item.isExpanded,
-        );
-      }).toList(),
-    );
-  }
+          ),
+          isExpanded: _data[0].isExpanded,
+        ),
+    ],
+  );
+}
 
-
-// Widget _buildCollapsible(BuildContext context) {
-//     final DataP = Provider.of<Tickets>(context); 
-    
-//     return ExpansionPanelList(
-//       elevation: 0,
-//       expansionCallback: (int index, bool isExpanded) {
-//         setState(() {
-//           _data[index].isExpanded = !isExpanded;
-//         });
-//       },
-//       children: _data.map<ExpansionPanel>((Item item) {
-      
-//         return ExpansionPanel(
-//           backgroundColor: const Color(0xFFC8B8D8),
-//           headerBuilder: (BuildContext context, bool isExpanded) {
-//             return ListTile(
-//               contentPadding: const EdgeInsets.all(0),
-//               hoverColor: const Color(0xFFC8B8D8),
-//               title: Text(
-//                 item.headerValue,
-//                 style: const TextStyle(
-//                     fontFamily: 'Arvo', color: Colors.black, fontSize: 25),
-//               ),
-//             );
-//           },
-          
-//           body: if (DataP.expired.length>0) {
-//             ListView.builder(
-//               shrinkWrap: true,
-//               itemCount: DataP.expired.length,
-//               itemBuilder: (BuildContext context, int index) {
-          
-//                 return Column(
-//                     children: [
-//                       _OnHover(
-//                         child: OutlinedButton(
-//                           style: OutlinedButton.styleFrom(
-//                             backgroundColor: const Color(0xFFE8DAFA),
-//                             side: const BorderSide(color: Colors.black)
-//                           ),
-//                           onPressed: () {
-//                             Navigator.push(
-//                                 context,
-//                                 MaterialPageRoute(
-//                                     builder: (context) => BuyTicketScreen(id:DataP.expired[index].id)));
-//                           },
-//                           child: Container(
-//                             height: 55,
-//                             decoration: BoxDecoration(
-//                               border: Border.all(
-//                                 width: 10,
-//                                 color: Colors.transparent,
-//                               ),
-//                               borderRadius: BorderRadius.circular(20),
-//                             ),
-//                             child: Row(
-//                               children: [
-                    
-//                                 Expanded(
-//                                   child: Text(
-//                                     "${DataP.expired[index].event.title}",
-//                                     textAlign: TextAlign.left,
-//                                     selectionColor: Colors.black,
-//                                   ),
-//                                 ),
-                                
-//                               ],
-//                             ),
-//                           ),
-//                         ),
-//                       ),
-//                       const SizedBox(height: 20),
-//                     ],
-//                   );
-                
-//               },
-//             ),
-//           }
-//           else {
-//             ListView.builder(
-//               shrinkWrap: true,
-//               itemCount: DataP.expired.length,
-//               itemBuilder: (BuildContext context, int index) {
-          
-//                 return Column(
-//                     children: [
-//                       _OnHover(
-//                         child: OutlinedButton(
-//                           style: OutlinedButton.styleFrom(
-//                             backgroundColor: const Color(0xFFE8DAFA),
-//                             side: const BorderSide(color: Colors.black)
-//                           ),
-//                           onPressed: () {
-//                             Navigator.push(
-//                                 context,
-//                                 MaterialPageRoute(
-//                                     builder: (context) => BuyTicketScreen(id:DataP.expired[index].id)));
-//                           },
-//                           child: Container(
-//                             height: 55,
-//                             decoration: BoxDecoration(
-//                               border: Border.all(
-//                                 width: 10,
-//                                 color: Colors.transparent,
-//                               ),
-//                               borderRadius: BorderRadius.circular(20),
-//                             ),
-//                             child: Row(
-//                               children: [
-                    
-//                                 Expanded(
-//                                   child: Text(
-//                                     "${DataP.expired[index].event.title}",
-//                                     textAlign: TextAlign.left,
-//                                     selectionColor: Colors.black,
-//                                   ),
-//                                 ),
-                                
-//                               ],
-//                             ),
-//                           ),
-//                         ),
-//                       ),
-//                       const SizedBox(height: 20),
-//                     ],
-//                   );
-                
-//               },
-//             ),
-//           }
-//           isExpanded: item.isExpanded,
-//         );
-//       }).toList(),
-//     );
-//   }
 
 
 
