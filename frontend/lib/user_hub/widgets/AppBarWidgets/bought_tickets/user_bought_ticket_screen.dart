@@ -325,7 +325,7 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                 contentPadding: const EdgeInsets.all(0),
                 hoverColor: const Color(0xFFC8B8D8),
                 title: Text(
-                  "Expired Tickets",
+                  "Expired Ticket(s)",
                   style: const TextStyle(
                     fontFamily: 'Arvo',
                     color: Colors.black,
@@ -395,7 +395,7 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                 contentPadding: const EdgeInsets.all(0),
                 hoverColor: const Color(0xFFC8B8D8),
                 title: Text(
-                  "Expired Tickets",
+                  "Expired Ticket(s)",
                   style: const TextStyle(
                     fontFamily: 'Arvo',
                     color: Colors.black,
@@ -407,10 +407,13 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
             body: ListTile(
               title: Text(
                 "You currently have no expired tickets.",
+                textAlign: TextAlign.center,
+                selectionColor: Colors.black,
                 style: const TextStyle(
                   fontFamily: 'Arvo',
                   color: Colors.black,
-                  fontSize: 20,
+                  fontStyle: FontStyle.italic,
+                  fontSize: 15,
                 ),
               ),
             ),
