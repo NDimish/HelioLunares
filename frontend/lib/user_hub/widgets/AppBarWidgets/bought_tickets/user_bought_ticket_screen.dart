@@ -169,7 +169,7 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                                   id: DataP.upcoming[index].id)));
                     },
                     child: Container(
-                      key: Key("ticket"),
+                      key: Key("Upcomingtix"),
                       height: 55,
                       decoration: BoxDecoration(
                         border: Border.all(
@@ -209,7 +209,7 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
         child: Row(
           children: [
             Expanded(
-              child: Text("You currently have no upcoming tickets",
+              child: Text("You currently have no upcoming tickets.",
                   textAlign: TextAlign.center,
                   selectionColor: Colors.black,
                   style: TextStyle(
@@ -358,6 +358,7 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                         },
                         child: Container(
                           height: 55,
+                          key: const Key("ExpiredTix"),
                           decoration: BoxDecoration(
                             border: Border.all(
                               width: 10,
@@ -391,9 +392,11 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
           ExpansionPanel(
             backgroundColor: const Color(0xFFC8B8D8),
             headerBuilder: (BuildContext context, bool isExpanded) {
+              // ignore: prefer_const_constructors
               return ListTile(
                 contentPadding: const EdgeInsets.all(0),
                 hoverColor: const Color(0xFFC8B8D8),
+                // ignore: prefer_const_constructors
                 title: Text(
                   "Expired Ticket(s)",
                   style: const TextStyle(
@@ -404,7 +407,9 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                 ),
               );
             },
+            // ignore: prefer_const_constructors
             body: ListTile(
+              // ignore: prefer_const_constructors
               title: Text(
                 "You currently have no expired tickets.",
                 textAlign: TextAlign.center,

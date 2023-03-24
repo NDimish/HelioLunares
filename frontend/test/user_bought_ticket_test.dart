@@ -9,15 +9,16 @@ void main() {
   
   final TestWidgetsFlutterBinding binding =
       TestWidgetsFlutterBinding.ensureInitialized();
+
   testWidgets("All headers exists", (tester) async {
     
     await tester.pumpWidget(const MaterialApp(
       home: Scaffold(
-        body: BuyTicketScreen(id: 0,)
+        body: UserBoughtTicketScreen()
       )
     ));
 
-    final upcoming = find.text("Title");
+    final upcoming = find.text("Upcoming Ticket(s)");
     final expired = find.text("Expired Ticket(s)");
     
     // expect(overview, findsOneWidget);
@@ -64,7 +65,61 @@ void main() {
 
   });
 
+  testWidgets('Displays message when there is no expired tickets', (tester) async{
+    await tester.pumpWidget(const MaterialApp(
+      home: Scaffold(
+        body: UserBoughtTicketScreen()
+      )
+    ));
+    
+    final msg = find.text("You currently have no expired tickets.");
 
+
+    expect(msg, findsOneWidget);
+
+
+  });
+
+//Will fail
+  testWidgets('Displays ticket when user has expired tickets', (tester) async{
+    await tester.pumpWidget(const MaterialApp(
+      home: Scaffold(
+        body: UserBoughtTicketScreen()
+      )
+    ));
+
+    final tix = find.byKey(ValueKey('ExpiredTix'));
+
+    expect(tix, findsWidgets);
+
+  });
+
+  testWidgets('Displays message when there is no upcoming tickets', (tester) async{
+    await tester.pumpWidget(const MaterialApp(
+      home: Scaffold(
+        body: UserBoughtTicketScreen()
+      )
+    ));
+    
+    final msg = find.text("You currently have no upcoming tickets.");
+
+    expect(msg, findsOneWidget);
+    
+  });
+
+// Will fail
+  testWidgets('Displays ticket when user has upcoming tickets', (tester) async{
+    await tester.pumpWidget(const MaterialApp(
+      home: Scaffold(
+        body: UserBoughtTicketScreen()
+      )
+    ));
+
+    final tix = find.byKey(ValueKey('UpcomingTix'));
+
+    expect(tix, findsWidgets);
+
+  });
   
 
   
