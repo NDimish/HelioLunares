@@ -1,29 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/bought_tickets/buy_ticket_screen.dart';
 import 'package:university_ticketing_system/user_hub/widgets/UserHubPage_events.dart';
 import '../../../../backend_communication/authenticate.dart';
 import '../../../../backend_communication/dataCollector.dart' as data;
-import 'package:university_ticketing_system/backend_communication/models/Ticket.dart' as tic;
+import 'package:university_ticketing_system/backend_communication/models/Ticket.dart'
+    as tic;
 import 'package:university_ticketing_system/backend_communication/models/all.dart';
-import 'package:university_ticketing_system/globals.dart' as globals;
+import 'package:university_ticketing_system/globals.dart';
 
 class UserBoughtTicketScreen extends StatefulWidget {
   final data.OrderType Orderby;
-  final Map<String,String> filter;
-  // final int id;
-  
 
-  const UserBoughtTicketScreen(
-      {Key? key,
-      this.Orderby = data.OrderType.CHRONOLOGICAL,
-      this.filter = const{},
-      // this.id = -1
-      }
-    )
-      : super(key: key);
-
-  // const UserBoughtTicketScreen({Key? key}) : super(key: key);
+  const UserBoughtTicketScreen({
+    Key? key,
+    this.Orderby = data.OrderType.CHRONOLOGICAL,
+  }) : super(key: key);
 
   @override
   State<UserBoughtTicketScreen> createState() => _UserBoughtTicketScreenState();
@@ -34,141 +27,28 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
 
   @override
   Widget build(BuildContext context) {
-    setState(() {
-      
-    });
-    var currentUserFilter = {'user':globals.localdataobj.getUserID().toString()};
+    setState(() {});
+    var currentUserFilter = {
+      'user': globals.localdataobj.getUserID().toString()
+    };
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => data.dataCollector<tic.Tickets>(
-            filter: currentUserFilter, order: widget.Orderby)),
-      ],
-      builder: (context, child) {
-        
-        return Scaffold(
-          appBar: AppBar(
-            leading:BackButton(onPressed: (){
-              Navigator.push(context, 
-              MaterialPageRoute(builder: (context) => UserHubPage_events()));
-            },)
-          ),
-          backgroundColor: const Color(0xFFC8B8D8), body: _buildPanel(context));
-      }
-    );
+        providers: [
+          ChangeNotifierProvider(
+              create: (context) => Tickets(
+                  filter: {'user': localdataobj.getUserID().toString()})),
+        ],
+        builder: (context, child) {
+          return Scaffold(
+              appBar: AppBar(),
+              backgroundColor: const Color(0xFFC8B8D8),
+              body: _buildPanel(context));
+        });
   }
 
-
-  // Widget _buildPanel(BuildContext context) {
-  //   final DataP = Provider.of<data.dataCollector<tic.Tickets>>(context);
-  //   return Row(children: <Widget>[
-  //     Container(
-  //       color: const Color(0xFF8C7099),
-  //       child: const VerticalDivider(
-  //           thickness: 1, indent: 1, endIndent: 0, color: Color(0xFF8C7099)),
-  //     ),
-
-  //     // right of screen
-  //     Expanded(
-  //       flex: 5,
-  //       // ignore: avoid_unnecessary_containers
-  //       child: Padding(
-  //         padding: const EdgeInsets.all(20.0),
-  //         child: Container(
-            
-            
-  //           child: ListView.builder(
-  //             shrinkWrap: true,
-  //             itemCount: DataP.collection.length,
-  //             itemBuilder: (BuildContext context, int index) {
-  //               return Column(
-  //                 crossAxisAlignment: CrossAxisAlignment.stretch,
-  //                 mainAxisAlignment: MainAxisAlignment.start,
-  //                 children: [
-
-
-
-  //                   const SizedBox(height: 10),
-
-
-
-  //                   _buildCollapsible(context),
-
-
-
-  //                   const SizedBox(height: 50),
-
-
-
-  //                   const Text(
-  //                     "Upcoming Tickets",
-  //                     textAlign: TextAlign.left,
-  //                     style: TextStyle(fontSize: 25),
-  //                   ),
-
-
-
-  //                   const SizedBox(height: 10),
-
-
-
-  //                   _OnHover(
-  //                     child: OutlinedButton(
-  //                       style: OutlinedButton.styleFrom(
-  //                         backgroundColor: const Color(0xFFE8DAFA),
-  //                         side: const BorderSide(color: Colors.black)
-  //                       ),
-                        
-  //                       onPressed: () {
-  //                         Navigator.push(
-  //                           context,
-  //                           MaterialPageRoute(
-  //                             builder: (context) => const BuyTicketScreen()
-  //                           )
-  //                         );
-  //                       },
-                        
-  //                       child: Container(
-  //                         height: 55,
-  //                         decoration: BoxDecoration(
-  //                           border: Border.all(
-  //                             width: 10,
-  //                             color: Colors.transparent,
-  //                           ),
-  //                           borderRadius: BorderRadius.circular(20),
-  //                         ),
-                          
-  //                         child: Row(
-  //                           children: [
-  //                             Expanded(
-  //                               child: Text(
-  //                                 "${DataP.collection[index].event.title}",
-  //                                 textAlign: TextAlign.left,
-  //                                 selectionColor: Colors.black,
-  //                               ),
-  //                             )
-  //                           ],
-  //                         ),
-  //                       ),
-  //                     )
-  //                   ),
-                  
-                  
-  //                 ],
-  //               );
-  //             },
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   ]);
-  // }
-
   Widget _buildPanel(BuildContext context) {
-    final DataP = Provider.of<data.dataCollector<tic.Tickets>>(context);
+    final DataP = Provider.of<Tickets>(context);
+    DataP.ticketSort();
     return Column(children: <Widget>[
-      
-
       // right of screen
       Expanded(
         flex: 5,
@@ -176,41 +56,21 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Container(
-            
-          
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-            
-            
-            
                   const SizedBox(height: 10),
-            
-            
-            
                   _buildCollapsible(context),
-            
-            
-            
                   const SizedBox(height: 50),
-            
-            
-            
                   const Text(
                     "Upcoming Tickets",
                     textAlign: TextAlign.left,
                     style: TextStyle(fontSize: 25),
                   ),
-            
-            
-            
                   const SizedBox(height: 10),
-            
-            
                   _buildUpcomingTix(context)
-                  
                 ],
               ),
             ),
@@ -220,75 +80,60 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
     ]);
   }
 
-
-
-  Widget _buildUpcomingTix (BuildContext context){
-    final DataP = Provider.of<data.dataCollector<tic.Tickets>>(context);
+  Widget _buildUpcomingTix(BuildContext context) {
+    final DataP = Provider.of<Tickets>(context);
     return Container(
       height: 577,
-      alignment: Alignment.bottomCenter,
       child: ListView.builder(
-        shrinkWrap: true,
-        itemCount: DataP.collection.length,
-        itemBuilder: (BuildContext context, int index){
-          return Expanded(
-            child: Column(
-              children: [
+          shrinkWrap: true,
+          itemCount: DataP.upcoming.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Expanded(
+              child: Column(children: [
                 _OnHover(
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
+                    child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
                       backgroundColor: const Color(0xFFE8DAFA),
-                      side: const BorderSide(color: Colors.black)
-                    ),
-                    
-                    onPressed: () {
-                      Navigator.push(
+                      side: const BorderSide(color: Colors.black)),
+                  onPressed: () {
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => BuyTicketScreen(id:DataP.collection[index].id)
-                        )
-                      );
-                    },
-                    
-                    child: Container(
-                      key: Key("ticket"),
-                      height: 55,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 10,
-                          color: Colors.transparent,
-                        ),
-                        borderRadius: BorderRadius.circular(20),
+                            builder: (context) =>
+                                BuyTicketScreen(id: DataP.upcoming[index].id)));
+                  },
+                  child: Container(
+                    key: Key("ticket"),
+                    height: 55,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 10,
+                        color: Colors.transparent,
                       ),
-                      
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              "${DataP.collection[index].event.title}",
-                              // DataP.collection[index].event.title,
-                              textAlign: TextAlign.left,
-                              selectionColor: Colors.black,
-                            ),
-                          )
-                        ],
-                      ),
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                  )
-                ),
-          
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            "${DataP.upcoming[index].event.title}",
+                            textAlign: TextAlign.left,
+                            selectionColor: Colors.black,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                )),
                 const SizedBox(height: 20),
-              ]
-            ),
-          );
-        }
-      ),
+              ]),
+            );
+          }),
     );
   }
 
   Widget _buildCollapsible(BuildContext context) {
-    final DataP = Provider.of<data.dataCollector<tic.Tickets>>(context); 
-    // print(DataP.collection[0].event.date);
+    final DataP = Provider.of<Tickets>(context);
     return ExpansionPanelList(
       elevation: 0,
       expansionCallback: (int index, bool isExpanded) {
@@ -297,7 +142,6 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
         });
       },
       children: _data.map<ExpansionPanel>((Item item) {
-      
         return ExpansionPanel(
           backgroundColor: const Color(0xFFC8B8D8),
           headerBuilder: (BuildContext context, bool isExpanded) {
@@ -311,59 +155,52 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
               ),
             );
           },
-          
           body: ListView.builder(
-              shrinkWrap: true,
-              itemCount: DataP.collection.length,
-              itemBuilder: (BuildContext context, int index) {
-              // children: [
-          
-                return Column(
-                    children: [
-                      _OnHover(
-                        child: OutlinedButton(
-                          style: OutlinedButton.styleFrom(
-                            backgroundColor: const Color(0xFFE8DAFA),
-                            side: const BorderSide(color: Colors.black)
+            shrinkWrap: true,
+            itemCount: DataP.expired.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Column(
+                children: [
+                  _OnHover(
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                          backgroundColor: const Color(0xFFE8DAFA),
+                          side: const BorderSide(color: Colors.black)),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => BuyTicketScreen(
+                                    id: DataP.expired[index].id)));
+                      },
+                      child: Container(
+                        height: 55,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 10,
+                            color: Colors.transparent,
                           ),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => BuyTicketScreen(id:DataP.collection[index].id)));
-                          },
-                          child: Container(
-                            height: 55,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 10,
-                                color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                "${DataP.expired[index].event.title}",
+                                textAlign: TextAlign.left,
+                                selectionColor: Colors.black,
                               ),
-                              borderRadius: BorderRadius.circular(20),
                             ),
-                            child: Row(
-                              children: [
-                    
-                                Expanded(
-                                  child: Text(
-                                    "${DataP.collection[index].event.title}",
-                                    textAlign: TextAlign.left,
-                                    selectionColor: Colors.black,
-                                  ),
-                                ),
-                                
-                              ],
-                            ),
-                          ),
+                          ],
                         ),
                       ),
-                      const SizedBox(height: 20),
-                    ],
-                  );
-                
-              },
-            ),
-          
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                ],
+              );
+            },
+          ),
           isExpanded: item.isExpanded,
         );
       }).toList(),
@@ -420,5 +257,40 @@ class _OnHoverState extends State<_OnHover> {
     setState(() {
       this.isHovered = isHovered;
     });
+  }
+}
+
+class Tickets extends data.dataCollector<tic.Tickets> {
+  Tickets({super.filter}) : super();
+
+  List<tic.Tickets> expiredtix = [];
+  List<tic.Tickets> upcomingtix = [];
+
+  List<tic.Tickets> get upcoming {
+    return [...upcomingtix];
+  }
+
+  List<tic.Tickets> get expired {
+    return [...expiredtix];
+  }
+
+  ticketSort() async {
+    DateTime now = DateTime.now();
+    List<tic.Tickets> temp1 = [];
+    List<tic.Tickets> temp2 = [];
+    for (tic.Tickets tix in collection) {
+      DateTime date = DateFormat("yyyy-MM-dd").parse(tix.date);
+
+      if (date.isAfter(now) || date.isAtSameMomentAs(now)) {
+        temp1.add(tix);
+      } else {
+        temp2.add(tix);
+      }
+    }
+
+    expiredtix = temp2;
+    upcomingtix = temp1;
+    // print(expiredtix);
+    // print(upcomingtix);
   }
 }
