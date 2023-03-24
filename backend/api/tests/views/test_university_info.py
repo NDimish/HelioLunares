@@ -59,4 +59,4 @@ class UniversityInfoTestCase(APITestCase):
 
         response = self.client.delete(self.url, format="json", **header)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertEqual(len(University.objects.filter(id=1)), 1)
+        self.assertEqual(len(University.objects.filter(id=1)), 0)
