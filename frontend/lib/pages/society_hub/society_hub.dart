@@ -40,11 +40,9 @@ class SocietyHubPage extends StatelessWidget {
           Expanded(
               child: ListView(
             children: [
-              ImageCard(image: NetworkImage(society.image) // NetworkImage(
-                  //"https://example.com/images/${society.image}")
-                  // ? NetworkImage('assets/icons/kcl.png') //Load
-                  // : NetworkImage('assets/images/logo.jpg'),
-                  ),
+              ImageCard(
+                image: NetworkImage('assets/images/logo.jpg'),
+              ),
               if (ResponsiveWidget.isLargeScreen(context) ||
                   ResponsiveWidget.isMediumScreen(context))
                 if (ResponsiveWidget.isCustomSize(context))
