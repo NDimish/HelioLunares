@@ -76,7 +76,7 @@ class Event extends dataSets {
         'update_time': update_time,
         'create_time': create_time,
         'event_name': title,
-        'event_date': ('${date}T$time'),
+        'event_date': ('${date}T${time}Z'),
         'location': venue,
         'description': description,
         'attendance': attendance
@@ -129,7 +129,7 @@ class Event extends dataSets {
       'update_time': update_time,
       'create_time': create_time,
       'event_name': title,
-      'event_date': "${date} ${time}:00",
+      'event_date': ('${date}T${time}:00Z'),
       'location': venue,
       'description': description,
       'attendance': attendance
