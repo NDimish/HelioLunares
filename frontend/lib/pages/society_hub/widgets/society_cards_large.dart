@@ -17,7 +17,7 @@ class SocietyHubCardsLarge extends StatelessWidget {
         Expanded(
             child: InfoCard(
                 title: "Event Count",
-                value: "7",
+                value: "0",
                 topColor: Colors.black,
                 //isActive: isActive,
                 onTap: () {})),
@@ -27,7 +27,7 @@ class SocietyHubCardsLarge extends StatelessWidget {
         Expanded(
             child: InfoCard(
                 title: "Follower Count",
-                value: "7",
+                value: "0",
                 topColor: Colors.black,
                 //isActive: isActive,
                 onTap: () {})),

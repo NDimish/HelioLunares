@@ -69,7 +69,7 @@ class _ListOfTicketsState extends State<ListOfTickets> {
                       leading: const Icon(Icons.text_snippet),
                       title: Column(
                         children: [
-                          Text("Event ID: ${data[index].id}"),
+                          Text("Ticket ID: ${data[index].id}"),
                           Text("Email: ${data[index].user.email}")
                         ],
                       ),
