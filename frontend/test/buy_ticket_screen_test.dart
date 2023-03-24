@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:university_ticketing_system/screens/startup_screen/widgets/widget_carousel.dart';
 import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/bought_tickets/buy_ticket_screen.dart';
-import '../lib/user_hub/widgets/AppBarWidgets/bought_tickets/user_bought_ticket_screen.dart';
+import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/bought_tickets/user_bought_ticket_screen.dart';
+
 
 
 
@@ -22,6 +22,7 @@ void main() {
     // final overview = find.text("Ticket Overview");
     final title = find.text("Title:");
     final date = find.text("Date:");
+    final time = find.text("Time:");
     final venue = find.text("Venue:");
     final description = find.text("Description:");
     final price = find.text("Price:");
@@ -29,6 +30,7 @@ void main() {
     // expect(overview, findsOneWidget);
     expect(title, findsOneWidget);
     expect(date, findsOneWidget);
+    expect(time, findsOneWidget);
     expect(venue, findsOneWidget);
     expect(description, findsOneWidget);
     expect(price, findsOneWidget);

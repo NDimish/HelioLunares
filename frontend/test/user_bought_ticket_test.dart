@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:university_ticketing_system/screens/startup_screen/widgets/widget_carousel.dart';
-import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/bought_tickets/buy_ticket_screen.dart';
-import '../lib/user_hub/widgets/AppBarWidgets/bought_tickets/user_bought_ticket_screen.dart';
+import 'package:university_ticketing_system/user_hub/widgets/AppBarWidgets/bought_tickets/user_bought_ticket_screen.dart';
 
 
 void main() {
@@ -44,7 +42,8 @@ void main() {
 
 
   });
-
+  
+// will fail
   testWidgets('Clicking on ticket brings you to another page', (tester) async{
     await tester.pumpWidget(const MaterialApp(
       home: Scaffold(
