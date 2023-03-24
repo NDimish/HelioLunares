@@ -191,6 +191,14 @@ class dataCollector<T extends dataSets> with ChangeNotifier {
     return false;
   }
 
+  Future<void> refresh() async {
+    bool singlerecord = true;
+    fetchData(
+        createUrl(sets[T]!, filter: {}, order: OrderType.CHRONOLOGICAL, ID: -1),
+        singlerecord,
+        sets[T]!);
+  }
+
   getRelation(Relatiions relations, int id) {
     switch (relations) {
       case Relatiions.HOSTS:
