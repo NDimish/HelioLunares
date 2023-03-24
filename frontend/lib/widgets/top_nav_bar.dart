@@ -21,10 +21,7 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key,
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left: 16),
-                  // child: Image.asset(
-                  //   "assets/icons/ticket.png",
-                  //   width: 28,
-                  // ),
+                  child: Icon(Icons.airplane_ticket_rounded),
                 ),
               ],
             )
@@ -48,6 +45,7 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key,
             Expanded(child: Container()),
             //LOGOUT BUTTON
             ElevatedButton(
+                key: const Key("LogoutButton"),
                 style: ButtonStyle(
                     backgroundColor:
                         const MaterialStatePropertyAll(Colors.transparent)),
@@ -84,6 +82,7 @@ AppBar topNavBar(BuildContext context, GlobalKey<ScaffoldState> key,
             ),
             (globals.localdataobj.getUserLevel() != 3)
                 ? ElevatedButton(
+                    key: const Key("UserHubButton"),
                     style: ButtonStyle(
                         backgroundColor:
                             const MaterialStatePropertyAll(Colors.transparent)),
