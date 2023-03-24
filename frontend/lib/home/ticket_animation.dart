@@ -110,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("Society Event Finder",
+              Text("University Ticketing System",
                   textAlign: TextAlign.center,
                   textScaleFactor: 2.5,
                   style: TextStyle(
@@ -119,7 +119,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                       fontSize:
                           ResponsiveWidget.isSmallScreen(context) ? 13 : 20)),
               const SizedBox(height: 5),
-              Text("--- Find Uni Events Across The U.K ---",
+              Text("--- Join the events you love! ---",
                   textAlign: TextAlign.center,
                   textScaleFactor: 1.3,
                   style: TextStyle(
