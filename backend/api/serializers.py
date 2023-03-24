@@ -44,7 +44,7 @@ class PeopleRoleAtSocietySerializer(serializers.ModelSerializer):
 
 class EventModelSerializer(serializers.ModelSerializer):
     """Event Model Serializer """
-    society_id = SocietySerializer()
+    society = SocietySerializer()
     
     class Meta:
         model = Event
