@@ -38,7 +38,8 @@ void main() {
       expect(find.byIcon(Icons.phone), findsOneWidget);
 
       expect(find.text('University'), findsOneWidget);
-      expect(find.text('Enter your university'), findsOneWidget);
+     
+      expect(find.byIcon(Icons.school), findsOneWidget);
       
 
       expect(find.text('Save'), findsOneWidget);
