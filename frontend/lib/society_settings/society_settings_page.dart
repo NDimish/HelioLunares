@@ -281,6 +281,8 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                                     TextButton(
                                       onPressed: () => {
                                         societyNameController.text = update_society.name,
+                                        emailController.text = update_user.email,
+                                        passwordController.text = update_user.password,
                                         Navigator.pop(context, 'OK'),
 
                                       },

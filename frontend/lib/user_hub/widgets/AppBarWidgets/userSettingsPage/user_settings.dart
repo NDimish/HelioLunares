@@ -266,6 +266,10 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                                   actions: <Widget>[
                                     TextButton(
                                       onPressed: () => {
+                                        emailController.text = update_user.email,
+                                        passwordController.text = update_user.password,
+                                        firstNameController.text = update_person.first_name,
+                                        lastNameController.text = update_person.last_name,
                                         Navigator.pop(context, 'OK'),
                                       },
                                       child: const Text('OK'),
@@ -274,7 +278,6 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                                 ),
                               );
                             } catch (error) {
-                              //This can be turned into a reusable widget?
                               showDialog<String>(
                                 context: context,
                                 builder: (BuildContext context) => AlertDialog(
