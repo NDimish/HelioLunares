@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:university_ticketing_system/backend_communication/models/Society.dart';
+import 'package:university_ticketing_system/backend_communication/models/User.dart';
+import 'package:university_ticketing_system/backend_communication/models/University.dart';
 import 'package:university_ticketing_system/pages/society_hub/widgets/info_card.dart';
 import 'package:university_ticketing_system/pages/society_hub/widgets/society_cards_medium.dart';
 
@@ -11,15 +14,37 @@ void main() {
     //Medium Screen Size is of a width 768< x < 1366
     binding.window.physicalSizeTestValue = const Size(900, 1080);
     binding.window.devicePixelRatioTestValue = 1.0;
+    User user =
+        User(email: "test@gmail.com", userType: 2, date_joined: "12/02/20");
 
+    University university = University(
+        name: "KCL",
+        latitude: 0.0,
+        longitude: 0.0,
+        street_name: "test street",
+        postcode: "postcode");
+    Society society = Society(
+        created_at: '12/02/20',
+        description: "test description",
+        image: "img",
+        join_date: "12/02/20",
+        name: "Test Society",
+        university: university,
+        user: user);
     testWidgets(
         "Society Cards are laid out correctly, and all cards are showing",
         (tester) async {
       // SITA I HAD TO COMMENT THIS OUT BECAUSE IT WAS GIVING ME AN ERORR.
+
       // ignore: prefer_const_constructors
-      // await tester.pumpWidget(MaterialApp(
-      //   home: Scaffold(body: SocietyHubCardsMedium()),
-      // ));
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+            body: SocietyHubCardsMedium(
+          eventCount: '34',
+          memberCount: '12',
+          society: society,
+        )),
+      ));
 
       //To ensure layout is correct
 
@@ -29,7 +54,7 @@ void main() {
 
       //To ensure all cards are showing
       final eventCountFinder = find.text("Event Count");
-      final followerCountFinder = find.text("Follower Count");
+      final followerCountFinder = find.text("Member Count");
       final universityNameFinder = find.text("University");
       final aboutUsFinder = find.text("About Us");
 
