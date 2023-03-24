@@ -37,6 +37,7 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
               create: (context) => Tickets(filter: {
                     'user': globals.localdataobj.getUserID().toString()
                   })),
+          // filter: {'user':26.toString()})),
         ],
         builder: (context, child) {
           return Scaffold(
@@ -66,9 +67,10 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                   _buildCollapsible(context),
                   const SizedBox(height: 50),
                   const Text(
-                    "Upcoming Tickets",
+                    "Upcoming Ticket(s)",
                     textAlign: TextAlign.left,
-                    style: TextStyle(fontSize: 25),
+                    style: TextStyle(
+                        fontFamily: 'Arvo', color: Colors.black, fontSize: 25),
                   ),
                   const SizedBox(height: 10),
                   _buildUpcomingTix(context)
@@ -81,57 +83,228 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
     ]);
   }
 
+  // Widget _buildUpcomingTix (BuildContext context){
+  //   final DataP = Provider.of<Tickets>(context);
+  //   return Container(
+  //     height: 577,
+  //     child: ListView.builder(
+  //       shrinkWrap: true,
+  //       itemCount: DataP.upcoming.length,
+  //       itemBuilder: (BuildContext context, int index){
+  //         return Expanded(
+  //           child: Column(
+  //             children: [
+  //               _OnHover(
+  //                 child: OutlinedButton(
+  //                   style: OutlinedButton.styleFrom(
+  //                     backgroundColor: const Color(0xFFE8DAFA),
+  //                     side: const BorderSide(color: Colors.black)
+  //                   ),
+
+  //                   onPressed: () {
+  //                     Navigator.push(
+  //                       context,
+  //                       MaterialPageRoute(
+  //                         builder: (context) => BuyTicketScreen(id:DataP.upcoming[index].id)
+  //                       )
+  //                     );
+  //                   },
+
+  //                   child: Container(
+  //                     key: Key("ticket"),
+  //                     height: 55,
+  //                     decoration: BoxDecoration(
+  //                       border: Border.all(
+  //                         width: 10,
+  //                         color: Colors.transparent,
+  //                       ),
+  //                       borderRadius: BorderRadius.circular(20),
+  //                     ),
+
+  //                     child: Row(
+  //                       children: [
+  //                         Expanded(
+  //                           child: Text(
+  //                             "${DataP.upcoming[index].event.title}",
+  //                             textAlign: TextAlign.left,
+  //                             selectionColor: Colors.black,
+  //                           ),
+  //                         )
+  //                       ],
+  //                     ),
+  //                   ),
+  //                 )
+  //               ),
+
+  //               const SizedBox(height: 20),
+  //             ]
+  //           ),
+  //         );
+  //       }
+  //     ),
+  //   );
+  // }
+
   Widget _buildUpcomingTix(BuildContext context) {
     final DataP = Provider.of<Tickets>(context);
-    return Container(
-      height: 577,
-      child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: DataP.upcoming.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Expanded(
-              child: Column(children: [
-                _OnHover(
-                    child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                      backgroundColor: const Color(0xFFE8DAFA),
-                      side: const BorderSide(color: Colors.black)),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                BuyTicketScreen(id: DataP.upcoming[index].id)));
-                  },
-                  child: Container(
-                    key: Key("ticket"),
-                    height: 55,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 10,
-                        color: Colors.transparent,
+    if (DataP.upcoming.length > 0) {
+      return Container(
+        height: 577,
+        child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: DataP.upcoming.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Expanded(
+                child: Column(children: [
+                  _OnHover(
+                      child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                        backgroundColor: const Color(0xFFE8DAFA),
+                        side: const BorderSide(color: Colors.black)),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => BuyTicketScreen(
+                                  id: DataP.upcoming[index].id)));
+                    },
+                    child: Container(
+                      key: Key("ticket"),
+                      height: 55,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 10,
+                          color: Colors.transparent,
+                        ),
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                      borderRadius: BorderRadius.circular(20),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              "${DataP.upcoming[index].event.title}",
+                              textAlign: TextAlign.left,
+                              selectionColor: Colors.black,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            "${DataP.upcoming[index].event.title}",
-                            textAlign: TextAlign.left,
-                            selectionColor: Colors.black,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                )),
-                const SizedBox(height: 20),
-              ]),
-            );
-          }),
-    );
+                  )),
+                  const SizedBox(height: 20),
+                ]),
+              );
+            }),
+      );
+    } else {
+      return Container(
+        height: 55,
+        decoration: BoxDecoration(
+          border: Border.all(
+            width: 10,
+            color: Colors.transparent,
+          ),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Text("You currently have no upcoming tickets",
+                  textAlign: TextAlign.center,
+                  selectionColor: Colors.black,
+                  style: TextStyle(
+                      fontFamily: 'Arvo',
+                      color: Colors.black,
+                      fontSize: 15,
+                      fontStyle: FontStyle.italic)),
+            )
+          ],
+        ),
+      );
+    }
   }
+
+  // Widget _buildCollapsible(BuildContext context) {
+  //   final DataP = Provider.of<Tickets>(context);
+  //   return ExpansionPanelList(
+  //     elevation: 0,
+  //     expansionCallback: (int index, bool isExpanded) {
+  //       setState(() {
+  //         _data[index].isExpanded = !isExpanded;
+  //       });
+  //     },
+  //     children: _data.map<ExpansionPanel>((Item item) {
+
+  //       return ExpansionPanel(
+  //         backgroundColor: const Color(0xFFC8B8D8),
+  //         headerBuilder: (BuildContext context, bool isExpanded) {
+  //           return ListTile(
+  //             contentPadding: const EdgeInsets.all(0),
+  //             hoverColor: const Color(0xFFC8B8D8),
+  //             title: Text(
+  //               item.headerValue,
+  //               style: const TextStyle(
+  //                   fontFamily: 'Arvo', color: Colors.black, fontSize: 25),
+  //             ),
+  //           );
+  //         },
+
+  //         body: ListView.builder(
+  //             shrinkWrap: true,
+  //             itemCount: DataP.expired.length,
+  //             itemBuilder: (BuildContext context, int index) {
+
+  //               return Column(
+  //                   children: [
+  //                     _OnHover(
+  //                       child: OutlinedButton(
+  //                         style: OutlinedButton.styleFrom(
+  //                           backgroundColor: const Color(0xFFE8DAFA),
+  //                           side: const BorderSide(color: Colors.black)
+  //                         ),
+  //                         onPressed: () {
+  //                           Navigator.push(
+  //                               context,
+  //                               MaterialPageRoute(
+  //                                   builder: (context) => BuyTicketScreen(id:DataP.expired[index].id)));
+  //                         },
+  //                         child: Container(
+  //                           height: 55,
+  //                           decoration: BoxDecoration(
+  //                             border: Border.all(
+  //                               width: 10,
+  //                               color: Colors.transparent,
+  //                             ),
+  //                             borderRadius: BorderRadius.circular(20),
+  //                           ),
+  //                           child: Row(
+  //                             children: [
+
+  //                               Expanded(
+  //                                 child: Text(
+  //                                   "${DataP.expired[index].event.title}",
+  //                                   textAlign: TextAlign.left,
+  //                                   selectionColor: Colors.black,
+  //                                 ),
+  //                               ),
+
+  //                             ],
+  //                           ),
+  //                         ),
+  //                       ),
+  //                     ),
+  //                     const SizedBox(height: 20),
+  //                   ],
+  //                 );
+
+  //             },
+  //           ),
+
+  //         isExpanded: item.isExpanded,
+  //       );
+  //     }).toList(),
+  //   );
+  // }
 
   Widget _buildCollapsible(BuildContext context) {
     final DataP = Provider.of<Tickets>(context);
@@ -142,69 +315,111 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
           _data[index].isExpanded = !isExpanded;
         });
       },
-      children: _data.map<ExpansionPanel>((Item item) {
-        return ExpansionPanel(
-          backgroundColor: const Color(0xFFC8B8D8),
-          headerBuilder: (BuildContext context, bool isExpanded) {
-            return ListTile(
-              contentPadding: const EdgeInsets.all(0),
-              hoverColor: const Color(0xFFC8B8D8),
-              title: Text(
-                item.headerValue,
-                style: const TextStyle(
-                    fontFamily: 'Arvo', color: Colors.black, fontSize: 25),
-              ),
-            );
-          },
-          body: ListView.builder(
-            shrinkWrap: true,
-            itemCount: DataP.expired.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Column(
-                children: [
-                  _OnHover(
-                    child: OutlinedButton(
-                      style: OutlinedButton.styleFrom(
+      children: [
+        // Render a panel with expired tickets only when there are expired tickets
+        if (DataP.expired.length > 0)
+          ExpansionPanel(
+            backgroundColor: const Color(0xFFC8B8D8),
+            headerBuilder: (BuildContext context, bool isExpanded) {
+              return ListTile(
+                contentPadding: const EdgeInsets.all(0),
+                hoverColor: const Color(0xFFC8B8D8),
+                title: Text(
+                  "Expired Ticket(s)",
+                  style: const TextStyle(
+                    fontFamily: 'Arvo',
+                    color: Colors.black,
+                    fontSize: 25,
+                  ),
+                ),
+              );
+            },
+            body: ListView.builder(
+              shrinkWrap: true,
+              itemCount: DataP.expired.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Column(
+                  children: [
+                    _OnHover(
+                      child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
                           backgroundColor: const Color(0xFFE8DAFA),
-                          side: const BorderSide(color: Colors.black)),
-                      onPressed: () {
-                        Navigator.push(
+                          side: const BorderSide(color: Colors.black),
+                        ),
+                        onPressed: () {
+                          Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => BuyTicketScreen(
-                                    id: DataP.expired[index].id)));
-                      },
-                      child: Container(
-                        height: 55,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 10,
-                            color: Colors.transparent,
-                          ),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                "${DataP.expired[index].event.title}",
-                                textAlign: TextAlign.left,
-                                selectionColor: Colors.black,
+                              builder: (context) => BuyTicketScreen(
+                                id: DataP.expired[index].id,
                               ),
                             ),
-                          ],
+                          );
+                        },
+                        child: Container(
+                          height: 55,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 10,
+                              color: Colors.transparent,
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  "${DataP.expired[index].event.title}",
+                                  textAlign: TextAlign.left,
+                                  selectionColor: Colors.black,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
+                    const SizedBox(height: 20),
+                  ],
+                );
+              },
+            ),
+            isExpanded: _data[0].isExpanded,
+          ),
+        // Render a panel with the "no expired tickets" message when there are no expired tickets
+        if (DataP.expired.length == 0)
+          ExpansionPanel(
+            backgroundColor: const Color(0xFFC8B8D8),
+            headerBuilder: (BuildContext context, bool isExpanded) {
+              return ListTile(
+                contentPadding: const EdgeInsets.all(0),
+                hoverColor: const Color(0xFFC8B8D8),
+                title: Text(
+                  "Expired Ticket(s)",
+                  style: const TextStyle(
+                    fontFamily: 'Arvo',
+                    color: Colors.black,
+                    fontSize: 25,
                   ),
-                  const SizedBox(height: 20),
-                ],
+                ),
               );
             },
+            body: ListTile(
+              title: Text(
+                "You currently have no expired tickets.",
+                textAlign: TextAlign.center,
+                selectionColor: Colors.black,
+                style: const TextStyle(
+                  fontFamily: 'Arvo',
+                  color: Colors.black,
+                  fontStyle: FontStyle.italic,
+                  fontSize: 15,
+                ),
+              ),
+            ),
+            isExpanded: _data[0].isExpanded,
           ),
-          isExpanded: item.isExpanded,
-        );
-      }).toList(),
+      ],
     );
   }
 }
@@ -277,10 +492,11 @@ class Tickets extends data.dataCollector<tic.Tickets> {
 
   ticketSort() async {
     DateTime now = DateTime.now();
+
     List<tic.Tickets> temp1 = [];
     List<tic.Tickets> temp2 = [];
     for (tic.Tickets tix in collection) {
-      DateTime date = DateFormat("yyyy-MM-dd").parse(tix.date);
+      DateTime date = DateFormat("yyyy-MM-dd").parse(tix.event.date);
 
       if (date.isAfter(now) || date.isAtSameMomentAs(now)) {
         temp1.add(tix);

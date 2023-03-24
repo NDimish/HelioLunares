@@ -47,6 +47,7 @@ class _ChooseSignUpState extends State<ChooseSignUp> {
 
   CustomLinearGradient largerScreenSignUpChoice(BuildContext context) {
     return CustomLinearGradient(
+        key: const Key("LargeSignUp"),
         child: Center(
             child: Padding(
       padding: const EdgeInsets.only(top: 16.0),
@@ -263,6 +264,7 @@ class _ChooseSignUpState extends State<ChooseSignUp> {
 
   smallScreenSignUpChoice(BuildContext context) {
     return CustomLinearGradient(
+        key: const Key("SmallSignUp"),
         child: Center(
             child: Padding(
       padding: const EdgeInsets.only(top: 16.0),

@@ -6,7 +6,7 @@ import 'package:university_ticketing_system/home/topbar.dart';
 import 'package:university_ticketing_system/responsive.dart';
 
 /// DESIGNED BY ISRAFEEL ASHRAF - K21008936
-/// DESIGNED BY JOSHUA SUZAK - K...
+/// DESIGNED BY JOSHUA SUZAK - K21015266
 ///
 /// This is the home page of the application and is used to welcome the user.
 ///

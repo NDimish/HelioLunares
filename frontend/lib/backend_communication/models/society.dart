@@ -8,9 +8,9 @@ class Society extends dataSets {
   final User user;
   final University university; //university_studying_at
   final String name;
-  final String description;
+  String description;
   final String created_at;
-  late String image;
+  String image;
 
   final String join_date;
   // final String password;
@@ -79,5 +79,13 @@ class Society extends dataSets {
       'creation_date': created_at,
       'image': image
     };
+  }
+
+  void setDescription(String description) {
+    this.description = description;
+  }
+
+  void setImage(String image) {
+    this.image = image;
   }
 }
