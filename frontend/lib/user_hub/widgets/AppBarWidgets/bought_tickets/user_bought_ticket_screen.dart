@@ -45,11 +45,11 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
                 leading:IconButton(onPressed: 
                 (){
                   Navigator.push(context, 
-                  MaterialPageRoute(builder: 
-                  (context){
-                    return UserHubPage_events();
-                  }));
-                }, icon: Icon(Icons.arrow_back_outlined))
+                    MaterialPageRoute(builder: 
+                      (context) => UserHubPage_events()
+                    )
+                  );
+                }, icon: Icon(Icons.arrow_back))
               ),
               backgroundColor: const Color(0xFFC8B8D8),
               body: _buildPanel(context));
