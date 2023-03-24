@@ -41,7 +41,16 @@ class _UserBoughtTicketScreenState extends State<UserBoughtTicketScreen> {
         ],
         builder: (context, child) {
           return Scaffold(
-              appBar: AppBar(),
+              appBar: AppBar(
+                leading:IconButton(onPressed: 
+                (){
+                  Navigator.push(context, 
+                  MaterialPageRoute(builder: 
+                  (context){
+                    return UserHubPage_events();
+                  }));
+                }, icon: Icon(Icons.arrow_back_outlined))
+              ),
               backgroundColor: const Color(0xFFC8B8D8),
               body: _buildPanel(context));
         });
