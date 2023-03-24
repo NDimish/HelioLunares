@@ -1,17 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:university_ticketing_system/backend_communication/dataCollector.dart';
 import 'package:university_ticketing_system/constants/controllers.dart';
 import 'package:university_ticketing_system/constants/style.dart';
-import 'package:university_ticketing_system/backend_communication/models/SocietyEvent.dart';
 import 'package:university_ticketing_system/routing/routes.dart';
+import '../../../backend_communication/models/Event.dart';
+import '../../../widgets/circle_icon.dart';
 import '../../../widgets/custom_text.dart';
 
 const String _heroAddTodo = 'add-todo-hero';
 
 class AddEventPopupCard extends StatelessWidget {
   //All event details to display
-  SocietyEvent obj = Get.find<SocietyEvent>();
+  final Event event = Get.find<Event>();
+  // final dataCollector<Event> eventDataProvider =
+  //     Get.find<dataCollector<Event>>();
+  // final List<Event> eventList =
   AddEventPopupCard({Key? key}) : super(key: key);
+
+  String formatTime(String time) {
+    DateTime dateTime = DateTime.parse("2022-03-23T$time");
+    String formattedTime =
+        '${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}';
+    return formattedTime;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +41,12 @@ class AddEventPopupCard extends StatelessWidget {
                 child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           CustomText(
-                            text: obj.name,
-                            size: 20,
+                            text: event.title,
+                            size: 30,
                             weight: FontWeight.bold,
                             colour: MyColours.active,
                           ),
@@ -41,17 +54,19 @@ class AddEventPopupCard extends StatelessWidget {
                             height: 20,
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              const Icon(
+                              // ignore: prefer_const_constructors
+                              CircleIcon(
+                                  icon: const Icon(
                                 Icons.payments_outlined,
                                 color: MyColours.active,
-                              ),
+                              )),
                               const SizedBox(
-                                width: 2,
+                                width: 10,
                               ),
                               CustomText(
-                                text: "£${obj.price}",
+                                text: "£${event.price.toStringAsFixed(2)}",
                                 size: 18,
                                 weight: FontWeight.bold,
                               )
@@ -61,14 +76,19 @@ class AddEventPopupCard extends StatelessWidget {
                             height: 10,
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              const Icon(
+                              // ignore: prefer_const_constructors
+                              CircleIcon(
+                                  icon: Icon(
                                 Icons.date_range,
                                 color: MyColours.active,
+                              )),
+                              const SizedBox(
+                                width: 10,
                               ),
                               CustomText(
-                                text: obj.date,
+                                text: event.date + " " + formatTime(event.time),
                                 size: 18,
                                 weight: FontWeight.bold,
                               )
@@ -78,31 +98,40 @@ class AddEventPopupCard extends StatelessWidget {
                             height: 10,
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              const Icon(
+                              CircleIcon(
+                                  icon: const Icon(
                                 Icons.location_on_outlined,
                                 color: MyColours.active,
+                              )),
+                              const SizedBox(
+                                width: 10,
                               ),
-                              CustomText(
-                                text: obj.location,
+                              Flexible(
+                                  child: CustomText(
+                                text: event.venue,
                                 size: 18,
                                 weight: FontWeight.bold,
-                              )
+                              )),
                             ],
                           ),
                           const SizedBox(
                             height: 10,
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              const Icon(
+                              CircleIcon(
+                                  icon: const Icon(
                                 Icons.timer,
                                 color: MyColours.active,
+                              )),
+                              const SizedBox(
+                                width: 10,
                               ),
                               CustomText(
-                                text: "${obj.duration} mins",
+                                text: "${event.duration} mins",
                                 size: 18,
                                 weight: FontWeight.bold,
                               )
@@ -112,16 +141,20 @@ class AddEventPopupCard extends StatelessWidget {
                             height: 10,
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              const Icon(
+                              CircleIcon(
+                                  icon: const Icon(
                                 Icons.description,
                                 color: MyColours.active,
+                              )),
+                              const SizedBox(
+                                width: 10,
                               ),
                               Expanded(
                                   child: SingleChildScrollView(
                                 child: CustomText(
-                                  text: obj.description,
+                                  text: event.description,
                                   size: 16,
                                   weight: FontWeight.bold,
                                 ),
@@ -129,10 +162,12 @@ class AddEventPopupCard extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(
-                            height: 10,
+                            height: 20,
                           ),
                           TextButton(
                             style: ButtonStyle(
+                              padding: const MaterialStatePropertyAll(
+                                  EdgeInsets.all(10)),
                               shape: MaterialStateProperty.all<
                                   RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
@@ -146,16 +181,18 @@ class AddEventPopupCard extends StatelessWidget {
                                   MyColours.panelBackgroundColour),
                             ),
                             onPressed: () {
-                              Get.put(obj);
-                              navigationController
-                                  .navigateTo(editEventDetailsPageDisplayName);
+                              Get.put(event);
+                              navigationController.navigateToEvent(
+                                  editEventDetailsPageDisplayName);
+                              Get.put(event);
                             },
                             child: const CustomText(
+                              colour: MyColours.active,
                               text: "Edit",
-                              size: 18,
+                              size: 24,
                               weight: FontWeight.bold,
                             ),
-                          ),
+                          )
                         ]))),
           ),
         ),

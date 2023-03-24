@@ -3,7 +3,6 @@ from rest_framework.test import APITestCase
 from api.models import User, Society
 
 class SocietyTestCase(APITestCase):
-
     fixtures = [
         'api/tests/fixtures/default_users.json',
         'api/tests/fixtures/default_university.json',
@@ -12,7 +11,7 @@ class SocietyTestCase(APITestCase):
         'api/tests/fixtures/default_society.json',
     ]
 
-    def setUp(self): 
+    def setUp(self):
         self.url = '/society/'
         self.user = User.objects.get(id=1)
         #data to login into a valid accound userlevel 1
@@ -53,19 +52,19 @@ class SocietyTestCase(APITestCase):
         header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
         response = self.client.get(self.url, format='json',**header)
         self.assertEqual(len(response.data), 3)
-        self.assertEquals(response.data[0]['name'],'test_soc_one')
-        self.assertEquals(response.data[1]['name'],'test_soc_two')
-        self.assertEquals(response.data[2]['name'],'test_soc_three')
-    
+        self.assertEquals(response.data[0]['name'], 'test_soc_one')
+        self.assertEquals(response.data[1]['name'], 'test_soc_two')
+        self.assertEquals(response.data[2]['name'], 'test_soc_three')
+
     def test_url_outputs_with_invalid_ordering(self):
         response = self.client.post('/log_in/',self.user_data,format='json')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
         response = self.client.get(self.url+'?ordering=InvalidOrderingType', format='json',**header)
         self.assertEqual(len(response.data), 3)
-        self.assertEquals(response.data[0]['name'],'test_soc_one')
-        self.assertEquals(response.data[1]['name'],'test_soc_two')
-        self.assertEquals(response.data[2]['name'],'test_soc_three')
+        self.assertEquals(response.data[0]['name'], 'test_soc_one')
+        self.assertEquals(response.data[1]['name'], 'test_soc_two')
+        self.assertEquals(response.data[2]['name'], 'test_soc_three')
 
     def test_url_outputs_with_valid_ordering_according_to_user_when_accending(self):
         response = self.client.post('/log_in/',self.user_data,format='json')
@@ -73,73 +72,73 @@ class SocietyTestCase(APITestCase):
         header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
         response = self.client.get(self.url+'?ordering=user', format='json', **header)
         self.assertEqual(len(response.data), 3)
-        self.assertEquals(response.data[0]['name'],'test_soc_one')
-        self.assertEquals(response.data[1]['name'],'test_soc_two')
-        self.assertEquals(response.data[2]['name'],'test_soc_three')
-    
+        self.assertEquals(response.data[0]['name'], 'test_soc_one')
+        self.assertEquals(response.data[1]['name'], 'test_soc_two')
+        self.assertEquals(response.data[2]['name'], 'test_soc_three')
+
     def test_url_outputs_with_valid_ordering_according_to_user_when_decending(self):
         response = self.client.post('/log_in/',self.user_data,format='json')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
         response = self.client.get(self.url+'?ordering=-user',  format='json', **header)
         self.assertEqual(len(response.data), 3)
-        self.assertEquals(response.data[0]['name'],'test_soc_three')
-        self.assertEquals(response.data[1]['name'],'test_soc_two')
-        self.assertEquals(response.data[2]['name'],'test_soc_one')
-    
+        self.assertEquals(response.data[0]['name'], 'test_soc_three')
+        self.assertEquals(response.data[1]['name'], 'test_soc_two')
+        self.assertEquals(response.data[2]['name'], 'test_soc_one')
+
     def test_url_outputs_with_invalid_filtering_type(self):
         response = self.client.post('/log_in/',self.user_data,format='json')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
         response = self.client.get(self.url+'?InvalidFilter=Invalid',  format='json', **header)
         self.assertEqual(len(response.data), 3)
-        self.assertEquals(response.data[0]['name'],'test_soc_one')
-        self.assertEquals(response.data[1]['name'],'test_soc_two')
-        self.assertEquals(response.data[2]['name'],'test_soc_three')
-    
+        self.assertEquals(response.data[0]['name'], 'test_soc_one')
+        self.assertEquals(response.data[1]['name'], 'test_soc_two')
+        self.assertEquals(response.data[2]['name'], 'test_soc_three')
+
     def test_url_outputs_with_valid_filtering_type_and_invalid_filter(self):
         response = self.client.post('/log_in/',self.user_data,format='json')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
         response = self.client.get(self.url+'?name=Invalid',  format='json', **header)
         self.assertEqual(len(response.data), 0)
-    
+
     def test_url_outputs_with_valid_filtering_type_and_valid_filter(self):
         response = self.client.post('/log_in/',self.user_data,format='json')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
         response = self.client.get(self.url+'?name=test_soc_two',  format='json', **header)
         self.assertEqual(len(response.data), 1)
-        self.assertEquals(response.data[0]['name'],'test_soc_two')
-    
+        self.assertEquals(response.data[0]['name'], 'test_soc_two')
+
     def test_url_output_with_invalid_ordering_and_invalid_filter_type(self):
         response = self.client.post('/log_in/',self.user_data,format='json')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
         response = self.client.get(self.url+'?ordering=InvalidOrderingType&InvalidFilterType=Invalid', format='json', **header)
         self.assertEqual(len(response.data), 3)
-        self.assertEquals(response.data[0]['name'],'test_soc_one')
-        self.assertEquals(response.data[1]['name'],'test_soc_two')
-        self.assertEquals(response.data[2]['name'],'test_soc_three')
-    
+        self.assertEquals(response.data[0]['name'], 'test_soc_one')
+        self.assertEquals(response.data[1]['name'], 'test_soc_two')
+        self.assertEquals(response.data[2]['name'], 'test_soc_three')
+
     def test_url_output_with_valid_ordering_and_invalid_filter_type(self):
         response = self.client.post('/log_in/',self.user_data,format='json')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
         response = self.client.get(self.url+'?ordering=name&InvalidFilterType=Invalid',  format='json', **header)
         self.assertEqual(len(response.data), 3)
-        self.assertEquals(response.data[0]['name'],'test_soc_one')
-        self.assertEquals(response.data[1]['name'],'test_soc_three')
-        self.assertEquals(response.data[2]['name'],'test_soc_two')
-    
+        self.assertEquals(response.data[0]['name'], 'test_soc_one')
+        self.assertEquals(response.data[1]['name'], 'test_soc_three')
+        self.assertEquals(response.data[2]['name'], 'test_soc_two')
+
     def test_url_output_with_invalid_ordering_and_valid_filter_type(self):
         response = self.client.post('/log_in/',self.user_data,format='json')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         header = {'HTTP_AUTHORIZATION': f'token {response.data["token"]}'}
         response = self.client.get(self.url+'?ordering=InvalidOrderingType&name=test_soc_two',  format='json', **header)
         self.assertEqual(len(response.data), 1)
-        self.assertEquals(response.data[0]['name'],'test_soc_two')
-    
+        self.assertEquals(response.data[0]['name'], 'test_soc_two')
+
     def test_url_output_with_valid_ordering_and_valid_filter_type(self):
         response = self.client.post('/log_in/',self.user_data,format='json')
         self.assertEqual(response.status_code,status.HTTP_200_OK)

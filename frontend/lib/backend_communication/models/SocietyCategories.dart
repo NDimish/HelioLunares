@@ -13,13 +13,12 @@ class SocietyCategories extends dataSets {
   factory SocietyCategories.fromJson(Map<String, dynamic> json) {
     return SocietyCategories(
         id: json['id'],
-        societyCategory: SocietyCategoryType.fromJsonNOID(json['categoryId']),
-        society: Society.fromJsonNOID(json['societyId']));
+        societyCategory: SocietyCategoryType.fromJson(json['categoryId']),
+        society: Society.fromJson(json['societyId']));
   }
 
   factory SocietyCategories.fromJsonNOID(Map<String, dynamic> json) {
     return SocietyCategories(
-        id: json['id'],
         societyCategory: SocietyCategoryType.fromJsonNOID(json['categoryId']),
         society: Society.fromJsonNOID(json['eventId']));
   }
@@ -31,4 +30,8 @@ class SocietyCategories extends dataSets {
 
   dynamic toJson() =>
       {'id': id, 'society': society, 'category': societyCategory};
+
+  updateToJson() {
+    return {'id': id, 'society': society, 'category': societyCategory};
+  }
 }

@@ -13,14 +13,13 @@ class EventCategories extends dataSets {
   factory EventCategories.fromJson(Map<String, dynamic> json) {
     return EventCategories(
         id: json['id'],
-        eventCategory: EventCategoryType.fromJsonNOID(json['categoryId']),
-        event: Event.fromJsonNOID(json['eventId']));
+        eventCategory: EventCategoryType.fromJson(json['categoryId']),
+        event: Event.fromJson(json['eventId']));
   }
 
   factory EventCategories.fromJsonNOID(Map<String, dynamic> json) {
     return EventCategories(
-        id: json['id'],
-        eventCategory: EventCategoryType.fromJsonNOID(json['categoryId']),
+        eventCategory: EventCategoryType.fromJson(json['categoryId']),
         event: Event.fromJsonNOID(json['eventId']));
   }
 
@@ -30,4 +29,6 @@ class EventCategories extends dataSets {
   }
 
   dynamic toJson() => {'id': id, 'event': event, 'category': eventCategory};
+ @override
+  updateToJson(){ return {'id': id, 'event': event, 'category': eventCategory};}
 }

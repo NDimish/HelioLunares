@@ -24,7 +24,8 @@ class People extends dataSets {
 
   factory People.fromJson(Map<String, dynamic> json) {
     return People(
-        user: User.fromJsonNOID(json['user']),
+        id: User.fromJson(json['user']).id,
+        user: User.fromJson(json['user']),
         university: University.fromJson(json['university_studying_at']),
         first_name: json['first_name'],
         last_name: json['last_name'],
@@ -52,4 +53,13 @@ class People extends dataSets {
         'last_name': last_name,
         'field_of_study': field_of_study
       };
+
+      @override
+       updateToJson() {
+        return{
+        'first_name': first_name,
+        'last_name': last_name,
+        'field_of_study': field_of_study
+        };
+      }
 }

@@ -1,0 +1,9 @@
+[
+  {
+    "model": "api.societycategoriestype",
+    "pk": 1,
+    "fields": {
+      "category_name": "music concert"
+    }
+  }
+]

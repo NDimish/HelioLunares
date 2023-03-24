@@ -11,8 +11,7 @@ class EventCategoryType extends dataSets {
   }
 
   factory EventCategoryType.fromJsonNOID(Map<String, dynamic> json) {
-    return EventCategoryType(
-        id: json['id'], categoryName: json['category_name']);
+    return EventCategoryType(categoryName: json['category_name']);
   }
 
   @override
@@ -21,4 +20,7 @@ class EventCategoryType extends dataSets {
   }
 
   dynamic toJson() => {'id': id, 'category_name': categoryName};
+
+@override
+   updateToJson() {return{'id': id, 'category_name': categoryName};}
 }

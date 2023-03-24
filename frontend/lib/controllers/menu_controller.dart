@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:university_ticketing_system/constants/controllers.dart';
 import 'package:university_ticketing_system/constants/style.dart';
 import 'package:university_ticketing_system/routing/routes.dart';
 
 class MenuController extends GetxController {
   static MenuController instance = Get.find<MenuController>();
-  var activeItem = societyHubPageDisplayName.obs;
+  var activeItem = selectSocietyPageDisplayName.obs;
 
   var hoverItem = "".obs;
 
   changeActiveItemTo(String itemName) {
     activeItem.value = itemName;
+    navigationController.navigateTo(itemName);
   }
 
   onHover(String itemName) {

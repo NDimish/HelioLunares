@@ -35,7 +35,7 @@ class VerticalMenuItem extends StatelessWidget {
                 child: Container(
                   width: 3,
                   height: 72,
-                  color: MyColours.navButtonColour,
+                  color: MyColours.textColourDark,
                 ),
               ),
               Expanded(
@@ -59,7 +59,7 @@ class VerticalMenuItem extends StatelessWidget {
                     Flexible(
                       child: CustomText(
                         text: itemName,
-                        colour: MyColours.navButtonColour,
+                        colour: MyColours.elementButtonColour,
                         size: 18,
                         weight: FontWeight.bold,
                       ),

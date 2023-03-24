@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'IndividualEventsPage.dart';
+
 // Should have:
 // Image
 // Name of event
@@ -20,13 +22,15 @@ class EventListTile extends StatefulWidget{
   required this.price,
   required this.dateTime,
   required this.location,
-  required this.org,});
+  required this.org,
+  required this.eventID});
 
   String eventName;
   double price;
   String dateTime; 
   String location; 
   String org;
+  int eventID;
 
   @override
   State<EventListTile> createState() => _EventListTileState();
@@ -40,6 +44,7 @@ class _EventListTileState extends State<EventListTile>{
     var date = widget.dateTime;
     var loc = widget.location;
     var organ = widget.org;
+    var eID = widget.eventID;
 
     // Regex checker
     RegExp reg = RegExp(r"" + searchText, caseSensitive: false);
@@ -75,14 +80,15 @@ class _EventListTileState extends State<EventListTile>{
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => Scaffold(
-                        appBar: AppBar(
-                          title: const Text("Event here!"),
-                        ),
-                        body: const Center(
-                            child: Text(
-                                "Page showing event details here")),
-                      )));
+                  builder: (context) => EventPage(
+                              eventName: 'Introduction to AI',
+                              eventDate: '10/04/2013',
+                              eventDescription: 'Great fun',
+                              eventDuration: '1 hour',
+                              eventLocation: 'Bush House',
+                              eventPrice: 0,
+                              eventId:eID,
+                                )));
           },
         ),
         ),

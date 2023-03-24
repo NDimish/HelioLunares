@@ -1,0 +1,12 @@
+[
+  {
+    "model": "api.ticket",
+    "pk": 1,
+    "fields": {
+      "event": 1,
+      "user": 1,
+      "date": "2023-03-15T10:00:20Z",
+      "price": 90.9
+    }
+  }
+]
