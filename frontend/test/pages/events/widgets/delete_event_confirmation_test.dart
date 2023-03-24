@@ -1,18 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:university_ticketing_system/backend_communication/models/SocietyEvent.dart';
+import 'package:university_ticketing_system/backend_communication/dataCollector.dart';
+import 'package:university_ticketing_system/backend_communication/models/Event.dart';
+import 'package:university_ticketing_system/backend_communication/models/University.dart';
 import 'package:university_ticketing_system/pages/events/widgets/delete_event_confirmation.dart';
 import 'package:university_ticketing_system/widgets/custom_text.dart';
 
 void main() {
   final TestWidgetsFlutterBinding binding =
       TestWidgetsFlutterBinding.ensureInitialized();
+  User user = User(
+      email: "test@gmail.com",
+      userType: 2,
+      date_joined: "12/02/20",
+      password: "w",
+      id: 1);
+
+  University university = University(
+      name: "KCL",
+      latitude: 0.0,
+      longitude: 0.0,
+      street_name: "test street",
+      postcode: "postcode");
+  Society society = Society(
+      created_at: '12/02/20',
+      description: "test description",
+      image: "img",
+      join_date: "12/02/20",
+      name: "Test Society",
+      university: university,
+      user: user);
 
   //Create a test event to pass
-  SocietyEvent eventMaker() {
-    return SocietyEvent("Test Event", "3.50", "13/09/23 11:30", "Bush House",
-        "60", "Description");
+  Event eventMaker() {
+    return Event(
+        attendance: 0,
+        create_time: "13/02/23",
+        date: "13/04/23",
+        description: "desc",
+        duration: 90,
+        price: 5.0,
+        society: society,
+        time: "08:50",
+        title: "Event",
+        update_time: "19/03/23",
+        venue: "venue",
+        id: 0);
   }
 
   group("Delete Event Confirmation Dialog Box Tests", () {
