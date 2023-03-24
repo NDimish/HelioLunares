@@ -335,3 +335,12 @@ String? validators(String? value, RegExp regex, String returnMessage) {
   }
   return null;
 }
+
+String? PasswordValidator(String? value, RegExp regex, String returnMessage) {
+  if (value == null || value.length == 0) {
+    return null;
+  } else if (!regex.hasMatch(value)) {
+    return returnMessage;
+  }
+  return null;
+}
