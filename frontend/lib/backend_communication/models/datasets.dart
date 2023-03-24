@@ -3,7 +3,16 @@
 enum Databases {
   users,
   event,
-  usersadd,
+  university,
+  people,
+  society,
+  ticket,
+  societyrole,
+  // ignore: constant_identifier_names
+  event_categories_type,
+  event_categories,
+  society_categories_type,
+  society_categories,
 }
 
 // userrsadd is temp unrtil auth working
@@ -27,4 +36,7 @@ abstract class dataSets {
   Databases getDatabase() {
     return Databases.users;
   }
+
+  updateToJson() {}
+  createJson() {}
 }

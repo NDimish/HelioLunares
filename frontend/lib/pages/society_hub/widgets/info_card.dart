@@ -21,34 +21,33 @@ class InfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        child: InkWell(
+    return InkWell(
       onTap: onTap,
       child: Container(
-        //height: 400,
-        // alignment: Alignment.topLeft,
-        decoration: BoxDecoration(
-            color: MyColours.panelBackgroundColour,
-            boxShadow: [
-              BoxShadow(
-                  offset: const Offset(0, 6),
-                  color: MyColours.subpanelBackgroundColour.withOpacity(.1),
-                  blurRadius: 12)
-            ],
-            borderRadius: BorderRadius.circular(8)),
-        child: Row(children: [
-          Expanded(
-              child: Column(children: [
+          decoration: BoxDecoration(
+              color: MyColours.panelBackgroundColour.withOpacity(0.5),
+              boxShadow: [
+                BoxShadow(
+                    offset: const Offset(0, 6),
+                    color: MyColours.subpanelBackgroundColour.withOpacity(.1),
+                    blurRadius: 12)
+              ],
+              borderRadius: BorderRadius.circular(8)),
+          child: Column(children: [
             Row(
               children: [
                 Expanded(
                     child: Container(
-                  color: topColor ?? MyColours.active,
+                  key: const Key("TopDecoration"),
+                  color: topColor,
                   height: 5,
                 ))
               ],
             ),
             Column(children: [
+              const SizedBox(
+                height: 10,
+              ),
               Row(children: [
                 Expanded(
                     child: CustomText(
@@ -57,22 +56,30 @@ class InfoCard extends StatelessWidget {
                         align: TextAlign.center,
                         text: title))
               ]),
+              const Padding(
+                padding: EdgeInsets.all(5.0),
+                child: Divider(),
+              ),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Expanded(
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                      CustomText(
-                          size: 18,
-                          weight: FontWeight.normal,
-                          align: TextAlign.center,
-                          text: value)
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: CustomText(
+                            size: 18,
+                            weight: FontWeight.normal,
+                            align: TextAlign.center,
+                            text: value),
+                      )
                     ]))
-              ])
+              ]),
+              const SizedBox(
+                height: 10,
+              ),
             ]),
-          ]))
-        ]),
-      ),
-    ));
+          ])),
+    );
   }
 }

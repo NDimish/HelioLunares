@@ -1,63 +1,51 @@
 from rest_framework import serializers
-
-from api.models import Student, User, University, Society, Event
-import re
-
-class StudentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Student
-        fields = '__all__'
+from api.models import *
  
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id','email']
-        
+        fields = ['id','email','user_level','date_joined']
+
 class UniversitySerializer(serializers.ModelSerializer):
     class Meta:
         model = University
         fields = '__all__'
 
-class SocietySerializer(serializers.ModelSerializer):
+class PeopleSerializer(serializers.ModelSerializer):
     user = UserSerializer()
-    university_society_is_at = UniversitySerializer()
-    class Meta:
-        model = Society
-        fields = ['pk', 'user', 'name', 'creation_date', 'university_society_is_at', 'join_date']
-        
-        
-        
-"""Serializers for creating users"""
-class UserCreationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['email', 'password']
-class SocietyCreationSerializer(serializers.ModelSerializer):
-    user = UserCreationSerializer()
-    university_society_is_at = UniversitySerializer()
-    class Meta:
-        model = Society
-        fields = ['user', 'name', 'creation_date', 'university_society_is_at', 'join_date']
-
-class StudentCreationSerializer(serializers.ModelSerializer):
-    user = UserCreationSerializer()
     university_studying_at = UniversitySerializer()
+
     class Meta:
-        model = Student
+        model = People
         fields = '__all__'
 
-"""
-"""
+class SocietySerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+    user = UserSerializer()
+    university_society_is_at = UniversitySerializer()
 
+    class Meta:
+        model = Society
+        fields = '__all__'
+    
+    def get_image(self, society):
+        if society.image:
+            return society.image.url
+        else:
+            return "media/default-image.png"
+
+class PeopleRoleAtSocietySerializer(serializers.ModelSerializer):
+    society = SocietySerializer()
+    user_at_society = PeopleSerializer()
+
+    class Meta:
+        model = PeopleRoleAtSociety
+        fields = '__all__'
 
 class EventModelSerializer(serializers.ModelSerializer):
     """Event Model Serializer """
-
-    def validate_society_email(self, data):
-        if not re.match(r'^[a-z0-9][\w\.\-]*@[a-z0-9\-]+(\.[a-z]{2,5}){1,2}$', data):
-            raise serializers.ValidationError(detail="Incorrect email format")
-        return data
-
+    society_id = SocietySerializer()
+    
     class Meta:
         model = Event
         fields = "__all__"
@@ -68,4 +56,63 @@ class EventModelSerializer(serializers.ModelSerializer):
                     "min_value": "The duration value must be greater than 0"
                 }
             }
+
         }
+
+class TicketModelSerializer(serializers.ModelSerializer):
+    event = EventModelSerializer()
+    user = UserSerializer()
+
+    class Meta:
+        model = Ticket
+        fields = "__all__"
+
+class EventCategoriesTypeModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EventCategoriesType
+        fields = "__all__"
+
+class EventCategoriesModelSerializer(serializers.ModelSerializer):
+    eventId = EventModelSerializer()
+    categoryId = EventCategoriesTypeModelSerializer()
+
+    class Meta:
+        model = EventCategories
+        fields = "__all__"
+
+class SocietyCategoriesTypeModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SocietyCategoriesType
+        fields = "__all__"
+
+class SocietyCategoriesModelSerializer(serializers.ModelSerializer):
+    societyId = SocietySerializer()
+    categoryId = SocietyCategoriesTypeModelSerializer()
+
+    class Meta:
+        model = SocietyCategories
+        fields = "__all__"
+    
+class SocietyHomePageSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Society
+        fields = ['name','image', 'about_us']
+    
+    def get_image(self, society):
+        if society.image:
+            return society.image
+        else:
+            return "media/default-image.png"
+
+class CreateTicketSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ticket
+        fields = '__all__'
+
+class CreateEventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = '__all__'
+    

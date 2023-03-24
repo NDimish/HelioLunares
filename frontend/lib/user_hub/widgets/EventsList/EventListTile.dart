@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'IndividualEventsPage.dart';
+
 // Should have:
 // Image
 // Name of event
@@ -20,13 +22,15 @@ class EventListTile extends StatefulWidget{
   required this.price,
   required this.dateTime,
   required this.location,
-  required this.org,});
+  required this.org,
+  required this.eventID});
 
   String eventName;
-  int price;
-  DateTime dateTime; 
+  double price;
+  String dateTime; 
   String location; 
   String org;
+  int eventID;
 
   @override
   State<EventListTile> createState() => _EventListTileState();
@@ -40,6 +44,7 @@ class _EventListTileState extends State<EventListTile>{
     var date = widget.dateTime;
     var loc = widget.location;
     var organ = widget.org;
+    var eID = widget.eventID;
 
     // Regex checker
     RegExp reg = RegExp(r"" + searchText, caseSensitive: false);
@@ -63,8 +68,8 @@ class _EventListTileState extends State<EventListTile>{
           subtitle: Row(crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start, 
             mainAxisSize: MainAxisSize.max,
-            children: [Flexible(child:Row(children: [Icon(Icons.monetization_on_outlined),SizedBox(width: 5),Text("£" + price.toString())])),
-              Flexible(child:Row(children: [Icon(Icons.calendar_month_outlined),SizedBox(width: 5),Text(DateFormat("dd/MM/yyyy HH:mm").format(date))])),
+            children: [Flexible(child:Row(children: [Icon(Icons.monetization_on_outlined),SizedBox(width: 5),Flexible(child:Text("£" + price.toString(), overflow: TextOverflow.ellipsis,maxLines: 1,))])),
+              Flexible(child:Row(children: [Icon(Icons.calendar_month_outlined),SizedBox(width: 5),Flexible(child:Text(date, overflow: TextOverflow.ellipsis,maxLines: 1))])),
               Flexible(child:Row(children: [Icon(Icons.pin_drop_outlined),SizedBox(width: 5),Flexible(child:Text(loc, overflow: TextOverflow.ellipsis,maxLines: 2,))])),
               Flexible(child:Row(children: [Icon(Icons.group_outlined),SizedBox(width: 5),Flexible(child:Text(organ, overflow: TextOverflow.ellipsis,maxLines: 1,))])),
             ],
@@ -75,14 +80,15 @@ class _EventListTileState extends State<EventListTile>{
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => Scaffold(
-                        appBar: AppBar(
-                          title: const Text("Event here!"),
-                        ),
-                        body: const Center(
-                            child: Text(
-                                "Page showing event details here")),
-                      )));
+                  builder: (context) => EventPage(
+                              eventName: 'Introduction to AI',
+                              eventDate: '10/04/2013',
+                              eventDescription: 'Great fun',
+                              eventDuration: '1 hour',
+                              eventLocation: 'Bush House',
+                              eventPrice: 0,
+                              eventId:eID,
+                                )));
           },
         ),
         ),

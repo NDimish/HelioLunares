@@ -4,7 +4,9 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import EmailValidator
 from .managers import UserManager
+from django.conf import settings
 
+#Image functions
 
 # Create your models here.
 class University(models.Model):
@@ -13,6 +15,7 @@ class University(models.Model):
     longitude = models.FloatField(max_length=10, blank=False, unique=False)
     street_name = models.CharField(max_length=50, blank=False, unique=False)
     postcode = models.CharField(max_length=15, blank=False, unique=False)
+    
 class User(AbstractUser):
     username = None
 
@@ -23,22 +26,16 @@ class User(AbstractUser):
     REQUIRED_FIELDS = []
 
     USER_TYPE_CHOICES = (
-        (1, 'student'),
-        (2, 'committee'),
-        (3, 'inner_circle_of_society'),
-        (4, 'president_of_society'),  # This is the person who accessess the actual society email.
-        (5, 'administrator'),
+        (1, 'nonstudent'),
+        (2, 'student'),
+        (3, 'society'),
     )
 
     user_level = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES, default=1)
 
     objects = UserManager()
 
-    def __str__(self):
-        return self.email
-
-
-class Student(models.Model):
+class People(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     university_studying_at = models.ForeignKey(University, on_delete=models.CASCADE)
 
@@ -47,74 +44,67 @@ class Student(models.Model):
 
     field_of_study = models.CharField(blank=False, unique=False, max_length=30)
 
-
 class Society(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, blank=False)
     name = models.CharField(blank=False, unique=False, max_length=40)
     creation_date = models.DateField(blank=False)
-
+    about_us = models.TextField(blank=True, null=True)
     # Add category stuff later
 
     university_society_is_at = models.ForeignKey(University, on_delete=models.CASCADE)
     join_date = models.DateField(auto_now_add=True)
 
-    def set_role(self, user: User, level):
-        # Assign the role that the society wants to give to the user.
-        user.user_level = level
-        user.save()
+
+    def upload_img(instance, filename):
+        return "{0}/{1}".format(instance.user.id,filename)
+    
+    image = models.ImageField(upload_to = upload_img, blank=True, null=True)
+
+    def join_soc(self, user: User, level=1):
 
         # Store this info in the StudentRoleAtSociety database.
-        role_given = StudentRoleAtSociety.objects.create(
+        role_given = PeopleRoleAtSociety.objects.create(
             society=self,
-            user_at_society=user
+            user_at_society=People.objects.get(user=user),
+            role=level
         )
         role_given.full_clean()
         role_given.save()
 
-    def update_student_role(self, user: User, level):
+    def update_student_role(self, user: User, level=1):
         # Retrieve the user from the societal roles db and delete them to avoid violating the unique constraint.
-        user_working_for_society = StudentRoleAtSociety.objects.get(
+        role_given = PeopleRoleAtSociety.objects.get(
             society=self,
-            user_at_society=Student.objects.get(user=user)
+            user_at_society=People.objects.get(user=user)
         )
 
-        user_working_for_society.delete()
+        role_given.level = level
 
-        self.set_role(user, level)
+        role_given.full_clean()
+        role_given.save()
 
     def delete_student_role(self, user: User):
-        user_working_for_society = StudentRoleAtSociety.objects.get(
+        role_given = PeopleRoleAtSociety.objects.get(
             society=self,
-            user_at_society=Student.objects.get(user=user)
+            user_at_society= People.objects.get(user=user)
         )
-        user_working_for_society.delete()
+        role_given.delete()
 
-
-class StudentRoleAtSociety(models.Model):
-    class Meta:
-        db_table = 'tickets'
-        constraints = [
-            models.UniqueConstraint(
-                fields=[
-                    'society',
-                    'user_at_society'
-                ],
-                name='user_identification'
-            )
-        ]
-
+class PeopleRoleAtSociety(models.Model):
     society = models.ForeignKey(Society, on_delete=models.CASCADE, blank=False)
-    user_at_society = models.ForeignKey(Student, on_delete=models.CASCADE, blank=False)
+    user_at_society = models.ForeignKey(People, on_delete=models.CASCADE, blank=False)
 
-    def __str__(self):
-        str1 = self.society.name + " --- " + self.user_at_society.first_name + self.user_at_society.last_name + " --- "
-        str2 = str(self.user_at_society.user.user_level)
-        return str1 + str2
+    SOCIETY_ROLE = (
+        (1, 'member'),
+        (2, 'admin'),
+        (3, 'committee'),
+    )
 
+    role = models.PositiveSmallIntegerField(choices=SOCIETY_ROLE, default=1)
 
 class Event(models.Model):
-    society_email = models.CharField(max_length=50, blank=False, unique=False)
-    duration = models.IntegerField(max_length=10, blank=False, unique=False)
+    society_id = models.ForeignKey(Society, on_delete=models.CASCADE, blank=False)
+    duration = models.IntegerField(blank=False, unique=False)
     event_date = models.DateTimeField(blank=False)
     event_name = models.CharField(max_length=50, blank=False)
     location = models.CharField(max_length=50, blank=True)
@@ -122,7 +112,28 @@ class Event(models.Model):
     price = models.FloatField(max_length=10, blank=False)
     update_time = models.DateTimeField(auto_now=datetime.datetime.now(), blank=False)
     create_time = models.DateTimeField(auto_now_add=datetime.datetime.now(), blank=False)
+    attendance = models.IntegerField(blank=True, unique=False, default=0) # This will be manually entered by the user once an event has finished
 
     class Meta:
         verbose_name = "event"
         verbose_name_plural = verbose_name
+
+class Ticket(models.Model):
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, null=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
+    date = models.DateTimeField(auto_now_add=datetime.datetime.now(), blank=False)
+    price = models.FloatField(blank=False, default=0.0)
+
+class EventCategoriesType(models.Model):
+    category_name = models.CharField(max_length=200, null=False)
+
+class EventCategories(models.Model):
+    eventId = models.ForeignKey(Event, on_delete=models.CASCADE, null=False)
+    categoryId = models.ForeignKey(EventCategoriesType, on_delete=models.CASCADE, null=False)
+
+class SocietyCategoriesType(models.Model):
+    category_name = models.CharField(max_length=200, null=False)
+
+class SocietyCategories(models.Model):
+    societyId = models.ForeignKey(Society, on_delete=models.CASCADE, null=False)
+    categoryId = models.ForeignKey(SocietyCategoriesType, on_delete=models.CASCADE, null=False)
