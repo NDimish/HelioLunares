@@ -6,7 +6,13 @@ import '../../../backend_communication/models/Society.dart';
 
 class SocietyHubCardsLarge extends StatelessWidget {
   final Society society;
-  const SocietyHubCardsLarge({Key? key, required this.society})
+  final String eventCount;
+  final String memberCount;
+  const SocietyHubCardsLarge(
+      {Key? key,
+      required this.society,
+      required this.eventCount,
+      required this.memberCount})
       : super(key: key);
 
   @override
@@ -17,7 +23,7 @@ class SocietyHubCardsLarge extends StatelessWidget {
         Expanded(
             child: InfoCard(
                 title: "Event Count",
-                value: "7",
+                value: eventCount,
                 topColor: Colors.black,
                 //isActive: isActive,
                 onTap: () {})),
@@ -26,8 +32,8 @@ class SocietyHubCardsLarge extends StatelessWidget {
         ),
         Expanded(
             child: InfoCard(
-                title: "Follower Count",
-                value: "7",
+                title: "Member Count",
+                value: memberCount,
                 topColor: Colors.black,
                 //isActive: isActive,
                 onTap: () {})),

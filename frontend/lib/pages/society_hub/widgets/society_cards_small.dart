@@ -5,7 +5,13 @@ import '../../../backend_communication/models/Society.dart';
 
 class SocietyHubCardsSmall extends StatelessWidget {
   final Society society;
-  const SocietyHubCardsSmall({super.key, required this.society});
+  final String eventCount;
+  final String memberCount;
+  const SocietyHubCardsSmall(
+      {super.key,
+      required this.society,
+      required this.eventCount,
+      required this.memberCount});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +23,7 @@ class SocietyHubCardsSmall extends StatelessWidget {
         children: [
           InfoCardSmall(
             title: "Event Count",
-            value: "7",
+            value: eventCount,
             onTap: () {},
             isActive: true,
           ),
@@ -25,8 +31,8 @@ class SocietyHubCardsSmall extends StatelessWidget {
             height: _width / 64,
           ),
           InfoCardSmall(
-            title: "Follower Count",
-            value: "17",
+            title: "Member Count",
+            value: memberCount,
             onTap: () {},
           ),
           SizedBox(
