@@ -12,7 +12,7 @@ import 'package:university_ticketing_system/submit_button.dart';
 import 'package:university_ticketing_system/authentication/models/society.dart';
 import 'package:university_ticketing_system/gradient_animation.dart';
 import 'package:university_ticketing_system/responsive.dart';
-
+import 'package:university_ticketing_system/globals.dart' as globals;
 import 'package:http/http.dart' as http;
 import 'package:university_ticketing_system/tff_decoration.dart';
 
@@ -46,7 +46,7 @@ class _StageThreeSocietySignUpState extends State<StageThreeSocietySignUp> {
   late Future<List<dynamic>> returnedCategoriesFromEndPoint;
   Future<List<dynamic>> getSocietyCategories() async {
     final response = await http
-        .get(Uri.parse("http://localhost:8000/society_categories_type/"));
+        .get(Uri.parse("${globals.DATASOURCE}society_categories_type/"));
     final List<dynamic> data = json.decode(response.body);
     return data;
   }
