@@ -57,6 +57,7 @@ InputDecoration customDecorationForPassword(String labelText, String hintText,
       suffixIcon: Padding(
           padding: const EdgeInsetsDirectional.only(end: 25.0),
           child: InkWell(
+            key: const Key("PasswordVis"),
             hoverColor: Colors.transparent,
             onTap: togglePasswordView,
             child: passwordVisible

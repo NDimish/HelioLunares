@@ -29,6 +29,7 @@ class HomeScreenDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
+            key: const Key("HomeDraw"),
             title: const Text(
               'Home',
               style: TextStyle(fontFamily: "Arvo"),
@@ -42,6 +43,7 @@ class HomeScreenDrawer extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
+            key: const Key("AboutDraw"),
             title: const Text(
               'About',
               style: TextStyle(fontFamily: "Arvo"),
@@ -55,6 +57,7 @@ class HomeScreenDrawer extends StatelessWidget {
             },
           ),
           ListTile(
+            key: const Key("DiscoverDraw"),
             title: const Text(
               'Discover',
               style: TextStyle(fontFamily: "Arvo"),
@@ -67,6 +70,7 @@ class HomeScreenDrawer extends StatelessWidget {
             },
           ),
           ListTile(
+            key: const Key("ContactDraw"),
             title: const Text(
               'Contact Us',
               style: TextStyle(fontFamily: "Arvo"),
@@ -80,6 +84,7 @@ class HomeScreenDrawer extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
+            key: const Key("LoginDraw"),
             title: const Text(
               'Log In',
               style: TextStyle(fontFamily: "Arvo"),
@@ -92,6 +97,7 @@ class HomeScreenDrawer extends StatelessWidget {
             },
           ),
           ListTile(
+            key: const Key("SocDraw"),
             title: const Text(
               'Sign Up As A Society',
               style: TextStyle(fontFamily: "Arvo"),
@@ -104,6 +110,7 @@ class HomeScreenDrawer extends StatelessWidget {
             },
           ),
           ListTile(
+            key: const Key("StuDraw"),
             title: const Text(
               'Sign Up As A Student',
               style: TextStyle(fontFamily: "Arvo"),
