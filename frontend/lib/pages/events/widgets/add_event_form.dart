@@ -52,7 +52,7 @@ class _AddEventFormState extends State<AddEventForm> {
   final CurrencyTextInputFormatter _formatter =
       CurrencyTextInputFormatter(locale: 'en_GB');
 
-  bool _validateName = false;
+  bool _validateName = true;
   bool _validatePrice = false;
   bool _validateDate = false;
   bool _validateLocation = false;
