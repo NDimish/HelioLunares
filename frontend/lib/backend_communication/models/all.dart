@@ -9,4 +9,4 @@ export 'SocietyCategoryType.dart';
 export 'SocietyCategories.dart';
 export 'EventCategories.dart';
 
-final DATASOURCE = 'http://localhost:8000/';
+final DATASOURCE = 'https://heliolunares.pythonanywhere.com/';
