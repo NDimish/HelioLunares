@@ -1,22 +1,24 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:university_ticketing_system/backend_communication/dataCollector.dart';
-import 'package:university_ticketing_system/tff_decoration.dart';
-import '../../../backend_communication/dataCollector.dart';
+
 import 'package:university_ticketing_system/globals.dart' as global;
+
 
 import '../helpers/responsiveness.dart';
 
 import '../user_hub/widgets/AppBarWidgets/userSettingsPage/user_settings.dart';
 
 class SocietySettingsPage extends StatefulWidget {
-  //final int userId;
+  
 
   const SocietySettingsPage({
     Key? key,
   }) : super(key: key);
-  //required this.userId
+  
 
   @override
   State<SocietySettingsPage> createState() => _SocietySettingsPageState();
@@ -42,12 +44,12 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
             decoration: customDecoration(headerName, name, nameIcon)));
   }
 
-//this is where you could query the database to get the permission. level 1 2 3
 
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
   final societyNameController = TextEditingController();
+  
 
   final uniController = TextEditingController();
   final passwordController = TextEditingController();
@@ -66,7 +68,7 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
           ),
           ChangeNotifierProvider(
             create: (context) =>
-                dataCollector<Society>(ID: Get.find<Society>().id),
+                dataCollector<Society>(ID:Get.find<Society>().id ),
           ),
         ],
         builder: (context, child) {
@@ -117,7 +119,7 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                         (userProvider.collection[0].userType == 3)
                             ? true
                             : false,
-                        null,
+                            null,
                       ),
                     ),
                     const SizedBox(
@@ -134,7 +136,7 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                           Icons.password,
                           passwordController,
                           true,
-                          (password) => validators(
+                          (password) => PasswordValidator(
                               password,
                               RegExp(
                                   r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$'),
@@ -145,17 +147,19 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                 const SizedBox(
                   width: 50,
                 ),
+                
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: customTextFormField(
-                    'University',
-                    '',
-                    Icons.school,
-                    uniController,
-                    false,
-                    null,
-                  ),
+                      padding: const EdgeInsets.all(8.0),
+                      child: customTextFormField(
+                          'University',
+                          '',
+                          Icons.school,
+                          uniController,
+                          false,
+                          null,
+                    ),
                 ),
+
                 const SizedBox(height: 35),
                 const Text(
                   'Personal Information',
@@ -182,31 +186,15 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                               email,
                               RegExp(
                                   "[_a-zA-Z]+[_a-zA-Z0-9]?[\._]?[_a-zA-Z0-9]*@([a-zA-Z]+\.)?([a-zA-Z]+\.)?[a-zA-Z]+\.(com|net|de|uk|ro|jp)"),
-                              "Enter a valid email address (Ex: shak@gmail.com)"))), //IMPORTANT: Email allows for length 0 (doesn't update) but should be matched with regex >0
+                              "Enter a valid email address (Ex: shak@gmail.com)"))), 
                     ),
-                    //(value) {
-                    //if (value == null ||
-                    //     value.isEmpty ||
-                    //    !emailRegex.hasMatch(value)) {
-                    //   return "Please enter a valid email.";
-                    // }
-                    //   return null;
-                    //  }
+              
 
                     const SizedBox(
                       width: 50,
                     ),
 
-                    // (value) {
-                    // if (value == null ||
-                    ////      value.isEmpty ||
-                    //    !phoneRegex.hasMatch(value)) {
-                    //   return "Please enter a valid phone number.";
-                    //  }
-                    //   return null;
-                    //  }
-
-                    //query a database
+                
                   ],
                 ),
                 Padding(
@@ -226,6 +214,7 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                             _formKey.currentState!.save();
 
                             try {
+                              
                               String socName = societyNameController.text;
                               String uniName = uniController.text;
                               String email = emailController.text;
@@ -240,7 +229,7 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                                   date_joined:
                                       userProvider.collection[0].date_joined,
                                   password: passwordInput);
-
+                                  
                               Society update_society = Society(
                                   id: societyProvider.collection[0].id,
                                   user: userProvider.collection[0],
@@ -255,15 +244,9 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                                   image: societyProvider.collection[0].image);
 
                               societyProvider.updateCollection(update_society);
-                              print(update_user.password);
-                              print(passwordInput);
-                              print('space');
+                              
                               userProvider.updateCollection(update_user);
-                              //Here is where you will send a response to the database to update user values
-
-                              //Upon saving you will have to check the fields which are empty.
-                              //If they are all empty or nothing has changed don't update the DB at all.
-                              //Otherwise check whatever is changed, and update DB accordingly.
+                             
 
                               showDialog<String>(
                                 context: context,
@@ -274,13 +257,11 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                                   actions: <Widget>[
                                     TextButton(
                                       onPressed: () => {
-                                        societyNameController.text =
-                                            update_society.name,
-                                        emailController.text =
-                                            update_user.email,
-                                        passwordController.text =
-                                            update_user.password,
+                                        societyNameController.text = update_society.name,
+                                        emailController.text = update_user.email,
+                                        passwordController.text = update_user.password,
                                         Navigator.pop(context, 'OK'),
+
                                       },
                                       child: const Text('OK'),
                                     ),
@@ -288,7 +269,7 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
                                 ),
                               );
                             } catch (error) {
-                              //This can be turned into a reusable widget?
+                            
                               showDialog<String>(
                                 context: context,
                                 builder: (BuildContext context) => AlertDialog(
@@ -344,9 +325,3 @@ class _SocietySettingsPageState extends State<SocietySettingsPage> {
         floatingLabelBehavior: FloatingLabelBehavior.always);
   }
 }
-
-//loading the data in Nmani
-//testing
-//try catch block submit database
-
-//
