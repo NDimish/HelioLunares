@@ -54,11 +54,12 @@ class DataLoader extends StatelessWidget {
               Provider.of<data.dataCollector<data.SocietyCategories>>(context);
           final roleData =
               Provider.of<data.dataCollector<data.SocietyRole>>(context);
-
-          while ((societyData.collection.isEmpty &&
-                  globals.localdataobj.getUserLevel() == 3) ||
-              roleData.collection.isEmpty ||
-              DataP.collection.isEmpty) {
+          print("USER IS LEVEL ${globals.localdataobj.getUserLevel()} ");
+          while (
+              ((societyData.collection.isEmpty || DataP.collection.isEmpty) &&
+                      globals.localdataobj.getUserLevel() == 3) ||
+                  (roleData.collection.isEmpty || DataP.collection.isEmpty) &&
+                      globals.localdataobj.getUserLevel() <= 2) {
             return Center(
               child: CircularProgressIndicator(),
             );

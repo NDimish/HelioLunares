@@ -11,17 +11,19 @@ class NavigationController extends GetxController {
   //change screens
   Future<dynamic> navigateToWArgs(String routeName, dynamic arguments) {
     return navigationKey.currentState!
-        .pushNamed(routeName, arguments: arguments);
+        .popAndPushNamed(routeName, arguments: arguments);
   }
 
   Future<dynamic> navigateTo(String routeName) {
-    return navigationKey.currentState!.pushNamed(routeName);
+    return navigationKey.currentState!.popAndPushNamed(routeName);
   }
 
 //THE EVENT OBJECT SHOULD BE RESET WHEN THE POPUP PAGE IS CLOSED SO THE USER CAN RESELECT A NEW EVENT TO
 //VIEW THE DETAILS FOR
   Future<dynamic> navigateToPopupPage(String routeName) {
-    return navigationKey.currentState!.pushNamed(routeName).then((result) {
+    return navigationKey.currentState!
+        .popAndPushNamed(routeName)
+        .then((result) {
       Get.delete<Event>();
       print('Event details page closed with result: $result');
     });
