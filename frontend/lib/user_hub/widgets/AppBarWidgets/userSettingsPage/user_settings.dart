@@ -1,13 +1,15 @@
 import 'dart:convert';
 
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:university_ticketing_system/globals.dart';
-import 'package:university_ticketing_system/tff_decoration.dart';
+
 import '../../../../backend_communication/dataCollector.dart';
 import 'package:university_ticketing_system/globals.dart' as global;
 
+
 import '../../../../helpers/responsiveness.dart';
+
 
 class UserSettingsPage extends StatefulWidget {
   const UserSettingsPage({super.key});
@@ -17,6 +19,9 @@ class UserSettingsPage extends StatefulWidget {
 }
 
 class _UserSettingsPageState extends State<UserSettingsPage> {
+
+   
+  
   Widget customTextFormField(
     String headerName,
     String name,
@@ -44,9 +49,17 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (context) =>
-            dataCollector<User>(ID: global.localdataobj.getUserID()),
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) =>
+                dataCollector<User>(ID: global.localdataobj.getUserID()),
+          ),
+          ChangeNotifierProvider(
+            create: (context) =>
+                dataCollector<People>(ID: global.localdataobj.getUserID()),
+          ),
+        ],
         builder: (context, child) {
           final userProvider = Provider.of<dataCollector<User>>(context);
           final peopleProvider = Provider.of<dataCollector<People>>(context);
@@ -148,10 +161,15 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                 ),
                 //Israfeel, add university dropdown.
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: customTextFormField('University', '', Icons.school,
-                      uniController, false, null),
-                ),
+                      padding: const EdgeInsets.all(8.0),
+                      child: customTextFormField(
+                          'University',
+                          '',
+                          Icons.school,
+                          uniController,
+                          false,
+                          null), 
+                    ),
 
                 const SizedBox(height: 17.5),
                 const Text(
@@ -181,9 +199,12 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                                   "[_a-zA-Z]+[_a-zA-Z0-9]?[\._]?[_a-zA-Z0-9]*@([a-zA-Z]+\.)?([a-zA-Z]+\.)?[a-zA-Z]+\.(com|net|de|uk|ro|jp)"),
                               "Enter a valid email address (Ex: shak@gmail.com)"))),
                     ),
+
                     const SizedBox(
                       width: 50,
                     ),
+
+            
                   ],
                 ),
                 Padding(
@@ -214,7 +235,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                                   userType: userProvider.collection[0].userType,
                                   date_joined:
                                       userProvider.collection[0].date_joined,
-                                  password: passwordInput);
+                                      password: passwordInput);
                               People update_person = People(
                                   id: peopleProvider.collection[0].id,
                                   user: peopleProvider.collection[0].user,
@@ -228,31 +249,19 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                               peopleProvider.updateCollection(update_person);
                               userProvider.updateCollection(update_user);
 
-                              // print(peopleProvider.collection[0].first_name);
-                              // print(userProvider.collection[
-                              //     0].password); //Here is where you will send a response to the database to update user values
-
-                              //Upon saving you will have to check the fields which are empty.
-                              //If they are all empty or nothing has changed don't update the DB at all.
-                              //Otherwise check whatever is changed, and update DB accordingly.
-
                               showDialog<String>(
                                 context: context,
                                 builder: (BuildContext context) => AlertDialog(
                                   title: const Text('Details saved!'),
                                   content: const Text(
-                                      'Society settings have been modified.'),
+                                      'User settings have been modified.'),
                                   actions: <Widget>[
                                     TextButton(
                                       onPressed: () => {
-                                        emailController.text =
-                                            update_user.email,
-                                        passwordController.text =
-                                            update_user.password,
-                                        firstNameController.text =
-                                            update_person.first_name,
-                                        lastNameController.text =
-                                            update_person.last_name,
+                                        emailController.text = update_user.email,
+                                        passwordController.text = update_user.password,
+                                        firstNameController.text = update_person.first_name,
+                                        lastNameController.text = update_person.last_name,
                                         Navigator.pop(context, 'OK'),
                                       },
                                       child: const Text('OK'),
@@ -265,8 +274,8 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                                 context: context,
                                 builder: (BuildContext context) => AlertDialog(
                                   title: const Text('Whoops!'),
-                                  content: const Text(
-                                      'Something went wrong when changing society settings. Please try again.'),
+                                  content: Text(
+                                      'Something went wrong. Please try again!'),
                                   actions: <Widget>[
                                     TextButton(
                                       onPressed: () => {
@@ -317,19 +326,11 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
   }
 }
 
-//loading the data in Nmani
-//testing
-//try catch block submit database
 
-//Add if stataemetns to determine if studnet or not
-//loading the data
-//testing - improve code coverage
-
-//try catch block submit database
 
 String? validators(String? value, RegExp regex, String returnMessage) {
   if (value == null || value.length == 0) {
-    return null;
+    return 'Cannot be blank';
   } else if (!regex.hasMatch(value)) {
     return returnMessage;
   }
